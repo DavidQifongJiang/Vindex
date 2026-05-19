@@ -1,0 +1,10 @@
+.venv/
+__pycache__/
+*.pyc
+.env
+storage/
+app/ez.mp4
+*.mp4
+*.log
+.DS_Store
+app/ez.mp4
