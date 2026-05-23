@@ -9,6 +9,8 @@ import whisper
 from app.services.metadata_service import load_metadata, save_metadata
 from app.services.search_service import build_segment_embeddings
 
+from app.db.session import SessionLocal
+from app.db.video_repository import get_video, update_video
 
 RAW_VIDEO_DIR = Path("storage/raw_videos")
 RAW_VIDEO_DIR.mkdir(parents=True, exist_ok=True)
@@ -60,15 +62,22 @@ def get_ffmpeg_path():
 
 
 def process_video(video_id):
+    db = SessionLocal()
+
     try:
-        metadata = load_metadata()
+        video = get_video(db, video_id)
 
-        metadata[video_id]["status"] = "processing"
-        save_metadata(metadata)
+        if video is None:
+            return ValueError("Video not found")
+        
 
-        raw_path = metadata[video_id]["raw_path"]
-        filename = metadata[video_id]["filename"]
+        update_video(db, video_id, {
+            "status": "processing"
+        })
 
+        raw_path = video.raw_path
+        filename = video.filename
+        
         processed_filename = f"processed_{filename}"
         processed_path = PROCESSED_VIDEO_DIR / processed_filename
 
@@ -100,20 +109,32 @@ def process_video(video_id):
             ],
             check=True
         )
+        
+        update_video(db, video_id, {
+            "audio_path": str(audio_path),
+            "audio_status": "extracted",
+            "processed_path": str(processed_path),
+        })
+        
+        update_video(db, video_id, {
+            "transcript_status": "processing",
+            "segments_status": "processing",
+            "embedding_status": "processing",
+        })
 
-        metadata = load_metadata()
-        metadata[video_id]["audio_filename"] = audio_filename
-        metadata[video_id]["audio_path"] = str(audio_path)
-        metadata[video_id]["audio_status"] = "extracted"
-        metadata[video_id]["processed_filename"] = processed_filename
-        metadata[video_id]["processed_path"] = str(processed_path)
-        save_metadata(metadata)
+        # metadata = load_metadata()
+        # metadata[video_id]["audio_filename"] = audio_filename
+        # metadata[video_id]["audio_path"] = str(audio_path)
+        # metadata[video_id]["audio_status"] = "extracted"
+        # metadata[video_id]["processed_filename"] = processed_filename
+        # metadata[video_id]["processed_path"] = str(processed_path)
+        # save_metadata(metadata)
 
-        metadata = load_metadata()
-        metadata[video_id]["transcript_status"] = "processing"
-        metadata[video_id]["segments_status"] = "processing"
-        metadata[video_id]["embedding_status"] = "processing"
-        save_metadata(metadata)
+        # metadata = load_metadata()
+        # metadata[video_id]["transcript_status"] = "processing"
+        # metadata[video_id]["segments_status"] = "processing"
+        # metadata[video_id]["embedding_status"] = "processing"
+        # save_metadata(metadata)
 
         transcript_path = TRANSCRIPT_DIR / f"{video_id}.txt"
         segments_path = TRANSCRIPT_DIR / f"{video_id}_segments.json"
@@ -132,25 +153,27 @@ def process_video(video_id):
 
         with segments_path.open("w", encoding="utf-8") as file:
             json.dump(segments, file, indent=4)
+        
+        update_video(db, video_id, {
+            "segments_path": str(segments_path),
+            "segments_status": "completed",
+            "transcript_status": "completed",
+            "transcript_path": str(transcript_path),
+            "status": "processed",
+            "embedding_path": str(embedding_path),
+            "embedding_status": "completed",
+        })
 
-        metadata = load_metadata()
-        metadata[video_id]["segments_path"] = str(segments_path)
-        metadata[video_id]["segments_status"] = "completed"
-        metadata[video_id]["transcript_status"] = "completed"
-        metadata[video_id]["transcript_path"] = str(transcript_path)
-        metadata[video_id]["status"] = "processed"
-        metadata[video_id]["embedding_path"] = str(embedding_path)
-        metadata[video_id]["embedding_status"] = "completed"
-        save_metadata(metadata)
 
     except Exception as e:
-        metadata = load_metadata()
-        metadata[video_id]["status"] = "failed"
-        metadata[video_id]["error_message"] = str(e)
-        if metadata[video_id].get("transcript_status") == "processing":
-            metadata[video_id]["transcript_status"] = "failed"
-        if metadata[video_id].get("segments_status") == "processing":
-            metadata[video_id]["segments_status"] = "failed"
-        if metadata[video_id].get("embedding_status") == "processing":
-            metadata[video_id]["embedding_status"] = "failed"
-        save_metadata(metadata)
+        update_video(db, video_id, {
+            "status": "failed",
+            "error_message": str(e),
+            "transcript_status": "failed",
+            "segments_status": "failed",
+            "embedding_status": "failed",
+        })
+        raise
+
+    finally:
+        db.close()

@@ -4,16 +4,16 @@ from pathlib import Path
 from typing import Literal
 from uuid import uuid4
 
-from fastapi import APIRouter, BackgroundTasks, File, HTTPException, UploadFile
+from fastapi import APIRouter, File, HTTPException, UploadFile, Depends
 from pydantic import BaseModel
 
-from app.services.metadata_service import load_metadata, save_metadata
 from app.services.search_service import embedding_search, score_segment
-from app.services.video_service import RAW_VIDEO_DIR, process_video
+from app.services.video_service import RAW_VIDEO_DIR
 from app.workers.task import process_video_task
 
-
-
+from app.db.session import get_db
+from app.db.video_repository import create_video, get_video
+from sqlalchemy.orm import Session
 router = APIRouter()
 
 
@@ -23,21 +23,18 @@ class SearchRequest(BaseModel):
 
 
 @router.get("/videos/{video_id}/segments")
-def get_video_segments(video_id: str):
-    metadata = load_metadata()
+def get_video_segments(video_id: str,db: Session = Depends(get_db)):
+    video = get_video(db, video_id)
 
-    if video_id not in metadata:
+    if video is None:
         raise HTTPException(status_code=404, detail="Video not found")
 
-    video = metadata[video_id]
-
-    if video.get("segments_status") != "completed":
+    if video.segments_status != "completed":
         raise HTTPException(
             status_code=400,
-            detail=f"Segments not ready. Current status: {video.get('segments_status')}"
+            detail=f"Segments not ready. Current status: {video.segments_status}"
         )
-
-    segments_path = Path(video["segments_path"])
+    segments_path = Path(video.segments_path)
 
     if not segments_path.exists():
         raise HTTPException(status_code=404, detail="Segments file not found")
@@ -52,22 +49,21 @@ def get_video_segments(video_id: str):
 
 
 @router.post("/videos/{video_id}/search")
-def search(video_id: str, request: SearchRequest):
-    metadata = load_metadata()
+def search(video_id: str, request: SearchRequest,db: Session = Depends(get_db)):
+    video = get_video(db, video_id)
 
-    if video_id not in metadata:
+    if video is None:
         raise HTTPException(status_code=404, detail="Video not found")
 
-    video = metadata[video_id]
 
     if request.algorithm == "embedding":
-        if video.get("embedding_status") != "completed":
+        if video.embedding_status != "completed":
             raise HTTPException(
                 status_code=400,
-                detail=f"Embeddings not ready. Current status: {video.get('embedding_status')}"
+                detail=f"Embeddings not ready. Current status: {video.embedding_status}"
             )
-
-        embedding_path = Path(video["embedding_path"])
+        
+        embedding_path = Path(video.embedding_path)
 
         if not embedding_path.exists():
             raise HTTPException(status_code=404, detail="Embedding file not found")
@@ -81,13 +77,12 @@ def search(video_id: str, request: SearchRequest):
             "results": results
         }
 
-    if video.get("segments_status") != "completed":
+    if video.segments_status != "completed":
         raise HTTPException(
             status_code=400,
-            detail=f"Segments not ready. Current status: {video.get('segments_status')}"
+            detail=f"Segments not ready. Current status: {video.segments_status}"
         )
-
-    segments_path = Path(video["segments_path"])
+    segments_path = Path(video.segments_path)
 
     if not segments_path.exists():
         raise HTTPException(status_code=404, detail="Segments file not found")
@@ -120,30 +115,34 @@ def search(video_id: str, request: SearchRequest):
     }
 
 
-@router.get("/videos/{video_id}/status")
-def get_video_status(video_id: str):
-    metadata = load_metadata()
 
-    if video_id not in metadata:
-        raise HTTPException(status_code=404, detail="Video not found")
 
-    return metadata[video_id]
 
 
 @router.get("/videos/{video_id}/transcripts")
-def get_transcript(video_id: str):
-    metadata = load_metadata()
+def get_transcript(video_id: str,db: Session = Depends(get_db)):
+    video = get_video(db, video_id)
+    # metadata = load_metadata()
 
-    if video_id not in metadata:
+    if video is None:
         raise HTTPException(status_code=404, detail="Video not found")
+    
+    # if video_id not in metadata:
+    #     raise HTTPException(status_code=404, detail="Video not found")
 
-    if metadata[video_id].get("transcript_status") != "completed":
+    if video.transcript_status != "completed":
         raise HTTPException(
             status_code=400,
-            detail=f"Transcript not ready. Current status: {metadata[video_id].get('transcript_status')}"
+            detail=f"Transcript not ready. Current status: {video.transcript_status}"
         )
-
-    transcript_path = Path(metadata[video_id]["transcript_path"])
+    
+    # if metadata[video_id].get("transcript_status") != "completed":
+    #     raise HTTPException(
+    #         status_code=400,
+    #         detail=f"Transcript not ready. Current status: {metadata[video_id].get('transcript_status')}"
+    #     )
+    transcript_path = Path(video.transcript_path)
+    # transcript_path = Path(metadata[video_id]["transcript_path"])
 
     if not transcript_path.exists():
         raise HTTPException(status_code=404, detail="Transcript file not found")
@@ -157,8 +156,28 @@ def get_transcript(video_id: str):
     }
 
 
+@router.get("/videos/{video_id}/status")
+def get_video_status(video_id: str, db: Session = Depends(get_db)):
+    video = get_video(db, video_id)
+
+    if video is None:
+        raise HTTPException(status_code=404, detail="Video not found")
+
+    return video
+
+# @router.get("/videos/{video_id}/status")
+# def get_video_status(video_id: str):
+#     metadata = load_metadata()
+
+#     if video_id not in metadata:
+#         raise HTTPException(status_code=404, detail="Video not found")
+
+#     return metadata[video_id]
+
+
+
 @router.post("/videos/upload")
-def upload_videos(background_tasks: BackgroundTasks, file: UploadFile = File(...)):
+def upload_videos(file: UploadFile = File(...), db: Session = Depends(get_db)):
     video_id = str(uuid4())
 
     suffix = Path(file.filename).suffix
@@ -168,31 +187,68 @@ def upload_videos(background_tasks: BackgroundTasks, file: UploadFile = File(...
     with save_path.open("wb") as buffer:
         shutil.copyfileobj(file.file, buffer)
 
-    metadata = load_metadata()
-    metadata[video_id] = {
+    create_video(db, {
         "video_id": video_id,
         "filename": saved_file,
         "status": "uploaded",
         "raw_path": str(save_path),
-        "processed_filename": None,
         "processed_path": None,
-        "audio_filename": None,
         "audio_path": None,
-        "audio_status": "not_started",
-        "error_message": None,
         "transcript_path": None,
-        "transcript_status": "not_started",
         "segments_path": None,
-        "segments_status": "not_started",
         "embedding_path": None,
+        "audio_status": "not_started",
+        "transcript_status": "not_started",
+        "segments_status": "not_started",
         "embedding_status": "not_started",
-    }
+        "error_message": None,
+    })
 
-    save_metadata(metadata)
-    # background_tasks.add_task(process_video, video_id)
     process_video_task.delay(video_id)
+
     return {
         "video_id": video_id,
         "filename": saved_file,
         "status": "uploaded"
     }
+# @router.post("/videos/upload")
+# def upload_videos(file: UploadFile = File(...), db: Session = Depends(get_db)):
+#     video_id = str(uuid4())
+
+#     suffix = Path(file.filename).suffix
+#     saved_file = f"{video_id}{suffix}"
+#     save_path = RAW_VIDEO_DIR / saved_file
+
+#     with save_path.open("wb") as buffer:
+#         shutil.copyfileobj(file.file, buffer)
+
+#     metadata = load_metadata()
+#     metadata[video_id] = {
+#         "video_id": video_id,
+#         "filename": saved_file,
+#         "status": "uploaded",
+#         "raw_path": str(save_path),
+#         "processed_filename": None,
+#         "processed_path": None,
+#         "audio_filename": None,
+#         "audio_path": None,
+#         "audio_status": "not_started",
+#         "error_message": None,
+#         "transcript_path": None,
+#         "transcript_status": "not_started",
+#         "segments_path": None,
+#         "segments_status": "not_started",
+#         "embedding_path": None,
+#         "embedding_status": "not_started",
+#     }
+
+    
+
+#     save_metadata(metadata)
+#     # background_tasks.add_task(process_video, video_id)
+#     process_video_task.delay(video_id)
+#     return {
+#         "video_id": video_id,
+#         "filename": saved_file,
+#         "status": "uploaded"
+#     }
