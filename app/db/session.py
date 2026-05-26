@@ -10,18 +10,24 @@ SessionLocal = None
 def _init_engine():
     """Initialize the SQLAlchemy engine and session factory on first use.
 
-    Defers engine creation until this function is called so that Railway
-    reference variables (e.g. ``${{ Postgres.DATABASE_URL }}``) are fully
-    resolved before SQLAlchemy receives the connection string.
+    Builds the connection URL from individual Postgres environment variables
+    (``PGHOST``, ``PGPORT``, ``PGUSER``, ``PGPASSWORD``, ``PGDATABASE``)
+    that Railway resolves automatically from the linked Postgres service.
+    Falls back to local development defaults when those variables are absent.
     """
     global engine, SessionLocal
 
     if engine is not None:
         return
 
-    database_url = os.getenv(
-        "DATABASE_URL",
-        "postgresql+psycopg2://vindex:vindex@localhost:5432/vindex",
+    pghost = os.getenv("PGHOST", "localhost")
+    pgport = os.getenv("PGPORT", "5432")
+    pguser = os.getenv("PGUSER", "vindex")
+    pgpassword = os.getenv("PGPASSWORD", "vindex")
+    pgdatabase = os.getenv("PGDATABASE", "vindex")
+
+    database_url = (
+        f"postgresql+psycopg2://{pguser}:{pgpassword}@{pghost}:{pgport}/{pgdatabase}"
     )
 
     engine = create_engine(database_url)
