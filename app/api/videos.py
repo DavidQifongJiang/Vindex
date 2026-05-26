@@ -17,7 +17,7 @@ from app.db.video_repository import create_video, get_video
 from sqlalchemy.orm import Session
 
 from app.services.qdrant_service import search_segments
-from app.services.search_service import embedding_model
+from app.services.search_service import encode_text
 
 router = APIRouter()
 
@@ -73,7 +73,7 @@ def search(video_id: str, request: SearchRequest,db: Session = Depends(get_db)):
                 detail=f"Embeddings not ready. Current status: {video.embedding_status}"
             )
 
-        query_embedding = embedding_model.encode(request.query).tolist()
+        query_embedding = encode_text(request.query)
         results = search_segments(query_embedding, video_id)
 
         return {
