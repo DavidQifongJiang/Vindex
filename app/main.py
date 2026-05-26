@@ -6,8 +6,10 @@ from app.db.models import Base
 
 app = FastAPI(title="Vindex")
 
-if os.getenv("CREATE_TABLES_ON_STARTUP", "false") == "true":
-    Base.metadata.create_all(bind=get_engine())
+@app.on_event("startup")
+def create_tables_on_startup():
+    if os.getenv("CREATE_TABLES_ON_STARTUP", "false") == "true":
+        Base.metadata.create_all(bind=get_engine())
 
 @app.get("/health")
 def health_check():
