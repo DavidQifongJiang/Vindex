@@ -5,21 +5,32 @@ from typing import Literal
 from uuid import uuid4
 
 from fastapi import APIRouter, File, HTTPException, UploadFile, Depends
+from fastapi.responses import FileResponse
 from pydantic import BaseModel
 
+from app.core.storage import RAW_VIDEO_DIR
 from app.services.search_service import embedding_search, score_segment
-from app.services.video_service import RAW_VIDEO_DIR
 from app.workers.task import process_video_task
 
 from app.db.session import get_db
 from app.db.video_repository import create_video, get_video
 from sqlalchemy.orm import Session
+
+from app.services.qdrant_service import search_segments
+from app.services.search_service import embedding_model
+
 router = APIRouter()
 
 
 class SearchRequest(BaseModel):
     query: str
-    algorithm: Literal["embedding", "exact", "overlap", "stopword_overlap"] = "embedding"
+    algorithm: Literal[
+    "embedding",
+    "qdrant_embedding",
+    "exact",
+    "overlap",
+    "stopword_overlap"
+] = "embedding"
 
 
 @router.get("/videos/{video_id}/segments")
@@ -55,7 +66,23 @@ def search(video_id: str, request: SearchRequest,db: Session = Depends(get_db)):
     if video is None:
         raise HTTPException(status_code=404, detail="Video not found")
 
+    if request.algorithm == "qdrant_embedding":
+        if video.embedding_status != "completed":
+            raise HTTPException(
+                status_code=400,
+                detail=f"Embeddings not ready. Current status: {video.embedding_status}"
+            )
 
+        query_embedding = embedding_model.encode(request.query).tolist()
+        results = search_segments(query_embedding, video_id)
+
+        return {
+            "video_id": video_id,
+            "query": request.query,
+            "algorithm": request.algorithm,
+            "results": results
+        }
+    
     if request.algorithm == "embedding":
         if video.embedding_status != "completed":
             raise HTTPException(
@@ -155,6 +182,23 @@ def get_transcript(video_id: str,db: Session = Depends(get_db)):
         "transcript": transcript_text
     }
 
+
+@router.get("/videos/{video_id}/file")
+def get_video_file(video_id: str, db: Session = Depends(get_db)):
+    video = get_video(db, video_id)
+
+    if video is None:
+        raise HTTPException(status_code=404, detail="Video not found")
+
+    if video.status != "processed":
+        raise HTTPException(status_code=400, detail="Video not processed yet")
+
+    video_path = Path(video.processed_path)
+
+    if not video_path.exists():
+        raise HTTPException(status_code=404, detail="Processed video file not found")
+
+    return FileResponse(video_path, media_type="video/mp4")
 
 @router.get("/videos/{video_id}/status")
 def get_video_status(video_id: str, db: Session = Depends(get_db)):

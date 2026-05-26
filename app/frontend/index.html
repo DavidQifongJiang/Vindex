@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<body>
+  <h1>Vindex Demo</h1>
+
+  <input id="videoId" placeholder="video_id" size="60" />
+  <br><br>
+
+  <video id="videoPlayer" width="800" controls></video>
+
+  <br><br>
+
+  <input id="query" placeholder="Search query" />
+  <button onclick="searchVideo()">Search</button>
+
+  <div id="results"></div>
+
+  <script>
+    async function loadVideo() {
+      const videoId = document.getElementById("videoId").value;
+      const video = document.getElementById("videoPlayer");
+      video.src = `http://127.0.0.1:8000/videos/${videoId}/file`;
+    }
+
+    document.getElementById("videoId").addEventListener("change", loadVideo);
+
+    async function searchVideo() {
+      const videoId = document.getElementById("videoId").value;
+      const query = document.getElementById("query").value;
+
+      const response = await fetch(`http://127.0.0.1:8000/videos/${videoId}/search`, {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+          query: query,
+          algorithm: "qdrant_embedding"
+        })
+      });
+
+      const data = await response.json();
+      const resultsDiv = document.getElementById("results");
+      resultsDiv.innerHTML = "";
+
+      data.results.forEach(result => {
+        const button = document.createElement("button");
+        button.innerText = `Jump to ${result.start.toFixed(1)}s - ${result.text}`;
+        button.onclick = () => {
+          const video = document.getElementById("videoPlayer");
+          video.currentTime = result.start;
+          video.play();
+        };
+
+        resultsDiv.appendChild(button);
+        resultsDiv.appendChild(document.createElement("br"));
+      });
+    }
+  </script>
+</body>
+</html>

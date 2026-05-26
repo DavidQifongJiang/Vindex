@@ -1,0 +1,7 @@
+.git
+.venv
+__pycache__
+*.pyc
+.env
+storage
+test_video.mp4

@@ -6,28 +6,21 @@ from pathlib import Path
 
 import whisper
 
-from app.services.metadata_service import load_metadata, save_metadata
+
+from app.core.storage import (
+    AUDIO_DIR,
+    EMBEDDING_DIR,
+    PROCESSED_VIDEO_DIR,
+    TRANSCRIPT_DIR,
+)
 from app.services.search_service import build_segment_embeddings
 
 from app.db.session import SessionLocal
 from app.db.video_repository import get_video, update_video
 
-RAW_VIDEO_DIR = Path("storage/raw_videos")
-RAW_VIDEO_DIR.mkdir(parents=True, exist_ok=True)
+from app.services.qdrant_service import upsert_segments
 
-PROCESSED_VIDEO_DIR = Path("storage/processed_videos")
-PROCESSED_VIDEO_DIR.mkdir(parents=True, exist_ok=True)
-
-AUDIO_DIR = Path("storage/audio")
-AUDIO_DIR.mkdir(parents=True, exist_ok=True)
-
-TRANSCRIPT_DIR = Path("storage/transcripts")
-TRANSCRIPT_DIR.mkdir(parents=True, exist_ok=True)
-
-EMBEDDING_DIR = Path("storage/embeddings")
-EMBEDDING_DIR.mkdir(parents=True, exist_ok=True)
-
-whisper_model = whisper.load_model("base")
+whisper_model = whisper.load_model(os.getenv("WHISPER_MODEL", "base"))
 
 
 def add_ffmpeg_to_path(ffmpeg_path):
@@ -68,8 +61,7 @@ def process_video(video_id):
         video = get_video(db, video_id)
 
         if video is None:
-            return ValueError("Video not found")
-        
+            raise ValueError("Video not found")
 
         update_video(db, video_id, {
             "status": "processing"
@@ -77,7 +69,7 @@ def process_video(video_id):
 
         raw_path = video.raw_path
         filename = video.filename
-        
+
         processed_filename = f"processed_{filename}"
         processed_path = PROCESSED_VIDEO_DIR / processed_filename
 
@@ -144,6 +136,8 @@ def process_video(video_id):
         transcript_text = result["text"]
         segments = result["segments"]
         segment_embeddings = build_segment_embeddings(segments)
+        upsert_segments(video_id, segment_embeddings)
+
 
         with embedding_path.open("w", encoding="utf-8") as file:
             json.dump(segment_embeddings, file)

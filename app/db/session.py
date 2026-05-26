@@ -1,7 +1,12 @@
+import os
+
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-DATABASE_URL = "postgresql://vindex:vindex@localhost:5432/vindex"
+DATABASE_URL = os.getenv(
+    "DATABASE_URL",
+    "postgresql+psycopg2://vindex:vindex@localhost:5432/vindex",
+)
 
 engine = create_engine(DATABASE_URL)
 
