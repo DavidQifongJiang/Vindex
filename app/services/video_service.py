@@ -13,7 +13,7 @@ from app.core.storage import (
 )
 from app.services.search_service import build_segment_embeddings
 
-from app.db.session import SessionLocal
+from app.db.session import create_session
 from app.db.video_repository import get_video, update_video
 
 from app.services.qdrant_service import upsert_segments
@@ -64,7 +64,7 @@ def get_ffmpeg_path():
 
 
 def process_video(video_id):
-    db = SessionLocal()
+    db = create_session()
 
     try:
         video = get_video(db, video_id)

@@ -1,7 +1,7 @@
 import os
 
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker, Session
+from sqlalchemy.orm import sessionmaker
 
 engine = None
 SessionLocal = None
@@ -33,12 +33,17 @@ def _init_engine():
 
 
 def get_db():
-    _init_engine()
-    db = SessionLocal()
+    db = create_session()
     try:
         yield db
     finally:
         db.close()
+
+
+def create_session():
+    """Create a database session after lazily initialising the engine."""
+    _init_engine()
+    return SessionLocal()
 
 
 def get_engine():
