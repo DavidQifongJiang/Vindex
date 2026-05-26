@@ -31,10 +31,11 @@ STOPWORDS = {
 
 def build_segment_embeddings(segments):
     segment_embeddings = []
+    model = get_embedding_model()
 
     for segment in segments:
         text = segment.get("text", "")
-        embedding = _embedding_model.encode(text).tolist()
+        embedding = model.encode(text).tolist()
 
         segment_embeddings.append({
             "start": segment.get("start"),
@@ -47,7 +48,7 @@ def build_segment_embeddings(segments):
 
 
 def embedding_search(query: str, embedding_path: Path, top_k: int = 5):
-    query_embedding = _embedding_model.encode(query)
+    query_embedding = get_embedding_model().encode(query)
 
     with embedding_path.open("r", encoding="utf-8") as file:
         segment_embeddings = json.load(file)

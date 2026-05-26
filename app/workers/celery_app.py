@@ -2,11 +2,18 @@ import os
 
 from celery import Celery
 
-REDIS_URL = os.getenv("REDIS_URL", "redis://localhost:6379/0")
+BROKER_URL = os.getenv(
+    "CELERY_BROKER_URL",
+    os.getenv("REDIS_URL", "redis://localhost:6379/0"),
+)
+RESULT_BACKEND = os.getenv(
+    "CELERY_RESULT_BACKEND",
+    os.getenv("REDIS_URL", "redis://localhost:6379/0"),
+)
 
 celery_app = Celery(
     "vindex",
-    broker=REDIS_URL,
-    backend=REDIS_URL,
+    broker=BROKER_URL,
+    backend=RESULT_BACKEND,
     include=["app.workers.task"],
 )

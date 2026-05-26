@@ -4,8 +4,6 @@ import shutil
 import subprocess
 from pathlib import Path
 
-import whisper
-
 
 from app.core.storage import (
     AUDIO_DIR,
@@ -19,7 +17,6 @@ from app.db.session import SessionLocal
 from app.db.video_repository import get_video, update_video
 
 from app.services.qdrant_service import upsert_segments
-import os
 import whisper
 
 _whisper_model = None
@@ -144,7 +141,7 @@ def process_video(video_id):
         segments_path = TRANSCRIPT_DIR / f"{video_id}_segments.json"
         embedding_path = EMBEDDING_DIR / f"{video_id}_embeddings.json"
 
-        result = _whisper_model.transcribe(str(audio_path))
+        result = get_whisper_model().transcribe(str(audio_path))
         transcript_text = result["text"]
         segments = result["segments"]
         segment_embeddings = build_segment_embeddings(segments)

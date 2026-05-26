@@ -1,5 +1,5 @@
 import json
-import shutil
+import os
 from pathlib import Path
 from typing import Literal
 from uuid import uuid4
@@ -20,6 +20,7 @@ from app.services.qdrant_service import search_segments
 from app.services.search_service import encode_text
 
 router = APIRouter()
+MAX_UPLOAD_BYTES = int(os.getenv("MAX_UPLOAD_MB", "500")) * 1024 * 1024
 
 
 class SearchRequest(BaseModel):
@@ -229,7 +230,13 @@ def upload_videos(file: UploadFile = File(...), db: Session = Depends(get_db)):
     save_path = RAW_VIDEO_DIR / saved_file
 
     with save_path.open("wb") as buffer:
-        shutil.copyfileobj(file.file, buffer)
+        copied_bytes = 0
+        while chunk := file.file.read(1024 * 1024):
+            copied_bytes += len(chunk)
+            if copied_bytes > MAX_UPLOAD_BYTES:
+                save_path.unlink(missing_ok=True)
+                raise HTTPException(status_code=413, detail="Uploaded video is too large")
+            buffer.write(chunk)
 
     create_video(db, {
         "video_id": video_id,
