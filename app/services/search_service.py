@@ -4,10 +4,23 @@ from pathlib import Path
 
 import numpy as np
 from sentence_transformers import SentenceTransformer
+import os
+
+_embedding_model = None
 
 
-embedding_model = SentenceTransformer("all-MiniLM-L6-v2")
+def get_embedding_model():
+    global _embedding_model
 
+    if _embedding_model is None:
+        model_name = os.getenv("EMBEDDING_MODEL", "all-MiniLM-L6-v2")
+        _embedding_model = SentenceTransformer(model_name)
+
+    return _embedding_model
+
+
+def encode_text(text: str):
+    return get_embedding_model().encode(text).tolist()
 STOPWORDS = {
     "the", "is", "a", "an", "and", "or", "to", "of", "in", "on",
     "for", "with", "this", "that", "it", "as", "are", "was", "were",
@@ -21,7 +34,7 @@ def build_segment_embeddings(segments):
 
     for segment in segments:
         text = segment.get("text", "")
-        embedding = embedding_model.encode(text).tolist()
+        embedding = _embedding_model.encode(text).tolist()
 
         segment_embeddings.append({
             "start": segment.get("start"),
@@ -34,7 +47,7 @@ def build_segment_embeddings(segments):
 
 
 def embedding_search(query: str, embedding_path: Path, top_k: int = 5):
-    query_embedding = embedding_model.encode(query)
+    query_embedding = _embedding_model.encode(query)
 
     with embedding_path.open("r", encoding="utf-8") as file:
         segment_embeddings = json.load(file)

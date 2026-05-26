@@ -4,7 +4,10 @@ from app.db.session import engine
 from app.db.models import Base
 
 
-Base.metadata.create_all(bind=engine)
+import os
+
+if os.getenv("CREATE_TABLES_ON_STARTUP", "false") == "true":
+    Base.metadata.create_all(bind=engine)
 app = FastAPI(title="Vindex")
 app.include_router(router)
 

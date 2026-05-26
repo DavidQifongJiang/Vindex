@@ -15,15 +15,28 @@ QDRANT_URL = os.getenv("QDRANT_URL", "http://localhost:6333")
 COLLECTION_NAME = "vindex_segments"
 VECTOR_SIZE = 384  # all-MiniLM-L6-v2 embedding size
 
-client = QdrantClient(url=QDRANT_URL)
 
+_client = None
+
+
+def get_qdrant_client():
+    global _client
+
+    if _client is None:
+        _client = QdrantClient(
+            url=os.getenv("QDRANT_URL", "http://localhost:6333"),
+            api_key=os.getenv("QDRANT_API_KEY"),
+            check_compatibility=False,
+        )
+
+    return _client
 
 def ensure_collection():
-    collections = client.get_collections().collections
+    collections = _client.get_collections().collections
     collection_names = [collection.name for collection in collections]
 
     if COLLECTION_NAME not in collection_names:
-        client.create_collection(
+        _client.create_collection(
             collection_name=COLLECTION_NAME,
             vectors_config=VectorParams(
                 size=VECTOR_SIZE,
@@ -51,7 +64,7 @@ def upsert_segments(video_id: str, segment_embeddings: list[dict]):
             )
         )
 
-    client.upsert(
+    _client.upsert(
         collection_name=COLLECTION_NAME,
         points=points
     )
@@ -60,7 +73,7 @@ def upsert_segments(video_id: str, segment_embeddings: list[dict]):
 def search_segments(query_embedding: list[float], video_id: str, top_k: int = 5):
     ensure_collection()
 
-    results = client.query_points(
+    results = _client.query_points(
         collection_name=COLLECTION_NAME,
         query=query_embedding,
         query_filter=Filter(

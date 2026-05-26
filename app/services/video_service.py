@@ -19,8 +19,20 @@ from app.db.session import SessionLocal
 from app.db.video_repository import get_video, update_video
 
 from app.services.qdrant_service import upsert_segments
+import os
+import whisper
 
-whisper_model = whisper.load_model(os.getenv("WHISPER_MODEL", "base"))
+_whisper_model = None
+
+
+def get_whisper_model():
+    global _whisper_model
+
+    if _whisper_model is None:
+        model_name = os.getenv("WHISPER_MODEL", "base")
+        _whisper_model = whisper.load_model(model_name)
+
+    return _whisper_model
 
 
 def add_ffmpeg_to_path(ffmpeg_path):
@@ -132,7 +144,7 @@ def process_video(video_id):
         segments_path = TRANSCRIPT_DIR / f"{video_id}_segments.json"
         embedding_path = EMBEDDING_DIR / f"{video_id}_embeddings.json"
 
-        result = whisper_model.transcribe(str(audio_path))
+        result = _whisper_model.transcribe(str(audio_path))
         transcript_text = result["text"]
         segments = result["segments"]
         segment_embeddings = build_segment_embeddings(segments)
