@@ -3,6 +3,8 @@ annotated-doc==0.0.4
 annotated-types==0.7.0
 anyio==4.13.0
 billiard==4.2.4
+boto3==1.43.18
+botocore==1.43.18
 celery==5.6.3
 certifi==2026.4.22
 charset-normalizer==3.4.7
@@ -28,6 +30,7 @@ huggingface_hub==1.15.0
 hyperframe==6.1.0
 idna==3.15
 Jinja2==3.1.6
+jmespath==1.1.0
 joblib==1.5.3
 kombu==5.6.2
 llvmlite==0.47.0
@@ -56,6 +59,7 @@ redis==7.4.0
 regex==2026.5.9
 requests==2.34.2
 rich==15.0.0
+s3transfer==0.18.0
 safetensors==0.7.0
 scikit-learn==1.8.0
 scipy==1.17.1

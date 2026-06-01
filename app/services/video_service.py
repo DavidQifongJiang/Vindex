@@ -1,16 +1,10 @@
-import json
 import os
 import shutil
 import subprocess
 from pathlib import Path
 
-
-from app.core.storage import (
-    AUDIO_DIR,
-    EMBEDDING_DIR,
-    PROCESSED_VIDEO_DIR,
-    TRANSCRIPT_DIR,
-)
+from tempfile import TemporaryDirectory
+from app.services.storage_service import get_storage
 from app.services.search_service import build_segment_embeddings
 
 from app.db.session import create_session
@@ -65,108 +59,93 @@ def get_ffmpeg_path():
 
 def process_video(video_id):
     db = create_session()
+    storage = get_storage()
 
     try:
         video = get_video(db, video_id)
-
         if video is None:
             raise ValueError("Video not found")
 
-        update_video(db, video_id, {
-            "status": "processing"
-        })
+        update_video(db, video_id, {"status": "processing"})
 
-        raw_path = video.raw_path
-        filename = video.filename
+        with TemporaryDirectory() as temp_dir:
+            temp_dir = Path(temp_dir)
 
-        processed_filename = f"processed_{filename}"
-        processed_path = PROCESSED_VIDEO_DIR / processed_filename
+            filename = video.filename
+            raw_key = video.raw_path
 
-        ffmpeg_path = get_ffmpeg_path()
-        subprocess.run(
-            [
-                ffmpeg_path,
-                "-y",
-                "-i", raw_path,
-                "-vf", "scale=-2:360",
-                str(processed_path)
-            ],
-            check=True
-        )
+            raw_path = temp_dir / filename
+            processed_filename = f"processed_{filename}"
+            processed_path = temp_dir / processed_filename
+            audio_path = temp_dir / f"{video_id}.wav"
 
-        audio_filename = f"{video_id}.wav"
-        audio_path = AUDIO_DIR / audio_filename
+            storage.download_file(raw_key, raw_path)
 
-        subprocess.run(
-            [
-                ffmpeg_path,
-                "-y",
-                "-i", str(processed_path),
-                "-vn",
-                "-acodec", "pcm_s16le",
-                "-ar", "16000",
-                "-ac", "1",
-                str(audio_path)
-            ],
-            check=True
-        )
-        
-        update_video(db, video_id, {
-            "audio_path": str(audio_path),
-            "audio_status": "extracted",
-            "processed_path": str(processed_path),
-        })
-        
-        update_video(db, video_id, {
-            "transcript_status": "processing",
-            "segments_status": "processing",
-            "embedding_status": "processing",
-        })
+            ffmpeg_path = get_ffmpeg_path()
+            
+            subprocess.run(
+                [
+                    ffmpeg_path,
+                    "-y",
+                    "-i", str(raw_path),
+                    "-vf", "scale=-2:360",
+                    str(processed_path),
+                ],
+                check=True,
+            )
 
-        # metadata = load_metadata()
-        # metadata[video_id]["audio_filename"] = audio_filename
-        # metadata[video_id]["audio_path"] = str(audio_path)
-        # metadata[video_id]["audio_status"] = "extracted"
-        # metadata[video_id]["processed_filename"] = processed_filename
-        # metadata[video_id]["processed_path"] = str(processed_path)
-        # save_metadata(metadata)
+            subprocess.run(
+                [
+                    ffmpeg_path,
+                    "-y",
+                    "-i", str(processed_path),
+                    "-vn",
+                    "-acodec", "pcm_s16le",
+                    "-ar", "16000",
+                    "-ac", "1",
+                    str(audio_path),
+                ],
+                check=True,
+            )
 
-        # metadata = load_metadata()
-        # metadata[video_id]["transcript_status"] = "processing"
-        # metadata[video_id]["segments_status"] = "processing"
-        # metadata[video_id]["embedding_status"] = "processing"
-        # save_metadata(metadata)
+            update_video(db, video_id, {
+                "audio_status": "extracted",
+                "transcript_status": "processing",
+                "segments_status": "processing",
+                "embedding_status": "processing",
+            })
 
-        transcript_path = TRANSCRIPT_DIR / f"{video_id}.txt"
-        segments_path = TRANSCRIPT_DIR / f"{video_id}_segments.json"
-        embedding_path = EMBEDDING_DIR / f"{video_id}_embeddings.json"
+            result = get_whisper_model().transcribe(str(audio_path))
+            transcript_text = result["text"]
+            segments = result["segments"]
 
-        result = get_whisper_model().transcribe(str(audio_path))
-        transcript_text = result["text"]
-        segments = result["segments"]
-        segment_embeddings = build_segment_embeddings(segments)
-        upsert_segments(video_id, segment_embeddings)
+            segment_embeddings = build_segment_embeddings(segments)
+            upsert_segments(video_id, segment_embeddings)
 
+            processed_key = f"processed_videos/{processed_filename}"
+            audio_key = f"audio/{video_id}.wav"
+            transcript_key = f"transcripts/{video_id}.txt"
+            segments_key = f"transcripts/{video_id}_segments.json"
+            embedding_key = f"embeddings/{video_id}_embeddings.json"
 
-        with embedding_path.open("w", encoding="utf-8") as file:
-            json.dump(segment_embeddings, file)
+            storage.upload_file(processed_path, processed_key)
+            storage.upload_file(audio_path, audio_key)
+            storage.write_json(embedding_key, segment_embeddings)
+            storage.write_text(transcript_key, transcript_text)
+            storage.write_json(segments_key, segments, indent=4)
 
-        with transcript_path.open("w", encoding="utf-8") as file:
-            file.write(transcript_text)
-
-        with segments_path.open("w", encoding="utf-8") as file:
-            json.dump(segments, file, indent=4)
-        
-        update_video(db, video_id, {
-            "segments_path": str(segments_path),
-            "segments_status": "completed",
-            "transcript_status": "completed",
-            "transcript_path": str(transcript_path),
-            "status": "processed",
-            "embedding_path": str(embedding_path),
-            "embedding_status": "completed",
-        })
-
+            update_video(db, video_id, {
+                "segments_path": segments_key,
+                "segments_status": "completed",
+                "transcript_status": "completed",
+                "transcript_path": transcript_key,
+                "status": "processed",
+                "processed_path": processed_key,
+                "audio_path": audio_key,
+                "audio_status": "extracted",
+                "embedding_path": embedding_key,
+                "embedding_status": "completed",
+            })
 
     except Exception as e:
         update_video(db, video_id, {

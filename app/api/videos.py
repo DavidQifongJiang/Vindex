@@ -1,15 +1,13 @@
-import json
+
 import os
 from pathlib import Path
 from typing import Literal
 from uuid import uuid4
 
 from fastapi import APIRouter, File, HTTPException, UploadFile, Depends
-from fastapi.responses import FileResponse
-from pydantic import BaseModel
 
-from app.core.storage import RAW_VIDEO_DIR
-from app.services.search_service import embedding_search, score_segment
+from pydantic import BaseModel
+from app.services.search_service import score_segment
 from app.workers.task import process_video_task
 
 from app.db.session import get_db
@@ -18,6 +16,10 @@ from sqlalchemy.orm import Session
 
 from app.services.qdrant_service import search_segments
 from app.services.search_service import encode_text
+
+
+from app.services.storage_service import S3Storage
+storage = S3Storage()
 
 router = APIRouter()
 MAX_UPLOAD_BYTES = int(os.getenv("MAX_UPLOAD_MB", "500")) * 1024 * 1024
@@ -31,11 +33,11 @@ class SearchRequest(BaseModel):
     "exact",
     "overlap",
     "stopword_overlap"
-] = "embedding"
+] = "qdrant_embedding"
 
 
 @router.get("/videos/{video_id}/segments")
-def get_video_segments(video_id: str,db: Session = Depends(get_db)):
+def get_video_segments(video_id: str, db: Session = Depends(get_db)):
     video = get_video(db, video_id)
 
     if video is None:
@@ -46,26 +48,53 @@ def get_video_segments(video_id: str,db: Session = Depends(get_db)):
             status_code=400,
             detail=f"Segments not ready. Current status: {video.segments_status}"
         )
-    segments_path = Path(video.segments_path)
 
-    if not segments_path.exists():
+    if not storage.exists(video.segments_path):
         raise HTTPException(status_code=404, detail="Segments file not found")
 
-    with segments_path.open("r", encoding="utf-8") as file:
-        segments = json.load(file)
+    segments = storage.read_json(video.segments_path)
 
     return {
         "video_id": video_id,
         "segments": segments
     }
 
-
-@router.post("/videos/{video_id}/search")
-def search(video_id: str, request: SearchRequest,db: Session = Depends(get_db)):
+@router.get("/videos/{video_id}/transcripts")
+def get_transcript(video_id: str, db: Session = Depends(get_db)):
     video = get_video(db, video_id)
 
     if video is None:
         raise HTTPException(status_code=404, detail="Video not found")
+
+    if video.transcript_status != "completed":
+        raise HTTPException(
+            status_code=400,
+            detail=f"Transcript not ready. Current status: {video.transcript_status}"
+        )
+
+    if not storage.exists(video.transcript_path):
+        raise HTTPException(status_code=404, detail="Transcript file not found")
+
+    transcript_text = storage.read_text(video.transcript_path)
+
+    return {
+        "video_id": video_id,
+        "transcript": transcript_text
+    }
+
+
+@router.post("/videos/{video_id}/search")
+def search(video_id: str, request: SearchRequest, db: Session = Depends(get_db)):
+    video = get_video(db, video_id)
+
+    if video is None:
+        raise HTTPException(status_code=404, detail="Video not found")
+
+    if request.algorithm == "embedding":
+        raise HTTPException(
+            status_code=400,
+            detail="File-based embedding search is not available with S3 storage. Use qdrant_embedding."
+        )
 
     if request.algorithm == "qdrant_embedding":
         if video.embedding_status != "completed":
@@ -83,40 +112,17 @@ def search(video_id: str, request: SearchRequest,db: Session = Depends(get_db)):
             "algorithm": request.algorithm,
             "results": results
         }
-    
-    if request.algorithm == "embedding":
-        if video.embedding_status != "completed":
-            raise HTTPException(
-                status_code=400,
-                detail=f"Embeddings not ready. Current status: {video.embedding_status}"
-            )
-        
-        embedding_path = Path(video.embedding_path)
-
-        if not embedding_path.exists():
-            raise HTTPException(status_code=404, detail="Embedding file not found")
-
-        results = embedding_search(request.query, embedding_path)
-
-        return {
-            "video_id": video_id,
-            "query": request.query,
-            "algorithm": request.algorithm,
-            "results": results
-        }
 
     if video.segments_status != "completed":
         raise HTTPException(
             status_code=400,
             detail=f"Segments not ready. Current status: {video.segments_status}"
         )
-    segments_path = Path(video.segments_path)
 
-    if not segments_path.exists():
+    if not storage.exists(video.segments_path):
         raise HTTPException(status_code=404, detail="Segments file not found")
 
-    with segments_path.open("r", encoding="utf-8") as file:
-        segments = json.load(file)
+    segments = storage.read_json(video.segments_path)
 
     results = []
 
@@ -142,48 +148,6 @@ def search(video_id: str, request: SearchRequest,db: Session = Depends(get_db)):
         "results": results[:5]
     }
 
-
-
-
-
-
-@router.get("/videos/{video_id}/transcripts")
-def get_transcript(video_id: str,db: Session = Depends(get_db)):
-    video = get_video(db, video_id)
-    # metadata = load_metadata()
-
-    if video is None:
-        raise HTTPException(status_code=404, detail="Video not found")
-    
-    # if video_id not in metadata:
-    #     raise HTTPException(status_code=404, detail="Video not found")
-
-    if video.transcript_status != "completed":
-        raise HTTPException(
-            status_code=400,
-            detail=f"Transcript not ready. Current status: {video.transcript_status}"
-        )
-    
-    # if metadata[video_id].get("transcript_status") != "completed":
-    #     raise HTTPException(
-    #         status_code=400,
-    #         detail=f"Transcript not ready. Current status: {metadata[video_id].get('transcript_status')}"
-    #     )
-    transcript_path = Path(video.transcript_path)
-    # transcript_path = Path(metadata[video_id]["transcript_path"])
-
-    if not transcript_path.exists():
-        raise HTTPException(status_code=404, detail="Transcript file not found")
-
-    with transcript_path.open("r", encoding="utf-8") as file:
-        transcript_text = file.read()
-
-    return {
-        "video_id": video_id,
-        "transcript": transcript_text
-    }
-
-
 @router.get("/videos/{video_id}/file")
 def get_video_file(video_id: str, db: Session = Depends(get_db)):
     video = get_video(db, video_id)
@@ -194,12 +158,10 @@ def get_video_file(video_id: str, db: Session = Depends(get_db)):
     if video.status != "processed":
         raise HTTPException(status_code=400, detail="Video not processed yet")
 
-    video_path = Path(video.processed_path)
-
-    if not video_path.exists():
+    if not storage.exists(video.processed_path):
         raise HTTPException(status_code=404, detail="Processed video file not found")
 
-    return FileResponse(video_path, media_type="video/mp4")
+    return storage.file_response(video.processed_path, media_type="video/mp4")
 
 @router.get("/videos/{video_id}/status")
 def get_video_status(video_id: str, db: Session = Depends(get_db)):
@@ -210,16 +172,6 @@ def get_video_status(video_id: str, db: Session = Depends(get_db)):
 
     return video
 
-# @router.get("/videos/{video_id}/status")
-# def get_video_status(video_id: str):
-#     metadata = load_metadata()
-
-#     if video_id not in metadata:
-#         raise HTTPException(status_code=404, detail="Video not found")
-
-#     return metadata[video_id]
-
-
 
 @router.post("/videos/upload")
 def upload_videos(file: UploadFile = File(...), db: Session = Depends(get_db)):
@@ -227,22 +179,20 @@ def upload_videos(file: UploadFile = File(...), db: Session = Depends(get_db)):
 
     suffix = Path(file.filename).suffix
     saved_file = f"{video_id}{suffix}"
-    save_path = RAW_VIDEO_DIR / saved_file
+    raw_key = f"raw_videos/{saved_file}"
 
-    with save_path.open("wb") as buffer:
-        copied_bytes = 0
-        while chunk := file.file.read(1024 * 1024):
-            copied_bytes += len(chunk)
-            if copied_bytes > MAX_UPLOAD_BYTES:
-                save_path.unlink(missing_ok=True)
-                raise HTTPException(status_code=413, detail="Uploaded video is too large")
-            buffer.write(chunk)
+
+    try:
+        storage.save_upload(file.file, raw_key, MAX_UPLOAD_BYTES)
+    except ValueError:
+        raise HTTPException(status_code=413, detail="Uploaded video is too large")
+    
 
     create_video(db, {
         "video_id": video_id,
         "filename": saved_file,
         "status": "uploaded",
-        "raw_path": str(save_path),
+        "raw_path": raw_key,
         "processed_path": None,
         "audio_path": None,
         "transcript_path": None,
