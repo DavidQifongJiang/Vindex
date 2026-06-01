@@ -3,6 +3,11 @@ __pycache__/
 *.pyc
 .env
 storage/
+frontend/node_modules/
+frontend/dist/
+*.tsbuildinfo
+search.json
+downloaded_test_video.mp4
 app/ez.mp4
 *.mp4
 *.log
