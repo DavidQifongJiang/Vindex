@@ -1,5 +1,8 @@
 export type VideoStatus = {
   video_id: string;
+  owner_user_id: string | null;
+  title: string | null;
+  visibility: "private" | "public" | string | null;
   filename: string;
   status: "uploaded" | "processing" | "processed" | "failed" | string;
   raw_path: string | null;
@@ -15,6 +18,16 @@ export type VideoStatus = {
   error_message: string | null;
   created_at: string;
   updated_at: string;
+};
+
+export type UserProfile = {
+  auth_required: boolean;
+  user_id: string;
+  email: string | null;
+  name: string | null;
+  picture_url: string | null;
+  created_at?: string;
+  updated_at?: string;
 };
 
 export type SearchAlgorithm =
@@ -53,6 +66,7 @@ export type VideoMetrics = {
     whisper_transcription_seconds?: number;
     embedding_generation_seconds?: number;
     qdrant_upsert_seconds?: number;
+    thumbnail_generation_seconds?: number | null;
     total_processing_seconds?: number;
   };
   search?: {

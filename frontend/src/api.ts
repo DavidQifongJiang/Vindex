@@ -1,9 +1,31 @@
-import type { SearchAlgorithm, SearchResult, Segment, VideoMetrics, VideoStatus } from "./types";
+import type {
+  SearchAlgorithm,
+  SearchResult,
+  Segment,
+  UserProfile,
+  VideoMetrics,
+  VideoStatus
+} from "./types";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? "";
+let authTokenProvider: () => string | null = () => null;
+
+export function setAuthTokenProvider(provider: () => string | null) {
+  authTokenProvider = provider;
+}
 
 async function request<T>(path: string, options?: RequestInit): Promise<T> {
-  const response = await fetch(`${API_BASE_URL}${path}`, options);
+  const headers = new Headers(options?.headers);
+  const token = authTokenProvider();
+
+  if (token) {
+    headers.set("Authorization", `Bearer ${token}`);
+  }
+
+  const response = await fetch(`${API_BASE_URL}${path}`, {
+    ...options,
+    headers
+  });
   const payload = await response.json().catch(() => null);
 
   if (!response.ok) {
@@ -15,11 +37,23 @@ async function request<T>(path: string, options?: RequestInit): Promise<T> {
   return payload as T;
 }
 
-export async function uploadVideo(file: File) {
+export function getMe() {
+  return request<UserProfile>("/me");
+}
+
+export async function uploadVideo(file: File, title: string, visibility: "private" | "public") {
   const formData = new FormData();
   formData.append("file", file);
+  formData.append("title", title);
+  formData.append("visibility", visibility);
 
-  return request<{ video_id: string; filename: string; status: string }>("/videos/upload", {
+  return request<{
+    video_id: string;
+    title: string;
+    visibility: "private" | "public";
+    filename: string;
+    status: string;
+  }>("/videos/upload", {
     method: "POST",
     body: formData
   });
@@ -27,6 +61,14 @@ export async function uploadVideo(file: File) {
 
 export function getVideoStatus(videoId: string) {
   return request<VideoStatus>(`/videos/${videoId}/status`);
+}
+
+export function listVideos() {
+  return request<{ videos: VideoStatus[] }>("/videos");
+}
+
+export function listPublicVideos() {
+  return request<{ videos: VideoStatus[] }>("/public/videos");
 }
 
 export function getVideoMetrics(videoId: string) {
@@ -54,4 +96,8 @@ export function searchVideo(videoId: string, query: string, algorithm: SearchAlg
 
 export function videoFileUrl(videoId: string) {
   return `${API_BASE_URL}/videos/${videoId}/file`;
+}
+
+export function videoThumbnailUrl(videoId: string) {
+  return `${API_BASE_URL}/videos/${videoId}/thumbnail`;
 }

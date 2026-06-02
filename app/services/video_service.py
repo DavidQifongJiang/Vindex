@@ -100,6 +100,26 @@ def process_video(video_id):
                 check=True,
             )
 
+            thumbnail_path = temp_dir / f"{video_id}.jpg"
+            thumbnail_generation_seconds = None
+            try:
+                thumbnail_start = perf_counter()
+                subprocess.run(
+                    [
+                        ffmpeg_path,
+                        "-y",
+                        "-ss", "1",
+                        "-i", str(processed_path),
+                        "-frames:v", "1",
+                        "-q:v", "3",
+                        str(thumbnail_path),
+                    ],
+                    check=True,
+                )
+                thumbnail_generation_seconds = seconds_since(thumbnail_start)
+            except Exception:
+                thumbnail_path = None
+
             subprocess.run(
                 [
                     ffmpeg_path,
@@ -144,12 +164,15 @@ def process_video(video_id):
 
             processed_key = f"processed_videos/{processed_filename}"
             audio_key = f"audio/{video_id}.wav"
+            thumbnail_key = f"thumbnails/{video_id}.jpg"
             transcript_key = f"transcripts/{video_id}.txt"
             segments_key = f"transcripts/{video_id}_segments.json"
             embedding_key = f"embeddings/{video_id}_embeddings.json"
 
             storage.upload_file(processed_path, processed_key)
             storage.upload_file(audio_path, audio_key)
+            if thumbnail_path and thumbnail_path.exists():
+                storage.upload_file(thumbnail_path, thumbnail_key)
             storage.write_json(embedding_key, segment_embeddings)
             storage.write_text(transcript_key, transcript_text)
             storage.write_json(segments_key, segments, indent=4)
@@ -180,6 +203,7 @@ def process_video(video_id):
                     "whisper_transcription_seconds": whisper_transcription_seconds,
                     "embedding_generation_seconds": embedding_generation_seconds,
                     "qdrant_upsert_seconds": qdrant_upsert_seconds,
+                    "thumbnail_generation_seconds": thumbnail_generation_seconds,
                     "total_processing_seconds": seconds_since(processing_start),
                 })
             except Exception:

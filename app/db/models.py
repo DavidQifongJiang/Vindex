@@ -9,6 +9,9 @@ class Video(Base):
     __tablename__ = "videos"
 
     video_id = Column(String, primary_key=True, index=True)
+    owner_user_id = Column(String, index=True)
+    title = Column(String)
+    visibility = Column(String, default="private")
     filename = Column(String)
     status = Column(String)
 
@@ -25,6 +28,18 @@ class Video(Base):
     embedding_status = Column(String)
 
     error_message = Column(Text, nullable=True)
+
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow)
+
+
+class User(Base):
+    __tablename__ = "users"
+
+    user_id = Column(String, primary_key=True, index=True)
+    email = Column(String, index=True)
+    name = Column(String)
+    picture_url = Column(Text)
 
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow)

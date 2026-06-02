@@ -1,6 +1,12 @@
 services:
   api:
-    build: .
+    build:
+      context: .
+      args:
+        VITE_AUTH_ENABLED: ${VITE_AUTH_ENABLED:-false}
+        VITE_COGNITO_DOMAIN: ${VITE_COGNITO_DOMAIN:-}
+        VITE_COGNITO_CLIENT_ID: ${VITE_COGNITO_CLIENT_ID:-}
+        VITE_COGNITO_REDIRECT_URI: ${VITE_COGNITO_REDIRECT_URI:-}
     ports:
       - "8000:8000"
     volumes:
@@ -13,7 +19,13 @@ services:
       - qdrant
 
   worker:
-    build: .
+    build:
+      context: .
+      args:
+        VITE_AUTH_ENABLED: ${VITE_AUTH_ENABLED:-false}
+        VITE_COGNITO_DOMAIN: ${VITE_COGNITO_DOMAIN:-}
+        VITE_COGNITO_CLIENT_ID: ${VITE_COGNITO_CLIENT_ID:-}
+        VITE_COGNITO_REDIRECT_URI: ${VITE_COGNITO_REDIRECT_URI:-}
     command: celery -A app.workers.celery_app.celery_app worker --loglevel=info --pool=solo
     volumes:
       - ./storage:/app/storage

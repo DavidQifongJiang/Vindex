@@ -4,18 +4,20 @@ from pathlib import Path
 from typing import Literal
 from uuid import uuid4
 
-from fastapi import APIRouter, File, HTTPException, UploadFile, Depends
+from fastapi import APIRouter, Depends, File, Form, HTTPException, UploadFile
 
 from pydantic import BaseModel
 from app.services.search_service import score_segment
 from app.workers.task import process_video_task
 
 from app.db.session import get_db
-from app.db.video_repository import create_video, get_video
+from app.db.video_repository import create_video, get_video, list_public_videos, list_videos
+from app.db.user_repository import upsert_user
 from sqlalchemy.orm import Session
 
 from app.services.qdrant_service import search_segments
 from app.services.search_service import encode_text
+from app.services.auth_service import AuthUser, get_current_user, get_optional_user
 
 
 from app.services.storage_service import S3Storage
@@ -29,6 +31,7 @@ storage = S3Storage()
 
 router = APIRouter()
 MAX_UPLOAD_BYTES = int(os.getenv("MAX_UPLOAD_MB", "500")) * 1024 * 1024
+VALID_VISIBILITIES = {"private", "public"}
 
 
 class SearchRequest(BaseModel):
@@ -42,22 +45,90 @@ class SearchRequest(BaseModel):
 ] = "qdrant_embedding"
 
 
+@router.get("/videos")
+def get_videos(
+    current_user: AuthUser = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    upsert_user(db, current_user)
+
+    return {
+        "videos": list_videos(db, current_user.user_id)
+    }
+
+
+@router.get("/public/videos")
+def get_public_videos(db: Session = Depends(get_db)):
+    return {
+        "videos": list_public_videos(db)
+    }
+
+
+def normalize_title(title: str | None, filename: str | None):
+    candidate = (title or "").strip()
+    if not candidate:
+        candidate = Path(filename or "Untitled video").stem
+
+    return candidate[:120] or "Untitled video"
+
+
+def normalize_visibility(visibility: str):
+    candidate = visibility.strip().lower()
+    if candidate not in VALID_VISIBILITIES:
+        raise HTTPException(status_code=400, detail="Visibility must be private or public")
+
+    return candidate
+
+
+def can_view_video(video, current_user: AuthUser | None):
+    if video.visibility == "public":
+        return True
+
+    return current_user is not None and video.owner_user_id == current_user.user_id
+
+
+def require_video_access(video, current_user: AuthUser | None):
+    if not can_view_video(video, current_user):
+        raise HTTPException(status_code=404, detail="Video not found")
+
+    return video
+
+
+def require_video_owner(video, current_user: AuthUser):
+    if video.owner_user_id != current_user.user_id:
+        raise HTTPException(status_code=404, detail="Video not found")
+
+    return video
+
+
 @router.get("/videos/{video_id}/metrics")
-def get_video_metrics(video_id: str, db: Session = Depends(get_db)):
+def get_video_metrics(
+    video_id: str,
+    current_user: AuthUser = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
     video = get_video(db, video_id)
 
     if video is None:
         raise HTTPException(status_code=404, detail="Video not found")
+
+    require_video_owner(video, current_user)
 
     return read_metrics(storage, video_id)
 
 
 @router.get("/videos/{video_id}/segments")
-def get_video_segments(video_id: str, db: Session = Depends(get_db)):
+def get_video_segments(
+    video_id: str,
+    current_user: AuthUser | None = Depends(get_optional_user),
+    db: Session = Depends(get_db),
+):
     video = get_video(db, video_id)
 
     if video is None:
         raise HTTPException(status_code=404, detail="Video not found")
+
+    require_video_access(video, current_user)
 
     if video.segments_status != "completed":
         raise HTTPException(
@@ -76,11 +147,17 @@ def get_video_segments(video_id: str, db: Session = Depends(get_db)):
     }
 
 @router.get("/videos/{video_id}/transcripts")
-def get_transcript(video_id: str, db: Session = Depends(get_db)):
+def get_transcript(
+    video_id: str,
+    current_user: AuthUser | None = Depends(get_optional_user),
+    db: Session = Depends(get_db),
+):
     video = get_video(db, video_id)
 
     if video is None:
         raise HTTPException(status_code=404, detail="Video not found")
+
+    require_video_access(video, current_user)
 
     if video.transcript_status != "completed":
         raise HTTPException(
@@ -100,12 +177,19 @@ def get_transcript(video_id: str, db: Session = Depends(get_db)):
 
 
 @router.post("/videos/{video_id}/search")
-def search(video_id: str, request: SearchRequest, db: Session = Depends(get_db)):
+def search(
+    video_id: str,
+    request: SearchRequest,
+    current_user: AuthUser | None = Depends(get_optional_user),
+    db: Session = Depends(get_db),
+):
     search_start = perf_counter()
     video = get_video(db, video_id)
 
     if video is None:
         raise HTTPException(status_code=404, detail="Video not found")
+
+    require_video_access(video, current_user)
 
     if request.algorithm == "embedding":
         raise HTTPException(
@@ -186,11 +270,17 @@ def search(video_id: str, request: SearchRequest, db: Session = Depends(get_db))
     }
 
 @router.get("/videos/{video_id}/file")
-def get_video_file(video_id: str, db: Session = Depends(get_db)):
+def get_video_file(
+    video_id: str,
+    current_user: AuthUser | None = Depends(get_optional_user),
+    db: Session = Depends(get_db),
+):
     video = get_video(db, video_id)
 
     if video is None:
         raise HTTPException(status_code=404, detail="Video not found")
+
+    require_video_access(video, current_user)
 
     if video.status != "processed":
         raise HTTPException(status_code=400, detail="Video not processed yet")
@@ -200,18 +290,51 @@ def get_video_file(video_id: str, db: Session = Depends(get_db)):
 
     return storage.file_response(video.processed_path, media_type="video/mp4")
 
-@router.get("/videos/{video_id}/status")
-def get_video_status(video_id: str, db: Session = Depends(get_db)):
+
+@router.get("/videos/{video_id}/thumbnail")
+def get_video_thumbnail(
+    video_id: str,
+    current_user: AuthUser | None = Depends(get_optional_user),
+    db: Session = Depends(get_db),
+):
     video = get_video(db, video_id)
 
     if video is None:
         raise HTTPException(status_code=404, detail="Video not found")
 
+    require_video_access(video, current_user)
+
+    thumbnail_key = f"thumbnails/{video_id}.jpg"
+    if not storage.exists(thumbnail_key):
+        raise HTTPException(status_code=404, detail="Thumbnail not found")
+
+    return storage.file_response(thumbnail_key, media_type="image/jpeg")
+
+
+@router.get("/videos/{video_id}/status")
+def get_video_status(
+    video_id: str,
+    current_user: AuthUser | None = Depends(get_optional_user),
+    db: Session = Depends(get_db),
+):
+    video = get_video(db, video_id)
+
+    if video is None:
+        raise HTTPException(status_code=404, detail="Video not found")
+
+    require_video_access(video, current_user)
+
     return video
 
 
 @router.post("/videos/upload")
-def upload_videos(file: UploadFile = File(...), db: Session = Depends(get_db)):
+def upload_videos(
+    file: UploadFile = File(...),
+    title: str | None = Form(None),
+    visibility: str = Form("private"),
+    current_user: AuthUser = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
 
     request_start = perf_counter()
     upload_accepted_at_epoch = now_epoch()
@@ -221,6 +344,9 @@ def upload_videos(file: UploadFile = File(...), db: Session = Depends(get_db)):
     suffix = Path(file.filename).suffix
     saved_file = f"{video_id}{suffix}"
     raw_key = f"raw_videos/{saved_file}"
+    video_title = normalize_title(title, file.filename)
+    video_visibility = normalize_visibility(visibility)
+    upsert_user(db, current_user)
 
     s3_start = perf_counter()
 
@@ -233,6 +359,9 @@ def upload_videos(file: UploadFile = File(...), db: Session = Depends(get_db)):
 
     create_video(db, {
         "video_id": video_id,
+        "owner_user_id": current_user.user_id,
+        "title": video_title,
+        "visibility": video_visibility,
         "filename": saved_file,
         "status": "uploaded",
         "raw_path": raw_key,
@@ -264,6 +393,8 @@ def upload_videos(file: UploadFile = File(...), db: Session = Depends(get_db)):
             "s3_raw_upload_seconds": s3_raw_upload_seconds,
         },
         "video_id": video_id,
+        "title": video_title,
+        "visibility": video_visibility,
         "filename": saved_file,
         "status": "uploaded"
     }
