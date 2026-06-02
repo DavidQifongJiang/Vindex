@@ -9,7 +9,7 @@ services:
         VITE_COGNITO_REDIRECT_URI: ${VITE_COGNITO_REDIRECT_URI:-}
     restart: unless-stopped
     ports:
-      - "8000:8000"
+      - "127.0.0.1:8000:8000"
     volumes:
       - ./storage:/app/storage
     env_file:
@@ -20,6 +20,22 @@ services:
       postgres:
         condition: service_healthy
       qdrant:
+        condition: service_started
+
+  caddy:
+    image: caddy:2
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      APP_DOMAIN: ${APP_DOMAIN}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      api:
         condition: service_started
 
   worker:
@@ -79,6 +95,8 @@ services:
       - qdrant_data:/qdrant/storage
 
 volumes:
+  caddy_data:
+  caddy_config:
   redis_data:
   postgres_data:
   qdrant_data:
