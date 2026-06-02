@@ -23,7 +23,7 @@ jobs:
           python-version: "3.11"
 
       - name: Compile backend
-        run: python -m compileall app
+        run: python -m compileall app alembic
 
       - name: Set up Node
         uses: actions/setup-node@v4

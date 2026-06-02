@@ -15,6 +15,7 @@ The project is designed as a job-hunting portfolio system: it demonstrates backe
 - Store searchable vectors in Qdrant.
 - Search video content semantically or with text-based matching.
 - Track meaningful metrics such as upload latency, processing time, Whisper time, embedding time, Qdrant search latency, and S3 timing.
+- Manage database schema changes with Alembic migrations.
 - Serve a React frontend through FastAPI.
 - Authenticate users with AWS Cognito.
 - Host publicly with Caddy-managed HTTPS on EC2.
@@ -66,6 +67,7 @@ Port `8000` is not publicly exposed. Public traffic goes through HTTPS on Caddy.
 | Celery | Background video processing |
 | Redis | Celery broker/result backend |
 | Postgres | Video/user metadata |
+| Alembic | Versioned Postgres schema migrations |
 | S3 | Raw video, processed video, audio, transcripts, segments, embeddings, thumbnails, metrics |
 | Qdrant | Segment vector search |
 | Cognito | User login and identity |
@@ -134,6 +136,8 @@ docker compose ps
 curl http://localhost:8000/health
 ```
 
+The API container runs `alembic upgrade head` before starting Uvicorn, so schema changes are applied during deployment.
+
 Public URL:
 
 ```text
@@ -178,6 +182,20 @@ Deleting a video removes:
 
 Deletion is owner-only. Active videos in `uploaded` or `processing` state are blocked from deletion to avoid racing the Celery worker.
 
+## Database Migrations
+
+Vindex uses Alembic for versioned Postgres schema migrations.
+
+Useful commands:
+
+```bash
+alembic upgrade head
+alembic current
+alembic history
+```
+
+The first migration is intentionally idempotent because early versions of Vindex created tables at startup. This lets existing EC2 databases adopt Alembic without dropping existing data.
+
 ## Metrics
 
 Vindex stores metrics per video in S3:
@@ -211,8 +229,7 @@ Production evolution:
 - Move Postgres to RDS.
 - Move Redis to ElastiCache or replace Celery/Redis with SQS-backed workers.
 - Run API and workers on ECS.
-- Add CI/CD with GitHub Actions.
-- Add Alembic migrations.
+- Expand CI/CD beyond smoke checks into automated deployment.
 - Add rate limiting and stronger upload validation.
 - Add managed observability with CloudWatch dashboards/alarms.
 
@@ -225,8 +242,6 @@ Production evolution:
 
 ## Roadmap
 
-- CI smoke tests.
-- Alembic migrations.
 - Model warmup and search latency optimization.
 - Better landing/demo page.
 - Custom domain replacing the temporary `sslip.io` hostname.

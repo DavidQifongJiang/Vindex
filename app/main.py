@@ -4,7 +4,6 @@ from pathlib import Path
 from fastapi import FastAPI
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
-from sqlalchemy import text
 
 from app.api.auth import router as auth_router
 from app.api.videos import router
@@ -25,12 +24,6 @@ def create_tables_on_startup():
     if os.getenv("CREATE_TABLES_ON_STARTUP", "false") == "true":
         engine = get_engine()
         Base.metadata.create_all(bind=engine)
-        with engine.begin() as connection:
-            connection.execute(text("ALTER TABLE videos ADD COLUMN IF NOT EXISTS title VARCHAR"))
-            connection.execute(text("ALTER TABLE videos ADD COLUMN IF NOT EXISTS visibility VARCHAR DEFAULT 'private'"))
-            connection.execute(text("ALTER TABLE videos ADD COLUMN IF NOT EXISTS owner_user_id VARCHAR"))
-            connection.execute(text("UPDATE videos SET visibility = 'private' WHERE visibility IS NULL"))
-            connection.execute(text("UPDATE videos SET owner_user_id = 'dev-user' WHERE owner_user_id IS NULL"))
 
 @app.get("/health")
 def health_check():
