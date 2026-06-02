@@ -94,10 +94,10 @@ export function searchVideo(videoId: string, query: string, algorithm: SearchAlg
   );
 }
 
-export function videoFileUrl(videoId: string) {
-  return `${API_BASE_URL}/videos/${videoId}/file`;
+export function getVideoFileUrl(videoId: string) {
+  return request<{ video_id: string; url: string }>(`/videos/${videoId}/file-url`);
 }
 
-export function videoThumbnailUrl(videoId: string) {
-  return `${API_BASE_URL}/videos/${videoId}/thumbnail`;
+export function getVideoThumbnailUrl(videoId: string) {
+  return request<{ video_id: string; url: string }>(`/videos/${videoId}/thumbnail-url`);
 }

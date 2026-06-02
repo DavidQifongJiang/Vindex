@@ -291,6 +291,31 @@ def get_video_file(
     return storage.file_response(video.processed_path, media_type="video/mp4")
 
 
+@router.get("/videos/{video_id}/file-url")
+def get_video_file_url(
+    video_id: str,
+    current_user: AuthUser | None = Depends(get_optional_user),
+    db: Session = Depends(get_db),
+):
+    video = get_video(db, video_id)
+
+    if video is None:
+        raise HTTPException(status_code=404, detail="Video not found")
+
+    require_video_access(video, current_user)
+
+    if video.status != "processed":
+        raise HTTPException(status_code=400, detail="Video not processed yet")
+
+    if not storage.exists(video.processed_path):
+        raise HTTPException(status_code=404, detail="Processed video file not found")
+
+    return {
+        "video_id": video_id,
+        "url": storage.presigned_url(video.processed_path, response_content_type="video/mp4")
+    }
+
+
 @router.get("/videos/{video_id}/thumbnail")
 def get_video_thumbnail(
     video_id: str,
@@ -309,6 +334,29 @@ def get_video_thumbnail(
         raise HTTPException(status_code=404, detail="Thumbnail not found")
 
     return storage.file_response(thumbnail_key, media_type="image/jpeg")
+
+
+@router.get("/videos/{video_id}/thumbnail-url")
+def get_video_thumbnail_url(
+    video_id: str,
+    current_user: AuthUser | None = Depends(get_optional_user),
+    db: Session = Depends(get_db),
+):
+    video = get_video(db, video_id)
+
+    if video is None:
+        raise HTTPException(status_code=404, detail="Video not found")
+
+    require_video_access(video, current_user)
+
+    thumbnail_key = f"thumbnails/{video_id}.jpg"
+    if not storage.exists(thumbnail_key):
+        raise HTTPException(status_code=404, detail="Thumbnail not found")
+
+    return {
+        "video_id": video_id,
+        "url": storage.presigned_url(thumbnail_key, response_content_type="image/jpeg")
+    }
 
 
 @router.get("/videos/{video_id}/status")

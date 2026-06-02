@@ -4,12 +4,17 @@ import os
 from pathlib import Path
 from tempfile import TemporaryDirectory
 from fastapi.responses import RedirectResponse
+from botocore.config import Config
 from botocore.exceptions import ClientError
 
 class S3Storage:
     def __init__(self):
         self.bucket = os.environ["S3_BUCKET_NAME"]
-        self.client = boto3.client("s3", region_name=os.getenv("AWS_REGION"))
+        self.client = boto3.client(
+            "s3",
+            region_name=os.getenv("AWS_REGION"),
+            config=Config(signature_version="s3v4"),
+        )
 
     def upload_fileobj(self, fileobj, key: str):
         self.client.upload_fileobj(fileobj, self.bucket, key)
@@ -43,10 +48,14 @@ class S3Storage:
     def read_json(self, key: str):
         return json.loads(self.read_text(key))
 
-    def presigned_url(self, key: str, seconds: int = 3600):
+    def presigned_url(self, key: str, seconds: int = 3600, response_content_type: str | None = None):
+        params = {"Bucket": self.bucket, "Key": key}
+        if response_content_type:
+            params["ResponseContentType"] = response_content_type
+
         return self.client.generate_presigned_url(
             "get_object",
-            Params={"Bucket": self.bucket, "Key": key},
+            Params=params,
             ExpiresIn=seconds,
         )
     

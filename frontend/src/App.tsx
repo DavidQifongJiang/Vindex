@@ -17,21 +17,21 @@ import {
   getMe,
   getSegments,
   getTranscript,
+  getVideoFileUrl,
   getVideoMetrics,
+  getVideoThumbnailUrl,
   getVideoStatus,
   listPublicVideos,
   listVideos,
   searchVideo,
   setAuthTokenProvider,
-  uploadVideo,
-  videoFileUrl,
-  videoThumbnailUrl
+  uploadVideo
 } from "./api";
 import {
   AUTH_ENABLED,
   type AuthSession,
   handleAuthCallback,
-  signInWithGoogle,
+  signIn,
   signOut
 } from "./auth";
 import type {
@@ -153,7 +153,28 @@ function VideoCard({
   video: VideoStatus;
 }) {
   const [thumbnailFailed, setThumbnailFailed] = useState(false);
-  const canShowThumbnail = video.status === "processed" && !thumbnailFailed;
+  const [thumbnailUrl, setThumbnailUrl] = useState("");
+  const canShowThumbnail = Boolean(thumbnailUrl) && !thumbnailFailed;
+
+  useEffect(() => {
+    let active = true;
+    setThumbnailFailed(false);
+    setThumbnailUrl("");
+
+    if (video.status !== "processed") return;
+
+    void getVideoThumbnailUrl(video.video_id)
+      .then((response) => {
+        if (active) setThumbnailUrl(response.url);
+      })
+      .catch(() => {
+        if (active) setThumbnailFailed(true);
+      });
+
+    return () => {
+      active = false;
+    };
+  }, [video.status, video.video_id]);
 
   return (
     <button className={`video-card ${isSelected ? "selected" : ""}`} onClick={onOpen}>
@@ -164,7 +185,7 @@ function VideoCard({
         {canShowThumbnail && (
           <img
             alt=""
-            src={videoThumbnailUrl(video.video_id)}
+            src={thumbnailUrl}
             onError={() => setThumbnailFailed(true)}
           />
         )}
@@ -198,6 +219,7 @@ export function App() {
   const [videos, setVideos] = useState<VideoStatus[]>([]);
   const [videoId, setVideoId] = useState("");
   const [status, setStatus] = useState<VideoStatus | null>(null);
+  const [playerUrl, setPlayerUrl] = useState("");
   const [metrics, setMetrics] = useState<VideoMetrics | null>(null);
   const [transcript, setTranscript] = useState("");
   const [segments, setSegments] = useState<Segment[]>([]);
@@ -213,7 +235,6 @@ export function App() {
 
   const processed = status?.status === "processed";
   const failed = status?.status === "failed";
-  const playerUrl = processed && videoId ? videoFileUrl(videoId) : "";
   const isSignedIn = !AUTH_ENABLED || Boolean(authSession);
 
   const selectedVideoIndex = videos.findIndex((video) => video.video_id === videoId);
@@ -427,6 +448,27 @@ export function App() {
       void loadArtifacts();
     }
   }, [loadArtifacts, processed, transcript]);
+
+  useEffect(() => {
+    let active = true;
+    setPlayerUrl("");
+
+    if (!processed || !videoId) return;
+
+    void getVideoFileUrl(videoId)
+      .then((response) => {
+        if (active) setPlayerUrl(response.url);
+      })
+      .catch((error) => {
+        if (active) {
+          setMessage(error instanceof Error ? error.message : "Could not load video file");
+        }
+      });
+
+    return () => {
+      active = false;
+    };
+  }, [processed, videoId]);
 
   async function handleUpload() {
     if (!isSignedIn) {
@@ -782,8 +824,8 @@ export function App() {
                 Sign out
               </button>
             ) : (
-              <button className="secondary-button" disabled={isAuthLoading} onClick={() => void signInWithGoogle()}>
-                Sign in with Google
+              <button className="secondary-button" disabled={isAuthLoading} onClick={() => void signIn()}>
+                Sign in
               </button>
             )
           )}

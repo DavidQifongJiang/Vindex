@@ -86,7 +86,7 @@ export function storeSession(session: AuthSession) {
   localStorage.setItem(SESSION_KEY, JSON.stringify(session));
 }
 
-export async function signInWithGoogle() {
+export async function signIn() {
   ensureCognitoConfig();
 
   const verifier = randomString();

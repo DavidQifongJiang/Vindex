@@ -7,6 +7,7 @@ services:
         VITE_COGNITO_DOMAIN: ${VITE_COGNITO_DOMAIN:-}
         VITE_COGNITO_CLIENT_ID: ${VITE_COGNITO_CLIENT_ID:-}
         VITE_COGNITO_REDIRECT_URI: ${VITE_COGNITO_REDIRECT_URI:-}
+    restart: unless-stopped
     ports:
       - "8000:8000"
     volumes:
@@ -14,9 +15,12 @@ services:
     env_file:
       - .env
     depends_on:
-      - redis
-      - postgres
-      - qdrant
+      redis:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+      qdrant:
+        condition: service_started
 
   worker:
     build:
@@ -27,32 +31,54 @@ services:
         VITE_COGNITO_CLIENT_ID: ${VITE_COGNITO_CLIENT_ID:-}
         VITE_COGNITO_REDIRECT_URI: ${VITE_COGNITO_REDIRECT_URI:-}
     command: celery -A app.workers.celery_app.celery_app worker --loglevel=info --pool=solo
+    restart: unless-stopped
+    stop_grace_period: 2m
     volumes:
       - ./storage:/app/storage
     env_file:
       - .env
     depends_on:
-      - redis
-      - postgres
-      - qdrant
+      redis:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+      qdrant:
+        condition: service_started
 
   redis:
     image: redis:7
+    command: redis-server --appendonly yes
+    restart: unless-stopped
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   postgres:
     image: postgres:16
+    restart: unless-stopped
     environment:
-      POSTGRES_USER: vindex
-      POSTGRES_PASSWORD: vindex
-      POSTGRES_DB: vindex
+      POSTGRES_USER: ${PGUSER:-vindex}
+      POSTGRES_PASSWORD: ${PGPASSWORD:-vindex}
+      POSTGRES_DB: ${PGDATABASE:-vindex}
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${PGUSER:-vindex} -d ${PGDATABASE:-vindex}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   qdrant:
     image: qdrant/qdrant:latest
+    restart: unless-stopped
     volumes:
       - qdrant_data:/qdrant/storage
 
 volumes:
+  redis_data:
   postgres_data:
   qdrant_data:
