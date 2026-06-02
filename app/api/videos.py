@@ -19,6 +19,12 @@ from app.services.search_service import encode_text
 
 
 from app.services.storage_service import S3Storage
+
+
+from time import perf_counter
+from app.services.metrics_service import now_epoch, seconds_since, update_metrics, read_metrics
+
+
 storage = S3Storage()
 
 router = APIRouter()
@@ -34,6 +40,16 @@ class SearchRequest(BaseModel):
     "overlap",
     "stopword_overlap"
 ] = "qdrant_embedding"
+
+
+@router.get("/videos/{video_id}/metrics")
+def get_video_metrics(video_id: str, db: Session = Depends(get_db)):
+    video = get_video(db, video_id)
+
+    if video is None:
+        raise HTTPException(status_code=404, detail="Video not found")
+
+    return read_metrics(storage, video_id)
 
 
 @router.get("/videos/{video_id}/segments")
@@ -85,6 +101,7 @@ def get_transcript(video_id: str, db: Session = Depends(get_db)):
 
 @router.post("/videos/{video_id}/search")
 def search(video_id: str, request: SearchRequest, db: Session = Depends(get_db)):
+    search_start = perf_counter()
     video = get_video(db, video_id)
 
     if video is None:
@@ -103,14 +120,34 @@ def search(video_id: str, request: SearchRequest, db: Session = Depends(get_db))
                 detail=f"Embeddings not ready. Current status: {video.embedding_status}"
             )
 
+        query_embedding_start = perf_counter()
         query_embedding = encode_text(request.query)
-        results = search_segments(query_embedding, video_id)
+        query_embedding_seconds = seconds_since(query_embedding_start)
 
+        qdrant_start = perf_counter()
+        results = search_segments(query_embedding, video_id)
+        qdrant_search_seconds = seconds_since(qdrant_start)
+
+
+        search_latency_seconds = seconds_since(search_start)
+        update_metrics(storage, video_id, "search", {
+            "last_query": request.query,
+            "search_latency_seconds": search_latency_seconds,
+            "query_embedding_seconds": query_embedding_seconds,
+            "qdrant_search_seconds": qdrant_search_seconds,
+            "result_count": len(results),
+            "top_score": results[0]["score"] if results else None,
+        })
         return {
             "video_id": video_id,
             "query": request.query,
             "algorithm": request.algorithm,
-            "results": results
+            "results": results,
+            "metrics": {
+                        "search_latency_seconds": search_latency_seconds,
+                        "query_embedding_seconds": query_embedding_seconds,
+                        "qdrant_search_seconds": qdrant_search_seconds,
+                    }
         }
 
     if video.segments_status != "completed":
@@ -175,18 +212,24 @@ def get_video_status(video_id: str, db: Session = Depends(get_db)):
 
 @router.post("/videos/upload")
 def upload_videos(file: UploadFile = File(...), db: Session = Depends(get_db)):
+
+    request_start = perf_counter()
+    upload_accepted_at_epoch = now_epoch()
+
     video_id = str(uuid4())
 
     suffix = Path(file.filename).suffix
     saved_file = f"{video_id}{suffix}"
     raw_key = f"raw_videos/{saved_file}"
 
+    s3_start = perf_counter()
 
     try:
-        storage.save_upload(file.file, raw_key, MAX_UPLOAD_BYTES)
+        uploaded_bytes = storage.save_upload(file.file, raw_key, MAX_UPLOAD_BYTES)
     except ValueError:
         raise HTTPException(status_code=413, detail="Uploaded video is too large")
-    
+
+    s3_raw_upload_seconds = seconds_since(s3_start)
 
     create_video(db, {
         "video_id": video_id,
@@ -206,8 +249,20 @@ def upload_videos(file: UploadFile = File(...), db: Session = Depends(get_db)):
     })
 
     process_video_task.delay(video_id)
+    upload_response_latency_seconds = seconds_since(request_start)
+
+    update_metrics(storage, video_id, "upload", {
+        "accepted_at_epoch": upload_accepted_at_epoch,
+        "upload_response_latency_seconds": upload_response_latency_seconds,
+        "s3_raw_upload_seconds": s3_raw_upload_seconds,
+        "uploaded_bytes": uploaded_bytes,
+    })
 
     return {
+        "metrics": {
+            "upload_response_latency_seconds": upload_response_latency_seconds,
+            "s3_raw_upload_seconds": s3_raw_upload_seconds,
+        },
         "video_id": video_id,
         "filename": saved_file,
         "status": "uploaded"

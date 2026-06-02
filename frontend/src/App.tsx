@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
+  Activity,
   CheckCircle2,
   CircleAlert,
   Clock3,
@@ -11,6 +12,7 @@ import {
   UploadCloud
 } from "lucide-react";
 import {
+  getVideoMetrics,
   getSegments,
   getTranscript,
   getVideoStatus,
@@ -18,7 +20,7 @@ import {
   uploadVideo,
   videoFileUrl
 } from "./api";
-import type { SearchAlgorithm, SearchResult, Segment, VideoStatus } from "./types";
+import type { SearchAlgorithm, SearchResult, Segment, VideoMetrics, VideoStatus } from "./types";
 
 const SAVED_VIDEO_ID_KEY = "vindex:lastVideoId";
 
@@ -27,6 +29,17 @@ function formatTime(seconds: number) {
   const minutes = Math.floor(totalSeconds / 60);
   const remainingSeconds = totalSeconds % 60;
   return `${minutes}:${remainingSeconds.toString().padStart(2, "0")}`;
+}
+
+function formatDuration(seconds?: number | null) {
+  if (seconds === undefined || seconds === null) return "—";
+  if (seconds < 1) return `${Math.round(seconds * 1000)} ms`;
+  return `${seconds.toFixed(seconds >= 10 ? 1 : 2)} s`;
+}
+
+function formatNumber(value?: number | null, digits = 3) {
+  if (value === undefined || value === null) return "—";
+  return value.toFixed(digits);
 }
 
 function statusTone(value?: string | null) {
@@ -50,11 +63,21 @@ function StatusPill({ label, value }: { label: string; value?: string | null }) 
   );
 }
 
+function MetricRow({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="metric-row">
+      <span>{label}</span>
+      <strong>{value}</strong>
+    </div>
+  );
+}
+
 export function App() {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [videoId, setVideoId] = useState("");
   const [status, setStatus] = useState<VideoStatus | null>(null);
+  const [metrics, setMetrics] = useState<VideoMetrics | null>(null);
   const [transcript, setTranscript] = useState("");
   const [segments, setSegments] = useState<Segment[]>([]);
   const [query, setQuery] = useState("");
@@ -64,6 +87,7 @@ export function App() {
   const [isUploading, setIsUploading] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [isSearching, setIsSearching] = useState(false);
+  const [isLoadingMetrics, setIsLoadingMetrics] = useState(false);
 
   const processed = status?.status === "processed";
   const failed = status?.status === "failed";
@@ -80,6 +104,61 @@ export function App() {
     [status]
   );
 
+  const metricRows = useMemo(
+    () => [
+      {
+        label: "Upload response",
+        value: formatDuration(metrics?.upload?.upload_response_latency_seconds)
+      },
+      {
+        label: "Time searchable",
+        value: formatDuration(metrics?.processing?.time_to_searchable_seconds)
+      },
+      {
+        label: "Whisper",
+        value: formatDuration(metrics?.processing?.whisper_transcription_seconds)
+      },
+      {
+        label: "Embeddings",
+        value: formatDuration(metrics?.processing?.embedding_generation_seconds)
+      },
+      {
+        label: "Qdrant upsert",
+        value: formatDuration(metrics?.processing?.qdrant_upsert_seconds)
+      },
+      {
+        label: "Search latency",
+        value: formatDuration(metrics?.search?.search_latency_seconds)
+      },
+      {
+        label: "Qdrant search",
+        value: formatDuration(metrics?.search?.qdrant_search_seconds)
+      },
+      {
+        label: "Top score",
+        value: formatNumber(metrics?.search?.top_score)
+      }
+    ],
+    [metrics]
+  );
+
+  const refreshMetrics = useCallback(
+    async (targetVideoId = videoId, showSpinner = false) => {
+      if (!targetVideoId.trim()) return;
+
+      try {
+        if (showSpinner) setIsLoadingMetrics(true);
+        const nextMetrics = await getVideoMetrics(targetVideoId.trim());
+        setMetrics(nextMetrics);
+      } catch {
+        setMetrics(null);
+      } finally {
+        if (showSpinner) setIsLoadingMetrics(false);
+      }
+    },
+    [videoId]
+  );
+
   const refreshStatus = useCallback(
     async (targetVideoId = videoId, showSpinner = true) => {
       if (!targetVideoId.trim()) return;
@@ -88,6 +167,7 @@ export function App() {
         if (showSpinner) setIsRefreshing(true);
         const nextStatus = await getVideoStatus(targetVideoId.trim());
         setStatus(nextStatus);
+        void refreshMetrics(targetVideoId.trim(), false);
         setMessage("");
       } catch (error) {
         setMessage(error instanceof Error ? error.message : "Could not load status");
@@ -95,7 +175,7 @@ export function App() {
         if (showSpinner) setIsRefreshing(false);
       }
     },
-    [videoId]
+    [refreshMetrics, videoId]
   );
 
   const loadArtifacts = useCallback(async () => {
@@ -117,8 +197,11 @@ export function App() {
     const savedVideoId = localStorage.getItem(SAVED_VIDEO_ID_KEY);
     if (savedVideoId) {
       setVideoId(savedVideoId);
-      void getVideoStatus(savedVideoId)
-        .then((nextStatus) => setStatus(nextStatus))
+      void Promise.all([getVideoStatus(savedVideoId), getVideoMetrics(savedVideoId)])
+        .then(([nextStatus, nextMetrics]) => {
+          setStatus(nextStatus);
+          setMetrics(nextMetrics);
+        })
         .catch(() => localStorage.removeItem(SAVED_VIDEO_ID_KEY));
     }
   }, []);
@@ -148,6 +231,7 @@ export function App() {
     try {
       setIsUploading(true);
       setStatus(null);
+      setMetrics(null);
       setTranscript("");
       setSegments([]);
       setResults([]);
@@ -157,6 +241,7 @@ export function App() {
       localStorage.setItem(SAVED_VIDEO_ID_KEY, uploaded.video_id);
       setMessage("Upload accepted. Processing has started.");
       await refreshStatus(uploaded.video_id, false);
+      await refreshMetrics(uploaded.video_id, false);
     } catch (error) {
       setMessage(error instanceof Error ? error.message : "Upload failed");
     } finally {
@@ -171,6 +256,7 @@ export function App() {
     setSegments([]);
     setResults([]);
     await refreshStatus(videoId.trim());
+    await refreshMetrics(videoId.trim(), true);
   }
 
   async function handleSearch() {
@@ -180,6 +266,7 @@ export function App() {
       setIsSearching(true);
       const response = await searchVideo(videoId, query.trim(), algorithm);
       setResults(response.results);
+      await refreshMetrics(videoId, false);
       setMessage("");
     } catch (error) {
       setMessage(error instanceof Error ? error.message : "Search failed");
@@ -254,6 +341,28 @@ export function App() {
               ))}
             </div>
             {status?.error_message && <p className="error-message">{status.error_message}</p>}
+          </section>
+
+          <section className="panel metrics-panel">
+            <div className="panel-heading split-heading">
+              <div>
+                <Activity size={20} aria-hidden="true" />
+                <h2>Metrics</h2>
+              </div>
+              <button
+                className="mini-icon-button"
+                title="Refresh metrics"
+                disabled={!videoId || isLoadingMetrics}
+                onClick={() => void refreshMetrics(videoId, true)}
+              >
+                <RefreshCw size={16} className={isLoadingMetrics ? "spin" : ""} />
+              </button>
+            </div>
+            <div className="metrics-grid">
+              {metricRows.map((item) => (
+                <MetricRow key={item.label} label={item.label} value={item.value} />
+              ))}
+            </div>
           </section>
         </div>
 

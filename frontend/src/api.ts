@@ -1,4 +1,4 @@
-import type { SearchAlgorithm, SearchResult, Segment, VideoStatus } from "./types";
+import type { SearchAlgorithm, SearchResult, Segment, VideoMetrics, VideoStatus } from "./types";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? "";
 
@@ -27,6 +27,10 @@ export async function uploadVideo(file: File) {
 
 export function getVideoStatus(videoId: string) {
   return request<VideoStatus>(`/videos/${videoId}/status`);
+}
+
+export function getVideoMetrics(videoId: string) {
+  return request<VideoMetrics>(`/videos/${videoId}/metrics`);
 }
 
 export function getTranscript(videoId: string) {

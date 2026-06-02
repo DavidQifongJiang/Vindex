@@ -128,6 +128,16 @@ h2 {
   margin-bottom: 14px;
 }
 
+.split-heading {
+  justify-content: space-between;
+}
+
+.split-heading > div {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+}
+
 .drop-zone {
   align-items: center;
   background: #f4f7f8;
@@ -154,7 +164,8 @@ h2 {
 }
 
 .primary-button,
-.icon-button {
+.icon-button,
+.mini-icon-button {
   align-items: center;
   border: 0;
   display: inline-flex;
@@ -185,6 +196,14 @@ h2 {
   color: #274550;
   flex: 0 0 44px;
   height: 44px;
+}
+
+.mini-icon-button {
+  background: #e8eef0;
+  border-radius: 8px;
+  color: #274550;
+  height: 32px;
+  width: 32px;
 }
 
 .video-id-row {
@@ -272,6 +291,36 @@ h2 {
   background: #fff0ed;
   border-color: #f0c3bb;
   color: #9d2f1f;
+}
+
+.metrics-grid {
+  display: grid;
+  gap: 8px;
+}
+
+.metric-row {
+  align-items: center;
+  background: #f8fafb;
+  border: 1px solid #d7dee2;
+  border-radius: 8px;
+  display: grid;
+  gap: 10px;
+  grid-template-columns: minmax(0, 1fr) auto;
+  min-height: 38px;
+  padding: 8px 10px;
+}
+
+.metric-row span {
+  color: #405158;
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+
+.metric-row strong {
+  color: #172026;
+  font-size: 0.88rem;
+  font-weight: 850;
+  white-space: nowrap;
 }
 
 .player-surface {
