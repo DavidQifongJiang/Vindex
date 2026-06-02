@@ -7,6 +7,7 @@ from qdrant_client.models import (
     VectorParams,
     PointStruct,
     Filter,
+    FilterSelector,
     FieldCondition,
     MatchValue,
 )
@@ -99,3 +100,23 @@ def search_segments(query_embedding: list[float], video_id: str, top_k: int = 5)
         }
         for result in results
     ]
+
+
+def delete_segments(video_id: str):
+    ensure_collection()
+    client = get_qdrant_client()
+
+    client.delete(
+        collection_name=COLLECTION_NAME,
+        points_selector=FilterSelector(
+            filter=Filter(
+                must=[
+                    FieldCondition(
+                        key="video_id",
+                        match=MatchValue(value=video_id),
+                    )
+                ]
+            )
+        ),
+        wait=True,
+    )

@@ -87,6 +87,31 @@ class S3Storage:
                 return False
             raise
 
+    def delete_many(self, keys: list[str]):
+        unique_keys = sorted({key for key in keys if key})
+
+        if not unique_keys:
+            return 0
+
+        deleted_count = 0
+        for index in range(0, len(unique_keys), 1000):
+            batch = unique_keys[index:index + 1000]
+            response = self.client.delete_objects(
+                Bucket=self.bucket,
+                Delete={
+                    "Objects": [{"Key": key} for key in batch],
+                    "Quiet": True,
+                },
+            )
+            errors = response.get("Errors", [])
+            if errors:
+                failed_keys = ", ".join(error.get("Key", "unknown") for error in errors[:5])
+                raise RuntimeError(f"Failed to delete S3 objects: {failed_keys}")
+
+            deleted_count += len(batch)
+
+        return deleted_count
+
 
     def file_response(self, key: str, media_type: str):
         url = self.client.generate_presigned_url(

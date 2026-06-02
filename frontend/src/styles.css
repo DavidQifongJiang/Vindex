@@ -217,6 +217,14 @@ h3 {
   justify-content: flex-end;
 }
 
+.watch-actions {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
 .feed-tabs {
   background: #dde6ea;
   border-radius: 8px;
@@ -261,9 +269,9 @@ h3 {
   border-radius: 8px;
   box-shadow: 0 10px 26px rgba(49, 64, 71, 0.07);
   color: #172026;
-  display: grid;
-  gap: 10px;
+  overflow: hidden;
   padding: 0;
+  position: relative;
   text-align: left;
   width: 100%;
 }
@@ -273,10 +281,41 @@ h3 {
   border-color: #176b87;
 }
 
+.video-card-open {
+  background: transparent;
+  border: 0;
+  color: inherit;
+  display: grid;
+  gap: 10px;
+  padding: 0;
+  text-align: left;
+  width: 100%;
+}
+
+.card-delete-button {
+  align-items: center;
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid #d7dee2;
+  border-radius: 8px;
+  color: #9d2f1f;
+  display: inline-flex;
+  height: 34px;
+  justify-content: center;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  width: 34px;
+  z-index: 4;
+}
+
+.card-delete-button:hover,
+.danger-button:hover {
+  border-color: #c84332;
+}
+
 .thumbnail-frame {
   aspect-ratio: 16 / 9;
   background: #11191d;
-  border-radius: 8px 8px 0 0;
   overflow: hidden;
   position: relative;
   width: 100%;
@@ -458,6 +497,7 @@ h3 {
 
 .primary-button,
 .secondary-button,
+.danger-button,
 .icon-button,
 .mini-icon-button {
   align-items: center;
@@ -489,6 +529,16 @@ h3 {
   border: 1px solid #cbd5d9;
   border-radius: 8px;
   color: #274550;
+  min-height: 38px;
+  padding: 0 12px;
+  width: auto;
+}
+
+.danger-button {
+  background: #ffffff;
+  border: 1px solid #f0c3bb;
+  border-radius: 8px;
+  color: #9d2f1f;
   min-height: 38px;
   padding: 0 12px;
   width: auto;

@@ -63,6 +63,12 @@ export function getVideoStatus(videoId: string) {
   return request<VideoStatus>(`/videos/${videoId}/status`);
 }
 
+export function deleteVideo(videoId: string) {
+  return request<{ video_id: string; status: "deleted" }>(`/videos/${videoId}`, {
+    method: "DELETE"
+  });
+}
+
 export function listVideos() {
   return request<{ videos: VideoStatus[] }>("/videos");
 }

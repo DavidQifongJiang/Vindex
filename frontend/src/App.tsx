@@ -10,10 +10,12 @@ import {
   Play,
   RefreshCw,
   Search,
+  Trash2,
   UploadCloud,
   Video
 } from "lucide-react";
 import {
+  deleteVideo,
   getMe,
   getSegments,
   getTranscript,
@@ -142,13 +144,19 @@ function MetricRow({ label, value }: { label: string; value: string }) {
 }
 
 function VideoCard({
+  canDelete,
   index,
+  isDeleting,
   isSelected,
+  onDelete,
   onOpen,
   video
 }: {
+  canDelete: boolean;
   index: number;
+  isDeleting: boolean;
   isSelected: boolean;
+  onDelete: () => void;
   onOpen: () => void;
   video: VideoStatus;
 }) {
@@ -177,32 +185,44 @@ function VideoCard({
   }, [video.status, video.video_id]);
 
   return (
-    <button className={`video-card ${isSelected ? "selected" : ""}`} onClick={onOpen}>
-      <div className="thumbnail-frame">
-        <div className="thumbnail-fallback">
-          <Play size={34} aria-hidden="true" />
-        </div>
-        {canShowThumbnail && (
-          <img
-            alt=""
-            src={thumbnailUrl}
-            onError={() => setThumbnailFailed(true)}
-          />
-        )}
-        <span className={`thumbnail-status ${statusTone(video.status)}`}>
-          {readableStatus(video.status)}
-        </span>
-      </div>
-      <div className="video-card-body">
-        <h3>{displayVideoTitle(video, index)}</h3>
-        <div className="video-card-meta">
-          <p>{formatDate(video.created_at)}</p>
-          <span className={`visibility-badge ${video.visibility ?? "private"}`}>
-            {video.visibility ?? "private"}
+    <article className={`video-card ${isSelected ? "selected" : ""}`}>
+      <button className="video-card-open" onClick={onOpen}>
+        <div className="thumbnail-frame">
+          <div className="thumbnail-fallback">
+            <Play size={34} aria-hidden="true" />
+          </div>
+          {canShowThumbnail && (
+            <img
+              alt=""
+              src={thumbnailUrl}
+              onError={() => setThumbnailFailed(true)}
+            />
+          )}
+          <span className={`thumbnail-status ${statusTone(video.status)}`}>
+            {readableStatus(video.status)}
           </span>
         </div>
-      </div>
-    </button>
+        <div className="video-card-body">
+          <h3>{displayVideoTitle(video, index)}</h3>
+          <div className="video-card-meta">
+            <p>{formatDate(video.created_at)}</p>
+            <span className={`visibility-badge ${video.visibility ?? "private"}`}>
+              {video.visibility ?? "private"}
+            </span>
+          </div>
+        </div>
+      </button>
+      {canDelete && (
+        <button
+          className="card-delete-button"
+          disabled={isDeleting}
+          title="Delete video"
+          onClick={onDelete}
+        >
+          {isDeleting ? <LoaderCircle className="spin" size={17} /> : <Trash2 size={17} />}
+        </button>
+      )}
+    </article>
   );
 }
 
@@ -232,6 +252,7 @@ export function App() {
   const [isSearching, setIsSearching] = useState(false);
   const [isLoadingMetrics, setIsLoadingMetrics] = useState(false);
   const [isLoadingVideos, setIsLoadingVideos] = useState(false);
+  const [deletingVideoId, setDeletingVideoId] = useState("");
 
   const processed = status?.status === "processed";
   const failed = status?.status === "failed";
@@ -241,6 +262,9 @@ export function App() {
   const selectedTitle = status
     ? displayVideoTitle(status, selectedVideoIndex >= 0 ? selectedVideoIndex : 0)
     : "Video";
+  const selectedVideoIsOwned = Boolean(
+    currentUser?.user_id && status?.owner_user_id === currentUser.user_id
+  );
 
   const pipeline = useMemo(
     () => [
@@ -524,6 +548,42 @@ export function App() {
     }
   }
 
+  async function handleDeleteVideo(targetVideo: VideoStatus, index: number) {
+    const targetTitle = displayVideoTitle(targetVideo, index);
+    const confirmed = window.confirm(
+      `Delete "${targetTitle}"? This removes the database row, stored files, metrics, transcript, and search vectors.`
+    );
+
+    if (!confirmed) return;
+
+    try {
+      setDeletingVideoId(targetVideo.video_id);
+      await deleteVideo(targetVideo.video_id);
+      setVideos((currentVideos) =>
+        currentVideos.filter((video) => video.video_id !== targetVideo.video_id)
+      );
+
+      if (targetVideo.video_id === videoId) {
+        localStorage.removeItem(SAVED_VIDEO_ID_KEY);
+        setViewMode("library");
+        setVideoId("");
+        setStatus(null);
+        setMetrics(null);
+        setTranscript("");
+        setSegments([]);
+        setResults([]);
+        setPlayerUrl("");
+      }
+
+      setMessage(`Deleted "${targetTitle}".`);
+      await refreshVideos(false);
+    } catch (error) {
+      setMessage(error instanceof Error ? error.message : "Delete failed");
+    } finally {
+      setDeletingVideoId("");
+    }
+  }
+
   function jumpTo(seconds: number) {
     if (!videoRef.current) return;
     videoRef.current.currentTime = seconds;
@@ -636,10 +696,13 @@ export function App() {
             ) : (
               videos.map((video, index) => (
                 <VideoCard
+                  canDelete={Boolean(currentUser?.user_id && video.owner_user_id === currentUser.user_id)}
                   index={index}
+                  isDeleting={deletingVideoId === video.video_id}
                   isSelected={video.video_id === videoId}
                   key={video.video_id}
                   video={video}
+                  onDelete={() => void handleDeleteVideo(video, index)}
                   onOpen={() => void loadVideoById(video.video_id)}
                 />
               ))
@@ -662,14 +725,30 @@ export function App() {
             <p className="eyebrow">Now watching</p>
             <h2>{selectedTitle}</h2>
           </div>
-          <button
-            className="secondary-button"
-            disabled={!videoId || isRefreshing}
-            onClick={() => void refreshStatus(videoId, true)}
-          >
-            <RefreshCw size={17} className={isRefreshing ? "spin" : ""} />
-            Status
-          </button>
+          <div className="watch-actions">
+            {status && selectedVideoIsOwned && (
+              <button
+                className="danger-button"
+                disabled={deletingVideoId === status.video_id}
+                onClick={() => void handleDeleteVideo(status, selectedVideoIndex >= 0 ? selectedVideoIndex : 0)}
+              >
+                {deletingVideoId === status.video_id ? (
+                  <LoaderCircle className="spin" size={17} />
+                ) : (
+                  <Trash2 size={17} />
+                )}
+                Delete
+              </button>
+            )}
+            <button
+              className="secondary-button"
+              disabled={!videoId || isRefreshing}
+              onClick={() => void refreshStatus(videoId, true)}
+            >
+              <RefreshCw size={17} className={isRefreshing ? "spin" : ""} />
+              Status
+            </button>
+          </div>
         </div>
 
         <section className="workspace">

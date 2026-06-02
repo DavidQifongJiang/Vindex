@@ -51,3 +51,8 @@ def update_video(db, video_id: str, updates: dict):
     db.refresh(video)
 
     return video
+
+
+def delete_video(db, video):
+    db.delete(video)
+    db.commit()

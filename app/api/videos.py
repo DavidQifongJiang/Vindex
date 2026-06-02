@@ -11,11 +11,11 @@ from app.services.search_service import score_segment
 from app.workers.task import process_video_task
 
 from app.db.session import get_db
-from app.db.video_repository import create_video, get_video, list_public_videos, list_videos
+from app.db.video_repository import create_video, delete_video, get_video, list_public_videos, list_videos
 from app.db.user_repository import upsert_user
 from sqlalchemy.orm import Session
 
-from app.services.qdrant_service import search_segments
+from app.services.qdrant_service import delete_segments, search_segments
 from app.services.search_service import encode_text
 from app.services.auth_service import AuthUser, get_current_user, get_optional_user
 
@@ -24,7 +24,7 @@ from app.services.storage_service import S3Storage
 
 
 from time import perf_counter
-from app.services.metrics_service import now_epoch, seconds_since, update_metrics, read_metrics
+from app.services.metrics_service import metrics_key, now_epoch, seconds_since, update_metrics, read_metrics
 
 
 storage = S3Storage()
@@ -32,6 +32,7 @@ storage = S3Storage()
 router = APIRouter()
 MAX_UPLOAD_BYTES = int(os.getenv("MAX_UPLOAD_MB", "500")) * 1024 * 1024
 VALID_VISIBILITIES = {"private", "public"}
+ACTIVE_DELETE_BLOCK_STATUSES = {"uploaded", "processing"}
 
 
 class SearchRequest(BaseModel):
@@ -101,6 +102,19 @@ def require_video_owner(video, current_user: AuthUser):
     return video
 
 
+def video_artifact_keys(video):
+    return [
+        video.raw_path,
+        video.processed_path,
+        video.audio_path,
+        video.transcript_path,
+        video.segments_path,
+        video.embedding_path,
+        f"thumbnails/{video.video_id}.jpg",
+        metrics_key(video.video_id),
+    ]
+
+
 @router.get("/videos/{video_id}/metrics")
 def get_video_metrics(
     video_id: str,
@@ -115,6 +129,38 @@ def get_video_metrics(
     require_video_owner(video, current_user)
 
     return read_metrics(storage, video_id)
+
+
+@router.delete("/videos/{video_id}")
+def delete_video_endpoint(
+    video_id: str,
+    current_user: AuthUser = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    video = get_video(db, video_id)
+
+    if video is None:
+        raise HTTPException(status_code=404, detail="Video not found")
+
+    require_video_owner(video, current_user)
+
+    if video.status in ACTIVE_DELETE_BLOCK_STATUSES:
+        raise HTTPException(
+            status_code=409,
+            detail=f"Video is still {video.status}. Delete after processing finishes or fails."
+        )
+
+    delete_segments(video_id)
+    s3_deleted_count = storage.delete_many(video_artifact_keys(video))
+    delete_video(db, video)
+
+    return {
+        "video_id": video_id,
+        "status": "deleted",
+        "s3_deleted_count": s3_deleted_count,
+        "qdrant_deleted": True,
+        "database_deleted": True,
+    }
 
 
 @router.get("/videos/{video_id}/segments")
