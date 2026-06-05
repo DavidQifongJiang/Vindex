@@ -5,7 +5,7 @@ from pathlib import Path
 
 from tempfile import TemporaryDirectory
 from app.services.storage_service import get_storage
-from app.services.search_service import build_segment_embeddings
+from app.services.search_service import build_segment_embeddings, get_embedding_model
 
 from app.db.session import create_session
 from app.db.video_repository import get_video, update_video
@@ -16,7 +16,7 @@ import whisper
 
 
 from time import perf_counter
-from app.services.metrics_service import now_epoch, read_metrics, seconds_since, update_metrics
+from app.services.metrics_service import now_epoch, read_metrics, seconds_since, safe_update_metrics
 
 _whisper_model = None
 
@@ -66,6 +66,7 @@ def process_video(video_id):
     db = create_session()
     storage = get_storage()
     processing_start = perf_counter()
+    processing_started_at_epoch = now_epoch()
 
     try:
         video = get_video(db, video_id)
@@ -73,6 +74,19 @@ def process_video(video_id):
             raise ValueError("Video not found")
 
         update_video(db, video_id, {"status": "processing"})
+        try:
+            metrics = read_metrics(storage, video_id)
+            accepted_at_epoch = metrics.get("upload", {}).get("accepted_at_epoch")
+            queue_wait_seconds = None
+            if accepted_at_epoch:
+                queue_wait_seconds = round(processing_started_at_epoch - accepted_at_epoch, 4)
+
+            safe_update_metrics(storage, video_id, "processing", {
+                "started_at_epoch": processing_started_at_epoch,
+                "queue_wait_seconds": queue_wait_seconds,
+            })
+        except Exception:
+            pass
 
         with TemporaryDirectory() as temp_dir:
             temp_dir = Path(temp_dir)
@@ -85,10 +99,13 @@ def process_video(video_id):
             processed_path = temp_dir / processed_filename
             audio_path = temp_dir / f"{video_id}.wav"
 
+            raw_download_start = perf_counter()
             storage.download_file(raw_key, raw_path)
+            s3_raw_download_seconds = seconds_since(raw_download_start)
 
             ffmpeg_path = get_ffmpeg_path()
             
+            transcode_start = perf_counter()
             subprocess.run(
                 [
                     ffmpeg_path,
@@ -99,6 +116,7 @@ def process_video(video_id):
                 ],
                 check=True,
             )
+            video_transcode_seconds = seconds_since(transcode_start)
 
             thumbnail_path = temp_dir / f"{video_id}.jpg"
             thumbnail_generation_seconds = None
@@ -120,6 +138,7 @@ def process_video(video_id):
             except Exception:
                 thumbnail_path = None
 
+            audio_extraction_start = perf_counter()
             subprocess.run(
                 [
                     ffmpeg_path,
@@ -133,6 +152,7 @@ def process_video(video_id):
                 ],
                 check=True,
             )
+            audio_extraction_seconds = seconds_since(audio_extraction_start)
 
             update_video(db, video_id, {
                 "audio_status": "extracted",
@@ -142,8 +162,12 @@ def process_video(video_id):
             })
             
             # Whisper part 
+            whisper_model_start = perf_counter()
+            whisper_model = get_whisper_model()
+            whisper_model_load_or_get_seconds = seconds_since(whisper_model_start)
+
             whisper_start = perf_counter()
-            result = get_whisper_model().transcribe(str(audio_path))
+            result = whisper_model.transcribe(str(audio_path))
             whisper_transcription_seconds = seconds_since(whisper_start)
 
 
@@ -151,6 +175,10 @@ def process_video(video_id):
             segments = result["segments"]
 
             # Emebedding time
+            embedding_model_start = perf_counter()
+            get_embedding_model()
+            embedding_model_load_or_get_seconds = seconds_since(embedding_model_start)
+
             embedding_start = perf_counter()
             segment_embeddings = build_segment_embeddings(segments)
             embedding_generation_seconds = seconds_since(embedding_start)  
@@ -169,13 +197,34 @@ def process_video(video_id):
             segments_key = f"transcripts/{video_id}_segments.json"
             embedding_key = f"embeddings/{video_id}_embeddings.json"
 
+            artifact_write_start = perf_counter()
+
+            processed_upload_start = perf_counter()
             storage.upload_file(processed_path, processed_key)
+            s3_processed_upload_seconds = seconds_since(processed_upload_start)
+
+            audio_upload_start = perf_counter()
             storage.upload_file(audio_path, audio_key)
+            s3_audio_upload_seconds = seconds_since(audio_upload_start)
+
+            s3_thumbnail_upload_seconds = None
             if thumbnail_path and thumbnail_path.exists():
+                thumbnail_upload_start = perf_counter()
                 storage.upload_file(thumbnail_path, thumbnail_key)
+                s3_thumbnail_upload_seconds = seconds_since(thumbnail_upload_start)
+
+            embedding_write_start = perf_counter()
             storage.write_json(embedding_key, segment_embeddings)
+            s3_embedding_write_seconds = seconds_since(embedding_write_start)
+
+            transcript_write_start = perf_counter()
             storage.write_text(transcript_key, transcript_text)
+            s3_transcript_write_seconds = seconds_since(transcript_write_start)
+
+            segments_write_start = perf_counter()
             storage.write_json(segments_key, segments, indent=4)
+            s3_segments_write_seconds = seconds_since(segments_write_start)
+            s3_artifact_write_seconds = seconds_since(artifact_write_start)
 
             update_video(db, video_id, {
                 "segments_path": segments_key,
@@ -198,12 +247,27 @@ def process_video(video_id):
                 if accepted_at_epoch:
                     time_to_searchable_seconds = round(now_epoch() - accepted_at_epoch, 4)
 
-                update_metrics(storage, video_id, "processing", {
+                safe_update_metrics(storage, video_id, "processing", {
+                    "completed_at_epoch": now_epoch(),
                     "time_to_searchable_seconds": time_to_searchable_seconds,
+                    "s3_raw_download_seconds": s3_raw_download_seconds,
+                    "video_transcode_seconds": video_transcode_seconds,
+                    "audio_extraction_seconds": audio_extraction_seconds,
+                    "whisper_model_load_or_get_seconds": whisper_model_load_or_get_seconds,
                     "whisper_transcription_seconds": whisper_transcription_seconds,
+                    "embedding_model_load_or_get_seconds": embedding_model_load_or_get_seconds,
                     "embedding_generation_seconds": embedding_generation_seconds,
                     "qdrant_upsert_seconds": qdrant_upsert_seconds,
                     "thumbnail_generation_seconds": thumbnail_generation_seconds,
+                    "s3_processed_upload_seconds": s3_processed_upload_seconds,
+                    "s3_audio_upload_seconds": s3_audio_upload_seconds,
+                    "s3_thumbnail_upload_seconds": s3_thumbnail_upload_seconds,
+                    "s3_embedding_write_seconds": s3_embedding_write_seconds,
+                    "s3_transcript_write_seconds": s3_transcript_write_seconds,
+                    "s3_segments_write_seconds": s3_segments_write_seconds,
+                    "s3_artifact_write_seconds": s3_artifact_write_seconds,
+                    "segment_count": len(segments),
+                    "transcript_character_count": len(transcript_text),
                     "total_processing_seconds": seconds_since(processing_start),
                 })
             except Exception:

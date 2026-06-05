@@ -47,3 +47,10 @@ def update_metrics(storage, video_id, section, values):
     metrics.setdefault(section, {})
     metrics[section].update(values)
     return write_metrics(storage, video_id, metrics)
+
+
+def safe_update_metrics(storage, video_id, section, values):
+    try:
+        return update_metrics(storage, video_id, section, values)
+    except Exception:
+        return None

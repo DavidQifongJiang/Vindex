@@ -24,7 +24,7 @@ from app.services.storage_service import S3Storage
 
 
 from time import perf_counter
-from app.services.metrics_service import metrics_key, now_epoch, seconds_since, update_metrics, read_metrics
+from app.services.metrics_service import metrics_key, now_epoch, seconds_since, safe_update_metrics, read_metrics
 
 
 storage = S3Storage()
@@ -260,7 +260,7 @@ def search(
 
 
         search_latency_seconds = seconds_since(search_start)
-        update_metrics(storage, video_id, "search", {
+        safe_update_metrics(storage, video_id, "search", {
             "last_query": request.query,
             "search_latency_seconds": search_latency_seconds,
             "query_embedding_seconds": query_embedding_seconds,
@@ -471,20 +471,28 @@ def upload_videos(
         "error_message": None,
     })
 
-    process_video_task.delay(video_id)
     upload_response_latency_seconds = seconds_since(request_start)
 
-    update_metrics(storage, video_id, "upload", {
+    safe_update_metrics(storage, video_id, "upload", {
         "accepted_at_epoch": upload_accepted_at_epoch,
         "upload_response_latency_seconds": upload_response_latency_seconds,
         "s3_raw_upload_seconds": s3_raw_upload_seconds,
         "uploaded_bytes": uploaded_bytes,
     })
 
+    enqueue_start = perf_counter()
+    process_video_task.delay(video_id)
+    celery_enqueue_seconds = seconds_since(enqueue_start)
+    safe_update_metrics(storage, video_id, "upload", {
+        "enqueued_at_epoch": now_epoch(),
+        "celery_enqueue_seconds": celery_enqueue_seconds,
+    })
+
     return {
         "metrics": {
             "upload_response_latency_seconds": upload_response_latency_seconds,
             "s3_raw_upload_seconds": s3_raw_upload_seconds,
+            "celery_enqueue_seconds": celery_enqueue_seconds,
         },
         "video_id": video_id,
         "title": video_title,

@@ -69,6 +69,25 @@ function formatNumber(value?: number | null, digits = 3) {
   return value.toFixed(digits);
 }
 
+function formatInteger(value?: number | null) {
+  if (value === undefined || value === null) return "--";
+  return new Intl.NumberFormat().format(value);
+}
+
+function formatBytes(value?: number | null) {
+  if (value === undefined || value === null) return "--";
+  const units = ["B", "KB", "MB", "GB"];
+  let nextValue = value;
+  let unitIndex = 0;
+
+  while (nextValue >= 1024 && unitIndex < units.length - 1) {
+    nextValue /= 1024;
+    unitIndex += 1;
+  }
+
+  return `${nextValue.toFixed(unitIndex === 0 ? 0 : 1)} ${units[unitIndex]}`;
+}
+
 function formatDate(value?: string) {
   if (!value) return "--";
   return new Intl.DateTimeFormat(undefined, {
@@ -284,16 +303,60 @@ export function App() {
         value: formatDuration(metrics?.upload?.upload_response_latency_seconds)
       },
       {
+        label: "Raw upload",
+        value: formatDuration(metrics?.upload?.s3_raw_upload_seconds)
+      },
+      {
+        label: "Uploaded size",
+        value: formatBytes(metrics?.upload?.uploaded_bytes)
+      },
+      {
+        label: "Celery enqueue",
+        value: formatDuration(metrics?.upload?.celery_enqueue_seconds)
+      },
+      {
+        label: "Queue wait",
+        value: formatDuration(metrics?.processing?.queue_wait_seconds)
+      },
+      {
         label: "Time searchable",
         value: formatDuration(metrics?.processing?.time_to_searchable_seconds)
+      },
+      {
+        label: "Total processing",
+        value: formatDuration(metrics?.processing?.total_processing_seconds)
+      },
+      {
+        label: "Raw download",
+        value: formatDuration(metrics?.processing?.s3_raw_download_seconds)
+      },
+      {
+        label: "Video transcode",
+        value: formatDuration(metrics?.processing?.video_transcode_seconds)
+      },
+      {
+        label: "Audio extract",
+        value: formatDuration(metrics?.processing?.audio_extraction_seconds)
+      },
+      {
+        label: "Whisper model",
+        value: formatDuration(metrics?.processing?.whisper_model_load_or_get_seconds)
       },
       {
         label: "Whisper",
         value: formatDuration(metrics?.processing?.whisper_transcription_seconds)
       },
       {
+        label: "Embedding model",
+        value: formatDuration(metrics?.processing?.embedding_model_load_or_get_seconds)
+      },
+      {
         label: "Embeddings",
         value: formatDuration(metrics?.processing?.embedding_generation_seconds)
+      },
+      {
+        label: "S3 artifacts",
+        value: formatDuration(metrics?.processing?.s3_artifact_write_seconds)
       },
       {
         label: "Thumbnail",
@@ -304,12 +367,24 @@ export function App() {
         value: formatDuration(metrics?.processing?.qdrant_upsert_seconds)
       },
       {
+        label: "Segments",
+        value: formatInteger(metrics?.processing?.segment_count)
+      },
+      {
         label: "Search latency",
         value: formatDuration(metrics?.search?.search_latency_seconds)
       },
       {
+        label: "Query embed",
+        value: formatDuration(metrics?.search?.query_embedding_seconds)
+      },
+      {
         label: "Qdrant search",
         value: formatDuration(metrics?.search?.qdrant_search_seconds)
+      },
+      {
+        label: "Results",
+        value: formatInteger(metrics?.search?.result_count)
       },
       {
         label: "Top score",
