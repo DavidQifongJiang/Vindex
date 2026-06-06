@@ -327,6 +327,10 @@ export function App() {
         value: formatDuration(metrics?.processing?.total_processing_seconds)
       },
       {
+        label: "FFmpeg preset",
+        value: metrics?.processing?.ffmpeg_preset
+      },
+      {
         label: "Raw download",
         value: formatDuration(metrics?.processing?.s3_raw_download_seconds)
       },

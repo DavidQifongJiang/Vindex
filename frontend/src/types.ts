@@ -68,6 +68,7 @@ export type VideoMetrics = {
     completed_at_epoch?: number;
     queue_wait_seconds?: number | null;
     time_to_searchable_seconds?: number | null;
+    ffmpeg_preset?: string;
     s3_raw_download_seconds?: number;
     video_transcode_seconds?: number;
     audio_extraction_seconds?: number;

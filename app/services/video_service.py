@@ -104,6 +104,7 @@ def process_video(video_id):
             s3_raw_download_seconds = seconds_since(raw_download_start)
 
             ffmpeg_path = get_ffmpeg_path()
+            ffmpeg_preset = os.getenv("FFMPEG_PRESET", "veryfast")
             
             transcode_start = perf_counter()
             subprocess.run(
@@ -112,6 +113,7 @@ def process_video(video_id):
                     "-y",
                     "-i", str(raw_path),
                     "-vf", "scale=-2:360",
+                    "-preset", ffmpeg_preset,
                     str(processed_path),
                 ],
                 check=True,
@@ -250,6 +252,7 @@ def process_video(video_id):
                 safe_update_metrics(storage, video_id, "processing", {
                     "completed_at_epoch": now_epoch(),
                     "time_to_searchable_seconds": time_to_searchable_seconds,
+                    "ffmpeg_preset": ffmpeg_preset,
                     "s3_raw_download_seconds": s3_raw_download_seconds,
                     "video_transcode_seconds": video_transcode_seconds,
                     "audio_extraction_seconds": audio_extraction_seconds,
