@@ -328,7 +328,7 @@ export function App() {
       },
       {
         label: "FFmpeg preset",
-        value: metrics?.processing?.ffmpeg_preset
+        value: metrics?.processing?.ffmpeg_preset ?? "-"
       },
       {
         label: "Raw download",
