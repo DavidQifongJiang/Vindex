@@ -46,7 +46,36 @@ services:
         VITE_COGNITO_DOMAIN: ${VITE_COGNITO_DOMAIN:-}
         VITE_COGNITO_CLIENT_ID: ${VITE_COGNITO_CLIENT_ID:-}
         VITE_COGNITO_REDIRECT_URI: ${VITE_COGNITO_REDIRECT_URI:-}
-    command: celery -A app.workers.celery_app.celery_app worker --loglevel=info --pool=solo
+    environment:
+      OMP_NUM_THREADS: ${WORKER_OMP_NUM_THREADS:-1}
+      MKL_NUM_THREADS: ${WORKER_MKL_NUM_THREADS:-1}
+      OPENBLAS_NUM_THREADS: ${WORKER_OPENBLAS_NUM_THREADS:-1}
+      NUMEXPR_NUM_THREADS: ${WORKER_NUMEXPR_NUM_THREADS:-1}
+      TOKENIZERS_PARALLELISM: ${TOKENIZERS_PARALLELISM:-false}
+    command: celery -A app.workers.celery_app.celery_app worker --loglevel=info --pool=solo -Q search,celery -n search@%h
+    restart: unless-stopped
+    stop_grace_period: 2m
+    volumes:
+      - ./storage:/app/storage
+    env_file:
+      - .env
+    depends_on:
+      redis:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+      qdrant:
+        condition: service_started
+
+  playback-worker:
+    build:
+      context: .
+      args:
+        VITE_AUTH_ENABLED: ${VITE_AUTH_ENABLED:-false}
+        VITE_COGNITO_DOMAIN: ${VITE_COGNITO_DOMAIN:-}
+        VITE_COGNITO_CLIENT_ID: ${VITE_COGNITO_CLIENT_ID:-}
+        VITE_COGNITO_REDIRECT_URI: ${VITE_COGNITO_REDIRECT_URI:-}
+    command: celery -A app.workers.celery_app.celery_app worker --loglevel=info --pool=solo -Q playback -n playback@%h
     restart: unless-stopped
     stop_grace_period: 2m
     volumes:

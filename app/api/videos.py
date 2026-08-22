@@ -8,10 +8,18 @@ from fastapi import APIRouter, Depends, File, Form, HTTPException, UploadFile
 
 from pydantic import BaseModel
 from app.services.search_service import score_segment
-from app.workers.task import process_video_task
+from app.workers.task import process_video_playback_task, process_video_search_task
 
 from app.db.session import get_db
-from app.db.video_repository import create_video, delete_video, get_video, list_public_videos, list_videos
+from app.db.video_repository import (
+    create_video,
+    delete_search_chunks,
+    delete_video,
+    get_video,
+    list_public_videos,
+    list_search_chunk_artifact_keys,
+    list_videos,
+)
 from app.db.user_repository import upsert_user
 from sqlalchemy.orm import Session
 
@@ -32,7 +40,7 @@ storage = S3Storage()
 router = APIRouter()
 MAX_UPLOAD_BYTES = int(os.getenv("MAX_UPLOAD_MB", "500")) * 1024 * 1024
 VALID_VISIBILITIES = {"private", "public"}
-ACTIVE_DELETE_BLOCK_STATUSES = {"uploaded", "processing"}
+ACTIVE_DELETE_BLOCK_STATUSES = {"uploaded", "processing", "retrying"}
 
 
 class SearchRequest(BaseModel):
@@ -151,7 +159,11 @@ def delete_video_endpoint(
         )
 
     delete_segments(video_id)
-    s3_deleted_count = storage.delete_many(video_artifact_keys(video))
+    s3_deleted_count = storage.delete_many(
+        video_artifact_keys(video)
+        + list_search_chunk_artifact_keys(db, video_id)
+    )
+    delete_search_chunks(db, video_id)
     delete_video(db, video)
 
     return {
@@ -328,8 +340,8 @@ def get_video_file(
 
     require_video_access(video, current_user)
 
-    if video.status != "processed":
-        raise HTTPException(status_code=400, detail="Video not processed yet")
+    if not video.processed_path:
+        raise HTTPException(status_code=400, detail="Video playback is not ready yet")
 
     if not storage.exists(video.processed_path):
         raise HTTPException(status_code=404, detail="Processed video file not found")
@@ -350,8 +362,8 @@ def get_video_file_url(
 
     require_video_access(video, current_user)
 
-    if video.status != "processed":
-        raise HTTPException(status_code=400, detail="Video not processed yet")
+    if not video.processed_path:
+        raise HTTPException(status_code=400, detail="Video playback is not ready yet")
 
     if not storage.exists(video.processed_path):
         raise HTTPException(status_code=404, detail="Processed video file not found")
@@ -481,11 +493,19 @@ def upload_videos(
     })
 
     enqueue_start = perf_counter()
-    process_video_task.delay(video_id)
+    process_video_search_task.apply_async(args=[video_id], queue="search")
+    search_enqueue_seconds = seconds_since(enqueue_start)
+
+    playback_enqueue_start = perf_counter()
+    process_video_playback_task.apply_async(args=[video_id], queue="playback")
+    playback_enqueue_seconds = seconds_since(playback_enqueue_start)
+
     celery_enqueue_seconds = seconds_since(enqueue_start)
     safe_update_metrics(storage, video_id, "upload", {
         "enqueued_at_epoch": now_epoch(),
         "celery_enqueue_seconds": celery_enqueue_seconds,
+        "search_enqueue_seconds": search_enqueue_seconds,
+        "playback_enqueue_seconds": playback_enqueue_seconds,
     })
 
     return {

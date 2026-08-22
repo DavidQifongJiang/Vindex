@@ -188,7 +188,7 @@ function VideoCard({
     setThumbnailFailed(false);
     setThumbnailUrl("");
 
-    if (video.status !== "processed") return;
+    if (video.status !== "processed" && !video.processed_path) return;
 
     void getVideoThumbnailUrl(video.video_id)
       .then((response) => {
@@ -274,6 +274,12 @@ export function App() {
   const [deletingVideoId, setDeletingVideoId] = useState("");
 
   const processed = status?.status === "processed";
+  const playable = Boolean(status?.processed_path);
+  const searchable = Boolean(
+    status?.embedding_status === "completed" &&
+    status?.segments_status === "completed" &&
+    status?.transcript_status === "completed"
+  );
   const failed = status?.status === "failed";
   const isSignedIn = !AUTH_ENABLED || Boolean(authSession);
 
@@ -454,7 +460,7 @@ export function App() {
   );
 
   const loadArtifacts = useCallback(async () => {
-    if (!videoId || !processed) return;
+    if (!videoId || !searchable) return;
 
     try {
       const [transcriptResponse, segmentsResponse] = await Promise.all([
@@ -466,7 +472,7 @@ export function App() {
     } catch (error) {
       setMessage(error instanceof Error ? error.message : "Could not load transcript");
     }
-  }, [processed, videoId]);
+  }, [searchable, videoId]);
 
   const loadVideoById = useCallback(
     async (targetVideoId: string, nextView: ViewMode = "watch") => {
@@ -547,16 +553,16 @@ export function App() {
   }, [failed, processed, refreshStatus, refreshVideos, status, videoId]);
 
   useEffect(() => {
-    if (processed && !transcript) {
+    if (searchable && !transcript) {
       void loadArtifacts();
     }
-  }, [loadArtifacts, processed, transcript]);
+  }, [loadArtifacts, searchable, transcript]);
 
   useEffect(() => {
     let active = true;
     setPlayerUrl("");
 
-    if (!processed || !videoId) return;
+    if (!playable || !videoId) return;
 
     void getVideoFileUrl(videoId)
       .then((response) => {
@@ -571,7 +577,7 @@ export function App() {
     return () => {
       active = false;
     };
-  }, [processed, videoId]);
+  }, [playable, videoId]);
 
   async function handleUpload() {
     if (!isSignedIn) {
@@ -613,6 +619,11 @@ export function App() {
 
   async function handleSearch() {
     if (!videoId || !query.trim()) return;
+
+    if (!searchable) {
+      setMessage("Search is not ready yet.");
+      return;
+    }
 
     try {
       setIsSearching(true);
@@ -877,7 +888,7 @@ export function App() {
               ) : (
                 <div className="empty-player">
                   <Play size={42} aria-hidden="true" />
-                  <span>{status ? `Current status: ${readableStatus(status.status)}` : "No processed video loaded"}</span>
+                  <span>{status ? `Current status: ${readableStatus(status.status)}` : "No video loaded"}</span>
                 </div>
               )}
             </section>
@@ -902,7 +913,7 @@ export function App() {
                   <option value="overlap">Overlap</option>
                   <option value="stopword_overlap">Stopword overlap</option>
                 </select>
-                <button className="primary-button compact" disabled={isSearching} onClick={handleSearch}>
+                <button className="primary-button compact" disabled={isSearching || !searchable} onClick={handleSearch}>
                   {isSearching ? <LoaderCircle className="spin" size={18} /> : <Search size={18} />}
                   Search
                 </button>

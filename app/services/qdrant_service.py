@@ -54,22 +54,28 @@ def upsert_segments(video_id: str, segment_embeddings: list[dict]):
     points = []
 
     for index, segment in enumerate(segment_embeddings):
+        segment_id = segment.get("segment_id") or index
+        payload = {
+            "video_id": video_id,
+            "start": segment["start"],
+            "end": segment["end"],
+            "text": segment["text"],
+        }
+        if segment.get("chunk_index") is not None:
+            payload["chunk_index"] = segment["chunk_index"]
+
         points.append(
             PointStruct(
-                id=str(uuid5(NAMESPACE_DNS, f"{video_id}:{index}")),
+                id=str(uuid5(NAMESPACE_DNS, f"{video_id}:{segment_id}")),
                 vector=segment["embedding"],
-                payload={
-                    "video_id": video_id,
-                    "start": segment["start"],
-                    "end": segment["end"],
-                    "text": segment["text"],
-                }
+                payload=payload,
             )
         )
 
     client.upsert(
         collection_name=COLLECTION_NAME,
-        points=points
+        points=points,
+        wait=True,
     )
 
 

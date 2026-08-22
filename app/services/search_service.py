@@ -38,6 +38,8 @@ def build_segment_embeddings(segments):
         embedding = model.encode(text).tolist()
 
         segment_embeddings.append({
+            "segment_id": segment.get("segment_id"),
+            "chunk_index": segment.get("chunk_index"),
             "start": segment.get("start"),
             "end": segment.get("end"),
             "text": text,

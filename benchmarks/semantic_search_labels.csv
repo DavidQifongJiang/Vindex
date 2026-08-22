@@ -1,0 +1,3 @@
+label_id,video_key,query,expected_start_seconds,expected_end_seconds,relevance_window_seconds,notes
+small-001,small,,,,30,Fill with a human-approved query for the small video.
+medium-001,medium,,,,30,Fill with a human-approved query for the medium video.
