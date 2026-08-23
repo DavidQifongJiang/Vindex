@@ -1,8 +1,8 @@
 # Vindex
 
-Vindex is an AWS-deployed video semantic search app. Users sign in, upload videos, wait for asynchronous processing, then search inside the video transcript and jump to matching timestamps.
+Vindex is an AWS-deployed video semantic search platform for long-form video. Authenticated users upload videos, asynchronous workers build timestamped transcript embeddings, and users can search inside videos semantically and jump directly to matching moments.
 
-The project is designed as a job-hunting portfolio system: it demonstrates backend APIs, async workers, object storage, vector search, auth, metrics, Docker deployment, and HTTPS hosting on AWS.
+The project is designed as a job-hunting portfolio system: it demonstrates backend APIs, async workers, object storage, vector search, auth, metrics, Docker deployment, HTTPS hosting on AWS, and a measured pipeline redesign from a monolithic worker into a chunked DAG that scales with CPU workers.
 
 ## What It Does
 
@@ -14,12 +14,35 @@ The project is designed as a job-hunting portfolio system: it demonstrates backe
 - Generate transcript segments and sentence embeddings.
 - Store searchable vectors in Qdrant.
 - Search video content semantically or with text-based matching.
+- Split playback processing and search indexing into independent Celery DAG branches.
+- Split long videos into 5-minute search chunks, retry failed chunks independently, and mark videos searchable only after all chunks complete.
 - Track meaningful metrics such as upload latency, processing time, Whisper time, embedding time, Qdrant search latency, and S3 timing.
 - Manage database schema changes with Alembic migrations.
 - Serve a React frontend through FastAPI.
 - Authenticate users with AWS Cognito.
 - Host publicly with Caddy-managed HTTPS on EC2.
 - Delete videos with cleanup across Postgres, S3, Qdrant, and metrics.
+
+## Performance Benchmark Highlights
+
+Primary benchmark video: `test_video.mp4`, 19.3 minutes, split into 4 search chunks.
+
+| Experiment | Time-to-searchable | Result |
+| --- | ---: | --- |
+| Original online baseline on EC2 `t3.medium` | 226.74s | Baseline before DAG/chunking |
+| Chunked DAG on EC2 `t3.medium`, 1 search worker | 172.97s | 23.7% faster |
+| Chunked DAG on EC2 `t3.medium`, 2 search workers | 216.41s | Slower due to CPU contention |
+| Chunked DAG on EC2 `c7i.2xlarge`, 1 search worker | 101.79s | Larger CPU, no worker parallelism |
+| Chunked DAG on EC2 `c7i.2xlarge`, 2 search workers | 58.84s | Two chunks processed concurrently |
+| Chunked DAG on EC2 `c7i.2xlarge`, 4 search workers | 40.73s | Best tested point for a 4-chunk video |
+
+The strongest measured result was:
+
+```text
+226.74s original online baseline -> 40.73s chunked DAG with 4 search workers
+```
+
+That is an 82.0% reduction in time-to-searchable. Full benchmark notes are in [`benchmarks/pipeline_stats_summary.md`](benchmarks/pipeline_stats_summary.md).
 
 ## Architecture
 
@@ -31,12 +54,15 @@ flowchart LR
     API --> Postgres["Postgres Metadata DB"]
     API --> S3["S3 Media + Artifacts"]
     API --> Redis["Redis Queue"]
-    Redis --> Worker["Celery Worker"]
-    Worker --> S3
-    Worker --> Postgres
-    Worker --> Whisper["Whisper Transcription"]
-    Worker --> Embeddings["Sentence Embeddings"]
-    Worker --> Qdrant["Qdrant Vector DB"]
+    Redis --> PlaybackWorker["Playback Worker"]
+    Redis --> SearchWorker["Search Worker"]
+    SearchWorker --> Chunks["5-Minute Search Chunks"]
+    Chunks --> Whisper["Whisper Transcription"]
+    Chunks --> Embeddings["Sentence Embeddings"]
+    PlaybackWorker --> S3
+    SearchWorker --> S3
+    SearchWorker --> Postgres
+    SearchWorker --> Qdrant["Qdrant Vector DB"]
     API --> Qdrant
 ```
 

@@ -7,6 +7,8 @@ The benchmark has two parts:
 1. Pipeline performance: upload, processing, and time-to-searchable metrics.
 2. Semantic search quality: Hit Rate@5, Precision@5, MRR, and timestamp error.
 
+For the current pipeline redesign results, see [`pipeline_stats_summary.md`](pipeline_stats_summary.md). It summarizes the progression from the original worker, to the DAG split, to chunked search workers, to the 1/2/4 worker EC2 scaling experiment.
+
 ## Files
 
 | File | Purpose |
