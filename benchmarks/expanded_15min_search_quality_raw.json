@@ -1,0 +1,6204 @@
+{
+  "results": [
+    {
+      "label": {
+        "label_id": "lecture01-001",
+        "video_key": "lecture01_peak_finding",
+        "query": "the lecturer explains syllabus problem set and quiz schedule",
+        "expected_start_seconds": "60",
+        "expected_end_seconds": "120",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "syllabus; problem set schedule; quiz schedule",
+        "notes": "source transcript window 060-120; manually curated from source transcript"
+      },
+      "video_id": "cab675d5-8d03-4c20-9223-f08d149c2338",
+      "request_latency_seconds": 0.5179,
+      "api_metrics": {
+        "search_latency_seconds": 0.08,
+        "query_embedding_seconds": 0.023,
+        "qdrant_search_seconds": 0.0558
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 63.24,
+          "end": 67.32,
+          "text": "about what this class is about from a standpoint of syllabus,",
+          "score": 0.64444345
+        },
+        {
+          "rank": 2,
+          "is_relevant": true,
+          "start": 72.48,
+          "end": 75.64,
+          "text": "the quiz schedule, and so on and so forth.",
+          "score": 0.64289033
+        },
+        {
+          "rank": 3,
+          "is_relevant": true,
+          "start": 67.32,
+          "end": 72.48,
+          "text": "what's expected of you, the problem set schedule,",
+          "score": 0.51223654
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 448.2,
+          "end": 452.68,
+          "text": "And in particular, each of the problem sets",
+          "score": 0.39547503
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 679.96,
+          "end": 683.68,
+          "text": "that your problem set is due, which is a bit of a problem.",
+          "score": 0.3899429
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture01-002",
+        "video_key": "lecture01_peak_finding",
+        "query": "algorithms are analyzed by asymptotic complexity and input size",
+        "expected_start_seconds": "120",
+        "expected_end_seconds": "180",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "asymptotic complexity; compare algorithms",
+        "notes": "source transcript window 120-180; manually curated from source transcript"
+      },
+      "video_id": "cab675d5-8d03-4c20-9223-f08d149c2338",
+      "request_latency_seconds": 0.4513,
+      "api_metrics": {
+        "search_latency_seconds": 0.0706,
+        "query_embedding_seconds": 0.0251,
+        "qdrant_search_seconds": 0.0445
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 122.64,
+          "end": 128.64,
+          "text": "depending on input size based on how efficient these algorithms are.",
+          "score": 0.7168141
+        },
+        {
+          "rank": 2,
+          "is_relevant": false,
+          "start": 560.2,
+          "end": 564.32,
+          "text": "You'll have to analyze the complexity of these algorithms,",
+          "score": 0.68952924
+        },
+        {
+          "rank": 3,
+          "is_relevant": true,
+          "start": 145.4,
+          "end": 148.04,
+          "text": "in terms of their asymptotic complexity.",
+          "score": 0.672863
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 236.28,
+          "end": 240.84,
+          "text": "where have the capability of computing on large inputs.",
+          "score": 0.6009003
+        },
+        {
+          "rank": 5,
+          "is_relevant": true,
+          "start": 178.88,
+          "end": 184.76,
+          "text": "for solving problems on large inputs.",
+          "score": 0.5876924
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture01-003",
+        "video_key": "lecture01_peak_finding",
+        "query": "large inputs include US highways human genome and Facebook network",
+        "expected_start_seconds": "180",
+        "expected_end_seconds": "240",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "US highway system; human genome; Facebook",
+        "notes": "source transcript window 180-240; manually curated from source transcript"
+      },
+      "video_id": "cab675d5-8d03-4c20-9223-f08d149c2338",
+      "request_latency_seconds": 0.5077,
+      "api_metrics": {
+        "search_latency_seconds": 0.0632,
+        "query_embedding_seconds": 0.0165,
+        "qdrant_search_seconds": 0.0456
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 192.32,
+          "end": 195.88,
+          "text": "in the United States, the human genome,",
+          "score": 0.66066396
+        },
+        {
+          "rank": 2,
+          "is_relevant": true,
+          "start": 200.76,
+          "end": 203.2,
+          "text": "Social network corresponding to Facebook,",
+          "score": 0.5083833
+        },
+        {
+          "rank": 3,
+          "is_relevant": false,
+          "start": 653.4,
+          "end": 656.28,
+          "text": "If you compare a human genome to a rat genome",
+          "score": 0.44515204
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 383.64,
+          "end": 385.8,
+          "text": "We're going to augment these data structures in various",
+          "score": 0.40608266
+        },
+        {
+          "rank": 5,
+          "is_relevant": true,
+          "start": 188.44,
+          "end": 192.32,
+          "text": "the US highway system, a map of all of the highways",
+          "score": 0.40290558
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture01-004",
+        "video_key": "lecture01_peak_finding",
+        "query": "cubic complexity becomes impossible on a billion elements",
+        "expected_start_seconds": "240",
+        "expected_end_seconds": "300",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "billion elements; cubic complexity; 10 raised to 27",
+        "notes": "source transcript window 240-300; manually curated from source transcript"
+      },
+      "video_id": "cab675d5-8d03-4c20-9223-f08d149c2338",
+      "request_latency_seconds": 0.2228,
+      "api_metrics": {
+        "search_latency_seconds": 0.0598,
+        "query_embedding_seconds": 0.0109,
+        "qdrant_search_seconds": 0.0479
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 253.52,
+          "end": 257.72,
+          "text": "But if you had an algorithm that required cubic complexity,",
+          "score": 0.6856144
+        },
+        {
+          "rank": 2,
+          "is_relevant": true,
+          "start": 250.4,
+          "end": 253.52,
+          "text": "a billion elements in a matter of seconds.",
+          "score": 0.50488174
+        },
+        {
+          "rank": 3,
+          "is_relevant": false,
+          "start": 668.44,
+          "end": 672.24,
+          "text": "And you'll find that if you don't get the complexity low enough,",
+          "score": 0.4619754
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 560.2,
+          "end": 564.32,
+          "text": "You'll have to analyze the complexity of these algorithms,",
+          "score": 0.43354407
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 145.4,
+          "end": 148.04,
+          "text": "in terms of their asymptotic complexity.",
+          "score": 0.43246827
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture01-005",
+        "video_key": "lecture01_peak_finding",
+        "query": "balanced binary search trees and Python data structures are covered",
+        "expected_start_seconds": "360",
+        "expected_end_seconds": "420",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "Python; balanced binary search trees; data structures",
+        "notes": "source transcript window 360-420; manually curated from source transcript"
+      },
+      "video_id": "cab675d5-8d03-4c20-9223-f08d149c2338",
+      "request_latency_seconds": 0.3128,
+      "api_metrics": {
+        "search_latency_seconds": 0.067,
+        "query_embedding_seconds": 0.02,
+        "qdrant_search_seconds": 0.0459
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 371.4,
+          "end": 373.12,
+          "text": "binary search trees.",
+          "score": 0.792462
+        },
+        {
+          "rank": 2,
+          "is_relevant": true,
+          "start": 368.32,
+          "end": 371.4,
+          "text": "binary search trees that are more efficient than just regular",
+          "score": 0.6924883
+        },
+        {
+          "rank": 3,
+          "is_relevant": true,
+          "start": 362.16,
+          "end": 368.32,
+          "text": "and Python, and data structures such as balanced",
+          "score": 0.61773884
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 441.12,
+          "end": 445.28,
+          "text": "of these data structures and algorithms in Python.",
+          "score": 0.59728384
+        },
+        {
+          "rank": 5,
+          "is_relevant": true,
+          "start": 357.8,
+          "end": 362.16,
+          "text": "search trees, hash tables that are called dictionaries",
+          "score": 0.5925946
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture01-006",
+        "video_key": "lecture01_peak_finding",
+        "query": "problem sets have both theory and programming parts in Python",
+        "expected_start_seconds": "420",
+        "expected_end_seconds": "480",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "real implementations; theory part; programming part",
+        "notes": "source transcript window 420-480; manually curated from source transcript"
+      },
+      "video_id": "cab675d5-8d03-4c20-9223-f08d149c2338",
+      "request_latency_seconds": 0.2968,
+      "api_metrics": {
+        "search_latency_seconds": 0.0545,
+        "query_embedding_seconds": 0.0067,
+        "qdrant_search_seconds": 0.0467
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 448.2,
+          "end": 452.68,
+          "text": "And in particular, each of the problem sets",
+          "score": 0.61376214
+        },
+        {
+          "rank": 2,
+          "is_relevant": false,
+          "start": 521.8,
+          "end": 525.04,
+          "text": "each of which roughly speaking has a problem set",
+          "score": 0.56556344
+        },
+        {
+          "rank": 3,
+          "is_relevant": true,
+          "start": 472.04,
+          "end": 473.2,
+          "text": "of the problem sets.",
+          "score": 0.5549303
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 490.2,
+          "end": 491.64,
+          "text": "and the problem sets.",
+          "score": 0.52726734
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 573.32,
+          "end": 577.6,
+          "text": "And you can expect that most of the problem sets",
+          "score": 0.4812622
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture01-007",
+        "video_key": "lecture01_peak_finding",
+        "query": "problem sets should be challenging worthwhile and fun",
+        "expected_start_seconds": "480",
+        "expected_end_seconds": "540",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "problem sets; challenging; worthwhile",
+        "notes": "source transcript window 480-540; manually curated from source transcript"
+      },
+      "video_id": "cab675d5-8d03-4c20-9223-f08d149c2338",
+      "request_latency_seconds": 0.2875,
+      "api_metrics": {
+        "search_latency_seconds": 0.0621,
+        "query_embedding_seconds": 0.0178,
+        "qdrant_search_seconds": 0.0433
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 491.64,
+          "end": 495.4,
+          "text": "And we hope that these problem sets are going to be fun for you.",
+          "score": 0.7493682
+        },
+        {
+          "rank": 2,
+          "is_relevant": false,
+          "start": 448.2,
+          "end": 452.68,
+          "text": "And in particular, each of the problem sets",
+          "score": 0.68380916
+        },
+        {
+          "rank": 3,
+          "is_relevant": true,
+          "start": 472.04,
+          "end": 473.2,
+          "text": "of the problem sets.",
+          "score": 0.67922705
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 573.32,
+          "end": 577.6,
+          "text": "And you can expect that most of the problem sets",
+          "score": 0.6704961
+        },
+        {
+          "rank": 5,
+          "is_relevant": true,
+          "start": 521.8,
+          "end": 525.04,
+          "text": "each of which roughly speaking has a problem set",
+          "score": 0.6632651
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture01-008",
+        "video_key": "lecture01_peak_finding",
+        "query": "peak finding problem set includes buggy algorithms to analyze",
+        "expected_start_seconds": "540",
+        "expected_end_seconds": "600",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "peak finding; bugs; analyze complexity",
+        "notes": "source transcript window 540-600; manually curated from source transcript"
+      },
+      "video_id": "cab675d5-8d03-4c20-9223-f08d149c2338",
+      "request_latency_seconds": 0.275,
+      "api_metrics": {
+        "search_latency_seconds": 0.0682,
+        "query_embedding_seconds": 0.0225,
+        "qdrant_search_seconds": 0.0447
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": false,
+          "start": 100.84,
+          "end": 106.6,
+          "text": "to solve the peak finding problem, both varieties of it.",
+          "score": 0.69067115
+        },
+        {
+          "rank": 2,
+          "is_relevant": false,
+          "start": 94.64,
+          "end": 98.0,
+          "text": "of peak finding, both a one-dimensional version",
+          "score": 0.6411574
+        },
+        {
+          "rank": 3,
+          "is_relevant": true,
+          "start": 540.88,
+          "end": 542.76,
+          "text": "as I mentioned, of peak finding.",
+          "score": 0.6204334
+        },
+        {
+          "rank": 4,
+          "is_relevant": true,
+          "start": 552.28,
+          "end": 554.2,
+          "text": "some of these algorithms I've talked about today",
+          "score": 0.43455607
+        },
+        {
+          "rank": 5,
+          "is_relevant": true,
+          "start": 573.32,
+          "end": 577.6,
+          "text": "And you can expect that most of the problem sets",
+          "score": 0.41678512
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture01-009",
+        "video_key": "lecture01_peak_finding",
+        "query": "RSA and HTTPS use prime numbers thousands of bits long",
+        "expected_start_seconds": "720",
+        "expected_end_seconds": "780",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "HTTPS; RSA; prime numbers; thousands of bits",
+        "notes": "source transcript window 720-780; manually curated from source transcript"
+      },
+      "video_id": "cab675d5-8d03-4c20-9223-f08d149c2338",
+      "request_latency_seconds": 0.2732,
+      "api_metrics": {
+        "search_latency_seconds": 0.0659,
+        "query_embedding_seconds": 0.0194,
+        "qdrant_search_seconds": 0.0456
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 735.32,
+          "end": 738.52,
+          "text": "that are thousands of bits long in RSA.",
+          "score": 0.7039943
+        },
+        {
+          "rank": 2,
+          "is_relevant": true,
+          "start": 725.16,
+          "end": 731.52,
+          "text": "And when you use HTTPS on websites, RSA is used",
+          "score": 0.539058
+        },
+        {
+          "rank": 3,
+          "is_relevant": true,
+          "start": 717.04,
+          "end": 718.88,
+          "text": "These numbers have thousands of bits.",
+          "score": 0.47689354
+        },
+        {
+          "rank": 4,
+          "is_relevant": true,
+          "start": 713.76,
+          "end": 717.04,
+          "text": "And our 64 bits isn't enough to represent these numbers.",
+          "score": 0.42691964
+        },
+        {
+          "rank": 5,
+          "is_relevant": true,
+          "start": 710.84,
+          "end": 713.76,
+          "text": "that 32 bits isn't enough.",
+          "score": 0.4257263
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture01-010",
+        "video_key": "lecture01_peak_finding",
+        "query": "dynamic programming can be used for image compression",
+        "expected_start_seconds": "840",
+        "expected_end_seconds": "900",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "dynamic programming; image compression",
+        "notes": "source transcript window 840-900; manually curated from source transcript"
+      },
+      "video_id": "cab675d5-8d03-4c20-9223-f08d149c2338",
+      "request_latency_seconds": 0.3321,
+      "api_metrics": {
+        "search_latency_seconds": 0.0655,
+        "query_embedding_seconds": 0.0189,
+        "qdrant_search_seconds": 0.0454
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 827.52,
+          "end": 833.92,
+          "text": "Dynamic programming is an important algorithm",
+          "score": 0.61687905
+        },
+        {
+          "rank": 2,
+          "is_relevant": true,
+          "start": 844.04,
+          "end": 848.28,
+          "text": "including image compression, how do you compress an image?",
+          "score": 0.5994977
+        },
+        {
+          "rank": 3,
+          "is_relevant": true,
+          "start": 856.12,
+          "end": 858.88,
+          "text": "I'd say you could use dynamic programming for that.",
+          "score": 0.49678862
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 604.28,
+          "end": 607.6,
+          "text": "What kind of algorithm could you use for that?",
+          "score": 0.41643292
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 30.4,
+          "end": 35.32,
+          "text": "introduction to algorithms this term with Professor Eric Demain, Eric Sayhai.",
+          "score": 0.4087431
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture02-001",
+        "video_key": "lecture02_models_distance",
+        "query": "the lecture asks what running time means and where algorithm comes from",
+        "expected_start_seconds": "60",
+        "expected_end_seconds": "120",
+        "relevance_window_seconds": "30",
+        "query_type": "concept",
+        "expected_text": "running time; word algorithm; history",
+        "notes": "source transcript window 060-120; manually curated from source transcript"
+      },
+      "video_id": "d142ffc4-f27c-4676-a73c-5220996cad70",
+      "request_latency_seconds": 0.2252,
+      "api_metrics": {
+        "search_latency_seconds": 0.0531,
+        "query_embedding_seconds": 0.0072,
+        "qdrant_search_seconds": 0.0447
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 64.92,
+          "end": 66.36,
+          "text": "Who what is the running time of an algorithm?",
+          "score": 0.7903056
+        },
+        {
+          "rank": 2,
+          "is_relevant": false,
+          "start": 147.88,
+          "end": 148.76,
+          "text": "what an algorithm is.",
+          "score": 0.63762593
+        },
+        {
+          "rank": 3,
+          "is_relevant": false,
+          "start": 424.96,
+          "end": 427.32,
+          "text": "That's running time in the algorithm.",
+          "score": 0.6269386
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 124.72,
+          "end": 126.68,
+          "text": "and also where the word algorithm comes from.",
+          "score": 0.60736513
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 609.26,
+          "end": 615.4,
+          "text": "We just say, in constant time, an algorithm",
+          "score": 0.6061195
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture02-002",
+        "video_key": "lecture02_models_distance",
+        "query": "the word algorithm is connected to algebra and historical roots",
+        "expected_start_seconds": "120",
+        "expected_end_seconds": "180",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "algebra; algorithm; roots",
+        "notes": "source transcript window 120-180; manually curated from source transcript"
+      },
+      "video_id": "d142ffc4-f27c-4676-a73c-5220996cad70",
+      "request_latency_seconds": 0.2396,
+      "api_metrics": {
+        "search_latency_seconds": 0.06,
+        "query_embedding_seconds": 0.0148,
+        "qdrant_search_seconds": 0.0441
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 124.72,
+          "end": 126.68,
+          "text": "and also where the word algorithm comes from.",
+          "score": 0.80757314
+        },
+        {
+          "rank": 2,
+          "is_relevant": false,
+          "start": 75.72,
+          "end": 77.44,
+          "text": "the word algorithm.",
+          "score": 0.7867694
+        },
+        {
+          "rank": 3,
+          "is_relevant": true,
+          "start": 147.88,
+          "end": 148.76,
+          "text": "what an algorithm is.",
+          "score": 0.6368992
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 55.16,
+          "end": 58.76,
+          "text": "and talk about what actually is an algorithm?",
+          "score": 0.6169828
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 232.6,
+          "end": 235.32,
+          "text": "you translate into the world of algorithms.",
+          "score": 0.61090374
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture02-003",
+        "video_key": "lecture02_models_distance",
+        "query": "an algorithm has input and output to solve a problem",
+        "expected_start_seconds": "180",
+        "expected_end_seconds": "240",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "input; output; solve some problem",
+        "notes": "source transcript window 180-240; manually curated from source transcript"
+      },
+      "video_id": "d142ffc4-f27c-4676-a73c-5220996cad70",
+      "request_latency_seconds": 0.2791,
+      "api_metrics": {
+        "search_latency_seconds": 0.0653,
+        "query_embedding_seconds": 0.0171,
+        "qdrant_search_seconds": 0.0471
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": false,
+          "start": 147.88,
+          "end": 148.76,
+          "text": "what an algorithm is.",
+          "score": 0.67946506
+        },
+        {
+          "rank": 2,
+          "is_relevant": false,
+          "start": 463.88,
+          "end": 466.64,
+          "text": "thinking about how you write an algorithm.",
+          "score": 0.65192884
+        },
+        {
+          "rank": 3,
+          "is_relevant": false,
+          "start": 58.76,
+          "end": 60.72,
+          "text": "What is an algorithm allowed to do?",
+          "score": 0.64407146
+        },
+        {
+          "rank": 4,
+          "is_relevant": true,
+          "start": 216.72,
+          "end": 219.92,
+          "text": "OK, so that's an algorithm that you take some input.",
+          "score": 0.6258814
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 75.72,
+          "end": 77.44,
+          "text": "the word algorithm.",
+          "score": 0.605626
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture02-004",
+        "video_key": "lecture02_models_distance",
+        "query": "an algorithm is a mathematical analog of a computer program",
+        "expected_start_seconds": "240",
+        "expected_end_seconds": "300",
+        "relevance_window_seconds": "30",
+        "query_type": "near_exact",
+        "expected_text": "mathematical analog of a computer program",
+        "notes": "source transcript window 240-300; manually curated from source transcript"
+      },
+      "video_id": "d142ffc4-f27c-4676-a73c-5220996cad70",
+      "request_latency_seconds": 0.3063,
+      "api_metrics": {
+        "search_latency_seconds": 0.0835,
+        "query_embedding_seconds": 0.037,
+        "qdrant_search_seconds": 0.0454
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 250.4,
+          "end": 259.4,
+          "text": "So an algorithm is a mathematical analog of a computer",
+          "score": 0.93737376
+        },
+        {
+          "rank": 2,
+          "is_relevant": true,
+          "start": 225.16,
+          "end": 228.08,
+          "text": "An algorithm is basically the mathematical analog",
+          "score": 0.90548766
+        },
+        {
+          "rank": 3,
+          "is_relevant": false,
+          "start": 147.88,
+          "end": 148.76,
+          "text": "what an algorithm is.",
+          "score": 0.8540993
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 58.76,
+          "end": 60.72,
+          "text": "What is an algorithm allowed to do?",
+          "score": 0.7448106
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 463.88,
+          "end": 466.64,
+          "text": "thinking about how you write an algorithm.",
+          "score": 0.73671395
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture02-005",
+        "video_key": "lecture02_models_distance",
+        "query": "pseudocode is an abstract formal specification",
+        "expected_start_seconds": "300",
+        "expected_end_seconds": "360",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "pseudocode; formal specification",
+        "notes": "source transcript window 300-360; manually curated from source transcript"
+      },
+      "video_id": "d142ffc4-f27c-4676-a73c-5220996cad70",
+      "request_latency_seconds": 0.2557,
+      "api_metrics": {
+        "search_latency_seconds": 0.0649,
+        "query_embedding_seconds": 0.0186,
+        "qdrant_search_seconds": 0.0453
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": false,
+          "start": 152.92,
+          "end": 155.32,
+          "text": "So when we write Python code, when we write pseudocode,",
+          "score": 0.60743153
+        },
+        {
+          "rank": 2,
+          "is_relevant": true,
+          "start": 308.0,
+          "end": 310.36,
+          "text": "formal specification without necessarily",
+          "score": 0.54968697
+        },
+        {
+          "rank": 3,
+          "is_relevant": false,
+          "start": 144.0,
+          "end": 147.88,
+          "text": "of a model of computation is to formally specify",
+          "score": 0.53835326
+        },
+        {
+          "rank": 4,
+          "is_relevant": true,
+          "start": 278.48,
+          "end": 284.84,
+          "text": "Usually, we write them in pseudo code, which is basically",
+          "score": 0.52277523
+        },
+        {
+          "rank": 5,
+          "is_relevant": true,
+          "start": 273.64,
+          "end": 276.64,
+          "text": "The mathematical analog of a programming language,",
+          "score": 0.47203022
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture02-006",
+        "video_key": "lecture02_models_distance",
+        "query": "model of computation specifies operations and their time cost",
+        "expected_start_seconds": "360",
+        "expected_end_seconds": "420",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "operations; how much they cost; time",
+        "notes": "source transcript window 360-420; manually curated from source transcript"
+      },
+      "video_id": "d142ffc4-f27c-4676-a73c-5220996cad70",
+      "request_latency_seconds": 0.3561,
+      "api_metrics": {
+        "search_latency_seconds": 0.0716,
+        "query_embedding_seconds": 0.0229,
+        "qdrant_search_seconds": 0.0477
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": false,
+          "start": 144.0,
+          "end": 147.88,
+          "text": "of a model of computation is to formally specify",
+          "score": 0.695155
+        },
+        {
+          "rank": 2,
+          "is_relevant": false,
+          "start": 421.96,
+          "end": 423.92,
+          "text": "Each operation has a time cost.",
+          "score": 0.69057745
+        },
+        {
+          "rank": 3,
+          "is_relevant": true,
+          "start": 357.44,
+          "end": 368.88,
+          "text": "So model of computation, specify.",
+          "score": 0.68972695
+        },
+        {
+          "rank": 4,
+          "is_relevant": true,
+          "start": 339.12,
+          "end": 342.12,
+          "text": "And that is the model of computation.",
+          "score": 0.6690894
+        },
+        {
+          "rank": 5,
+          "is_relevant": true,
+          "start": 346.48,
+          "end": 350.84,
+          "text": "Model of computation says what your computer is allowed to do,",
+          "score": 0.6358683
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture02-007",
+        "video_key": "lecture02_models_distance",
+        "query": "the lecture compares two models of computation or programming styles",
+        "expected_start_seconds": "420",
+        "expected_end_seconds": "480",
+        "relevance_window_seconds": "30",
+        "query_type": "concept",
+        "expected_text": "two models of computation; styles of programming",
+        "notes": "source transcript window 420-480; manually curated from source transcript"
+      },
+      "video_id": "d142ffc4-f27c-4676-a73c-5220996cad70",
+      "request_latency_seconds": 0.3407,
+      "api_metrics": {
+        "search_latency_seconds": 0.0549,
+        "query_embedding_seconds": 0.0074,
+        "qdrant_search_seconds": 0.0464
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 442.6,
+          "end": 445.28,
+          "text": "Styles of programming.",
+          "score": 0.6864089
+        },
+        {
+          "rank": 2,
+          "is_relevant": true,
+          "start": 430.76,
+          "end": 435.04,
+          "text": "So let's, I'm going to cover two models of computation,",
+          "score": 0.65448415
+        },
+        {
+          "rank": 3,
+          "is_relevant": false,
+          "start": 357.44,
+          "end": 368.88,
+          "text": "So model of computation, specify.",
+          "score": 0.6193359
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 273.64,
+          "end": 276.64,
+          "text": "The mathematical analog of a programming language,",
+          "score": 0.6147907
+        },
+        {
+          "rank": 5,
+          "is_relevant": true,
+          "start": 449.48,
+          "end": 452.6,
+          "text": "There's lots of different styles of programming languages.",
+          "score": 0.60692585
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture02-008",
+        "video_key": "lecture02_models_distance",
+        "query": "RAM stands for random access machine and random access memory",
+        "expected_start_seconds": "480",
+        "expected_end_seconds": "540",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "RAM; random access memory; random access machine",
+        "notes": "source transcript window 480-540; manually curated from source transcript"
+      },
+      "video_id": "d142ffc4-f27c-4676-a73c-5220996cad70",
+      "request_latency_seconds": 0.2711,
+      "api_metrics": {
+        "search_latency_seconds": 0.0637,
+        "query_embedding_seconds": 0.0166,
+        "qdrant_search_seconds": 0.046
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 487.52,
+          "end": 490.48,
+          "text": "Can someone tell me what else RAM stands for?",
+          "score": 0.78296983
+        },
+        {
+          "rank": 2,
+          "is_relevant": true,
+          "start": 491.76,
+          "end": 493.2,
+          "text": "Random access memory.",
+          "score": 0.7440357
+        },
+        {
+          "rank": 3,
+          "is_relevant": true,
+          "start": 537.52,
+          "end": 540.52,
+          "text": "Here it's a random access memory.",
+          "score": 0.7142521
+        },
+        {
+          "rank": 4,
+          "is_relevant": true,
+          "start": 483.96,
+          "end": 487.52,
+          "text": "Also known as the RAM.",
+          "score": 0.7124413
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 568.48,
+          "end": 570.32,
+          "text": "That's random access memory.",
+          "score": 0.695223
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture02-009",
+        "video_key": "lecture02_models_distance",
+        "query": "random access memory acts like a giant array with constant time access",
+        "expected_start_seconds": "540",
+        "expected_end_seconds": "600",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "giant array; access anything; constant time",
+        "notes": "source transcript window 540-600; manually curated from source transcript"
+      },
+      "video_id": "d142ffc4-f27c-4676-a73c-5220996cad70",
+      "request_latency_seconds": 0.2156,
+      "api_metrics": {
+        "search_latency_seconds": 0.0534,
+        "query_embedding_seconds": 0.0069,
+        "qdrant_search_seconds": 0.0451
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": false,
+          "start": 491.76,
+          "end": 493.2,
+          "text": "Random access memory.",
+          "score": 0.80984443
+        },
+        {
+          "rank": 2,
+          "is_relevant": true,
+          "start": 537.52,
+          "end": 540.52,
+          "text": "Here it's a random access memory.",
+          "score": 0.7237612
+        },
+        {
+          "rank": 3,
+          "is_relevant": true,
+          "start": 568.48,
+          "end": 570.32,
+          "text": "That's random access memory.",
+          "score": 0.71562696
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 504.56,
+          "end": 511.76,
+          "text": "So we have random access memory.",
+          "score": 0.69245446
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 466.64,
+          "end": 470.96,
+          "text": "So they are the random access machine and the pointer machine.",
+          "score": 0.54264426
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture02-010",
+        "video_key": "lecture02_models_distance",
+        "query": "the pointer machine model uses dynamically allocated objects and fields",
+        "expected_start_seconds": "840",
+        "expected_end_seconds": "900",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "pointer machine; dynamically allocated objects; fields",
+        "notes": "source transcript window 840-900; manually curated from source transcript"
+      },
+      "video_id": "d142ffc4-f27c-4676-a73c-5220996cad70",
+      "request_latency_seconds": 0.3119,
+      "api_metrics": {
+        "search_latency_seconds": 0.0642,
+        "query_embedding_seconds": 0.0135,
+        "qdrant_search_seconds": 0.0496
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 850.04,
+          "end": 852.76,
+          "text": "So we have dynamically allocated objects.",
+          "score": 0.7068399
+        },
+        {
+          "rank": 2,
+          "is_relevant": true,
+          "start": 828.04,
+          "end": 830.0,
+          "text": "You probably know you could implement dynamic memory",
+          "score": 0.6001352
+        },
+        {
+          "rank": 3,
+          "is_relevant": false,
+          "start": 466.64,
+          "end": 470.96,
+          "text": "So they are the random access machine and the pointer machine.",
+          "score": 0.59471345
+        },
+        {
+          "rank": 4,
+          "is_relevant": true,
+          "start": 825.8,
+          "end": 828.04,
+          "text": "no dynamic memory allocation.",
+          "score": 0.5327996
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 491.76,
+          "end": 493.2,
+          "text": "Random access memory.",
+          "score": 0.50050503
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture03-001",
+        "video_key": "lecture03_sorting",
+        "query": "sorting lecture covers insertion sort merge sort and recurrences",
+        "expected_start_seconds": "0",
+        "expected_end_seconds": "60",
+        "relevance_window_seconds": "30",
+        "query_type": "concept",
+        "expected_text": "sorting; insertion sort; merge sort; recurrences",
+        "notes": "source transcript window 000-060; manually curated from source transcript"
+      },
+      "video_id": "a7e7823b-9b71-4b7a-9db9-49729b7fae94",
+      "request_latency_seconds": 0.2332,
+      "api_metrics": {
+        "search_latency_seconds": 0.0517,
+        "query_embedding_seconds": 0.0059,
+        "qdrant_search_seconds": 0.0448
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 43.56,
+          "end": 45.44,
+          "text": "that's called insertion sort.",
+          "score": 0.65367925
+        },
+        {
+          "rank": 2,
+          "is_relevant": false,
+          "start": 259.72,
+          "end": 262.56,
+          "text": "and you run insertion sort or merge sort.",
+          "score": 0.64871085
+        },
+        {
+          "rank": 3,
+          "is_relevant": false,
+          "start": 612.0,
+          "end": 613.72,
+          "text": "through what insertion sort looks like,",
+          "score": 0.63839674
+        },
+        {
+          "rank": 4,
+          "is_relevant": true,
+          "start": 23.28,
+          "end": 27.0,
+          "text": "So today's lecture is on sorting.",
+          "score": 0.6112584
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 630.24,
+          "end": 637.92,
+          "text": "So what is insertion sort for i equals 1, 2, 2, and given a sorted,",
+          "score": 0.61064065
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture03-002",
+        "video_key": "lecture03_sorting",
+        "query": "merge sort motivates divide and conquer recurrences",
+        "expected_start_seconds": "60",
+        "expected_end_seconds": "120",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "recurrences; divide and conquer; merge sort",
+        "notes": "source transcript window 060-120; manually curated from source transcript"
+      },
+      "video_id": "a7e7823b-9b71-4b7a-9db9-49729b7fae94",
+      "request_latency_seconds": 0.2492,
+      "api_metrics": {
+        "search_latency_seconds": 0.0644,
+        "query_embedding_seconds": 0.0169,
+        "qdrant_search_seconds": 0.0464
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 59.76,
+          "end": 62.76,
+          "text": "which is a divide and conquer algorithm.",
+          "score": 0.58577704
+        },
+        {
+          "rank": 2,
+          "is_relevant": false,
+          "start": 595.0,
+          "end": 599.0,
+          "text": "So let's take a look at our first sorting algorithm.",
+          "score": 0.5489507
+        },
+        {
+          "rank": 3,
+          "is_relevant": true,
+          "start": 56.48,
+          "end": 59.76,
+          "text": "And we'll also talk about merge sort,",
+          "score": 0.54664207
+        },
+        {
+          "rank": 4,
+          "is_relevant": true,
+          "start": 79.8,
+          "end": 84.24,
+          "text": "like merge sort, but you'll see this over and over.",
+          "score": 0.5449177
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 582.0,
+          "end": 588.0,
+          "text": "And there's reasons why each of these sorting algorithms exists, because in specific cases,",
+          "score": 0.53203624
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture03-003",
+        "video_key": "lecture03_sorting",
+        "query": "sorting makes finding the median easy",
+        "expected_start_seconds": "120",
+        "expected_end_seconds": "180",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "finding a median; sort; increasing order",
+        "notes": "source transcript window 120-180; manually curated from source transcript"
+      },
+      "video_id": "a7e7823b-9b71-4b7a-9db9-49729b7fae94",
+      "request_latency_seconds": 0.2126,
+      "api_metrics": {
+        "search_latency_seconds": 0.0539,
+        "query_embedding_seconds": 0.0069,
+        "qdrant_search_seconds": 0.0459
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": false,
+          "start": 305.0,
+          "end": 311.0,
+          "text": "of finding the median, but it's constant time if you have a sorted list.",
+          "score": 0.7813901
+        },
+        {
+          "rank": 2,
+          "is_relevant": false,
+          "start": 272.48,
+          "end": 277.04,
+          "text": "at the point, a making here is that finding the median is easy.",
+          "score": 0.746008
+        },
+        {
+          "rank": 3,
+          "is_relevant": false,
+          "start": 225.08,
+          "end": 228.64,
+          "text": "Now, if you wanted to find the median of the set of numbers",
+          "score": 0.7210202
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 296.88,
+          "end": 299.84,
+          "text": "which is the definition of median.",
+          "score": 0.6544967
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 51.96,
+          "end": 54.48,
+          "text": "It's not the best sorting algorithm that's out there.",
+          "score": 0.65229243
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture03-004",
+        "video_key": "lecture03_sorting",
+        "query": "sorting needs a comparison function for records",
+        "expected_start_seconds": "180",
+        "expected_end_seconds": "240",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "comparison function; which record is smaller",
+        "notes": "source transcript window 180-240; manually curated from source transcript"
+      },
+      "video_id": "a7e7823b-9b71-4b7a-9db9-49729b7fae94",
+      "request_latency_seconds": 0.2466,
+      "api_metrics": {
+        "search_latency_seconds": 0.0587,
+        "query_embedding_seconds": 0.011,
+        "qdrant_search_seconds": 0.0465
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": false,
+          "start": 51.96,
+          "end": 54.48,
+          "text": "It's not the best sorting algorithm that's out there.",
+          "score": 0.6326887
+        },
+        {
+          "rank": 2,
+          "is_relevant": false,
+          "start": 563.0,
+          "end": 568.0,
+          "text": "So it's worthwhile to look at the variety of sorting algorithms that are out there,",
+          "score": 0.58352375
+        },
+        {
+          "rank": 3,
+          "is_relevant": false,
+          "start": 45.44,
+          "end": 48.96,
+          "text": "That's probably the simplest sorting algorithm you can write.",
+          "score": 0.5795883
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 595.0,
+          "end": 599.0,
+          "text": "So let's take a look at our first sorting algorithm.",
+          "score": 0.5777859
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 262.56,
+          "end": 264.68,
+          "text": "Another way would be to maintain a sorted list",
+          "score": 0.53227514
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture03-005",
+        "video_key": "lecture03_sorting",
+        "query": "a sorted list can be maintained as items are inserted",
+        "expected_start_seconds": "240",
+        "expected_end_seconds": "300",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "maintain a sorted list; items put into the list",
+        "notes": "source transcript window 240-300; manually curated from source transcript"
+      },
+      "video_id": "a7e7823b-9b71-4b7a-9db9-49729b7fae94",
+      "request_latency_seconds": 0.2482,
+      "api_metrics": {
+        "search_latency_seconds": 0.0601,
+        "query_embedding_seconds": 0.0116,
+        "qdrant_search_seconds": 0.0475
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 262.56,
+          "end": 264.68,
+          "text": "Another way would be to maintain a sorted list",
+          "score": 0.7872981
+        },
+        {
+          "rank": 2,
+          "is_relevant": true,
+          "start": 267.8,
+          "end": 269.64,
+          "text": "So if you happen to have a sorted list",
+          "score": 0.7159173
+        },
+        {
+          "rank": 3,
+          "is_relevant": false,
+          "start": 124.72,
+          "end": 125.96,
+          "text": "Once items are sorted.",
+          "score": 0.67837775
+        },
+        {
+          "rank": 4,
+          "is_relevant": true,
+          "start": 240.0,
+          "end": 247.24,
+          "text": "But there's a side effect of having a sorted list.",
+          "score": 0.66779345
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 545.0,
+          "end": 551.0,
+          "text": "So typically you have sorted lists corresponding to the different objects in both orders,",
+          "score": 0.6550859
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture03-006",
+        "video_key": "lecture03_sorting",
+        "query": "binary search finds an item in a sorted array",
+        "expected_start_seconds": "300",
+        "expected_end_seconds": "360",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "binary search; finding an element in an array",
+        "notes": "source transcript window 300-360; manually curated from source transcript"
+      },
+      "video_id": "a7e7823b-9b71-4b7a-9db9-49729b7fae94",
+      "request_latency_seconds": 0.2607,
+      "api_metrics": {
+        "search_latency_seconds": 0.057,
+        "query_embedding_seconds": 0.0082,
+        "qdrant_search_seconds": 0.0474
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": false,
+          "start": 380.0,
+          "end": 388.0,
+          "text": "and decide given that b is sorted, you get to look at one half of the array.",
+          "score": 0.60965645
+        },
+        {
+          "rank": 2,
+          "is_relevant": false,
+          "start": 402.0,
+          "end": 408.0,
+          "text": "All right? So keep this in mind, because binary search is going to come up in today's lecture,",
+          "score": 0.60879695
+        },
+        {
+          "rank": 3,
+          "is_relevant": true,
+          "start": 320.0,
+          "end": 324.0,
+          "text": "which is the notion of binary search.",
+          "score": 0.6052701
+        },
+        {
+          "rank": 4,
+          "is_relevant": true,
+          "start": 349.0,
+          "end": 361.0,
+          "text": "If the array happened to be sorted, then you can find this in logarithmic time using what's called binary search.",
+          "score": 0.5961682
+        },
+        {
+          "rank": 5,
+          "is_relevant": true,
+          "start": 324.0,
+          "end": 328.0,
+          "text": "A finding an element in a array, a specific element.",
+          "score": 0.58539164
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture03-007",
+        "video_key": "lecture03_sorting",
+        "query": "binary search compares the key to the middle of the array",
+        "expected_start_seconds": "360",
+        "expected_end_seconds": "420",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "compare k; n over 2; sorted",
+        "notes": "source transcript window 360-420; manually curated from source transcript"
+      },
+      "video_id": "a7e7823b-9b71-4b7a-9db9-49729b7fae94",
+      "request_latency_seconds": 0.2182,
+      "api_metrics": {
+        "search_latency_seconds": 0.0613,
+        "query_embedding_seconds": 0.0157,
+        "qdrant_search_seconds": 0.0444
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 380.0,
+          "end": 388.0,
+          "text": "and decide given that b is sorted, you get to look at one half of the array.",
+          "score": 0.61032414
+        },
+        {
+          "rank": 2,
+          "is_relevant": false,
+          "start": 320.0,
+          "end": 324.0,
+          "text": "which is the notion of binary search.",
+          "score": 0.5716398
+        },
+        {
+          "rank": 3,
+          "is_relevant": true,
+          "start": 402.0,
+          "end": 408.0,
+          "text": "All right? So keep this in mind, because binary search is going to come up in today's lecture,",
+          "score": 0.5716303
+        },
+        {
+          "rank": 4,
+          "is_relevant": true,
+          "start": 368.0,
+          "end": 380.0,
+          "text": "Binary search, roughly speaking, would work like you go compare k to, again, b of n over 2,",
+          "score": 0.5654016
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 324.0,
+          "end": 328.0,
+          "text": "A finding an element in a array, a specific element.",
+          "score": 0.5637733
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture03-008",
+        "video_key": "lecture03_sorting",
+        "query": "sorting can help compression by finding duplicate items",
+        "expected_start_seconds": "420",
+        "expected_end_seconds": "480",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "data compression; sort; finds duplicates",
+        "notes": "source transcript window 420-480; manually curated from source transcript"
+      },
+      "video_id": "a7e7823b-9b71-4b7a-9db9-49729b7fae94",
+      "request_latency_seconds": 0.2511,
+      "api_metrics": {
+        "search_latency_seconds": 0.0552,
+        "query_embedding_seconds": 0.0055,
+        "qdrant_search_seconds": 0.0487
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 459.0,
+          "end": 468.0,
+          "text": "if I have 100 items that are all identical, I'm going to compress the file by representing the item once,",
+          "score": 0.66511315
+        },
+        {
+          "rank": 2,
+          "is_relevant": false,
+          "start": 563.0,
+          "end": 568.0,
+          "text": "So it's worthwhile to look at the variety of sorting algorithms that are out there,",
+          "score": 0.6176226
+        },
+        {
+          "rank": 3,
+          "is_relevant": false,
+          "start": 51.96,
+          "end": 54.48,
+          "text": "It's not the best sorting algorithm that's out there.",
+          "score": 0.6021732
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 45.44,
+          "end": 48.96,
+          "text": "That's probably the simplest sorting algorithm you can write.",
+          "score": 0.5940769
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 595.0,
+          "end": 599.0,
+          "text": "So let's take a look at our first sorting algorithm.",
+          "score": 0.5819515
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture03-009",
+        "video_key": "lecture03_sorting",
+        "query": "computer graphics sorting is used for rendering transparency back to front",
+        "expected_start_seconds": "480",
+        "expected_end_seconds": "600",
+        "relevance_window_seconds": "30",
+        "query_type": "concept",
+        "expected_text": "computer graphics; transparency; back to front",
+        "notes": "source transcript window 480-600; manually curated from source transcript"
+      },
+      "video_id": "a7e7823b-9b71-4b7a-9db9-49729b7fae94",
+      "request_latency_seconds": 0.2667,
+      "api_metrics": {
+        "search_latency_seconds": 0.065,
+        "query_embedding_seconds": 0.0179,
+        "qdrant_search_seconds": 0.046
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 503.0,
+          "end": 507.0,
+          "text": "Computer graphics uses sorting.",
+          "score": 0.7417114
+        },
+        {
+          "rank": 2,
+          "is_relevant": true,
+          "start": 536.0,
+          "end": 541.0,
+          "text": "And so you keep things sorted front to back, most of the time in computer graphics rendering.",
+          "score": 0.67591995
+        },
+        {
+          "rank": 3,
+          "is_relevant": true,
+          "start": 541.0,
+          "end": 545.0,
+          "text": "But some of the time, if you're worried about transparency, you have to render things back to front.",
+          "score": 0.6546054
+        },
+        {
+          "rank": 4,
+          "is_relevant": true,
+          "start": 514.0,
+          "end": 522.0,
+          "text": "I turn sawed that in computer graphics, most of the time you're actually rendering front to back,",
+          "score": 0.6320693
+        },
+        {
+          "rank": 5,
+          "is_relevant": true,
+          "start": 522.0,
+          "end": 528.0,
+          "text": "because when you have a big opaque object in front, you want to render that first.",
+          "score": 0.56412643
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture03-010",
+        "video_key": "lecture03_sorting",
+        "query": "insertion sort inserts the current item using pairwise swaps",
+        "expected_start_seconds": "600",
+        "expected_end_seconds": "720",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "insertion sort; pairwise swaps; correct position",
+        "notes": "source transcript window 600-720; manually curated from source transcript"
+      },
+      "video_id": "a7e7823b-9b71-4b7a-9db9-49729b7fae94",
+      "request_latency_seconds": 0.2449,
+      "api_metrics": {
+        "search_latency_seconds": 0.0629,
+        "query_embedding_seconds": 0.0173,
+        "qdrant_search_seconds": 0.0445
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 612.0,
+          "end": 613.72,
+          "text": "through what insertion sort looks like,",
+          "score": 0.6934898
+        },
+        {
+          "rank": 2,
+          "is_relevant": true,
+          "start": 630.24,
+          "end": 637.92,
+          "text": "So what is insertion sort for i equals 1, 2, 2, and given a sorted,",
+          "score": 0.6719165
+        },
+        {
+          "rank": 3,
+          "is_relevant": false,
+          "start": 43.56,
+          "end": 45.44,
+          "text": "that's called insertion sort.",
+          "score": 0.65977967
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 259.72,
+          "end": 262.56,
+          "text": "and you run insertion sort or merge sort.",
+          "score": 0.5948651
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 856.76,
+          "end": 859.16,
+          "text": "given that you're doing pairwise swaps.",
+          "score": 0.5700773
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture04-001",
+        "video_key": "lecture04_heaps",
+        "query": "a priority queue stores elements with keys",
+        "expected_start_seconds": "60",
+        "expected_end_seconds": "120",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "priority queue; elements; key",
+        "notes": "source transcript window 060-120; manually curated from source transcript"
+      },
+      "video_id": "118ac200-0487-4e01-8c40-84999da3c9a6",
+      "request_latency_seconds": 0.2046,
+      "api_metrics": {
+        "search_latency_seconds": 0.0561,
+        "query_embedding_seconds": 0.0078,
+        "qdrant_search_seconds": 0.0472
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 31.48,
+          "end": 35.36,
+          "text": "implementation of a priority queue.",
+          "score": 0.7491442
+        },
+        {
+          "rank": 2,
+          "is_relevant": false,
+          "start": 205.08,
+          "end": 208.08,
+          "text": "like to perform on a priority queue?",
+          "score": 0.70746005
+        },
+        {
+          "rank": 3,
+          "is_relevant": true,
+          "start": 103.96,
+          "end": 105.84,
+          "text": "And as you can imagine, a priority queue",
+          "score": 0.7001859
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 850.68,
+          "end": 852.92,
+          "text": "to do in a priority queue is you want",
+          "score": 0.68425155
+        },
+        {
+          "rank": 5,
+          "is_relevant": true,
+          "start": 66.68,
+          "end": 68.72,
+          "text": "So the notion of a priority queue, I think,",
+          "score": 0.6826481
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture04-002",
+        "video_key": "lecture04_heaps",
+        "query": "priority queue operations include insert and changing priorities",
+        "expected_start_seconds": "120",
+        "expected_end_seconds": "180",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "insert; change priorities; run fast",
+        "notes": "source transcript window 120-180; manually curated from source transcript"
+      },
+      "video_id": "118ac200-0487-4e01-8c40-84999da3c9a6",
+      "request_latency_seconds": 0.2433,
+      "api_metrics": {
+        "search_latency_seconds": 0.0612,
+        "query_embedding_seconds": 0.0134,
+        "qdrant_search_seconds": 0.0467
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": false,
+          "start": 31.48,
+          "end": 35.36,
+          "text": "implementation of a priority queue.",
+          "score": 0.76605463
+        },
+        {
+          "rank": 2,
+          "is_relevant": false,
+          "start": 850.68,
+          "end": 852.92,
+          "text": "to do in a priority queue is you want",
+          "score": 0.7377894
+        },
+        {
+          "rank": 3,
+          "is_relevant": true,
+          "start": 124.64,
+          "end": 127.44,
+          "text": "You want to be able to change priorities in the queue.",
+          "score": 0.7253844
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 205.08,
+          "end": 208.08,
+          "text": "like to perform on a priority queue?",
+          "score": 0.7123928
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 66.68,
+          "end": 68.72,
+          "text": "So the notion of a priority queue, I think,",
+          "score": 0.707179
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture04-003",
+        "video_key": "lecture04_heaps",
+        "query": "a heap is the ADT implementation for priority queues",
+        "expected_start_seconds": "180",
+        "expected_end_seconds": "240",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "ADT; heap; priority queue",
+        "notes": "source transcript window 180-240; manually curated from source transcript"
+      },
+      "video_id": "118ac200-0487-4e01-8c40-84999da3c9a6",
+      "request_latency_seconds": 0.2911,
+      "api_metrics": {
+        "search_latency_seconds": 0.0681,
+        "query_embedding_seconds": 0.02,
+        "qdrant_search_seconds": 0.047
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": false,
+          "start": 373.16,
+          "end": 380.6,
+          "text": "A heap is an implementation of a priority queue. It is amazingly an arrays structure",
+          "score": 0.8242211
+        },
+        {
+          "rank": 2,
+          "is_relevant": false,
+          "start": 31.48,
+          "end": 35.36,
+          "text": "implementation of a priority queue.",
+          "score": 0.67088825
+        },
+        {
+          "rank": 3,
+          "is_relevant": false,
+          "start": 609.8,
+          "end": 615.24,
+          "text": "Now on top of that, this is just what a heap corresponds to.",
+          "score": 0.6521699
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 623.04,
+          "end": 625.2,
+          "text": "And as you can imagine, max heaps and min heaps",
+          "score": 0.6484484
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 620.04,
+          "end": 623.04,
+          "text": "we'll call max heaps and min heaps.",
+          "score": 0.6416664
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture04-004",
+        "video_key": "lecture04_heaps",
+        "query": "extract max returns and removes the largest key",
+        "expected_start_seconds": "240",
+        "expected_end_seconds": "300",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "extract max; returns; removes",
+        "notes": "source transcript window 240-300; manually curated from source transcript"
+      },
+      "video_id": "118ac200-0487-4e01-8c40-84999da3c9a6",
+      "request_latency_seconds": 0.3628,
+      "api_metrics": {
+        "search_latency_seconds": 0.0674,
+        "query_embedding_seconds": 0.0196,
+        "qdrant_search_seconds": 0.0468
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 251.12,
+          "end": 258.0,
+          "text": "is extract max of S, which not only returns the element",
+          "score": 0.70347476
+        },
+        {
+          "rank": 2,
+          "is_relevant": false,
+          "start": 890.88,
+          "end": 893.76,
+          "text": "And if you could build extract max in an efficient way,",
+          "score": 0.6530601
+        },
+        {
+          "rank": 3,
+          "is_relevant": true,
+          "start": 231.56,
+          "end": 243.08,
+          "text": "which is return, the element of S with the largest key.",
+          "score": 0.60320055
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 790.36,
+          "end": 794.6,
+          "text": "Now, what about extract max?",
+          "score": 0.5855806
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 855.24,
+          "end": 859.04,
+          "text": "And you want to be able to run extract max on the priority queue",
+          "score": 0.54338646
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture04-005",
+        "video_key": "lecture04_heaps",
+        "query": "increase key changes an element's key to a new value",
+        "expected_start_seconds": "300",
+        "expected_end_seconds": "360",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "increase key; new value k",
+        "notes": "source transcript window 300-360; manually curated from source transcript"
+      },
+      "video_id": "118ac200-0487-4e01-8c40-84999da3c9a6",
+      "request_latency_seconds": 0.2766,
+      "api_metrics": {
+        "search_latency_seconds": 0.0708,
+        "query_embedding_seconds": 0.0243,
+        "qdrant_search_seconds": 0.0455
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 300.0,
+          "end": 314.76,
+          "text": "that call it k and increase k sx k would increase the value of x's key to the new value",
+          "score": 0.5735923
+        },
+        {
+          "rank": 2,
+          "is_relevant": true,
+          "start": 333.48,
+          "end": 338.04,
+          "text": "a decrease key and you would have to know what the previous value was and it is just a",
+          "score": 0.5083139
+        },
+        {
+          "rank": 3,
+          "is_relevant": false,
+          "start": 88.32,
+          "end": 94.16,
+          "text": "And each of these elements is associated with the key.",
+          "score": 0.43862247
+        },
+        {
+          "rank": 4,
+          "is_relevant": true,
+          "start": 329.56,
+          "end": 333.48,
+          "text": "you are increasing the value and maybe a particular application you could have certainly",
+          "score": 0.40225106
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 217.0,
+          "end": 222.44,
+          "text": "And you want to be able to insert element x",
+          "score": 0.3881882
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture04-006",
+        "video_key": "lecture04_heaps",
+        "query": "a heap is an array visualized as a nearly complete binary tree",
+        "expected_start_seconds": "360",
+        "expected_end_seconds": "420",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "array; nearly complete binary tree",
+        "notes": "source transcript window 360-420; manually curated from source transcript"
+      },
+      "video_id": "118ac200-0487-4e01-8c40-84999da3c9a6",
+      "request_latency_seconds": 0.2524,
+      "api_metrics": {
+        "search_latency_seconds": 0.0579,
+        "query_embedding_seconds": 0.0115,
+        "qdrant_search_seconds": 0.0453
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 373.16,
+          "end": 380.6,
+          "text": "A heap is an implementation of a priority queue. It is amazingly an arrays structure",
+          "score": 0.69852316
+        },
+        {
+          "rank": 2,
+          "is_relevant": false,
+          "start": 525.32,
+          "end": 554.32,
+          "text": "Any time you see in array you are looking at the heap representation of the array the picture on the right tells you what the heap looks like. And so I am not going to fill in all of these. You can but I will do a couple. So you have 10 here and 8 7 etc. So that is a heap structure. So what is nice about this heap structure is that you have",
+          "score": 0.69746876
+        },
+        {
+          "rank": 3,
+          "is_relevant": false,
+          "start": 609.8,
+          "end": 615.24,
+          "text": "Now on top of that, this is just what a heap corresponds to.",
+          "score": 0.6905705
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 629.16,
+          "end": 631.76,
+          "text": "So this is essentially a definition of a heap.",
+          "score": 0.670234
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 623.04,
+          "end": 625.2,
+          "text": "And as you can imagine, max heaps and min heaps",
+          "score": 0.63594025
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture04-007",
+        "video_key": "lecture04_heaps",
+        "query": "heap array indices map to children in the tree",
+        "expected_start_seconds": "480",
+        "expected_end_seconds": "600",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "children; parent of i; left child; right child",
+        "notes": "source transcript window 480-600; manually curated from source transcript"
+      },
+      "video_id": "118ac200-0487-4e01-8c40-84999da3c9a6",
+      "request_latency_seconds": 0.2152,
+      "api_metrics": {
+        "search_latency_seconds": 0.0628,
+        "query_embedding_seconds": 0.0171,
+        "qdrant_search_seconds": 0.0447
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 472.52,
+          "end": 495.56,
+          "text": "tree? Well index 1 is the root of the tree and that is item with the value 16 and what I have are indices 2 and 3 are the children and",
+          "score": 0.58298814
+        },
+        {
+          "rank": 2,
+          "is_relevant": true,
+          "start": 525.32,
+          "end": 554.32,
+          "text": "Any time you see in array you are looking at the heap representation of the array the picture on the right tells you what the heap looks like. And so I am not going to fill in all of these. You can but I will do a couple. So you have 10 here and 8 7 etc. So that is a heap structure. So what is nice about this heap structure is that you have",
+          "score": 0.55615646
+        },
+        {
+          "rank": 3,
+          "is_relevant": false,
+          "start": 373.16,
+          "end": 380.6,
+          "text": "A heap is an implementation of a priority queue. It is amazingly an arrays structure",
+          "score": 0.5399359
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 609.8,
+          "end": 615.24,
+          "text": "Now on top of that, this is just what a heap corresponds to.",
+          "score": 0.5386282
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 625.2,
+          "end": 629.16,
+          "text": "have additional properties on top of the basic heaps structure.",
+          "score": 0.51339936
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture04-008",
+        "video_key": "lecture04_heaps",
+        "query": "max heaps and min heaps add extra properties",
+        "expected_start_seconds": "600",
+        "expected_end_seconds": "660",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "max heaps; min heaps; additional properties",
+        "notes": "source transcript window 600-660; manually curated from source transcript"
+      },
+      "video_id": "118ac200-0487-4e01-8c40-84999da3c9a6",
+      "request_latency_seconds": 0.2186,
+      "api_metrics": {
+        "search_latency_seconds": 0.0556,
+        "query_embedding_seconds": 0.0092,
+        "qdrant_search_seconds": 0.0453
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": false,
+          "start": 834.04,
+          "end": 836.12,
+          "text": "is a max heaps property.",
+          "score": 0.79260993
+        },
+        {
+          "rank": 2,
+          "is_relevant": false,
+          "start": 836.12,
+          "end": 838.52,
+          "text": "So we want to maintain the max heaps property",
+          "score": 0.7834151
+        },
+        {
+          "rank": 3,
+          "is_relevant": true,
+          "start": 631.76,
+          "end": 634.84,
+          "text": "Now I'm going to define what the max heaps property is.",
+          "score": 0.7780232
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 756.08,
+          "end": 761.96,
+          "text": "And you can imagine defining the min heaps property",
+          "score": 0.7702067
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 750.16,
+          "end": 752.6,
+          "text": "And so you have the max heaps property.",
+          "score": 0.76429856
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture04-009",
+        "video_key": "lecture04_heaps",
+        "query": "max heap property requires parent greater than children",
+        "expected_start_seconds": "660",
+        "expected_end_seconds": "780",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "parent is greater than or equal to children",
+        "notes": "source transcript window 660-780; manually curated from source transcript"
+      },
+      "video_id": "118ac200-0487-4e01-8c40-84999da3c9a6",
+      "request_latency_seconds": 0.22,
+      "api_metrics": {
+        "search_latency_seconds": 0.0683,
+        "query_embedding_seconds": 0.02,
+        "qdrant_search_seconds": 0.0473
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": false,
+          "start": 834.04,
+          "end": 836.12,
+          "text": "is a max heaps property.",
+          "score": 0.75519574
+        },
+        {
+          "rank": 2,
+          "is_relevant": true,
+          "start": 631.76,
+          "end": 634.84,
+          "text": "Now I'm going to define what the max heaps property is.",
+          "score": 0.7481551
+        },
+        {
+          "rank": 3,
+          "is_relevant": true,
+          "start": 717.64,
+          "end": 719.8,
+          "text": "Does it have the max heaps property?",
+          "score": 0.7210906
+        },
+        {
+          "rank": 4,
+          "is_relevant": true,
+          "start": 750.16,
+          "end": 752.6,
+          "text": "And so you have the max heaps property.",
+          "score": 0.7195464
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 836.12,
+          "end": 838.52,
+          "text": "So we want to maintain the max heaps property",
+          "score": 0.7144885
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture04-010",
+        "video_key": "lecture04_heaps",
+        "query": "finding max is trivial but extract max is not trivial",
+        "expected_start_seconds": "780",
+        "expected_end_seconds": "840",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "max operation; extract max; not trivially performed",
+        "notes": "source transcript window 780-840; manually curated from source transcript"
+      },
+      "video_id": "118ac200-0487-4e01-8c40-84999da3c9a6",
+      "request_latency_seconds": 0.2429,
+      "api_metrics": {
+        "search_latency_seconds": 0.0585,
+        "query_embedding_seconds": 0.0121,
+        "qdrant_search_seconds": 0.0452
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": false,
+          "start": 251.12,
+          "end": 258.0,
+          "text": "is extract max of S, which not only returns the element",
+          "score": 0.7325025
+        },
+        {
+          "rank": 2,
+          "is_relevant": false,
+          "start": 890.88,
+          "end": 893.76,
+          "text": "And if you could build extract max in an efficient way,",
+          "score": 0.6785695
+        },
+        {
+          "rank": 3,
+          "is_relevant": true,
+          "start": 790.36,
+          "end": 794.6,
+          "text": "Now, what about extract max?",
+          "score": 0.66035223
+        },
+        {
+          "rank": 4,
+          "is_relevant": true,
+          "start": 803.72,
+          "end": 807.76,
+          "text": "By when you say max is trivially performed,",
+          "score": 0.64239013
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 855.24,
+          "end": 859.04,
+          "text": "And you want to be able to run extract max on the priority queue",
+          "score": 0.57394505
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture05-001",
+        "video_key": "lecture05_bst",
+        "query": "binary search trees are motivated by a runway reservation system",
+        "expected_start_seconds": "60",
+        "expected_end_seconds": "120",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "runway reservation system; data structures",
+        "notes": "source transcript window 060-120; manually curated from source transcript"
+      },
+      "video_id": "60ff55a2-7f9b-4ea3-9942-5d8d15f6eaef",
+      "request_latency_seconds": 0.2989,
+      "api_metrics": {
+        "search_latency_seconds": 0.0692,
+        "query_embedding_seconds": 0.0227,
+        "qdrant_search_seconds": 0.0452
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 100.08,
+          "end": 105.56,
+          "text": "So let's dive into what the runway reservation system",
+          "score": 0.6921725
+        },
+        {
+          "rank": 2,
+          "is_relevant": true,
+          "start": 64.04,
+          "end": 68.24,
+          "text": "It's a part of a runway reservation system",
+          "score": 0.65013075
+        },
+        {
+          "rank": 3,
+          "is_relevant": true,
+          "start": 42.76,
+          "end": 45.92,
+          "text": "called a BST, a binary search tree.",
+          "score": 0.53681564
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 29.08,
+          "end": 34.92,
+          "text": "and we've mentioned earlier in 006, called a binary search tree.",
+          "score": 0.5178727
+        },
+        {
+          "rank": 5,
+          "is_relevant": true,
+          "start": 91.48,
+          "end": 93.82,
+          "text": "instead of the existence of a binary search",
+          "score": 0.49513572
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture05-002",
+        "video_key": "lecture05_bst",
+        "query": "a single runway has safety issues for landing and takeoff",
+        "expected_start_seconds": "120",
+        "expected_end_seconds": "180",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "single runway; safety issues; landing planes",
+        "notes": "source transcript window 120-180; manually curated from source transcript"
+      },
+      "video_id": "60ff55a2-7f9b-4ea3-9942-5d8d15f6eaef",
+      "request_latency_seconds": 0.2817,
+      "api_metrics": {
+        "search_latency_seconds": 0.0668,
+        "query_embedding_seconds": 0.0189,
+        "qdrant_search_seconds": 0.0468
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 129.68,
+          "end": 133.16,
+          "text": "And of course, there's lots of airports with a single runway.",
+          "score": 0.6203337
+        },
+        {
+          "rank": 2,
+          "is_relevant": true,
+          "start": 113.08,
+          "end": 120.12,
+          "text": "Will assume an airport with a single runway.",
+          "score": 0.5184066
+        },
+        {
+          "rank": 3,
+          "is_relevant": true,
+          "start": 100.08,
+          "end": 105.56,
+          "text": "So let's dive into what the runway reservation system",
+          "score": 0.47756797
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 64.04,
+          "end": 68.24,
+          "text": "It's a part of a runway reservation system",
+          "score": 0.4572608
+        },
+        {
+          "rank": 5,
+          "is_relevant": true,
+          "start": 124.6,
+          "end": 127.28,
+          "text": "Now, Logan has six runways, but at the moment,",
+          "score": 0.42150176
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture05-003",
+        "video_key": "lecture05_bst",
+        "query": "landing requests are accepted if no landing is within k minutes",
+        "expected_start_seconds": "180",
+        "expected_end_seconds": "240",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "landing time; no other landings; K minutes",
+        "notes": "source transcript window 180-240; manually curated from source transcript"
+      },
+      "video_id": "60ff55a2-7f9b-4ea3-9942-5d8d15f6eaef",
+      "request_latency_seconds": 0.2281,
+      "api_metrics": {
+        "search_latency_seconds": 0.0702,
+        "query_embedding_seconds": 0.0237,
+        "qdrant_search_seconds": 0.0454
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 220.24,
+          "end": 237.84,
+          "text": "if no other landings are scheduled within K minutes.",
+          "score": 0.7446664
+        },
+        {
+          "rank": 2,
+          "is_relevant": false,
+          "start": 571.0,
+          "end": 573.68,
+          "text": "to check to see whether there's a landing time",
+          "score": 0.60573626
+        },
+        {
+          "rank": 3,
+          "is_relevant": false,
+          "start": 315.68,
+          "end": 320.2,
+          "text": "which is the set of landing times after the plane lands.",
+          "score": 0.5855018
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 421.44,
+          "end": 424.28,
+          "text": "You may get a request for landing time 53,",
+          "score": 0.56753176
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 408.08,
+          "end": 413.04,
+          "text": "Now you may get a request for landing time 53.",
+          "score": 0.55150074
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture05-004",
+        "video_key": "lecture05_bst",
+        "query": "k can be three minutes or vary with weather",
+        "expected_start_seconds": "240",
+        "expected_end_seconds": "300",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "K is three minutes; weather conditions",
+        "notes": "source transcript window 240-300; manually curated from source transcript"
+      },
+      "video_id": "60ff55a2-7f9b-4ea3-9942-5d8d15f6eaef",
+      "request_latency_seconds": 0.2712,
+      "api_metrics": {
+        "search_latency_seconds": 0.0645,
+        "query_embedding_seconds": 0.0159,
+        "qdrant_search_seconds": 0.0474
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 258.68,
+          "end": 263.2,
+          "text": "Will assume K is three minutes or something like that.",
+          "score": 0.80162275
+        },
+        {
+          "rank": 2,
+          "is_relevant": false,
+          "start": 573.68,
+          "end": 578.92,
+          "text": "that's within K of the current time T that you're asking for.",
+          "score": 0.6150464
+        },
+        {
+          "rank": 3,
+          "is_relevant": true,
+          "start": 220.24,
+          "end": 237.84,
+          "text": "if no other landings are scheduled within K minutes.",
+          "score": 0.59321713
+        },
+        {
+          "rank": 4,
+          "is_relevant": true,
+          "start": 237.84,
+          "end": 243.52,
+          "text": "And K is a parameter that could vary.",
+          "score": 0.533613
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 200.32,
+          "end": 202.6,
+          "text": "Each of them is going to specify a landing time.",
+          "score": 0.42156863
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture05-005",
+        "video_key": "lecture05_bst",
+        "query": "delete removes landing time after the plane lands",
+        "expected_start_seconds": "300",
+        "expected_end_seconds": "360",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "remove from set R; after the plane lands",
+        "notes": "source transcript window 300-360; manually curated from source transcript"
+      },
+      "video_id": "60ff55a2-7f9b-4ea3-9942-5d8d15f6eaef",
+      "request_latency_seconds": 0.2427,
+      "api_metrics": {
+        "search_latency_seconds": 0.0738,
+        "query_embedding_seconds": 0.0234,
+        "qdrant_search_seconds": 0.0492
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 315.68,
+          "end": 320.2,
+          "text": "which is the set of landing times after the plane lands.",
+          "score": 0.6632607
+        },
+        {
+          "rank": 2,
+          "is_relevant": true,
+          "start": 300.32,
+          "end": 304.84,
+          "text": "take this particular landing time away from the set R.",
+          "score": 0.5236342
+        },
+        {
+          "rank": 3,
+          "is_relevant": false,
+          "start": 192.44,
+          "end": 200.32,
+          "text": "for landings, and these are going to specify landing time.",
+          "score": 0.49847728
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 200.32,
+          "end": 202.6,
+          "text": "Each of them is going to specify a landing time.",
+          "score": 0.49652708
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 571.0,
+          "end": 573.68,
+          "text": "to check to see whether there's a landing time",
+          "score": 0.464423
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture05-006",
+        "video_key": "lecture05_bst",
+        "query": "at time thirty seven the reservation set has landing times",
+        "expected_start_seconds": "360",
+        "expected_end_seconds": "420",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "time 37; set R; landing times",
+        "notes": "source transcript window 360-420; manually curated from source transcript"
+      },
+      "video_id": "60ff55a2-7f9b-4ea3-9942-5d8d15f6eaef",
+      "request_latency_seconds": 0.2285,
+      "api_metrics": {
+        "search_latency_seconds": 0.0533,
+        "query_embedding_seconds": 0.0079,
+        "qdrant_search_seconds": 0.0443
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": false,
+          "start": 315.68,
+          "end": 320.2,
+          "text": "which is the set of landing times after the plane lands.",
+          "score": 0.64913833
+        },
+        {
+          "rank": 2,
+          "is_relevant": false,
+          "start": 157.2,
+          "end": 163.76,
+          "text": "So reservations for future landings",
+          "score": 0.6380608
+        },
+        {
+          "rank": 3,
+          "is_relevant": false,
+          "start": 200.32,
+          "end": 202.6,
+          "text": "Each of them is going to specify a landing time.",
+          "score": 0.629812
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 192.44,
+          "end": 200.32,
+          "text": "for landings, and these are going to specify landing time.",
+          "score": 0.5784093
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 421.44,
+          "end": 424.28,
+          "text": "You may get a request for landing time 53,",
+          "score": 0.5728477
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture05-007",
+        "video_key": "lecture05_bst",
+        "query": "landing time fifty three is allowed but forty four is too close",
+        "expected_start_seconds": "420",
+        "expected_end_seconds": "480",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "53; OK; 44 is not allowed; too close",
+        "notes": "source transcript window 420-480; manually curated from source transcript"
+      },
+      "video_id": "60ff55a2-7f9b-4ea3-9942-5d8d15f6eaef",
+      "request_latency_seconds": 0.2478,
+      "api_metrics": {
+        "search_latency_seconds": 0.0645,
+        "query_embedding_seconds": 0.0158,
+        "qdrant_search_seconds": 0.0477
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": false,
+          "start": 200.32,
+          "end": 202.6,
+          "text": "Each of them is going to specify a landing time.",
+          "score": 0.6086049
+        },
+        {
+          "rank": 2,
+          "is_relevant": false,
+          "start": 192.44,
+          "end": 200.32,
+          "text": "for landings, and these are going to specify landing time.",
+          "score": 0.57284236
+        },
+        {
+          "rank": 3,
+          "is_relevant": false,
+          "start": 315.68,
+          "end": 320.2,
+          "text": "which is the set of landing times after the plane lands.",
+          "score": 0.5691188
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 300.32,
+          "end": 304.84,
+          "text": "take this particular landing time away from the set R.",
+          "score": 0.56653076
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 208.8,
+          "end": 220.24,
+          "text": "we're going to add T to the set R of landing times",
+          "score": 0.53777575
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture05-008",
+        "video_key": "lecture05_bst",
+        "query": "unsorted arrays make the k minute check linear time",
+        "expected_start_seconds": "540",
+        "expected_end_seconds": "600",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "unsorted; check against other elements; linear",
+        "notes": "source transcript window 540-600; manually curated from source transcript"
+      },
+      "video_id": "60ff55a2-7f9b-4ea3-9942-5d8d15f6eaef",
+      "request_latency_seconds": 0.2766,
+      "api_metrics": {
+        "search_latency_seconds": 0.0633,
+        "query_embedding_seconds": 0.0156,
+        "qdrant_search_seconds": 0.0464
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 562.4,
+          "end": 566.36,
+          "text": "against other elements of the array, it's unsorted.",
+          "score": 0.5319798
+        },
+        {
+          "rank": 2,
+          "is_relevant": false,
+          "start": 258.68,
+          "end": 263.2,
+          "text": "Will assume K is three minutes or something like that.",
+          "score": 0.43614924
+        },
+        {
+          "rank": 3,
+          "is_relevant": false,
+          "start": 669.68,
+          "end": 671.88,
+          "text": "of the array, and maybe you just look at that.",
+          "score": 0.38876268
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 759.08,
+          "end": 761.2,
+          "text": "So right now the array has indices.",
+          "score": 0.3794663
+        },
+        {
+          "rank": 5,
+          "is_relevant": true,
+          "start": 568.8,
+          "end": 571.0,
+          "text": "You have to scan through the entire array",
+          "score": 0.36891693
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture05-009",
+        "video_key": "lecture05_bst",
+        "query": "sorted arrays can use binary search to find the insertion point",
+        "expected_start_seconds": "600",
+        "expected_end_seconds": "720",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "sorted array; binary search; midpoint",
+        "notes": "source transcript window 600-720; manually curated from source transcript"
+      },
+      "video_id": "60ff55a2-7f9b-4ea3-9942-5d8d15f6eaef",
+      "request_latency_seconds": 0.3195,
+      "api_metrics": {
+        "search_latency_seconds": 0.0556,
+        "query_embedding_seconds": 0.0084,
+        "qdrant_search_seconds": 0.046
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 691.84,
+          "end": 697.2,
+          "text": "find what we call the insertion point of the solid array",
+          "score": 0.61037743
+        },
+        {
+          "rank": 2,
+          "is_relevant": true,
+          "start": 643.12,
+          "end": 644.04,
+          "text": "Binary search.",
+          "score": 0.5407744
+        },
+        {
+          "rank": 3,
+          "is_relevant": false,
+          "start": 562.4,
+          "end": 566.36,
+          "text": "against other elements of the array, it's unsorted.",
+          "score": 0.5402679
+        },
+        {
+          "rank": 4,
+          "is_relevant": true,
+          "start": 704.64,
+          "end": 707.4,
+          "text": "you need to look once you've found the insertion point",
+          "score": 0.5243627
+        },
+        {
+          "rank": 5,
+          "is_relevant": true,
+          "start": 637.12,
+          "end": 640.88,
+          "text": "Binary search would find a vet insert.",
+          "score": 0.51084685
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture05-010",
+        "video_key": "lecture05_bst",
+        "query": "sorted array insertion requires shifting and can take order n",
+        "expected_start_seconds": "780",
+        "expected_end_seconds": "900",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "insertion; shifting; order n time",
+        "notes": "source transcript window 780-900; manually curated from source transcript"
+      },
+      "video_id": "60ff55a2-7f9b-4ea3-9942-5d8d15f6eaef",
+      "request_latency_seconds": 0.1953,
+      "api_metrics": {
+        "search_latency_seconds": 0.0621,
+        "query_embedding_seconds": 0.0158,
+        "qdrant_search_seconds": 0.0451
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": false,
+          "start": 562.4,
+          "end": 566.36,
+          "text": "against other elements of the array, it's unsorted.",
+          "score": 0.59685856
+        },
+        {
+          "rank": 2,
+          "is_relevant": false,
+          "start": 691.84,
+          "end": 697.2,
+          "text": "find what we call the insertion point of the solid array",
+          "score": 0.45414174
+        },
+        {
+          "rank": 3,
+          "is_relevant": false,
+          "start": 582.48,
+          "end": 593.72,
+          "text": "So you can insert in order one without a check.",
+          "score": 0.45152155
+        },
+        {
+          "rank": 4,
+          "is_relevant": true,
+          "start": 773.68,
+          "end": 776.36,
+          "text": "When you put something in you have to shift every element over.",
+          "score": 0.42381746
+        },
+        {
+          "rank": 5,
+          "is_relevant": true,
+          "start": 880.36,
+          "end": 887.24,
+          "text": "Now you can imagine that you had a sorted list.",
+          "score": 0.41746652
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture06-001",
+        "video_key": "lecture06_avl",
+        "query": "a binary search tree stores a key in every node",
+        "expected_start_seconds": "60",
+        "expected_end_seconds": "120",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "node; key; BST property",
+        "notes": "source transcript window 060-120; manually curated from source transcript"
+      },
+      "video_id": "1bb04e42-835e-40ea-b985-06bd83e81462",
+      "request_latency_seconds": 0.2199,
+      "api_metrics": {
+        "search_latency_seconds": 0.061,
+        "query_embedding_seconds": 0.0113,
+        "qdrant_search_seconds": 0.0485
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 90.68,
+          "end": 92.36,
+          "text": "So when you have a binary search tree like this,",
+          "score": 0.7375703
+        },
+        {
+          "rank": 2,
+          "is_relevant": true,
+          "start": 70.76,
+          "end": 74.24,
+          "text": "That every node, if you have a node that stores a key x,",
+          "score": 0.70816386
+        },
+        {
+          "rank": 3,
+          "is_relevant": true,
+          "start": 62.0,
+          "end": 63.72,
+          "text": "Every node has a key.",
+          "score": 0.7034824
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 25.6,
+          "end": 27.52,
+          "text": "but in particular binary search trees,",
+          "score": 0.6994195
+        },
+        {
+          "rank": 5,
+          "is_relevant": true,
+          "start": 37.44,
+          "end": 41.08,
+          "text": "in a nice binary search tree.",
+          "score": 0.68586123
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture06-002",
+        "video_key": "lecture06_avl",
+        "query": "the lecture introduces balance after basic binary search trees",
+        "expected_start_seconds": "120",
+        "expected_end_seconds": "180",
+        "relevance_window_seconds": "30",
+        "query_type": "concept",
+        "expected_text": "basic binary search trees; balance",
+        "notes": "source transcript window 120-180; manually curated from source transcript"
+      },
+      "video_id": "1bb04e42-835e-40ea-b985-06bd83e81462",
+      "request_latency_seconds": 0.2449,
+      "api_metrics": {
+        "search_latency_seconds": 0.0565,
+        "query_embedding_seconds": 0.0059,
+        "qdrant_search_seconds": 0.0495
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 139.24,
+          "end": 141.4,
+          "text": "is that these basic binary search trees",
+          "score": 0.6960727
+        },
+        {
+          "rank": 2,
+          "is_relevant": false,
+          "start": 778.6,
+          "end": 780.68,
+          "text": "It's a different balanced search tree.",
+          "score": 0.69544077
+        },
+        {
+          "rank": 3,
+          "is_relevant": true,
+          "start": 90.68,
+          "end": 92.36,
+          "text": "So when you have a binary search tree like this,",
+          "score": 0.69441426
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 25.6,
+          "end": 27.52,
+          "text": "but in particular binary search trees,",
+          "score": 0.68997395
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 41.08,
+          "end": 46.32,
+          "text": "Remember, general binary search tree is a tree.",
+          "score": 0.6637207
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture06-003",
+        "video_key": "lecture06_avl",
+        "query": "an ideal balanced tree has logarithmic height",
+        "expected_start_seconds": "180",
+        "expected_end_seconds": "240",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "height; log n; balanced",
+        "notes": "source transcript window 180-240; manually curated from source transcript"
+      },
+      "video_id": "1bb04e42-835e-40ea-b985-06bd83e81462",
+      "request_latency_seconds": 0.2373,
+      "api_metrics": {
+        "search_latency_seconds": 0.0692,
+        "query_embedding_seconds": 0.0223,
+        "qdrant_search_seconds": 0.0458
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": false,
+          "start": 306.6,
+          "end": 318.12,
+          "text": "We call a tree balanced if the height is order log n.",
+          "score": 0.7749752
+        },
+        {
+          "rank": 2,
+          "is_relevant": false,
+          "start": 331.08,
+          "end": 333.04,
+          "text": "tree, you need to have height at least log n.",
+          "score": 0.6931017
+        },
+        {
+          "rank": 3,
+          "is_relevant": false,
+          "start": 354.76,
+          "end": 356.52,
+          "text": "There are lots of ways to keep a tree balanced.",
+          "score": 0.68713444
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 333.04,
+          "end": 336.24,
+          "text": "So in fact, it will be theta log n if your tree is balanced.",
+          "score": 0.6448833
+        },
+        {
+          "rank": 5,
+          "is_relevant": true,
+          "start": 175.2,
+          "end": 177.2,
+          "text": "height of the tree.",
+          "score": 0.6386801
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture06-004",
+        "video_key": "lecture06_avl",
+        "query": "height is the longest path from the root to a leaf",
+        "expected_start_seconds": "240",
+        "expected_end_seconds": "300",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "longest path; root; leaf",
+        "notes": "source transcript window 240-300; manually curated from source transcript"
+      },
+      "video_id": "1bb04e42-835e-40ea-b985-06bd83e81462",
+      "request_latency_seconds": 0.296,
+      "api_metrics": {
+        "search_latency_seconds": 0.0563,
+        "query_embedding_seconds": 0.0062,
+        "qdrant_search_seconds": 0.0485
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 252.4,
+          "end": 255.6,
+          "text": "So length of the longest path from the root to some leaf.",
+          "score": 0.86419845
+        },
+        {
+          "rank": 2,
+          "is_relevant": false,
+          "start": 473.12,
+          "end": 476.12,
+          "text": "So length the longest path from it down to a leaf.",
+          "score": 0.80119705
+        },
+        {
+          "rank": 3,
+          "is_relevant": false,
+          "start": 493.12,
+          "end": 497.12,
+          "text": "It has a path of length one to a leaf.",
+          "score": 0.73377335
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 798.6,
+          "end": 800.68,
+          "text": "I mean the height of its root.",
+          "score": 0.69925225
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 175.2,
+          "end": 177.2,
+          "text": "height of the tree.",
+          "score": 0.6945342
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture06-005",
+        "video_key": "lecture06_avl",
+        "query": "worst case binary search trees are not balanced",
+        "expected_start_seconds": "300",
+        "expected_end_seconds": "360",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "worst case; BSTs; balanced; order log n",
+        "notes": "source transcript window 300-360; manually curated from source transcript"
+      },
+      "video_id": "1bb04e42-835e-40ea-b985-06bd83e81462",
+      "request_latency_seconds": 0.2772,
+      "api_metrics": {
+        "search_latency_seconds": 0.067,
+        "query_embedding_seconds": 0.0191,
+        "qdrant_search_seconds": 0.0468
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": false,
+          "start": 212.24,
+          "end": 214.44,
+          "text": "This is a nice perfectly balanced binary search",
+          "score": 0.7017532
+        },
+        {
+          "rank": 2,
+          "is_relevant": false,
+          "start": 778.6,
+          "end": 780.68,
+          "text": "It's a different balanced search tree.",
+          "score": 0.6929447
+        },
+        {
+          "rank": 3,
+          "is_relevant": false,
+          "start": 25.6,
+          "end": 27.52,
+          "text": "but in particular binary search trees,",
+          "score": 0.69226444
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 139.24,
+          "end": 141.4,
+          "text": "is that these basic binary search trees",
+          "score": 0.675946
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 90.68,
+          "end": 92.36,
+          "text": "So when you have a binary search tree like this,",
+          "score": 0.6662377
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture06-006",
+        "video_key": "lecture06_avl",
+        "query": "AVL trees are introduced and the height of a node is defined",
+        "expected_start_seconds": "360",
+        "expected_end_seconds": "420",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "AVL trees; height of a node",
+        "notes": "source transcript window 360-420; manually curated from source transcript"
+      },
+      "video_id": "1bb04e42-835e-40ea-b985-06bd83e81462",
+      "request_latency_seconds": 0.1919,
+      "api_metrics": {
+        "search_latency_seconds": 0.0592,
+        "query_embedding_seconds": 0.0101,
+        "qdrant_search_seconds": 0.048
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": false,
+          "start": 620.6,
+          "end": 623.36,
+          "text": "Because avial trees are going to use the heights of the nodes.",
+          "score": 0.70511335
+        },
+        {
+          "rank": 2,
+          "is_relevant": false,
+          "start": 175.2,
+          "end": 177.2,
+          "text": "height of the tree.",
+          "score": 0.65867907
+        },
+        {
+          "rank": 3,
+          "is_relevant": true,
+          "start": 376.56,
+          "end": 387.4,
+          "text": "But I also like to talk about the height of a node in a tree.",
+          "score": 0.6312547
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 797.4,
+          "end": 798.6,
+          "text": "by the height of the subtree.",
+          "score": 0.6019622
+        },
+        {
+          "rank": 5,
+          "is_relevant": true,
+          "start": 363.36,
+          "end": 367.16,
+          "text": "Does not cover AVL trees, so pay attention.",
+          "score": 0.60083294
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture06-007",
+        "video_key": "lecture06_avl",
+        "query": "node height is the longest path from that node down to a leaf",
+        "expected_start_seconds": "420",
+        "expected_end_seconds": "480",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "long path from that node to the leaf",
+        "notes": "source transcript window 420-480; manually curated from source transcript"
+      },
+      "video_id": "1bb04e42-835e-40ea-b985-06bd83e81462",
+      "request_latency_seconds": 0.2114,
+      "api_metrics": {
+        "search_latency_seconds": 0.065,
+        "query_embedding_seconds": 0.0172,
+        "qdrant_search_seconds": 0.0467
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 473.12,
+          "end": 476.12,
+          "text": "So length the longest path from it down to a leaf.",
+          "score": 0.799265
+        },
+        {
+          "rank": 2,
+          "is_relevant": false,
+          "start": 252.4,
+          "end": 255.6,
+          "text": "So length of the longest path from the root to some leaf.",
+          "score": 0.7712265
+        },
+        {
+          "rank": 3,
+          "is_relevant": false,
+          "start": 493.12,
+          "end": 497.12,
+          "text": "It has a path of length one to a leaf.",
+          "score": 0.7231433
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 511.12,
+          "end": 514.12,
+          "text": "This node has height one.",
+          "score": 0.6639414
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 518.12,
+          "end": 521.12,
+          "text": "How do you compute the height of a node?",
+          "score": 0.6575264
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture06-008",
+        "video_key": "lecture06_avl",
+        "query": "height can be computed from the max of left and right child heights",
+        "expected_start_seconds": "540",
+        "expected_end_seconds": "600",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "max; height of left child; height of right child",
+        "notes": "source transcript window 540-600; manually curated from source transcript"
+      },
+      "video_id": "1bb04e42-835e-40ea-b985-06bd83e81462",
+      "request_latency_seconds": 0.2324,
+      "api_metrics": {
+        "search_latency_seconds": 0.0556,
+        "query_embedding_seconds": 0.0088,
+        "qdrant_search_seconds": 0.0454
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 600.0,
+          "end": 602.72,
+          "text": "using just local information, the height of its left child, the height of its right child,",
+          "score": 0.78369564
+        },
+        {
+          "rank": 2,
+          "is_relevant": true,
+          "start": 526.12,
+          "end": 528.12,
+          "text": "Right. You take the max of the height of the children.",
+          "score": 0.7321515
+        },
+        {
+          "rank": 3,
+          "is_relevant": true,
+          "start": 523.12,
+          "end": 526.12,
+          "text": "So the max goes to height of the children.",
+          "score": 0.7106432
+        },
+        {
+          "rank": 4,
+          "is_relevant": true,
+          "start": 546.12,
+          "end": 550.12,
+          "text": "With the height of the right child.",
+          "score": 0.6645026
+        },
+        {
+          "rank": 5,
+          "is_relevant": true,
+          "start": 535.12,
+          "end": 537.12,
+          "text": "The height of the left.",
+          "score": 0.55989087
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture06-009",
+        "video_key": "lecture06_avl",
+        "query": "local formulas let augmented search trees maintain extra information",
+        "expected_start_seconds": "600",
+        "expected_end_seconds": "660",
+        "relevance_window_seconds": "30",
+        "query_type": "concept",
+        "expected_text": "local formula; maintain information",
+        "notes": "source transcript window 600-660; manually curated from source transcript"
+      },
+      "video_id": "1bb04e42-835e-40ea-b985-06bd83e81462",
+      "request_latency_seconds": 0.2373,
+      "api_metrics": {
+        "search_latency_seconds": 0.0645,
+        "query_embedding_seconds": 0.0185,
+        "qdrant_search_seconds": 0.0446
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": false,
+          "start": 25.6,
+          "end": 27.52,
+          "text": "but in particular binary search trees,",
+          "score": 0.607404
+        },
+        {
+          "rank": 2,
+          "is_relevant": false,
+          "start": 139.24,
+          "end": 141.4,
+          "text": "is that these basic binary search trees",
+          "score": 0.580865
+        },
+        {
+          "rank": 3,
+          "is_relevant": false,
+          "start": 90.68,
+          "end": 92.36,
+          "text": "So when you have a binary search tree like this,",
+          "score": 0.55607605
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 778.6,
+          "end": 780.68,
+          "text": "It's a different balanced search tree.",
+          "score": 0.49898356
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 37.44,
+          "end": 41.08,
+          "text": "in a nice binary search tree.",
+          "score": 0.49192065
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture06-010",
+        "video_key": "lecture06_avl",
+        "query": "balance compares the heights of left and right subtrees",
+        "expected_start_seconds": "720",
+        "expected_end_seconds": "840",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "left subtree; right subtree; height",
+        "notes": "source transcript window 720-840; manually curated from source transcript"
+      },
+      "video_id": "1bb04e42-835e-40ea-b985-06bd83e81462",
+      "request_latency_seconds": 0.2359,
+      "api_metrics": {
+        "search_latency_seconds": 0.0625,
+        "query_embedding_seconds": 0.0151,
+        "qdrant_search_seconds": 0.0465
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": false,
+          "start": 306.6,
+          "end": 318.12,
+          "text": "We call a tree balanced if the height is order log n.",
+          "score": 0.713863
+        },
+        {
+          "rank": 2,
+          "is_relevant": true,
+          "start": 828.12,
+          "end": 832.36,
+          "text": "Every node X, I want the left and right subtree to be almost balanced.",
+          "score": 0.680642
+        },
+        {
+          "rank": 3,
+          "is_relevant": false,
+          "start": 354.76,
+          "end": 356.52,
+          "text": "There are lots of ways to keep a tree balanced.",
+          "score": 0.6663747
+        },
+        {
+          "rank": 4,
+          "is_relevant": true,
+          "start": 791.28,
+          "end": 797.4,
+          "text": "This subtree has a height, called HL for left,",
+          "score": 0.6593346
+        },
+        {
+          "rank": 5,
+          "is_relevant": true,
+          "start": 773.68,
+          "end": 777.56,
+          "text": "You could also think about them being more or less equal in subtree size.",
+          "score": 0.64246786
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture07-001",
+        "video_key": "lecture07_counting_radix",
+        "query": "the lecture moves to the comparison model of computation",
+        "expected_start_seconds": "60",
+        "expected_end_seconds": "120",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "comparison model; model of computation",
+        "notes": "source transcript window 060-120; manually curated from source transcript"
+      },
+      "video_id": "06a50f4f-952c-4f2b-b0dc-e38bfdc38012",
+      "request_latency_seconds": 0.2046,
+      "api_metrics": {
+        "search_latency_seconds": 0.0629,
+        "query_embedding_seconds": 0.015,
+        "qdrant_search_seconds": 0.0468
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 64.2,
+          "end": 66.92,
+          "text": "Remember, models of computation from lecture 2.",
+          "score": 0.7079053
+        },
+        {
+          "rank": 2,
+          "is_relevant": true,
+          "start": 95.08,
+          "end": 96.84,
+          "text": "We're going to different model of computation,",
+          "score": 0.6607312
+        },
+        {
+          "rank": 3,
+          "is_relevant": true,
+          "start": 66.92,
+          "end": 69.64,
+          "text": "So we're going to talk about a new model of computation,",
+          "score": 0.638198
+        },
+        {
+          "rank": 4,
+          "is_relevant": true,
+          "start": 116.32,
+          "end": 118.6,
+          "text": "So the idea in the comparison model",
+          "score": 0.59837866
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 19.64,
+          "end": 23.4,
+          "text": "Next lecture on sorting.",
+          "score": 0.59620214
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture07-002",
+        "video_key": "lecture07_counting_radix",
+        "query": "input items are treated as black boxes",
+        "expected_start_seconds": "120",
+        "expected_end_seconds": "180",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "input items; black boxes",
+        "notes": "source transcript window 120-180; manually curated from source transcript"
+      },
+      "video_id": "06a50f4f-952c-4f2b-b0dc-e38bfdc38012",
+      "request_latency_seconds": 0.2029,
+      "api_metrics": {
+        "search_latency_seconds": 0.0579,
+        "query_embedding_seconds": 0.0121,
+        "qdrant_search_seconds": 0.0448
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 129.0,
+          "end": 135.6,
+          "text": "Input items are black boxes, you could say.",
+          "score": 0.845526
+        },
+        {
+          "rank": 2,
+          "is_relevant": true,
+          "start": 139.84,
+          "end": 142.64,
+          "text": "And a formal notion of black boxes is something",
+          "score": 0.511062
+        },
+        {
+          "rank": 3,
+          "is_relevant": false,
+          "start": 207.64,
+          "end": 210.04,
+          "text": "It's changing pointers to items.",
+          "score": 0.26504505
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 526.76,
+          "end": 529.4,
+          "text": "Probably need a wider box for this.",
+          "score": 0.22739182
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 210.04,
+          "end": 213.96,
+          "text": "But the only way it manipulates items or evaluates them",
+          "score": 0.21078806
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture07-003",
+        "video_key": "lecture07_counting_radix",
+        "query": "the only operations allowed are comparisons with yes or no answers",
+        "expected_start_seconds": "180",
+        "expected_end_seconds": "240",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "greater than; equals; binary answer",
+        "notes": "source transcript window 180-240; manually curated from source transcript"
+      },
+      "video_id": "06a50f4f-952c-4f2b-b0dc-e38bfdc38012",
+      "request_latency_seconds": 0.273,
+      "api_metrics": {
+        "search_latency_seconds": 0.062,
+        "query_embedding_seconds": 0.0159,
+        "qdrant_search_seconds": 0.045
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 193.52,
+          "end": 195.48,
+          "text": "And those are the only operations you're given.",
+          "score": 0.5376054
+        },
+        {
+          "rank": 2,
+          "is_relevant": false,
+          "start": 320.0,
+          "end": 325.0,
+          "text": "So any comparison algorithm.",
+          "score": 0.5132636
+        },
+        {
+          "rank": 3,
+          "is_relevant": false,
+          "start": 310.36,
+          "end": 315.16,
+          "text": "If we know that our algorithms are only comparing items,",
+          "score": 0.49857712
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 693.32,
+          "end": 699.12,
+          "text": "But comparisons are the ones we care about because all of our algorithms are doing that.",
+          "score": 0.47363102
+        },
+        {
+          "rank": 5,
+          "is_relevant": true,
+          "start": 191.68,
+          "end": 193.52,
+          "text": "You get a binary answer, yes or no.",
+          "score": 0.46564296
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture07-004",
+        "video_key": "lecture07_counting_radix",
+        "query": "comparison algorithms can be drawn as a tree of possible outcomes",
+        "expected_start_seconds": "300",
+        "expected_end_seconds": "360",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "all possible things; tree perspective",
+        "notes": "source transcript window 300-360; manually curated from source transcript"
+      },
+      "video_id": "06a50f4f-952c-4f2b-b0dc-e38bfdc38012",
+      "request_latency_seconds": 0.2456,
+      "api_metrics": {
+        "search_latency_seconds": 0.0637,
+        "query_embedding_seconds": 0.016,
+        "qdrant_search_seconds": 0.0465
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 320.0,
+          "end": 325.0,
+          "text": "So any comparison algorithm.",
+          "score": 0.72979015
+        },
+        {
+          "rank": 2,
+          "is_relevant": false,
+          "start": 683.68,
+          "end": 686.64,
+          "text": "Decision trees are a little more general than comparisons.",
+          "score": 0.67881787
+        },
+        {
+          "rank": 3,
+          "is_relevant": false,
+          "start": 72.96,
+          "end": 75.04,
+          "text": "called the comparison model.",
+          "score": 0.6451316
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 693.32,
+          "end": 699.12,
+          "text": "But comparisons are the ones we care about because all of our algorithms are doing that.",
+          "score": 0.63594484
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 116.32,
+          "end": 118.6,
+          "text": "So the idea in the comparison model",
+          "score": 0.63163453
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture07-005",
+        "video_key": "lecture07_counting_radix",
+        "query": "binary search decision tree compares the middle item first",
+        "expected_start_seconds": "360",
+        "expected_end_seconds": "480",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "binary search; middle; go left or right",
+        "notes": "source transcript window 360-480; manually curated from source transcript"
+      },
+      "video_id": "06a50f4f-952c-4f2b-b0dc-e38bfdc38012",
+      "request_latency_seconds": 0.2256,
+      "api_metrics": {
+        "search_latency_seconds": 0.056,
+        "query_embedding_seconds": 0.0069,
+        "qdrant_search_seconds": 0.048
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": false,
+          "start": 663.92,
+          "end": 671.64,
+          "text": "And so when we have an internal node in the decision tree, that corresponds to a binary",
+          "score": 0.5544387
+        },
+        {
+          "rank": 2,
+          "is_relevant": true,
+          "start": 424.24,
+          "end": 426.36,
+          "text": "So binary search, you're searching among n items",
+          "score": 0.54747105
+        },
+        {
+          "rank": 3,
+          "is_relevant": false,
+          "start": 85.0,
+          "end": 87.44,
+          "text": "This is basically binary search is optimal.",
+          "score": 0.5388783
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 632.48,
+          "end": 637.56,
+          "text": "Let me talk about some features of this tree versus the algorithm.",
+          "score": 0.5294886
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 867.4,
+          "end": 870.42,
+          "text": "But given an arbitrary decision tree, we just have to figure out what the height of the",
+          "score": 0.5117353
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture07-006",
+        "video_key": "lecture07_counting_radix",
+        "query": "binary search checks whether x is left or right of array elements",
+        "expected_start_seconds": "480",
+        "expected_end_seconds": "600",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "a0; a2; x; left; right",
+        "notes": "source transcript window 480-600; manually curated from source transcript"
+      },
+      "video_id": "06a50f4f-952c-4f2b-b0dc-e38bfdc38012",
+      "request_latency_seconds": 0.2066,
+      "api_metrics": {
+        "search_latency_seconds": 0.0618,
+        "query_embedding_seconds": 0.0148,
+        "qdrant_search_seconds": 0.046
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 451.72,
+          "end": 453.44,
+          "text": "Pretty simple binary search.",
+          "score": 0.64762497
+        },
+        {
+          "rank": 2,
+          "is_relevant": false,
+          "start": 395.96,
+          "end": 402.36,
+          "text": "So binary search.",
+          "score": 0.5980949
+        },
+        {
+          "rank": 3,
+          "is_relevant": false,
+          "start": 424.24,
+          "end": 426.36,
+          "text": "So binary search, you're searching among n items",
+          "score": 0.530451
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 85.0,
+          "end": 87.44,
+          "text": "This is basically binary search is optimal.",
+          "score": 0.52260876
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 217.04,
+          "end": 221.04,
+          "text": "Heaps and heapsort, also only compare binary search",
+          "score": 0.4835024
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture07-007",
+        "video_key": "lecture07_counting_radix",
+        "query": "a sorting decision tree can have exponential size",
+        "expected_start_seconds": "600",
+        "expected_end_seconds": "660",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "sorting algorithm; tree; exponential size",
+        "notes": "source transcript window 600-660; manually curated from source transcript"
+      },
+      "video_id": "06a50f4f-952c-4f2b-b0dc-e38bfdc38012",
+      "request_latency_seconds": 0.3145,
+      "api_metrics": {
+        "search_latency_seconds": 0.0597,
+        "query_embedding_seconds": 0.0149,
+        "qdrant_search_seconds": 0.044
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 613.24,
+          "end": 615.88,
+          "text": "the tree will actually be a exponential size.",
+          "score": 0.62366265
+        },
+        {
+          "rank": 2,
+          "is_relevant": false,
+          "start": 293.96,
+          "end": 295.6,
+          "text": "the notion of a decision tree.",
+          "score": 0.61999846
+        },
+        {
+          "rank": 3,
+          "is_relevant": false,
+          "start": 867.4,
+          "end": 870.42,
+          "text": "But given an arbitrary decision tree, we just have to figure out what the height of the",
+          "score": 0.594116
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 872.6,
+          "end": 877.84,
+          "text": "So this is why decision trees are interesting, not because, I mean, the",
+          "score": 0.56853485
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 48.32,
+          "end": 53.48,
+          "text": "is that sorting requires n log n time at least in the worst case.",
+          "score": 0.5369247
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture07-008",
+        "video_key": "lecture07_counting_radix",
+        "query": "internal nodes in the decision tree represent binary decisions",
+        "expected_start_seconds": "660",
+        "expected_end_seconds": "720",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "internal node; binary decision",
+        "notes": "source transcript window 660-720; manually curated from source transcript"
+      },
+      "video_id": "06a50f4f-952c-4f2b-b0dc-e38bfdc38012",
+      "request_latency_seconds": 0.2127,
+      "api_metrics": {
+        "search_latency_seconds": 0.0674,
+        "query_embedding_seconds": 0.0214,
+        "qdrant_search_seconds": 0.045
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 663.92,
+          "end": 671.64,
+          "text": "And so when we have an internal node in the decision tree, that corresponds to a binary",
+          "score": 0.8819909
+        },
+        {
+          "rank": 2,
+          "is_relevant": true,
+          "start": 637.56,
+          "end": 658.56,
+          "text": "So every internal node, actually if I go over here, so we have a decision tree, and we",
+          "score": 0.78394073
+        },
+        {
+          "rank": 3,
+          "is_relevant": false,
+          "start": 293.96,
+          "end": 295.6,
+          "text": "the notion of a decision tree.",
+          "score": 0.7088983
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 872.6,
+          "end": 877.84,
+          "text": "So this is why decision trees are interesting, not because, I mean, the",
+          "score": 0.5830207
+        },
+        {
+          "rank": 5,
+          "is_relevant": true,
+          "start": 658.56,
+          "end": 663.92,
+          "text": "have an algorithm that that decision tree represents.",
+          "score": 0.56737745
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture07-009",
+        "video_key": "lecture07_counting_radix",
+        "query": "one execution corresponds to a root to leaf path",
+        "expected_start_seconds": "720",
+        "expected_end_seconds": "780",
+        "relevance_window_seconds": "30",
+        "query_type": "near_exact",
+        "expected_text": "single execution; root to leaf path",
+        "notes": "source transcript window 720-780; manually curated from source transcript"
+      },
+      "video_id": "06a50f4f-952c-4f2b-b0dc-e38bfdc38012",
+      "request_latency_seconds": 0.2181,
+      "api_metrics": {
+        "search_latency_seconds": 0.0628,
+        "query_embedding_seconds": 0.0153,
+        "qdrant_search_seconds": 0.0464
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 759.96,
+          "end": 763.68,
+          "text": "This is what I normally call a root to leaf path.",
+          "score": 0.71040285
+        },
+        {
+          "rank": 2,
+          "is_relevant": true,
+          "start": 763.68,
+          "end": 767.04,
+          "text": "Technically, I downward root to leaf path.",
+          "score": 0.69757956
+        },
+        {
+          "rank": 3,
+          "is_relevant": true,
+          "start": 752.72,
+          "end": 759.96,
+          "text": "I'm going from root down to leaf.",
+          "score": 0.55940175
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 845.76,
+          "end": 847.92,
+          "text": "So in this case, all the leaves have the same level.",
+          "score": 0.52511597
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 856.2,
+          "end": 861.68,
+          "text": "But the length of the longest root to leaf path is the definition of height.",
+          "score": 0.51770926
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture07-010",
+        "video_key": "lecture07_counting_radix",
+        "query": "the path length in a decision tree gives the algorithm cost",
+        "expected_start_seconds": "780",
+        "expected_end_seconds": "840",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "cost was two; length of this path",
+        "notes": "source transcript window 780-840; manually curated from source transcript"
+      },
+      "video_id": "06a50f4f-952c-4f2b-b0dc-e38bfdc38012",
+      "request_latency_seconds": 0.248,
+      "api_metrics": {
+        "search_latency_seconds": 0.0684,
+        "query_embedding_seconds": 0.0219,
+        "qdrant_search_seconds": 0.0455
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 825.36,
+          "end": 829.36,
+          "text": "What is the worst case running time of a given decision tree?",
+          "score": 0.6063941
+        },
+        {
+          "rank": 2,
+          "is_relevant": false,
+          "start": 867.4,
+          "end": 870.42,
+          "text": "But given an arbitrary decision tree, we just have to figure out what the height of the",
+          "score": 0.60592663
+        },
+        {
+          "rank": 3,
+          "is_relevant": false,
+          "start": 671.64,
+          "end": 674.64,
+          "text": "decision in the algorithm.",
+          "score": 0.59687316
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 293.96,
+          "end": 295.6,
+          "text": "the notion of a decision tree.",
+          "score": 0.5928285
+        },
+        {
+          "rank": 5,
+          "is_relevant": true,
+          "start": 804.88,
+          "end": 808.48,
+          "text": "So the cost was two, and indeed, the length of this path is two.",
+          "score": 0.5879092
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture08-001",
+        "video_key": "lecture08_hashing_chaining",
+        "query": "dictionary is an abstract data type with insert delete and search",
+        "expected_start_seconds": "60",
+        "expected_end_seconds": "120",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "dictionary; insert; delete; search",
+        "notes": "source transcript window 060-120; manually curated from source transcript"
+      },
+      "video_id": "ba204e1c-d834-47cc-8a2c-4eff561ea2f0",
+      "request_latency_seconds": 0.2116,
+      "api_metrics": {
+        "search_latency_seconds": 0.0664,
+        "query_embedding_seconds": 0.0154,
+        "qdrant_search_seconds": 0.0499
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 78.32,
+          "end": 84.52,
+          "text": "So dictionary is a data structure, or it's a thing.",
+          "score": 0.67871046
+        },
+        {
+          "rank": 2,
+          "is_relevant": true,
+          "start": 61.84,
+          "end": 64.12,
+          "text": "So this is an abstract data type.",
+          "score": 0.5759227
+        },
+        {
+          "rank": 3,
+          "is_relevant": false,
+          "start": 420.44,
+          "end": 422.48,
+          "text": "As a result, dictionaries are built into basically",
+          "score": 0.5359684
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 514.64,
+          "end": 518.84,
+          "text": "every search engine on the web would have a dictionary",
+          "score": 0.515558
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 305.4,
+          "end": 311.8,
+          "text": "In Python is the data type.",
+          "score": 0.5144186
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture08-002",
+        "video_key": "lecture08_hashing_chaining",
+        "query": "exact search either finds an item or raises key error",
+        "expected_start_seconds": "120",
+        "expected_end_seconds": "180",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "exact search; find an item; key error",
+        "notes": "source transcript window 120-180; manually curated from source transcript"
+      },
+      "video_id": "ba204e1c-d834-47cc-8a2c-4eff561ea2f0",
+      "request_latency_seconds": 0.2274,
+      "api_metrics": {
+        "search_latency_seconds": 0.0634,
+        "query_embedding_seconds": 0.0144,
+        "qdrant_search_seconds": 0.0478
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 145.28,
+          "end": 149.4,
+          "text": "Either you find an item with the given key, or there isn't one.",
+          "score": 0.5947106
+        },
+        {
+          "rank": 2,
+          "is_relevant": false,
+          "start": 245.28,
+          "end": 248.52,
+          "text": "a search, it still does exact search.",
+          "score": 0.5440911
+        },
+        {
+          "rank": 3,
+          "is_relevant": true,
+          "start": 143.24,
+          "end": 145.28,
+          "text": "This is what I call an exact search.",
+          "score": 0.5215212
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 214.4,
+          "end": 217.56,
+          "text": "Either there's one item with that key, or there's no item with that key.",
+          "score": 0.48999646
+        },
+        {
+          "rank": 5,
+          "is_relevant": true,
+          "start": 140.36,
+          "end": 143.24,
+          "text": "So there are two outcomes to this kind of search.",
+          "score": 0.47863215
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture08-003",
+        "video_key": "lecture08_hashing_chaining",
+        "query": "inserting an existing key overrides the previous value",
+        "expected_start_seconds": "180",
+        "expected_end_seconds": "240",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "existing key; overrides",
+        "notes": "source transcript window 180-240; manually curated from source transcript"
+      },
+      "video_id": "ba204e1c-d834-47cc-8a2c-4eff561ea2f0",
+      "request_latency_seconds": 0.3585,
+      "api_metrics": {
+        "search_latency_seconds": 0.0677,
+        "query_embedding_seconds": 0.0213,
+        "qdrant_search_seconds": 0.0454
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 191.48,
+          "end": 193.16,
+          "text": "it overrides whatever key was there.",
+          "score": 0.5761454
+        },
+        {
+          "rank": 2,
+          "is_relevant": true,
+          "start": 187.44,
+          "end": 191.48,
+          "text": "And one way to enforce that is when you insert an item with an existing key,",
+          "score": 0.5685854
+        },
+        {
+          "rank": 3,
+          "is_relevant": false,
+          "start": 603.52,
+          "end": 606.0,
+          "text": "So they mapped the key to the actual value",
+          "score": 0.5159788
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 362.4,
+          "end": 365.4,
+          "text": "a key and a value.",
+          "score": 0.44204032
+        },
+        {
+          "rank": 5,
+          "is_relevant": true,
+          "start": 203.68,
+          "end": 205.16,
+          "text": "Any existing key.",
+          "score": 0.40412676
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture08-004",
+        "video_key": "lecture08_hashing_chaining",
+        "query": "hashing can beat AVL tree logarithmic search in the RAM model",
+        "expected_start_seconds": "240",
+        "expected_end_seconds": "300",
+        "relevance_window_seconds": "30",
+        "query_type": "concept",
+        "expected_text": "AVL trees; log n; RAM model; do better",
+        "notes": "source transcript window 240-300; manually curated from source transcript"
+      },
+      "video_id": "ba204e1c-d834-47cc-8a2c-4eff561ea2f0",
+      "request_latency_seconds": 0.2348,
+      "api_metrics": {
+        "search_latency_seconds": 0.0659,
+        "query_embedding_seconds": 0.0187,
+        "qdrant_search_seconds": 0.0463
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 269.32,
+          "end": 273.72,
+          "text": "Today's lecture is about how to search faster than log n time.",
+          "score": 0.5598078
+        },
+        {
+          "rank": 2,
+          "is_relevant": false,
+          "start": 29.56,
+          "end": 30.4,
+          "text": "Hashing is cool.",
+          "score": 0.5372168
+        },
+        {
+          "rank": 3,
+          "is_relevant": false,
+          "start": 449.28,
+          "end": 450.84,
+          "text": "There are those that use hashing and there are those",
+          "score": 0.50124204
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 165.44,
+          "end": 166.44,
+          "text": "Shree's binary search trees.",
+          "score": 0.49784672
+        },
+        {
+          "rank": 5,
+          "is_relevant": true,
+          "start": 229.0,
+          "end": 231.12,
+          "text": "search tree like AVL trees.",
+          "score": 0.49655688
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture08-005",
+        "video_key": "lecture08_hashing_chaining",
+        "query": "Python dictionaries support lookup setting a key and deleting a key",
+        "expected_start_seconds": "300",
+        "expected_end_seconds": "360",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "look up the key; set a key to a value; delete",
+        "notes": "source transcript window 300-360; manually curated from source transcript"
+      },
+      "video_id": "ba204e1c-d834-47cc-8a2c-4eff561ea2f0",
+      "request_latency_seconds": 0.2195,
+      "api_metrics": {
+        "search_latency_seconds": 0.0664,
+        "query_embedding_seconds": 0.0175,
+        "qdrant_search_seconds": 0.0478
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 352.8,
+          "end": 356.36,
+          "text": "I guess the one specific thing about Python dictionaries",
+          "score": 0.5560547
+        },
+        {
+          "rank": 2,
+          "is_relevant": true,
+          "start": 303.24,
+          "end": 305.4,
+          "text": "I think you know how dictionaries work in Python.",
+          "score": 0.5441152
+        },
+        {
+          "rank": 3,
+          "is_relevant": false,
+          "start": 376.24,
+          "end": 388.12,
+          "text": "So that's Python dictionaries.",
+          "score": 0.54107916
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 172.8,
+          "end": 176.2,
+          "text": "With dictionaries, you're not allowed to do that, or you're not able to do that.",
+          "score": 0.5195171
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 420.44,
+          "end": 422.48,
+          "text": "As a result, dictionaries are built into basically",
+          "score": 0.50148714
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture08-006",
+        "video_key": "lecture08_hashing_chaining",
+        "query": "d dot items returns ordered key value pairs",
+        "expected_start_seconds": "360",
+        "expected_end_seconds": "420",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "D dot items; key; value",
+        "notes": "source transcript window 360-420; manually curated from source transcript"
+      },
+      "video_id": "ba204e1c-d834-47cc-8a2c-4eff561ea2f0",
+      "request_latency_seconds": 0.2192,
+      "api_metrics": {
+        "search_latency_seconds": 0.0753,
+        "query_embedding_seconds": 0.0282,
+        "qdrant_search_seconds": 0.046
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 365.4,
+          "end": 367.44,
+          "text": "And so in particular, when you call D dot items,",
+          "score": 0.57182467
+        },
+        {
+          "rank": 2,
+          "is_relevant": true,
+          "start": 367.44,
+          "end": 371.2,
+          "text": "you get a whole bunch of order pairs, key, and a value.",
+          "score": 0.5420542
+        },
+        {
+          "rank": 3,
+          "is_relevant": true,
+          "start": 348.68,
+          "end": 352.8,
+          "text": "implement these operations for dictionary D?",
+          "score": 0.48432618
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 182.12,
+          "end": 185.2,
+          "text": "So we're assuming here that the items have unique keys.",
+          "score": 0.4362551
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 603.52,
+          "end": 606.0,
+          "text": "So they mapped the key to the actual value",
+          "score": 0.41788134
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture08-007",
+        "video_key": "lecture08_hashing_chaining",
+        "query": "modern programming languages and databases build in dictionaries",
+        "expected_start_seconds": "420",
+        "expected_end_seconds": "480",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "Python; Ruby; JavaScript; database; constant time",
+        "notes": "source transcript window 420-480; manually curated from source transcript"
+      },
+      "video_id": "ba204e1c-d834-47cc-8a2c-4eff561ea2f0",
+      "request_latency_seconds": 0.2021,
+      "api_metrics": {
+        "search_latency_seconds": 0.0653,
+        "query_embedding_seconds": 0.0188,
+        "qdrant_search_seconds": 0.0454
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 420.44,
+          "end": 422.48,
+          "text": "As a result, dictionaries are built into basically",
+          "score": 0.7350209
+        },
+        {
+          "rank": 2,
+          "is_relevant": true,
+          "start": 428.04,
+          "end": 431.4,
+          "text": "in modern versions all have some version of dictionaries.",
+          "score": 0.67703074
+        },
+        {
+          "rank": 3,
+          "is_relevant": false,
+          "start": 388.12,
+          "end": 392.52,
+          "text": "So one obvious motivation for building dictionaries",
+          "score": 0.67514884
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 666.88,
+          "end": 668.6,
+          "text": "All of these things are dictionaries.",
+          "score": 0.6339952
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 352.8,
+          "end": 356.36,
+          "text": "I guess the one specific thing about Python dictionaries",
+          "score": 0.61245525
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture08-008",
+        "video_key": "lecture08_hashing_chaining",
+        "query": "spell checking uses dictionary lookup and letter tweaks",
+        "expected_start_seconds": "480",
+        "expected_end_seconds": "540",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "spelling; tweaking letters; dictionary",
+        "notes": "source transcript window 480-540; manually curated from source transcript"
+      },
+      "video_id": "ba204e1c-d834-47cc-8a2c-4eff561ea2f0",
+      "request_latency_seconds": 0.213,
+      "api_metrics": {
+        "search_latency_seconds": 0.065,
+        "query_embedding_seconds": 0.0199,
+        "qdrant_search_seconds": 0.044
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 478.24,
+          "end": 482.12,
+          "text": "How do you, when you spell check your document,",
+          "score": 0.5967258
+        },
+        {
+          "rank": 2,
+          "is_relevant": true,
+          "start": 482.12,
+          "end": 484.36,
+          "text": "how do you tell whether a word is correctly spelled?",
+          "score": 0.5876061
+        },
+        {
+          "rank": 3,
+          "is_relevant": true,
+          "start": 497.56,
+          "end": 502.04,
+          "text": "That is a state of the art way to do spelling correction.",
+          "score": 0.56390035
+        },
+        {
+          "rank": 4,
+          "is_relevant": true,
+          "start": 491.48,
+          "end": 493.64,
+          "text": "You try tweaking one of the letters and look it up",
+          "score": 0.5493513
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 420.44,
+          "end": 422.48,
+          "text": "As a result, dictionaries are built into basically",
+          "score": 0.5071821
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture08-009",
+        "video_key": "lecture08_hashing_chaining",
+        "query": "programming languages need dictionaries for variable names",
+        "expected_start_seconds": "540",
+        "expected_end_seconds": "660",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "variable name; compiler; dictionary",
+        "notes": "source transcript window 540-660; manually curated from source transcript"
+      },
+      "video_id": "ba204e1c-d834-47cc-8a2c-4eff561ea2f0",
+      "request_latency_seconds": 0.2052,
+      "api_metrics": {
+        "search_latency_seconds": 0.0614,
+        "query_embedding_seconds": 0.0156,
+        "qdrant_search_seconds": 0.0448
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": false,
+          "start": 420.44,
+          "end": 422.48,
+          "text": "As a result, dictionaries are built into basically",
+          "score": 0.6627223
+        },
+        {
+          "rank": 2,
+          "is_relevant": false,
+          "start": 428.04,
+          "end": 431.4,
+          "text": "in modern versions all have some version of dictionaries.",
+          "score": 0.61079335
+        },
+        {
+          "rank": 3,
+          "is_relevant": false,
+          "start": 666.88,
+          "end": 668.6,
+          "text": "All of these things are dictionaries.",
+          "score": 0.60598457
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 352.8,
+          "end": 356.36,
+          "text": "I guess the one specific thing about Python dictionaries",
+          "score": 0.6011711
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 303.24,
+          "end": 305.4,
+          "text": "I think you know how dictionaries work in Python.",
+          "score": 0.58778536
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture08-010",
+        "video_key": "lecture08_hashing_chaining",
+        "query": "hashing is used for DNA similarity and cryptographic hash functions",
+        "expected_start_seconds": "720",
+        "expected_end_seconds": "840",
+        "relevance_window_seconds": "30",
+        "query_type": "concept",
+        "expected_text": "DNA strings; cryptographic hash functions",
+        "notes": "source transcript window 720-840; manually curated from source transcript"
+      },
+      "video_id": "ba204e1c-d834-47cc-8a2c-4eff561ea2f0",
+      "request_latency_seconds": 0.2256,
+      "api_metrics": {
+        "search_latency_seconds": 0.0625,
+        "query_embedding_seconds": 0.0157,
+        "qdrant_search_seconds": 0.0459
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": false,
+          "start": 29.56,
+          "end": 30.4,
+          "text": "Hashing is cool.",
+          "score": 0.61358035
+        },
+        {
+          "rank": 2,
+          "is_relevant": true,
+          "start": 738.88,
+          "end": 740.48,
+          "text": "You use hashing.",
+          "score": 0.5979816
+        },
+        {
+          "rank": 3,
+          "is_relevant": true,
+          "start": 800.7,
+          "end": 801.9,
+          "text": "hash functions, which I'm sure you'll",
+          "score": 0.5904473
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 449.28,
+          "end": 450.84,
+          "text": "There are those that use hashing and there are those",
+          "score": 0.5717292
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 678.68,
+          "end": 680.6,
+          "text": "But still, we use this idea of hashing.",
+          "score": 0.56210446
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture09-001",
+        "video_key": "lecture09_table_karp",
+        "query": "the lecture reviews hashing with chaining and the universe of keys",
+        "expected_start_seconds": "60",
+        "expected_end_seconds": "120",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "hashing with chaining; universe; n keys",
+        "notes": "source transcript window 060-120; manually curated from source transcript"
+      },
+      "video_id": "1f663c0b-710d-4c7d-8f0d-7b0f696af6a8",
+      "request_latency_seconds": 0.2203,
+      "api_metrics": {
+        "search_latency_seconds": 0.0568,
+        "query_embedding_seconds": 0.0118,
+        "qdrant_search_seconds": 0.0438
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 67.96,
+          "end": 70.52,
+          "text": "And hashing with chaining, the idea",
+          "score": 0.7440827
+        },
+        {
+          "rank": 2,
+          "is_relevant": true,
+          "start": 30.64,
+          "end": 32.68,
+          "text": "with hashing, hashing with chaining.",
+          "score": 0.67381805
+        },
+        {
+          "rank": 3,
+          "is_relevant": false,
+          "start": 637.28,
+          "end": 642.12,
+          "text": "The hash function is all about mapping the universe of keys to a table of size m.",
+          "score": 0.6719867
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 219.04,
+          "end": 220.72,
+          "text": "So that's hashing with chaining.",
+          "score": 0.6482594
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 170.8,
+          "end": 172.52,
+          "text": "So that was hashing with chaining.",
+          "score": 0.6178333
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture09-002",
+        "video_key": "lecture09_table_karp",
+        "query": "expected chain length depends on table size m and number of keys n",
+        "expected_start_seconds": "120",
+        "expected_end_seconds": "180",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "m; n; expected chain length",
+        "notes": "source transcript window 120-180; manually curated from source transcript"
+      },
+      "video_id": "1f663c0b-710d-4c7d-8f0d-7b0f696af6a8",
+      "request_latency_seconds": 0.2025,
+      "api_metrics": {
+        "search_latency_seconds": 0.0623,
+        "query_embedding_seconds": 0.0151,
+        "qdrant_search_seconds": 0.0457
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 146.52,
+          "end": 152.08,
+          "text": "can show that the total expected chain length is n over m.",
+          "score": 0.78133035
+        },
+        {
+          "rank": 2,
+          "is_relevant": true,
+          "start": 130.4,
+          "end": 135.16,
+          "text": "And then we said the expected chain length.",
+          "score": 0.627095
+        },
+        {
+          "rank": 3,
+          "is_relevant": false,
+          "start": 254.96,
+          "end": 257.4,
+          "text": "We have to create a table size m.",
+          "score": 0.48058856
+        },
+        {
+          "rank": 4,
+          "is_relevant": true,
+          "start": 121.8,
+          "end": 124.48,
+          "text": "There's m to store the table.",
+          "score": 0.43723214
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 88.56,
+          "end": 94.8,
+          "text": "We reduce that to a table of size m by this hash function h,",
+          "score": 0.41519588
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture09-003",
+        "video_key": "lecture09_table_karp",
+        "query": "division method maps integers by taking the key modulo m",
+        "expected_start_seconds": "180",
+        "expected_end_seconds": "240",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "division method; modular m",
+        "notes": "source transcript window 180-240; manually curated from source transcript"
+      },
+      "video_id": "1f663c0b-710d-4c7d-8f0d-7b0f696af6a8",
+      "request_latency_seconds": 0.2281,
+      "api_metrics": {
+        "search_latency_seconds": 0.0587,
+        "query_embedding_seconds": 0.0131,
+        "qdrant_search_seconds": 0.0445
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 197.36,
+          "end": 198.56,
+          "text": "That's called the division method.",
+          "score": 0.50422627
+        },
+        {
+          "rank": 2,
+          "is_relevant": true,
+          "start": 192.44,
+          "end": 194.84,
+          "text": "That's one easy way of mapping all integers",
+          "score": 0.48842308
+        },
+        {
+          "rank": 3,
+          "is_relevant": true,
+          "start": 190.36,
+          "end": 192.44,
+          "text": "where you just take the key and take it modular m.",
+          "score": 0.48639995
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 88.56,
+          "end": 94.8,
+          "text": "We reduce that to a table of size m by this hash function h,",
+          "score": 0.4003246
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 642.12,
+          "end": 644.8,
+          "text": "So if m changes, we definitely need a new hash function.",
+          "score": 0.3825912
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture09-004",
+        "video_key": "lecture09_table_karp",
+        "query": "when n is unknown the table should grow",
+        "expected_start_seconds": "240",
+        "expected_end_seconds": "300",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "do not know n; grow the table",
+        "notes": "source transcript window 240-300; manually curated from source transcript"
+      },
+      "video_id": "1f663c0b-710d-4c7d-8f0d-7b0f696af6a8",
+      "request_latency_seconds": 0.301,
+      "api_metrics": {
+        "search_latency_seconds": 0.0647,
+        "query_embedding_seconds": 0.0145,
+        "qdrant_search_seconds": 0.0491
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 248.44,
+          "end": 249.6,
+          "text": "Grow the table.",
+          "score": 0.62204796
+        },
+        {
+          "rank": 2,
+          "is_relevant": false,
+          "start": 725.64,
+          "end": 732.0,
+          "text": "So say we start with an empty table, and it has size 8 or whatever, some constant.",
+          "score": 0.6099341
+        },
+        {
+          "rank": 3,
+          "is_relevant": false,
+          "start": 340.04,
+          "end": 341.04,
+          "text": "is to grow the table.",
+          "score": 0.60029453
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 883.6,
+          "end": 885.6,
+          "text": "All you're trying to do is grow a table.",
+          "score": 0.58007336
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 454.0,
+          "end": 457.44,
+          "text": "Let's take a little diversion to what does grow a table mean.",
+          "score": 0.5792047
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture09-005",
+        "video_key": "lecture09_table_karp",
+        "query": "m should be theta n to keep alpha constant and space linear",
+        "expected_start_seconds": "300",
+        "expected_end_seconds": "360",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "m theta n; alpha constant; space linear",
+        "notes": "source transcript window 300-360; manually curated from source transcript"
+      },
+      "video_id": "1f663c0b-710d-4c7d-8f0d-7b0f696af6a8",
+      "request_latency_seconds": 0.2437,
+      "api_metrics": {
+        "search_latency_seconds": 0.0599,
+        "query_embedding_seconds": 0.0111,
+        "qdrant_search_seconds": 0.0478
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": false,
+          "start": 408.28,
+          "end": 410.16,
+          "text": "said m should be theta n.",
+          "score": 0.6536152
+        },
+        {
+          "rank": 2,
+          "is_relevant": true,
+          "start": 312.72,
+          "end": 316.2,
+          "text": "We want m to be theta n.",
+          "score": 0.613611
+        },
+        {
+          "rank": 3,
+          "is_relevant": false,
+          "start": 866.12,
+          "end": 867.28,
+          "text": "And so this is theta n.",
+          "score": 0.49044693
+        },
+        {
+          "rank": 4,
+          "is_relevant": true,
+          "start": 321.64,
+          "end": 324.08,
+          "text": "in order to make alpha be a constant.",
+          "score": 0.48504233
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 870.56,
+          "end": 872.64,
+          "text": "OK, now it's a little strange to be talking about theta n.",
+          "score": 0.4649983
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture09-006",
+        "video_key": "lecture09_table_karp",
+        "query": "growing hash tables introduces amortization and Python lists",
+        "expected_start_seconds": "360",
+        "expected_end_seconds": "420",
+        "relevance_window_seconds": "30",
+        "query_type": "concept",
+        "expected_text": "amortization; Python list; array",
+        "notes": "source transcript window 360-420; manually curated from source transcript"
+      },
+      "video_id": "1f663c0b-710d-4c7d-8f0d-7b0f696af6a8",
+      "request_latency_seconds": 0.2212,
+      "api_metrics": {
+        "search_latency_seconds": 0.0686,
+        "query_embedding_seconds": 0.0208,
+        "qdrant_search_seconds": 0.0468
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 418.6,
+          "end": 422.92,
+          "text": "And so let's say we start with an empty hash table",
+          "score": 0.52361345
+        },
+        {
+          "rank": 2,
+          "is_relevant": false,
+          "start": 67.96,
+          "end": 70.52,
+          "text": "And hashing with chaining, the idea",
+          "score": 0.507609
+        },
+        {
+          "rank": 3,
+          "is_relevant": false,
+          "start": 637.28,
+          "end": 642.12,
+          "text": "The hash function is all about mapping the universe of keys to a table of size m.",
+          "score": 0.50316304
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 219.04,
+          "end": 220.72,
+          "text": "So that's hashing with chaining.",
+          "score": 0.46662867
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 880.52,
+          "end": 883.6,
+          "text": "Even ignoring all the hashing business.",
+          "score": 0.4583071
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture09-007",
+        "video_key": "lecture09_table_karp",
+        "query": "inserting the ninth item can trigger a table resize",
+        "expected_start_seconds": "420",
+        "expected_end_seconds": "480",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "insert eight things; insert the ninth; grow",
+        "notes": "source transcript window 420-480; manually curated from source transcript"
+      },
+      "video_id": "1f663c0b-710d-4c7d-8f0d-7b0f696af6a8",
+      "request_latency_seconds": 0.2485,
+      "api_metrics": {
+        "search_latency_seconds": 0.0797,
+        "query_embedding_seconds": 0.031,
+        "qdrant_search_seconds": 0.0477
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": false,
+          "start": 770.96,
+          "end": 776.88,
+          "text": "And this is the point of, it's called table resizing there,",
+          "score": 0.58390784
+        },
+        {
+          "rank": 2,
+          "is_relevant": false,
+          "start": 735.12,
+          "end": 739.24,
+          "text": "Then after 8 insertions, when we insert, we have to rebuild our entire table.",
+          "score": 0.5650091
+        },
+        {
+          "rank": 3,
+          "is_relevant": true,
+          "start": 426.68,
+          "end": 429.24,
+          "text": "And then I go to insert the ninth thing.",
+          "score": 0.5014158
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 542.16,
+          "end": 543.44,
+          "text": "insert into the new table.",
+          "score": 0.47237247
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 254.96,
+          "end": 257.4,
+          "text": "We have to create a table size m.",
+          "score": 0.45057452
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture09-008",
+        "video_key": "lecture09_table_karp",
+        "query": "resizing allocates a new table and rehashes every key",
+        "expected_start_seconds": "480",
+        "expected_end_seconds": "540",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "allocate memory; rehash everything; new table",
+        "notes": "source transcript window 480-540; manually curated from source transcript"
+      },
+      "video_id": "1f663c0b-710d-4c7d-8f0d-7b0f696af6a8",
+      "request_latency_seconds": 0.2252,
+      "api_metrics": {
+        "search_latency_seconds": 0.0695,
+        "query_embedding_seconds": 0.0218,
+        "qdrant_search_seconds": 0.0469
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": false,
+          "start": 770.96,
+          "end": 776.88,
+          "text": "And this is the point of, it's called table resizing there,",
+          "score": 0.5901611
+        },
+        {
+          "rank": 2,
+          "is_relevant": false,
+          "start": 892.76,
+          "end": 895.32,
+          "text": "you're restructuring the entire table.",
+          "score": 0.5347128
+        },
+        {
+          "rank": 3,
+          "is_relevant": false,
+          "start": 735.12,
+          "end": 739.24,
+          "text": "Then after 8 insertions, when we insert, we have to rebuild our entire table.",
+          "score": 0.5134077
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 650.6,
+          "end": 654.52,
+          "text": "So for every key, you've got to rehash it, figure out where it goes.",
+          "score": 0.49138924
+        },
+        {
+          "rank": 5,
+          "is_relevant": true,
+          "start": 500.64,
+          "end": 506.84,
+          "text": "In table size m, I need to build an entirely new table size m prime.",
+          "score": 0.483364
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture09-009",
+        "video_key": "lecture09_table_karp",
+        "query": "rehashing takes order m time because every slot may be visited",
+        "expected_start_seconds": "540",
+        "expected_end_seconds": "660",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "order m; visit every slot; m prime",
+        "notes": "source transcript window 540-660; manually curated from source transcript"
+      },
+      "video_id": "1f663c0b-710d-4c7d-8f0d-7b0f696af6a8",
+      "request_latency_seconds": 0.2125,
+      "api_metrics": {
+        "search_latency_seconds": 0.0689,
+        "query_embedding_seconds": 0.0199,
+        "qdrant_search_seconds": 0.048
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 606.44,
+          "end": 612.0,
+          "text": "And so you have to pay order m just to visit every slot, order n to visit all those lists,",
+          "score": 0.6044885
+        },
+        {
+          "rank": 2,
+          "is_relevant": false,
+          "start": 493.56,
+          "end": 496.08,
+          "text": "Yeah, allocate the memory in rehash.",
+          "score": 0.56377995
+        },
+        {
+          "rank": 3,
+          "is_relevant": true,
+          "start": 650.6,
+          "end": 654.52,
+          "text": "So for every key, you've got to rehash it, figure out where it goes.",
+          "score": 0.4936177
+        },
+        {
+          "rank": 4,
+          "is_relevant": true,
+          "start": 642.12,
+          "end": 644.8,
+          "text": "So if m changes, we definitely need a new hash function.",
+          "score": 0.47865582
+        },
+        {
+          "rank": 5,
+          "is_relevant": true,
+          "start": 580.44,
+          "end": 582.16,
+          "text": "Order m.",
+          "score": 0.46661177
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture09-010",
+        "video_key": "lecture09_table_karp",
+        "query": "doubling table size gives a geometric series and theta n total cost",
+        "expected_start_seconds": "660",
+        "expected_end_seconds": "900",
+        "relevance_window_seconds": "30",
+        "query_type": "concept",
+        "expected_text": "two X; doubling; geometric series; theta n",
+        "notes": "source transcript window 660-900; manually curated from source transcript"
+      },
+      "video_id": "1f663c0b-710d-4c7d-8f0d-7b0f696af6a8",
+      "request_latency_seconds": 0.2272,
+      "api_metrics": {
+        "search_latency_seconds": 0.0668,
+        "query_embedding_seconds": 0.0203,
+        "qdrant_search_seconds": 0.0456
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 714.56,
+          "end": 725.64,
+          "text": "So if we just incremented our table size, then the question becomes, what is the cost of n insertions?",
+          "score": 0.57952636
+        },
+        {
+          "rank": 2,
+          "is_relevant": true,
+          "start": 777.8,
+          "end": 779.68,
+          "text": "But this is a technique called table doubling.",
+          "score": 0.5295709
+        },
+        {
+          "rank": 3,
+          "is_relevant": true,
+          "start": 657.92,
+          "end": 664.92,
+          "text": "So the question becomes, when we see that our table is too big, how much, we need to make",
+          "score": 0.46211016
+        },
+        {
+          "rank": 4,
+          "is_relevant": true,
+          "start": 862.24,
+          "end": 864.4,
+          "text": "So this is a geometric series.",
+          "score": 0.4176795
+        },
+        {
+          "rank": 5,
+          "is_relevant": true,
+          "start": 866.12,
+          "end": 867.28,
+          "text": "And so this is theta n.",
+          "score": 0.40833676
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture10-001",
+        "video_key": "lecture10_open_crypto",
+        "query": "open addressing is the simplest way to implement a hash table",
+        "expected_start_seconds": "60",
+        "expected_end_seconds": "120",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "open-addressing; simplest way; hash table",
+        "notes": "source transcript window 060-120; manually curated from source transcript"
+      },
+      "video_id": "22f57e66-2022-48f8-b34a-fef6855712a8",
+      "request_latency_seconds": 0.2353,
+      "api_metrics": {
+        "search_latency_seconds": 0.0628,
+        "query_embedding_seconds": 0.0174,
+        "qdrant_search_seconds": 0.0444
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": false,
+          "start": 314.92,
+          "end": 318.16,
+          "text": "to work in open-addressing hash table,",
+          "score": 0.9192283
+        },
+        {
+          "rank": 2,
+          "is_relevant": false,
+          "start": 196.12,
+          "end": 198.44,
+          "text": "or open-addressing hash tables.",
+          "score": 0.83413756
+        },
+        {
+          "rank": 3,
+          "is_relevant": false,
+          "start": 252.4,
+          "end": 256.24,
+          "text": "And so open-addressing is a way that you could implement hash",
+          "score": 0.8338623
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 152.48,
+          "end": 154.8,
+          "text": "or for open-addressing hash tables.",
+          "score": 0.8115579
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 146.96,
+          "end": 152.48,
+          "text": "of what good hash functions are for open-addressing applications",
+          "score": 0.80189127
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture10-002",
+        "video_key": "lecture10_open_crypto",
+        "query": "open addressing analysis assumes uniform hashing",
+        "expected_start_seconds": "120",
+        "expected_end_seconds": "180",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "uniform hashing assumption; performance",
+        "notes": "source transcript window 120-180; manually curated from source transcript"
+      },
+      "video_id": "22f57e66-2022-48f8-b34a-fef6855712a8",
+      "request_latency_seconds": 0.2258,
+      "api_metrics": {
+        "search_latency_seconds": 0.0533,
+        "query_embedding_seconds": 0.0052,
+        "qdrant_search_seconds": 0.0468
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": false,
+          "start": 314.92,
+          "end": 318.16,
+          "text": "to work in open-addressing hash table,",
+          "score": 0.80309486
+        },
+        {
+          "rank": 2,
+          "is_relevant": true,
+          "start": 146.96,
+          "end": 152.48,
+          "text": "of what good hash functions are for open-addressing applications",
+          "score": 0.77118856
+        },
+        {
+          "rank": 3,
+          "is_relevant": false,
+          "start": 252.4,
+          "end": 256.24,
+          "text": "And so open-addressing is a way that you could implement hash",
+          "score": 0.75023794
+        },
+        {
+          "rank": 4,
+          "is_relevant": true,
+          "start": 125.04,
+          "end": 126.8,
+          "text": "about uniform hashing.",
+          "score": 0.6801712
+        },
+        {
+          "rank": 5,
+          "is_relevant": true,
+          "start": 112.44,
+          "end": 116.24,
+          "text": "It turns out that in order to make open-addressing efficient,",
+          "score": 0.6536614
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture10-003",
+        "video_key": "lecture10_open_crypto",
+        "query": "cryptographic hash functions can detect file corruption",
+        "expected_start_seconds": "180",
+        "expected_end_seconds": "240",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "file corruption detectors; cryptographic hash functions",
+        "notes": "source transcript window 180-240; manually curated from source transcript"
+      },
+      "video_id": "22f57e66-2022-48f8-b34a-fef6855712a8",
+      "request_latency_seconds": 0.2318,
+      "api_metrics": {
+        "search_latency_seconds": 0.071,
+        "query_embedding_seconds": 0.0231,
+        "qdrant_search_seconds": 0.0465
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 180.52,
+          "end": 185.16,
+          "text": "and file corruption detectors that you can implement",
+          "score": 0.7016442
+        },
+        {
+          "rank": 2,
+          "is_relevant": true,
+          "start": 185.16,
+          "end": 187.4,
+          "text": "using cryptographic hash functions, which",
+          "score": 0.5294659
+        },
+        {
+          "rank": 3,
+          "is_relevant": true,
+          "start": 154.8,
+          "end": 159.4,
+          "text": "And finally, we'll talk about cryptographic hashing.",
+          "score": 0.5151823
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 125.04,
+          "end": 126.8,
+          "text": "about uniform hashing.",
+          "score": 0.49787402
+        },
+        {
+          "rank": 5,
+          "is_relevant": true,
+          "start": 169.08,
+          "end": 173.88,
+          "text": "And so we'll describe the notion of cryptographic hash.",
+          "score": 0.49708515
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture10-004",
+        "video_key": "lecture10_open_crypto",
+        "query": "open addressing stores at most one item per array slot",
+        "expected_start_seconds": "240",
+        "expected_end_seconds": "300",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "array structure; one item at most",
+        "notes": "source transcript window 240-300; manually curated from source transcript"
+      },
+      "video_id": "22f57e66-2022-48f8-b34a-fef6855712a8",
+      "request_latency_seconds": 0.212,
+      "api_metrics": {
+        "search_latency_seconds": 0.0538,
+        "query_embedding_seconds": 0.0084,
+        "qdrant_search_seconds": 0.0442
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": false,
+          "start": 314.92,
+          "end": 318.16,
+          "text": "to work in open-addressing hash table,",
+          "score": 0.47512972
+        },
+        {
+          "rank": 2,
+          "is_relevant": true,
+          "start": 276.92,
+          "end": 278.48,
+          "text": "at most one item, for slot.",
+          "score": 0.44806096
+        },
+        {
+          "rank": 3,
+          "is_relevant": false,
+          "start": 112.44,
+          "end": 116.24,
+          "text": "It turns out that in order to make open-addressing efficient,",
+          "score": 0.44235557
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 106.84,
+          "end": 108.88,
+          "text": "Now in order to get open-addressing to work,",
+          "score": 0.43234277
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 445.24,
+          "end": 448.16,
+          "text": "It's going to specify an order of slots.",
+          "score": 0.42821878
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture10-005",
+        "video_key": "lecture10_open_crypto",
+        "query": "the number of slots m should be at least the number of elements n",
+        "expected_start_seconds": "300",
+        "expected_end_seconds": "360",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "m; number of slots; greater than or equal to elements",
+        "notes": "source transcript window 300-360; manually curated from source transcript"
+      },
+      "video_id": "22f57e66-2022-48f8-b34a-fef6855712a8",
+      "request_latency_seconds": 0.2036,
+      "api_metrics": {
+        "search_latency_seconds": 0.0629,
+        "query_embedding_seconds": 0.0145,
+        "qdrant_search_seconds": 0.0474
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": false,
+          "start": 511.88,
+          "end": 516.0,
+          "text": "So m is the number of slots in the table.",
+          "score": 0.7279608
+        },
+        {
+          "rank": 2,
+          "is_relevant": true,
+          "start": 318.16,
+          "end": 326.72,
+          "text": "that m, which is the number of slots in the table,",
+          "score": 0.7253009
+        },
+        {
+          "rank": 3,
+          "is_relevant": true,
+          "start": 297.84,
+          "end": 300.0,
+          "text": "is the number of elements, be greater than m, which",
+          "score": 0.58939844
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 445.24,
+          "end": 448.16,
+          "text": "It's going to specify an order of slots.",
+          "score": 0.5412155
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 557.76,
+          "end": 562.16,
+          "text": "And what you have in terms of the slots that are being computed",
+          "score": 0.53964835
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture10-006",
+        "video_key": "lecture10_open_crypto",
+        "query": "insertion probes repeatedly until an empty slot is found",
+        "expected_start_seconds": "360",
+        "expected_end_seconds": "420",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "continually probe; empty slot; insert",
+        "notes": "source transcript window 360-420; manually curated from source transcript"
+      },
+      "video_id": "22f57e66-2022-48f8-b34a-fef6855712a8",
+      "request_latency_seconds": 0.1993,
+      "api_metrics": {
+        "search_latency_seconds": 0.0603,
+        "query_embedding_seconds": 0.0146,
+        "qdrant_search_seconds": 0.0447
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": false,
+          "start": 637.4,
+          "end": 640.32,
+          "text": "whatever, that eventually the sequence of probes",
+          "score": 0.5426467
+        },
+        {
+          "rank": 2,
+          "is_relevant": true,
+          "start": 408.52,
+          "end": 412.28,
+          "text": "to probe, which is basically to try for a key.",
+          "score": 0.46462566
+        },
+        {
+          "rank": 3,
+          "is_relevant": false,
+          "start": 848.16,
+          "end": 853.04,
+          "text": "So I look at this and I say the first probe actually",
+          "score": 0.41616598
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 604.64,
+          "end": 607.8,
+          "text": "You don't want particular slots to go unused.",
+          "score": 0.40886974
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 828.24,
+          "end": 833.36,
+          "text": "And I say oops, this slot is occupied.",
+          "score": 0.40727985
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture10-007",
+        "video_key": "lecture10_open_crypto",
+        "query": "open addressing hash functions take a key and trial number",
+        "expected_start_seconds": "480",
+        "expected_end_seconds": "540",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "two arguments; key; trial",
+        "notes": "source transcript window 480-540; manually curated from source transcript"
+      },
+      "video_id": "22f57e66-2022-48f8-b34a-fef6855712a8",
+      "request_latency_seconds": 0.2442,
+      "api_metrics": {
+        "search_latency_seconds": 0.0581,
+        "query_embedding_seconds": 0.007,
+        "qdrant_search_seconds": 0.0499
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": false,
+          "start": 314.92,
+          "end": 318.16,
+          "text": "to work in open-addressing hash table,",
+          "score": 0.76428723
+        },
+        {
+          "rank": 2,
+          "is_relevant": false,
+          "start": 146.96,
+          "end": 152.48,
+          "text": "of what good hash functions are for open-addressing applications",
+          "score": 0.7085612
+        },
+        {
+          "rank": 3,
+          "is_relevant": false,
+          "start": 252.4,
+          "end": 256.24,
+          "text": "And so open-addressing is a way that you could implement hash",
+          "score": 0.66810465
+        },
+        {
+          "rank": 4,
+          "is_relevant": true,
+          "start": 519.2,
+          "end": 529.4,
+          "text": "In order to ensure that you are using the hash table corresponding to open",
+          "score": 0.6012087
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 152.48,
+          "end": 154.8,
+          "text": "or for open-addressing hash tables.",
+          "score": 0.59270686
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture10-008",
+        "video_key": "lecture10_open_crypto",
+        "query": "the probing sequence should be a permutation of all table slots",
+        "expected_start_seconds": "540",
+        "expected_end_seconds": "600",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "vector; permutation; 0 to m minus 1",
+        "notes": "source transcript window 540-600; manually curated from source transcript"
+      },
+      "video_id": "22f57e66-2022-48f8-b34a-fef6855712a8",
+      "request_latency_seconds": 0.2012,
+      "api_metrics": {
+        "search_latency_seconds": 0.0615,
+        "query_embedding_seconds": 0.0138,
+        "qdrant_search_seconds": 0.0466
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": false,
+          "start": 655.56,
+          "end": 660.56,
+          "text": "load balancing the table and ensuring that all slots in the table",
+          "score": 0.55226934
+        },
+        {
+          "rank": 2,
+          "is_relevant": false,
+          "start": 729.2,
+          "end": 739.72,
+          "text": "into this table and right here I have seven slots up there.",
+          "score": 0.5282803
+        },
+        {
+          "rank": 3,
+          "is_relevant": false,
+          "start": 318.16,
+          "end": 326.72,
+          "text": "that m, which is the number of slots in the table,",
+          "score": 0.5262004
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 445.24,
+          "end": 448.16,
+          "text": "It's going to specify an order of slots.",
+          "score": 0.52611583
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 395.32,
+          "end": 408.52,
+          "text": "that we talked about so far, which specifies the order of slots",
+          "score": 0.49591
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture10-009",
+        "video_key": "lecture10_open_crypto",
+        "query": "probing must be able to use the entire hash table",
+        "expected_start_seconds": "600",
+        "expected_end_seconds": "660",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "use the entirety of your hash table; slots",
+        "notes": "source transcript window 600-660; manually curated from source transcript"
+      },
+      "video_id": "22f57e66-2022-48f8-b34a-fef6855712a8",
+      "request_latency_seconds": 0.2073,
+      "api_metrics": {
+        "search_latency_seconds": 0.0627,
+        "query_embedding_seconds": 0.018,
+        "qdrant_search_seconds": 0.0437
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": false,
+          "start": 693.2,
+          "end": 696.2,
+          "text": "of probes and our hash function is going to tell us",
+          "score": 0.6732844
+        },
+        {
+          "rank": 2,
+          "is_relevant": false,
+          "start": 519.2,
+          "end": 529.4,
+          "text": "In order to ensure that you are using the hash table corresponding to open",
+          "score": 0.63150907
+        },
+        {
+          "rank": 3,
+          "is_relevant": false,
+          "start": 777.88,
+          "end": 781.8,
+          "text": "And because the hash table is empty, my very first trial",
+          "score": 0.6310426
+        },
+        {
+          "rank": 4,
+          "is_relevant": true,
+          "start": 602.84,
+          "end": 604.64,
+          "text": "of your hash table.",
+          "score": 0.6024719
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 351.6,
+          "end": 354.8,
+          "text": "insert something into this hash table.",
+          "score": 0.5665945
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "lecture10-010",
+        "video_key": "lecture10_open_crypto",
+        "query": "inserting into an occupied slot means the first probe failed",
+        "expected_start_seconds": "720",
+        "expected_end_seconds": "900",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "slot is occupied; first probe failed; go to next",
+        "notes": "source transcript window 720-900; manually curated from source transcript"
+      },
+      "video_id": "22f57e66-2022-48f8-b34a-fef6855712a8",
+      "request_latency_seconds": 0.2049,
+      "api_metrics": {
+        "search_latency_seconds": 0.0561,
+        "query_embedding_seconds": 0.0077,
+        "qdrant_search_seconds": 0.0472
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 848.16,
+          "end": 853.04,
+          "text": "So I look at this and I say the first probe actually",
+          "score": 0.54754543
+        },
+        {
+          "rank": 2,
+          "is_relevant": false,
+          "start": 637.4,
+          "end": 640.32,
+          "text": "whatever, that eventually the sequence of probes",
+          "score": 0.5351753
+        },
+        {
+          "rank": 3,
+          "is_relevant": false,
+          "start": 408.52,
+          "end": 412.28,
+          "text": "to probe, which is basically to try for a key.",
+          "score": 0.5244068
+        },
+        {
+          "rank": 4,
+          "is_relevant": true,
+          "start": 828.24,
+          "end": 833.36,
+          "text": "And I say oops, this slot is occupied.",
+          "score": 0.5238844
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 228.32,
+          "end": 230.76,
+          "text": "into the same slot.",
+          "score": 0.47537434
+        }
+      ]
+    }
+  ]
+}

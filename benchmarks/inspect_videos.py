@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import argparse
 from pathlib import Path
 
 from benchmark_common import BENCHMARK_DIR, read_csv_rows, resolve_repo_path, video_metadata, write_csv_rows
@@ -19,9 +20,24 @@ FIELDNAMES = [
 ]
 
 
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description="Inspect benchmark video metadata.")
+    parser.add_argument("--videos-csv", type=Path, default=VIDEOS_CSV)
+    parser.add_argument("--output", type=Path, default=OUTPUT_CSV)
+    return parser.parse_args()
+
+
+def display_path(path: Path) -> str:
+    try:
+        return str(path.relative_to(Path.cwd()))
+    except ValueError:
+        return str(path)
+
+
 def main() -> None:
+    args = parse_args()
     rows = []
-    for video in read_csv_rows(VIDEOS_CSV):
+    for video in read_csv_rows(args.videos_csv):
         video_path = resolve_repo_path(video["file_path"])
         if not video_path.exists():
             rows.append({
@@ -38,9 +54,9 @@ def main() -> None:
             **video_metadata(video_path),
         })
 
-    write_csv_rows(OUTPUT_CSV, FIELDNAMES, rows)
+    write_csv_rows(args.output, FIELDNAMES, rows)
 
-    print(f"Wrote {OUTPUT_CSV.relative_to(Path.cwd())}")
+    print(f"Wrote {display_path(args.output)}")
     for row in rows:
         print(
             f"{row['video_key']}: {row['file_path']} "

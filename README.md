@@ -25,6 +25,8 @@ The project is designed as a job-hunting portfolio system: it demonstrates backe
 
 ## Performance Benchmark Highlights
 
+### Pipeline Processing
+
 Primary benchmark video: `test_video.mp4`, 19.3 minutes, split into 4 search chunks.
 
 | Experiment | Time-to-searchable | Result |
@@ -43,6 +45,22 @@ The strongest measured result was:
 ```
 
 That is an 82.0% reduction in time-to-searchable. Full benchmark notes are in [`benchmarks/pipeline_stats_summary.md`](benchmarks/pipeline_stats_summary.md).
+
+### Semantic Search Quality
+
+Expanded benchmark set: 10 MIT algorithms lecture videos, clipped to the first 15 minutes per lecture, with 100 manually curated source-transcript search labels.
+
+| Metric | Result |
+| --- | ---: |
+| Hit@1 | 65.0% |
+| Hit@5 | 90.0% |
+| Precision@5 | 43.4% |
+| MRR | 0.746 |
+| Median timestamp error | 16.1s |
+| P95 timestamp error | 62.3s |
+| P95 API search latency | 71.7ms |
+
+This benchmark is intentionally harder than a single-video demo because the videos share one lecture-series domain and many overlapping algorithm topics. The result shows reliable top-5 retrieval for lecture semantic search while also exposing ranking and timestamp-localization gaps for future improvement. Full quality benchmark notes are in [`benchmarks/expanded_15min_search_quality_report.md`](benchmarks/expanded_15min_search_quality_report.md).
 
 ## Architecture
 

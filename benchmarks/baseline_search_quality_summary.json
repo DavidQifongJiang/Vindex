@@ -1,0 +1,25 @@
+{
+  "total_labeled_queries": 50,
+  "hit_rate_at_1": 0.86,
+  "hit_rate_at_5": 0.96,
+  "mean_precision_at_5": 0.484,
+  "mrr": 0.905,
+  "mean_timestamp_error_seconds": 7.870833333333334,
+  "median_timestamp_error_seconds": 6.72,
+  "p90_timestamp_error_seconds": 16.024000000000015,
+  "p95_timestamp_error_seconds": 20.846,
+  "p50_request_latency_seconds": 0.21739999999999998,
+  "p95_request_latency_seconds": 0.33435499999999974,
+  "p50_api_search_latency_seconds": 0.0649,
+  "p95_api_search_latency_seconds": 0.07908499999999999,
+  "timestamp_error_sample_count": 48,
+  "outcome_counts": {
+    "hit_at_1": 43,
+    "low_rank": 5,
+    "topic_confusion": 2
+  },
+  "failure_counts": {
+    "low_rank": 5,
+    "topic_confusion": 2
+  }
+}

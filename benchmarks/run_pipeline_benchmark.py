@@ -313,6 +313,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--token", default=None, help="Bearer token when auth is enabled.")
     parser.add_argument("--token-env", default=None, help="Environment variable containing the bearer token.")
     parser.add_argument("--token-file", default=None, help="File containing the bearer token.")
+    parser.add_argument("--videos-csv", type=Path, default=VIDEOS_CSV)
     parser.add_argument("--pipeline-output", type=Path, default=PIPELINE_CSV)
     parser.add_argument("--video-ids-output", type=Path, default=VIDEO_IDS_CSV)
     parser.add_argument("--visibility", default="private", choices=["private", "public"])
@@ -326,7 +327,7 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> None:
     args = parse_args()
-    videos = read_csv_rows(VIDEOS_CSV)
+    videos = read_csv_rows(args.videos_csv)
     if args.only:
         requested = {value.strip() for value in args.only.split(",") if value.strip()}
         videos = [video for video in videos if video["video_key"] in requested]

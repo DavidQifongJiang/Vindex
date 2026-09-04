@@ -1,0 +1,11 @@
+video_key,file_path,description,file_size_bytes,file_size_mb,duration_seconds,duration_minutes
+lecture01_peak_finding,vindex_benchmark_videos/clips_15min/01_peak_finding_15min.mp4,15-minute benchmark clip from peak finding lecture.,34593094,32.991,900.011,15.0
+lecture02_models_distance,vindex_benchmark_videos/clips_15min/02_models_of_computation_document_distance_15min.mp4,15-minute benchmark clip from models of computation and document distance lecture.,33741749,32.179,900.011,15.0
+lecture03_sorting,vindex_benchmark_videos/clips_15min/03_insertion_sort_merge_sort_15min.mp4,15-minute benchmark clip from insertion sort and merge sort lecture.,32293682,30.798,900.011,15.0
+lecture04_heaps,vindex_benchmark_videos/clips_15min/04_heaps_heap_sort_15min.mp4,15-minute benchmark clip from heaps and heap sort lecture.,34798527,33.186,900.011,15.0
+lecture05_bst,vindex_benchmark_videos/clips_15min/05_binary_search_trees_bst_sort_15min.mp4,15-minute benchmark clip from binary search trees and BST sort lecture.,35607862,33.958,900.011,15.0
+lecture06_avl,vindex_benchmark_videos/clips_15min/06_avl_trees_avl_sort_15min.mp4,15-minute benchmark clip from AVL trees and AVL sort lecture.,34104639,32.525,900.011,15.0
+lecture07_counting_radix,vindex_benchmark_videos/clips_15min/07_counting_sort_radix_sort_lower_bounds_15min.mp4,15-minute benchmark clip from counting sort radix sort and lower bounds lecture.,33562744,32.008,900.011,15.0
+lecture08_hashing_chaining,vindex_benchmark_videos/clips_15min/08_hashing_with_chaining_15min.mp4,15-minute benchmark clip from hashing with chaining lecture.,33645179,32.087,900.011,15.0
+lecture09_table_karp,vindex_benchmark_videos/clips_15min/09_table_doubling_karp_rabin_15min.mp4,15-minute benchmark clip from table doubling and Karp-Rabin lecture.,34315786,32.726,900.011,15.0
+lecture10_open_crypto,vindex_benchmark_videos/clips_15min/10_open_addressing_cryptographic_hashing_15min.mp4,15-minute benchmark clip from open addressing and cryptographic hashing lecture.,33061816,31.53,900.011,15.0

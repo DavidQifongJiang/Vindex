@@ -1,0 +1,3104 @@
+{
+  "results": [
+    {
+      "label": {
+        "label_id": "small-001",
+        "video_key": "small",
+        "query": "men sleeping five hours have smaller testicles",
+        "expected_start_seconds": "0.00",
+        "expected_end_seconds": "29.20",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "sleep 5 hours; sleep 7 hours or more",
+        "notes": "source transcript segments 0:0-0:1; manually curated from source transcript"
+      },
+      "video_id": "ac04a8ca-db5e-46ac-b9c0-b72bf601fb9f",
+      "request_latency_seconds": 9.2181,
+      "api_metrics": {
+        "search_latency_seconds": 8.216,
+        "query_embedding_seconds": 8.1416,
+        "qdrant_search_seconds": 0.0685
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 23.68,
+          "end": 29.2,
+          "text": "have significantly smaller testicles than those who sleep 7 hours or more.",
+          "score": 0.83981884
+        },
+        {
+          "rank": 2,
+          "is_relevant": true,
+          "start": 0.0,
+          "end": 23.44,
+          "text": "Thank you very much. Well, I would like to start with testicles. Men who sleep 5 hours",
+          "score": 0.6897736
+        },
+        {
+          "rank": 3,
+          "is_relevant": false,
+          "start": 32.08,
+          "end": 39.6,
+          "text": "In addition, men who routinely sleep just 4 to 5 hours a night will have a level of testosterone,",
+          "score": 0.64715636
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 39.6,
+          "end": 48.8,
+          "text": "which is that of someone 10 years there senior. So a lack of sleep will age a man by a decade",
+          "score": 0.4184317
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 56.96,
+          "end": 65.52,
+          "text": "reproductive health caused by a lack of sleep. This is the best news that I have for you today.",
+          "score": 0.34458894
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "small-002",
+        "video_key": "small",
+        "query": "low testosterone after four or five hours of sleep",
+        "expected_start_seconds": "32.08",
+        "expected_end_seconds": "48.80",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "4 to 5 hours; testosterone",
+        "notes": "source transcript segments 0:2-0:3; manually curated from source transcript"
+      },
+      "video_id": "ac04a8ca-db5e-46ac-b9c0-b72bf601fb9f",
+      "request_latency_seconds": 0.2026,
+      "api_metrics": {
+        "search_latency_seconds": 0.0653,
+        "query_embedding_seconds": 0.0202,
+        "qdrant_search_seconds": 0.044
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 32.08,
+          "end": 39.6,
+          "text": "In addition, men who routinely sleep just 4 to 5 hours a night will have a level of testosterone,",
+          "score": 0.8244953
+        },
+        {
+          "rank": 2,
+          "is_relevant": true,
+          "start": 23.68,
+          "end": 29.2,
+          "text": "have significantly smaller testicles than those who sleep 7 hours or more.",
+          "score": 0.5463219
+        },
+        {
+          "rank": 3,
+          "is_relevant": true,
+          "start": 56.96,
+          "end": 65.52,
+          "text": "reproductive health caused by a lack of sleep. This is the best news that I have for you today.",
+          "score": 0.47105873
+        },
+        {
+          "rank": 4,
+          "is_relevant": true,
+          "start": 39.6,
+          "end": 48.8,
+          "text": "which is that of someone 10 years there senior. So a lack of sleep will age a man by a decade",
+          "score": 0.4463389
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 0.0,
+          "end": 23.44,
+          "text": "Thank you very much. Well, I would like to start with testicles. Men who sleep 5 hours",
+          "score": 0.44523016
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "small-003",
+        "video_key": "small",
+        "query": "lack of sleep affects female reproductive health",
+        "expected_start_seconds": "48.88",
+        "expected_end_seconds": "65.52",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "female reproductive health caused by lack of sleep",
+        "notes": "source transcript segments 0:4-0:5; manually curated from source transcript"
+      },
+      "video_id": "ac04a8ca-db5e-46ac-b9c0-b72bf601fb9f",
+      "request_latency_seconds": 0.2044,
+      "api_metrics": {
+        "search_latency_seconds": 0.0654,
+        "query_embedding_seconds": 0.0184,
+        "qdrant_search_seconds": 0.0461
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 56.96,
+          "end": 65.52,
+          "text": "reproductive health caused by a lack of sleep. This is the best news that I have for you today.",
+          "score": 0.70228696
+        },
+        {
+          "rank": 2,
+          "is_relevant": true,
+          "start": 32.08,
+          "end": 39.6,
+          "text": "In addition, men who routinely sleep just 4 to 5 hours a night will have a level of testosterone,",
+          "score": 0.54376495
+        },
+        {
+          "rank": 3,
+          "is_relevant": true,
+          "start": 23.68,
+          "end": 29.2,
+          "text": "have significantly smaller testicles than those who sleep 7 hours or more.",
+          "score": 0.4804607
+        },
+        {
+          "rank": 4,
+          "is_relevant": true,
+          "start": 39.6,
+          "end": 48.8,
+          "text": "which is that of someone 10 years there senior. So a lack of sleep will age a man by a decade",
+          "score": 0.46581212
+        },
+        {
+          "rank": 5,
+          "is_relevant": true,
+          "start": 48.88,
+          "end": 56.96,
+          "text": "in terms of that critical aspect of wellness. And we see equivalent in permanence in female",
+          "score": 0.43392894
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "small-004",
+        "video_key": "small",
+        "query": "the talk turns to bad effects on brain and body",
+        "expected_start_seconds": "68.40",
+        "expected_end_seconds": "86.96",
+        "relevance_window_seconds": "30",
+        "query_type": "concept",
+        "expected_text": "bad things when you don't get enough sleep",
+        "notes": "source transcript segments 0:6-0:8; manually curated from source transcript"
+      },
+      "video_id": "ac04a8ca-db5e-46ac-b9c0-b72bf601fb9f",
+      "request_latency_seconds": 0.2535,
+      "api_metrics": {
+        "search_latency_seconds": 0.0602,
+        "query_embedding_seconds": 0.0139,
+        "qdrant_search_seconds": 0.0451
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": false,
+          "start": 116.32,
+          "end": 120.6,
+          "text": "the memory circuits of the brain essentially become waterlogged as it.",
+          "score": 0.32989913
+        },
+        {
+          "rank": 2,
+          "is_relevant": true,
+          "start": 78.64,
+          "end": 86.96,
+          "text": "get enough. Both for your brain and for your body. Let me start with the brain and the functions",
+          "score": 0.31188568
+        },
+        {
+          "rank": 3,
+          "is_relevant": true,
+          "start": 68.4,
+          "end": 73.36,
+          "text": "From this point, it may only get worse. Not only will I tell you about the wonderfully good",
+          "score": 0.28898054
+        },
+        {
+          "rank": 4,
+          "is_relevant": true,
+          "start": 73.36,
+          "end": 78.64,
+          "text": "things that happen when you get sleep, but the alarmingly bad things that happen when you don't",
+          "score": 0.27611637
+        },
+        {
+          "rank": 5,
+          "is_relevant": true,
+          "start": 86.96,
+          "end": 93.04,
+          "text": "of learning in memory. Because what we've discovered over the past 10 or so years is that you need",
+          "score": 0.26690423
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "small-005",
+        "video_key": "small",
+        "query": "sleep after learning saves new memories",
+        "expected_start_seconds": "86.96",
+        "expected_end_seconds": "99.52",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "sleep after learning; save button on memories",
+        "notes": "source transcript segments 0:9-0:10; manually curated from source transcript"
+      },
+      "video_id": "ac04a8ca-db5e-46ac-b9c0-b72bf601fb9f",
+      "request_latency_seconds": 0.2551,
+      "api_metrics": {
+        "search_latency_seconds": 0.0726,
+        "query_embedding_seconds": 0.0244,
+        "qdrant_search_seconds": 0.047
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 93.04,
+          "end": 99.52,
+          "text": "sleep after learning to essentially hit the save button on those new memories so that you don't forget.",
+          "score": 0.8553868
+        },
+        {
+          "rank": 2,
+          "is_relevant": true,
+          "start": 100.48,
+          "end": 108.24,
+          "text": "But recently we discovered that you also need sleep before learning. And now to actually prepare",
+          "score": 0.7080504
+        },
+        {
+          "rank": 3,
+          "is_relevant": true,
+          "start": 108.24,
+          "end": 116.32,
+          "text": "your brain almost like a dry sponge ready to initially soak up new information. And without sleep,",
+          "score": 0.65240973
+        },
+        {
+          "rank": 4,
+          "is_relevant": true,
+          "start": 116.32,
+          "end": 120.6,
+          "text": "the memory circuits of the brain essentially become waterlogged as it.",
+          "score": 0.45635098
+        },
+        {
+          "rank": 5,
+          "is_relevant": true,
+          "start": 86.96,
+          "end": 93.04,
+          "text": "of learning in memory. Because what we've discovered over the past 10 or so years is that you need",
+          "score": 0.44872665
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "medium-006",
+        "video_key": "medium",
+        "query": "sleep before learning makes the brain ready to absorb information",
+        "expected_start_seconds": "100.48",
+        "expected_end_seconds": "122.40",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "dry sponge; soak up new information",
+        "notes": "source transcript segments 0:11-0:14; manually curated from source transcript"
+      },
+      "video_id": "d0005a3b-478d-4737-b434-050c177c1e00",
+      "request_latency_seconds": 0.2223,
+      "api_metrics": {
+        "search_latency_seconds": 0.0615,
+        "query_embedding_seconds": 0.0107,
+        "qdrant_search_seconds": 0.0497
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 100.48,
+          "end": 108.24,
+          "text": "But recently we discovered that you also need sleep before learning and now to actually prepare",
+          "score": 0.74694175
+        },
+        {
+          "rank": 2,
+          "is_relevant": true,
+          "start": 108.24,
+          "end": 116.32,
+          "text": "your brain almost like a dry sponge ready to initially soak up new information. And without sleep,",
+          "score": 0.7156004
+        },
+        {
+          "rank": 3,
+          "is_relevant": false,
+          "start": 288.08,
+          "end": 294.72,
+          "text": "sleep when you do get it that restores and enhances your memory and learning ability each and every day?",
+          "score": 0.68440247
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 337.6,
+          "end": 343.28,
+          "text": "And it is important that we understand what during sleep actually transacts these memory",
+          "score": 0.6496135
+        },
+        {
+          "rank": 5,
+          "is_relevant": true,
+          "start": 93.04,
+          "end": 99.52,
+          "text": "sleep after learning to essentially hit the save button on those new memories so that you don't forget.",
+          "score": 0.6427547
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "medium-007",
+        "video_key": "medium",
+        "query": "all nighter experiment with sleep and sleep deprivation groups",
+        "expected_start_seconds": "122.40",
+        "expected_end_seconds": "142.88",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "test the hypothesis; sleep group; sleep deprivation group",
+        "notes": "source transcript segments 0:14-0:16; manually curated from source transcript"
+      },
+      "video_id": "d0005a3b-478d-4737-b434-050c177c1e00",
+      "request_latency_seconds": 0.2001,
+      "api_metrics": {
+        "search_latency_seconds": 0.0675,
+        "query_embedding_seconds": 0.0216,
+        "qdrant_search_seconds": 0.045
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 136.88,
+          "end": 142.88,
+          "text": "assigned them to one of two experimental groups, a sleep group and a sleep deprivation group.",
+          "score": 0.78730834
+        },
+        {
+          "rank": 2,
+          "is_relevant": false,
+          "start": 635.8,
+          "end": 640.6,
+          "text": "So here in this experiment, you're not going to have your sleep deprived for an entire night.",
+          "score": 0.69433606
+        },
+        {
+          "rank": 3,
+          "is_relevant": true,
+          "start": 143.6,
+          "end": 149.36,
+          "text": "Now the sleep group they're going to get a full eight hours of slumber. But the deprivation group",
+          "score": 0.6337659
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 1084.0,
+          "end": 1097.0,
+          "text": "As we're smart and I make that point because what it means is that mother nature throughout the course of evolution has never had to face the challenge of this thing called sleep deprivation.",
+          "score": 0.6023006
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 390.96,
+          "end": 396.76,
+          "text": "And it suggests that the disruption of deep sleep is an underappreciated factor that is",
+          "score": 0.5775262
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "medium-008",
+        "video_key": "medium",
+        "query": "deprivation group stayed awake in the lab with no naps or caffeine",
+        "expected_start_seconds": "143.60",
+        "expected_end_seconds": "160.80",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "awake in the laboratory; no naps or caffeine",
+        "notes": "source transcript segments 0:17-0:19; manually curated from source transcript"
+      },
+      "video_id": "d0005a3b-478d-4737-b434-050c177c1e00",
+      "request_latency_seconds": 0.2314,
+      "api_metrics": {
+        "search_latency_seconds": 0.0663,
+        "query_embedding_seconds": 0.0195,
+        "qdrant_search_seconds": 0.0458
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 136.88,
+          "end": 142.88,
+          "text": "assigned them to one of two experimental groups, a sleep group and a sleep deprivation group.",
+          "score": 0.6683819
+        },
+        {
+          "rank": 2,
+          "is_relevant": true,
+          "start": 149.36,
+          "end": 155.6,
+          "text": "we're going to keep them awake in the laboratory under full supervision. There's no nap saw caffeine",
+          "score": 0.66176295
+        },
+        {
+          "rank": 3,
+          "is_relevant": true,
+          "start": 143.6,
+          "end": 149.36,
+          "text": "Now the sleep group they're going to get a full eight hours of slumber. But the deprivation group",
+          "score": 0.6239291
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 833.08,
+          "end": 840.12,
+          "text": "There is simply no aspect of your wellness that can retreat at the sign of sleep deprivation",
+          "score": 0.5614198
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 635.8,
+          "end": 640.6,
+          "text": "So here in this experiment, you're not going to have your sleep deprived for an entire night.",
+          "score": 0.520356
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "medium-009",
+        "video_key": "medium",
+        "query": "participants learn facts while inside an MRI scanner",
+        "expected_start_seconds": "160.80",
+        "expected_end_seconds": "172.96",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "MRI scanner; learn a whole list of new facts",
+        "notes": "source transcript segments 0:20-0:21; manually curated from source transcript"
+      },
+      "video_id": "d0005a3b-478d-4737-b434-050c177c1e00",
+      "request_latency_seconds": 0.1956,
+      "api_metrics": {
+        "search_latency_seconds": 0.0597,
+        "query_embedding_seconds": 0.0147,
+        "qdrant_search_seconds": 0.0439
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 160.8,
+          "end": 166.8,
+          "text": "those participants inside an MRI scanner. And we're going to have them try and learn a whole list",
+          "score": 0.73210037
+        },
+        {
+          "rank": 2,
+          "is_relevant": true,
+          "start": 166.8,
+          "end": 172.96,
+          "text": "of new facts as we're taking snapshots of brain activity. And then we're going to test them",
+          "score": 0.4288817
+        },
+        {
+          "rank": 3,
+          "is_relevant": false,
+          "start": 510.28,
+          "end": 513.76,
+          "text": "aspects of their learning and memory function?",
+          "score": 0.37776074
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 86.96,
+          "end": 93.04,
+          "text": "of learning in memory. Because what we've discovered over the past 10 or so years is that you need",
+          "score": 0.36276788
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 213.36,
+          "end": 219.84,
+          "text": "within your brain to produce these types of learning disabilities. And there's a structure that",
+          "score": 0.35895562
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "medium-010",
+        "video_key": "medium",
+        "query": "sleep deprivation creates a forty percent deficit in new memory formation",
+        "expected_start_seconds": "179.28",
+        "expected_end_seconds": "191.76",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "40% deficit; make new memories without sleep",
+        "notes": "source transcript segments 0:23-0:24; manually curated from source transcript"
+      },
+      "video_id": "d0005a3b-478d-4737-b434-050c177c1e00",
+      "request_latency_seconds": 0.214,
+      "api_metrics": {
+        "search_latency_seconds": 0.0635,
+        "query_embedding_seconds": 0.0169,
+        "qdrant_search_seconds": 0.0458
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 185.92,
+          "end": 191.76,
+          "text": "40% deficit in the ability of the brain to make new memories without sleep.",
+          "score": 0.8659265
+        },
+        {
+          "rank": 2,
+          "is_relevant": false,
+          "start": 487.84,
+          "end": 491.2,
+          "text": "of memory benefit that you get from sleep.",
+          "score": 0.6628554
+        },
+        {
+          "rank": 3,
+          "is_relevant": false,
+          "start": 337.6,
+          "end": 343.28,
+          "text": "And it is important that we understand what during sleep actually transacts these memory",
+          "score": 0.6482829
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 93.04,
+          "end": 99.52,
+          "text": "sleep after learning to essentially hit the save button on those new memories so that you don't forget.",
+          "score": 0.6223016
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 288.08,
+          "end": 294.72,
+          "text": "sleep when you do get it that restores and enhances your memory and learning ability each and every day?",
+          "score": 0.6188253
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "medium-011",
+        "video_key": "medium",
+        "query": "the hippocampus acts like an informational inbox for the brain",
+        "expected_start_seconds": "213.36",
+        "expected_end_seconds": "232.64",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "hippocampus; informational inbox",
+        "notes": "source transcript segments 0:28-0:30; manually curated from source transcript"
+      },
+      "video_id": "d0005a3b-478d-4737-b434-050c177c1e00",
+      "request_latency_seconds": 0.2299,
+      "api_metrics": {
+        "search_latency_seconds": 0.0647,
+        "query_embedding_seconds": 0.0177,
+        "qdrant_search_seconds": 0.046
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 225.92,
+          "end": 232.64,
+          "text": "the hippocampus almost like the informational inbox of your brain. It's very good at receiving new",
+          "score": 0.8060509
+        },
+        {
+          "rank": 2,
+          "is_relevant": false,
+          "start": 330.2,
+          "end": 332.6,
+          "text": "storage site within the brain.",
+          "score": 0.5410588
+        },
+        {
+          "rank": 3,
+          "is_relevant": false,
+          "start": 108.24,
+          "end": 116.32,
+          "text": "your brain almost like a dry sponge ready to initially soak up new information. And without sleep,",
+          "score": 0.52465
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 116.32,
+          "end": 122.4,
+          "text": "the memory circuits of the brain essentially become waterlogged as it were and you can't absorb",
+          "score": 0.5238217
+        },
+        {
+          "rank": 5,
+          "is_relevant": true,
+          "start": 219.84,
+          "end": 225.92,
+          "text": "sits on the left and the right side of your brain called the hippocampus. And you can think of",
+          "score": 0.48003662
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "medium-012",
+        "video_key": "medium",
+        "query": "sleep deprivation shuts down the memory inbox and bounces new files",
+        "expected_start_seconds": "246.56",
+        "expected_end_seconds": "266.96",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "shut down your memory inbox; files bounced",
+        "notes": "source transcript segments 0:33-0:35; manually curated from source transcript"
+      },
+      "video_id": "d0005a3b-478d-4737-b434-050c177c1e00",
+      "request_latency_seconds": 0.2511,
+      "api_metrics": {
+        "search_latency_seconds": 0.062,
+        "query_embedding_seconds": 0.0168,
+        "qdrant_search_seconds": 0.0439
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 252.48,
+          "end": 259.92,
+          "text": "whatsoever. So it's almost as though sleep deprivation had shut down your memory inbox and",
+          "score": 0.6883764
+        },
+        {
+          "rank": 2,
+          "is_relevant": false,
+          "start": 93.04,
+          "end": 99.52,
+          "text": "sleep after learning to essentially hit the save button on those new memories so that you don't forget.",
+          "score": 0.5835489
+        },
+        {
+          "rank": 3,
+          "is_relevant": false,
+          "start": 108.24,
+          "end": 116.32,
+          "text": "your brain almost like a dry sponge ready to initially soak up new information. And without sleep,",
+          "score": 0.566703
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 185.92,
+          "end": 191.76,
+          "text": "40% deficit in the ability of the brain to make new memories without sleep.",
+          "score": 0.5453646
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 315.2,
+          "end": 321.92,
+          "text": "And it's the combined quality of these deep sleep brainwaves that acts like a file transfer",
+          "score": 0.5153971
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "medium-013",
+        "video_key": "medium",
+        "query": "physiological sleep quality restores memory and learning ability",
+        "expected_start_seconds": "274.96",
+        "expected_end_seconds": "294.72",
+        "relevance_window_seconds": "30",
+        "query_type": "concept",
+        "expected_text": "quality of sleep; restores and enhances memory",
+        "notes": "source transcript segments 0:37-0:39; manually curated from source transcript"
+      },
+      "video_id": "d0005a3b-478d-4737-b434-050c177c1e00",
+      "request_latency_seconds": 0.268,
+      "api_metrics": {
+        "search_latency_seconds": 0.0639,
+        "query_embedding_seconds": 0.0155,
+        "qdrant_search_seconds": 0.047
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 288.08,
+          "end": 294.72,
+          "text": "sleep when you do get it that restores and enhances your memory and learning ability each and every day?",
+          "score": 0.7410518
+        },
+        {
+          "rank": 2,
+          "is_relevant": false,
+          "start": 487.84,
+          "end": 491.2,
+          "text": "of memory benefit that you get from sleep.",
+          "score": 0.7171545
+        },
+        {
+          "rank": 3,
+          "is_relevant": false,
+          "start": 337.6,
+          "end": 343.28,
+          "text": "And it is important that we understand what during sleep actually transacts these memory",
+          "score": 0.7154172
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 185.92,
+          "end": 191.76,
+          "text": "40% deficit in the ability of the brain to make new memories without sleep.",
+          "score": 0.70075214
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 239.6,
+          "end": 245.2,
+          "text": "had a full night of sleep, we saw lots of healthy learning related activity.",
+          "score": 0.6739944
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "medium-014",
+        "video_key": "medium",
+        "query": "deep sleep brainwaves and sleep spindles appear during the deepest sleep stages",
+        "expected_start_seconds": "295.92",
+        "expected_end_seconds": "315.20",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "deepest stages of sleep; sleep spindles",
+        "notes": "source transcript segments 0:40-1:3; manually curated from source transcript"
+      },
+      "video_id": "d0005a3b-478d-4737-b434-050c177c1e00",
+      "request_latency_seconds": 0.2305,
+      "api_metrics": {
+        "search_latency_seconds": 0.0588,
+        "query_embedding_seconds": 0.0129,
+        "qdrant_search_seconds": 0.045
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 300.92,
+          "end": 307.2,
+          "text": "big, powerful brainwaves that happen during the very deepest stages of sleep that have",
+          "score": 0.80176914
+        },
+        {
+          "rank": 2,
+          "is_relevant": true,
+          "start": 315.2,
+          "end": 321.92,
+          "text": "And it's the combined quality of these deep sleep brainwaves that acts like a file transfer",
+          "score": 0.59419894
+        },
+        {
+          "rank": 3,
+          "is_relevant": false,
+          "start": 481.88,
+          "end": 487.84,
+          "text": "size of those deep sleep brain waves, but in doing so we can almost double the amount",
+          "score": 0.5679965
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 337.6,
+          "end": 343.28,
+          "text": "And it is important that we understand what during sleep actually transacts these memory",
+          "score": 0.5653109
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 447.72,
+          "end": 453.76,
+          "text": "Unfortunately, they are blunt instruments that do not produce naturalistic sleep.",
+          "score": 0.5644399
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "medium-015",
+        "video_key": "medium",
+        "query": "deep sleep transfers memories from short term to long term storage",
+        "expected_start_seconds": "315.20",
+        "expected_end_seconds": "337.60",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "file transfer mechanism; long-term storage",
+        "notes": "source transcript segments 1:4-1:8; manually curated from source transcript"
+      },
+      "video_id": "d0005a3b-478d-4737-b434-050c177c1e00",
+      "request_latency_seconds": 0.2141,
+      "api_metrics": {
+        "search_latency_seconds": 0.0568,
+        "query_embedding_seconds": 0.0087,
+        "qdrant_search_seconds": 0.047
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": false,
+          "start": 93.04,
+          "end": 99.52,
+          "text": "sleep after learning to essentially hit the save button on those new memories so that you don't forget.",
+          "score": 0.6459625
+        },
+        {
+          "rank": 2,
+          "is_relevant": true,
+          "start": 337.6,
+          "end": 343.28,
+          "text": "And it is important that we understand what during sleep actually transacts these memory",
+          "score": 0.6313971
+        },
+        {
+          "rank": 3,
+          "is_relevant": false,
+          "start": 185.92,
+          "end": 191.76,
+          "text": "40% deficit in the ability of the brain to make new memories without sleep.",
+          "score": 0.6016495
+        },
+        {
+          "rank": 4,
+          "is_relevant": true,
+          "start": 315.2,
+          "end": 321.92,
+          "text": "And it's the combined quality of these deep sleep brainwaves that acts like a file transfer",
+          "score": 0.5884032
+        },
+        {
+          "rank": 5,
+          "is_relevant": true,
+          "start": 324.44,
+          "end": 330.2,
+          "text": "Putting memories from a short-term vulnerable reservoir to a more permanent long-term",
+          "score": 0.57921124
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "medium-016",
+        "video_key": "medium",
+        "query": "aging dementia and poor deep sleep are significantly interrelated",
+        "expected_start_seconds": "348.88",
+        "expected_end_seconds": "408.44",
+        "relevance_window_seconds": "30",
+        "query_type": "concept",
+        "expected_text": "aging and dementia; deep quality of sleep; interrelated",
+        "notes": "source transcript segments 1:11-1:22; manually curated from source transcript"
+      },
+      "video_id": "d0005a3b-478d-4737-b434-050c177c1e00",
+      "request_latency_seconds": 0.2143,
+      "api_metrics": {
+        "search_latency_seconds": 0.0651,
+        "query_embedding_seconds": 0.0191,
+        "qdrant_search_seconds": 0.0449
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": false,
+          "start": 429.6,
+          "end": 435.76,
+          "text": "But that sleep is a missing piece in the explanatory puzzle of aging and Alzheimer's.",
+          "score": 0.6546631
+        },
+        {
+          "rank": 2,
+          "is_relevant": true,
+          "start": 367.2,
+          "end": 374.04,
+          "text": "But what we've also discovered is that a physiological signature of aging is that your sleep",
+          "score": 0.6225298
+        },
+        {
+          "rank": 3,
+          "is_relevant": true,
+          "start": 390.96,
+          "end": 396.76,
+          "text": "And it suggests that the disruption of deep sleep is an underappreciated factor that is",
+          "score": 0.616706
+        },
+        {
+          "rank": 4,
+          "is_relevant": true,
+          "start": 354.36,
+          "end": 359.16,
+          "text": "which is the context of aging and dementia.",
+          "score": 0.60586625
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 185.92,
+          "end": 191.76,
+          "text": "40% deficit in the ability of the brain to make new memories without sleep.",
+          "score": 0.597034
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "medium-017",
+        "video_key": "medium",
+        "query": "sleep may be a treatable missing piece in aging and Alzheimer's",
+        "expected_start_seconds": "414.56",
+        "expected_end_seconds": "440.72",
+        "relevance_window_seconds": "30",
+        "query_type": "concept",
+        "expected_text": "missing piece; aging and Alzheimer's; do something",
+        "notes": "source transcript segments 1:25-1:30; manually curated from source transcript"
+      },
+      "video_id": "d0005a3b-478d-4737-b434-050c177c1e00",
+      "request_latency_seconds": 0.2159,
+      "api_metrics": {
+        "search_latency_seconds": 0.0752,
+        "query_embedding_seconds": 0.027,
+        "qdrant_search_seconds": 0.0472
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 429.6,
+          "end": 435.76,
+          "text": "But that sleep is a missing piece in the explanatory puzzle of aging and Alzheimer's.",
+          "score": 0.83072513
+        },
+        {
+          "rank": 2,
+          "is_relevant": false,
+          "start": 951.0,
+          "end": 957.0,
+          "text": "Sleep is a non-negotiable biological necessity.",
+          "score": 0.658844
+        },
+        {
+          "rank": 3,
+          "is_relevant": false,
+          "start": 367.2,
+          "end": 374.04,
+          "text": "But what we've also discovered is that a physiological signature of aging is that your sleep",
+          "score": 0.63658535
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 519.04,
+          "end": 527.16,
+          "text": "So that's an example of sleep for your brain, but sleep is just as essential for your",
+          "score": 0.63100845
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 185.92,
+          "end": 191.76,
+          "text": "40% deficit in the ability of the brain to make new memories without sleep.",
+          "score": 0.61215246
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "medium-018",
+        "video_key": "medium",
+        "query": "sleeping pills are blunt instruments that do not create natural sleep",
+        "expected_start_seconds": "440.72",
+        "expected_end_seconds": "453.76",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "sleeping pills; blunt instruments; naturalistic sleep",
+        "notes": "source transcript segments 1:31-1:33; manually curated from source transcript"
+      },
+      "video_id": "d0005a3b-478d-4737-b434-050c177c1e00",
+      "request_latency_seconds": 0.2052,
+      "api_metrics": {
+        "search_latency_seconds": 0.0692,
+        "query_embedding_seconds": 0.0213,
+        "qdrant_search_seconds": 0.0469
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 447.72,
+          "end": 453.76,
+          "text": "Unfortunately, they are blunt instruments that do not produce naturalistic sleep.",
+          "score": 0.75968575
+        },
+        {
+          "rank": 2,
+          "is_relevant": true,
+          "start": 440.72,
+          "end": 446.56,
+          "text": "And one way that we are approaching this at my sleep center is not by using sleeping pills",
+          "score": 0.70634294
+        },
+        {
+          "rank": 3,
+          "is_relevant": false,
+          "start": 951.0,
+          "end": 957.0,
+          "text": "Sleep is a non-negotiable biological necessity.",
+          "score": 0.5607735
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 136.88,
+          "end": 142.88,
+          "text": "assigned them to one of two experimental groups, a sleep group and a sleep deprivation group.",
+          "score": 0.5165446
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 519.04,
+          "end": 527.16,
+          "text": "So that's an example of sleep for your brain, but sleep is just as essential for your",
+          "score": 0.51064205
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "medium-019",
+        "video_key": "medium",
+        "query": "direct current brain stimulation uses a small voltage in the brain",
+        "expected_start_seconds": "453.76",
+        "expected_end_seconds": "468.88",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "direct current brain stimulation; voltage into the brain",
+        "notes": "source transcript segments 1:34-1:37; manually curated from source transcript"
+      },
+      "video_id": "d0005a3b-478d-4737-b434-050c177c1e00",
+      "request_latency_seconds": 0.2051,
+      "api_metrics": {
+        "search_latency_seconds": 0.0577,
+        "query_embedding_seconds": 0.0093,
+        "qdrant_search_seconds": 0.0475
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 456.92,
+          "end": 460.2,
+          "text": "It's called direct current brain stimulation.",
+          "score": 0.7685373
+        },
+        {
+          "rank": 2,
+          "is_relevant": true,
+          "start": 460.2,
+          "end": 463.6,
+          "text": "You insert a small amount of voltage into the brain.",
+          "score": 0.7343139
+        },
+        {
+          "rank": 3,
+          "is_relevant": false,
+          "start": 295.92,
+          "end": 300.0,
+          "text": "And by placing electrodes all over the head, what we've discovered is that there are big, powerful",
+          "score": 0.48543096
+        },
+        {
+          "rank": 4,
+          "is_relevant": true,
+          "start": 475.92,
+          "end": 481.88,
+          "text": "sort of singing in time with those deep sleep brain waves, not only can you amplify the",
+          "score": 0.36275417
+        },
+        {
+          "rank": 5,
+          "is_relevant": true,
+          "start": 468.88,
+          "end": 475.92,
+          "text": "Now if you apply this stimulation during sleep in young healthier adults, as if you're",
+          "score": 0.33933395
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "medium-020",
+        "video_key": "medium",
+        "query": "brain stimulation can amplify deep sleep waves and almost double memory benefit",
+        "expected_start_seconds": "468.88",
+        "expected_end_seconds": "491.20",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "amplify deep sleep brain waves; double memory benefit",
+        "notes": "source transcript segments 1:38-1:41; manually curated from source transcript"
+      },
+      "video_id": "d0005a3b-478d-4737-b434-050c177c1e00",
+      "request_latency_seconds": 0.2005,
+      "api_metrics": {
+        "search_latency_seconds": 0.0629,
+        "query_embedding_seconds": 0.0169,
+        "qdrant_search_seconds": 0.0448
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 481.88,
+          "end": 487.84,
+          "text": "size of those deep sleep brain waves, but in doing so we can almost double the amount",
+          "score": 0.7054065
+        },
+        {
+          "rank": 2,
+          "is_relevant": true,
+          "start": 487.84,
+          "end": 491.2,
+          "text": "of memory benefit that you get from sleep.",
+          "score": 0.6649083
+        },
+        {
+          "rank": 3,
+          "is_relevant": false,
+          "start": 337.6,
+          "end": 343.28,
+          "text": "And it is important that we understand what during sleep actually transacts these memory",
+          "score": 0.65098476
+        },
+        {
+          "rank": 4,
+          "is_relevant": true,
+          "start": 475.92,
+          "end": 481.88,
+          "text": "sort of singing in time with those deep sleep brain waves, not only can you amplify the",
+          "score": 0.64171696
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 300.92,
+          "end": 307.2,
+          "text": "big, powerful brainwaves that happen during the very deepest stages of sleep that have",
+          "score": 0.6405551
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "medium-021",
+        "video_key": "medium",
+        "query": "portable stimulation technology might help older adults with dementia",
+        "expected_start_seconds": "491.24",
+        "expected_end_seconds": "513.76",
+        "relevance_window_seconds": "30",
+        "query_type": "concept",
+        "expected_text": "portable technology; older adults; dementia",
+        "notes": "source transcript segments 1:42-1:45; manually curated from source transcript"
+      },
+      "video_id": "d0005a3b-478d-4737-b434-050c177c1e00",
+      "request_latency_seconds": 0.2381,
+      "api_metrics": {
+        "search_latency_seconds": 0.0837,
+        "query_embedding_seconds": 0.0357,
+        "qdrant_search_seconds": 0.0469
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 496.92,
+          "end": 503.04,
+          "text": "piece of technology into older adults and those with dementia.",
+          "score": 0.6449921
+        },
+        {
+          "rank": 2,
+          "is_relevant": false,
+          "start": 456.92,
+          "end": 460.2,
+          "text": "It's called direct current brain stimulation.",
+          "score": 0.5342289
+        },
+        {
+          "rank": 3,
+          "is_relevant": false,
+          "start": 354.36,
+          "end": 359.16,
+          "text": "which is the context of aging and dementia.",
+          "score": 0.47923407
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 396.76,
+          "end": 403.04,
+          "text": "contributing to cognitive decline or memory decline, in aging and most recently we've",
+          "score": 0.45886773
+        },
+        {
+          "rank": 5,
+          "is_relevant": true,
+          "start": 468.88,
+          "end": 475.92,
+          "text": "Now if you apply this stimulation during sleep in young healthier adults, as if you're",
+          "score": 0.44701734
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "medium-022",
+        "video_key": "medium",
+        "query": "the speaker calls better sleep one of the moon shot goals",
+        "expected_start_seconds": "513.76",
+        "expected_end_seconds": "518.80",
+        "relevance_window_seconds": "30",
+        "query_type": "near_exact",
+        "expected_text": "one of our moon shot goals",
+        "notes": "source transcript segments 1:46-1:47; manually curated from source transcript"
+      },
+      "video_id": "d0005a3b-478d-4737-b434-050c177c1e00",
+      "request_latency_seconds": 0.2147,
+      "api_metrics": {
+        "search_latency_seconds": 0.0659,
+        "query_embedding_seconds": 0.0181,
+        "qdrant_search_seconds": 0.0469
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 516.56,
+          "end": 518.8,
+          "text": "That's one of our moon shot goals.",
+          "score": 0.6364552
+        },
+        {
+          "rank": 2,
+          "is_relevant": false,
+          "start": 447.72,
+          "end": 453.76,
+          "text": "Unfortunately, they are blunt instruments that do not produce naturalistic sleep.",
+          "score": 0.430853
+        },
+        {
+          "rank": 3,
+          "is_relevant": true,
+          "start": 519.04,
+          "end": 527.16,
+          "text": "So that's an example of sleep for your brain, but sleep is just as essential for your",
+          "score": 0.4252506
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 951.0,
+          "end": 957.0,
+          "text": "Sleep is a non-negotiable biological necessity.",
+          "score": 0.42108548
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 1077.0,
+          "end": 1084.0,
+          "text": "First is because human beings are the only species that deliberately deprive themselves of sleep for no apparent reason.",
+          "score": 0.41446415
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "medium-023",
+        "video_key": "medium",
+        "query": "sleep loss affects the cardiovascular system through one lost hour",
+        "expected_start_seconds": "529.52",
+        "expected_end_seconds": "555.12",
+        "relevance_window_seconds": "30",
+        "query_type": "concept",
+        "expected_text": "cardiovascular system; one hour; daylight savings time",
+        "notes": "source transcript segments 1:50-1:54; manually curated from source transcript"
+      },
+      "video_id": "d0005a3b-478d-4737-b434-050c177c1e00",
+      "request_latency_seconds": 0.2543,
+      "api_metrics": {
+        "search_latency_seconds": 0.0644,
+        "query_embedding_seconds": 0.0191,
+        "qdrant_search_seconds": 0.0443
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 534.04,
+          "end": 539.88,
+          "text": "Or I could tell you about sleep loss and your cardiovascular system and that all it takes",
+          "score": 0.65269166
+        },
+        {
+          "rank": 2,
+          "is_relevant": false,
+          "start": 567.12,
+          "end": 574.12,
+          "text": "In the autumn when we gain an hour of sleep we see a 21% reduction in heart attacks.",
+          "score": 0.6392373
+        },
+        {
+          "rank": 3,
+          "is_relevant": true,
+          "start": 555.12,
+          "end": 562.4,
+          "text": "Now in the spring when we lose one hour of sleep we see a subsequent 24% increase in",
+          "score": 0.6244035
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 730.92,
+          "end": 734.36,
+          "text": "Short sleep predicts all cause mortality.",
+          "score": 0.6243083
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 390.96,
+          "end": 396.76,
+          "text": "And it suggests that the disruption of deep sleep is an underappreciated factor that is",
+          "score": 0.57979786
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "medium-024",
+        "video_key": "medium",
+        "query": "spring daylight savings causes a twenty four percent increase in heart attacks",
+        "expected_start_seconds": "555.12",
+        "expected_end_seconds": "567.12",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "spring; lose one hour; 24% increase",
+        "notes": "source transcript segments 1:55-1:56; manually curated from source transcript"
+      },
+      "video_id": "d0005a3b-478d-4737-b434-050c177c1e00",
+      "request_latency_seconds": 0.2717,
+      "api_metrics": {
+        "search_latency_seconds": 0.053,
+        "query_embedding_seconds": 0.008,
+        "qdrant_search_seconds": 0.0439
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 567.12,
+          "end": 574.12,
+          "text": "In the autumn when we gain an hour of sleep we see a 21% reduction in heart attacks.",
+          "score": 0.6501662
+        },
+        {
+          "rank": 2,
+          "is_relevant": true,
+          "start": 562.4,
+          "end": 567.12,
+          "text": "heart attacks that following day.",
+          "score": 0.58452886
+        },
+        {
+          "rank": 3,
+          "is_relevant": true,
+          "start": 555.12,
+          "end": 562.4,
+          "text": "Now in the spring when we lose one hour of sleep we see a subsequent 24% increase in",
+          "score": 0.51116395
+        },
+        {
+          "rank": 4,
+          "is_relevant": true,
+          "start": 550.08,
+          "end": 555.12,
+          "text": "a year and it's called daylight savings time.",
+          "score": 0.4052039
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 705.0,
+          "end": 707.56,
+          "text": "because of a disruption of your sleep weight rhythms.",
+          "score": 0.3593459
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "medium-025",
+        "video_key": "medium",
+        "query": "gaining an hour of sleep reduces heart attacks by twenty one percent",
+        "expected_start_seconds": "567.12",
+        "expected_end_seconds": "574.12",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "gain an hour; 21% reduction in heart attacks",
+        "notes": "source transcript segment 1:57; manually curated from source transcript"
+      },
+      "video_id": "d0005a3b-478d-4737-b434-050c177c1e00",
+      "request_latency_seconds": 0.2078,
+      "api_metrics": {
+        "search_latency_seconds": 0.0667,
+        "query_embedding_seconds": 0.0191,
+        "qdrant_search_seconds": 0.0463
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 567.12,
+          "end": 574.12,
+          "text": "In the autumn when we gain an hour of sleep we see a 21% reduction in heart attacks.",
+          "score": 0.83052874
+        },
+        {
+          "rank": 2,
+          "is_relevant": true,
+          "start": 555.12,
+          "end": 562.4,
+          "text": "Now in the spring when we lose one hour of sleep we see a subsequent 24% increase in",
+          "score": 0.60958254
+        },
+        {
+          "rank": 3,
+          "is_relevant": false,
+          "start": 870.12,
+          "end": 876.76,
+          "text": "Well, beyond avoiding the damaging and harmful impact of alcohol and caffeine on sleep.",
+          "score": 0.58308345
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 730.92,
+          "end": 734.36,
+          "text": "Short sleep predicts all cause mortality.",
+          "score": 0.5811152
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 951.0,
+          "end": 957.0,
+          "text": "Sleep is a non-negotiable biological necessity.",
+          "score": 0.5770546
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "medium-026",
+        "video_key": "medium",
+        "query": "daylight savings affects car crashes traffic accidents and suicide rates",
+        "expected_start_seconds": "574.12",
+        "expected_end_seconds": "589.12",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "car crashes; road traffic accidents; suicide rates",
+        "notes": "source transcript segments 1:58-1:59; manually curated from source transcript"
+      },
+      "video_id": "d0005a3b-478d-4737-b434-050c177c1e00",
+      "request_latency_seconds": 0.22,
+      "api_metrics": {
+        "search_latency_seconds": 0.0571,
+        "query_embedding_seconds": 0.0091,
+        "qdrant_search_seconds": 0.0469
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 583.64,
+          "end": 589.12,
+          "text": "accidents even suicide rates.",
+          "score": 0.6271428
+        },
+        {
+          "rank": 2,
+          "is_relevant": true,
+          "start": 550.08,
+          "end": 555.12,
+          "text": "a year and it's called daylight savings time.",
+          "score": 0.39813262
+        },
+        {
+          "rank": 3,
+          "is_relevant": true,
+          "start": 574.12,
+          "end": 583.64,
+          "text": "It's not having credible and you see exactly the same profile for car crashes, road traffic",
+          "score": 0.32201934
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 730.92,
+          "end": 734.36,
+          "text": "Short sleep predicts all cause mortality.",
+          "score": 0.3190369
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 967.0,
+          "end": 980.0,
+          "text": "And the decimation of sleep throughout industrialized nations is having a catastrophic impact on our health or wellness, even the safety and the education of our children.",
+          "score": 0.30756184
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "medium-027",
+        "video_key": "medium",
+        "query": "natural killer cells act like secret service agents for the immune system",
+        "expected_start_seconds": "589.12",
+        "expected_end_seconds": "609.64",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "natural killer cells; secret service agents",
+        "notes": "source transcript segments 1:60-2:2; manually curated from source transcript"
+      },
+      "video_id": "d0005a3b-478d-4737-b434-050c177c1e00",
+      "request_latency_seconds": 0.2148,
+      "api_metrics": {
+        "search_latency_seconds": 0.071,
+        "query_embedding_seconds": 0.0231,
+        "qdrant_search_seconds": 0.047
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 603.0,
+          "end": 609.64,
+          "text": "And you can think of natural killer cells almost like the secret service agents of your immune system.",
+          "score": 0.85749936
+        },
+        {
+          "rank": 2,
+          "is_relevant": true,
+          "start": 600.0,
+          "end": 603.0,
+          "text": "They are called natural killer cells.",
+          "score": 0.7140651
+        },
+        {
+          "rank": 3,
+          "is_relevant": false,
+          "start": 622.68,
+          "end": 629.56,
+          "text": "So what you wish for is a virile set of these immune assassins at all times.",
+          "score": 0.38540596
+        },
+        {
+          "rank": 4,
+          "is_relevant": true,
+          "start": 589.12,
+          "end": 595.76,
+          "text": "But as a deeper dive I want to focus on this sleep loss and your immune system and here",
+          "score": 0.28458297
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 807.16,
+          "end": 810.04,
+          "text": "So once again, you can see that immune deficiency.",
+          "score": 0.28020346
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "medium-028",
+        "video_key": "medium",
+        "query": "natural killer cells destroy a cancerous tumor mass",
+        "expected_start_seconds": "609.64",
+        "expected_end_seconds": "622.52",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "destroying a cancerous tumor mass",
+        "notes": "source transcript segments 2:3-2:4; manually curated from source transcript"
+      },
+      "video_id": "d0005a3b-478d-4737-b434-050c177c1e00",
+      "request_latency_seconds": 0.2112,
+      "api_metrics": {
+        "search_latency_seconds": 0.0668,
+        "query_embedding_seconds": 0.0225,
+        "qdrant_search_seconds": 0.0434
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 600.0,
+          "end": 603.0,
+          "text": "They are called natural killer cells.",
+          "score": 0.66639173
+        },
+        {
+          "rank": 2,
+          "is_relevant": true,
+          "start": 603.0,
+          "end": 609.64,
+          "text": "And you can think of natural killer cells almost like the secret service agents of your immune system.",
+          "score": 0.60197115
+        },
+        {
+          "rank": 3,
+          "is_relevant": true,
+          "start": 617.0,
+          "end": 622.52,
+          "text": "In fact, what they're doing here is destroying a cancerous tumor mass.",
+          "score": 0.5189645
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 816.76,
+          "end": 820.04,
+          "text": "were genes associated with the promotion of tumors.",
+          "score": 0.3919532
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 652.68,
+          "end": 662.12,
+          "text": "And it's not small, it's not 10%, it's not 20%, there was a 70% drop in natural killer selectivity.",
+          "score": 0.29900563
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "medium-029",
+        "video_key": "medium",
+        "query": "one night of four hours sleep causes a seventy percent drop in natural killer activity",
+        "expected_start_seconds": "635.80",
+        "expected_end_seconds": "662.12",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "four hours; one single night; 70% drop",
+        "notes": "source transcript segments 2:7-2:10; manually curated from source transcript"
+      },
+      "video_id": "d0005a3b-478d-4737-b434-050c177c1e00",
+      "request_latency_seconds": 0.2079,
+      "api_metrics": {
+        "search_latency_seconds": 0.0611,
+        "query_embedding_seconds": 0.0158,
+        "qdrant_search_seconds": 0.0441
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": false,
+          "start": 555.12,
+          "end": 562.4,
+          "text": "Now in the spring when we lose one hour of sleep we see a subsequent 24% increase in",
+          "score": 0.6044157
+        },
+        {
+          "rank": 2,
+          "is_relevant": false,
+          "start": 730.92,
+          "end": 734.36,
+          "text": "Short sleep predicts all cause mortality.",
+          "score": 0.57539237
+        },
+        {
+          "rank": 3,
+          "is_relevant": false,
+          "start": 567.12,
+          "end": 574.12,
+          "text": "In the autumn when we gain an hour of sleep we see a 21% reduction in heart attacks.",
+          "score": 0.5430532
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 390.96,
+          "end": 396.76,
+          "text": "And it suggests that the disruption of deep sleep is an underappreciated factor that is",
+          "score": 0.53094304
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 589.12,
+          "end": 595.76,
+          "text": "But as a deeper dive I want to focus on this sleep loss and your immune system and here",
+          "score": 0.52937436
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "medium-030",
+        "video_key": "medium",
+        "query": "short sleep duration is linked to bowel prostate and breast cancer",
+        "expected_start_seconds": "669.24",
+        "expected_end_seconds": "687.72",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "cancer of the bowel; prostate; breast",
+        "notes": "source transcript segments 2:12-2:14; manually curated from source transcript"
+      },
+      "video_id": "d0005a3b-478d-4737-b434-050c177c1e00",
+      "request_latency_seconds": 0.2109,
+      "api_metrics": {
+        "search_latency_seconds": 0.0754,
+        "query_embedding_seconds": 0.0248,
+        "qdrant_search_seconds": 0.0497
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": false,
+          "start": 730.92,
+          "end": 734.36,
+          "text": "Short sleep predicts all cause mortality.",
+          "score": 0.60145754
+        },
+        {
+          "rank": 2,
+          "is_relevant": true,
+          "start": 689.8,
+          "end": 696.52,
+          "text": "In fact, the link between a lack of sleep and cancer is now so strong that the world health",
+          "score": 0.5906931
+        },
+        {
+          "rank": 3,
+          "is_relevant": true,
+          "start": 669.24,
+          "end": 676.04,
+          "text": "And you can perhaps understand why we're now finding significant links between short sleep duration",
+          "score": 0.54043573
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 727.4,
+          "end": 730.04,
+          "text": "The shorter your sleep, the shorter your life.",
+          "score": 0.5335605
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 23.68,
+          "end": 29.2,
+          "text": "have significantly smaller testicles than those who sleep 7 hours or more.",
+          "score": 0.516955
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "medium-031",
+        "video_key": "medium",
+        "query": "nighttime shiftwork is classified as a probable carcinogen",
+        "expected_start_seconds": "689.80",
+        "expected_end_seconds": "707.56",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "nighttime shiftwork; probable carcinogen",
+        "notes": "source transcript segments 2:15-2:17; manually curated from source transcript"
+      },
+      "video_id": "d0005a3b-478d-4737-b434-050c177c1e00",
+      "request_latency_seconds": 0.3821,
+      "api_metrics": {
+        "search_latency_seconds": 0.0747,
+        "query_embedding_seconds": 0.0291,
+        "qdrant_search_seconds": 0.0446
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 696.52,
+          "end": 703.8,
+          "text": "organization has classified any form of nighttime shiftwork as a probable carcinogen",
+          "score": 0.9821192
+        },
+        {
+          "rank": 2,
+          "is_relevant": false,
+          "start": 321.92,
+          "end": 324.44,
+          "text": "mechanism at night.",
+          "score": 0.42885897
+        },
+        {
+          "rank": 3,
+          "is_relevant": true,
+          "start": 689.8,
+          "end": 696.52,
+          "text": "In fact, the link between a lack of sleep and cancer is now so strong that the world health",
+          "score": 0.4154694
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 730.92,
+          "end": 734.36,
+          "text": "Short sleep predicts all cause mortality.",
+          "score": 0.3741281
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 816.76,
+          "end": 820.04,
+          "text": "were genes associated with the promotion of tumors.",
+          "score": 0.35529643
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "medium-032",
+        "video_key": "medium",
+        "query": "the saying sleep when you're dead is mortally unwise",
+        "expected_start_seconds": "709.88",
+        "expected_end_seconds": "719.16",
+        "relevance_window_seconds": "30",
+        "query_type": "near_exact",
+        "expected_text": "sleep when you're dead; mortally unwise advice",
+        "notes": "source transcript segments 2:18-2:19; manually curated from source transcript"
+      },
+      "video_id": "d0005a3b-478d-4737-b434-050c177c1e00",
+      "request_latency_seconds": 0.2403,
+      "api_metrics": {
+        "search_latency_seconds": 0.066,
+        "query_embedding_seconds": 0.0184,
+        "qdrant_search_seconds": 0.0466
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 709.88,
+          "end": 714.12,
+          "text": "So you may have heard of that old maxim that you can sleep when you're dead.",
+          "score": 0.72647893
+        },
+        {
+          "rank": 2,
+          "is_relevant": true,
+          "start": 730.92,
+          "end": 734.36,
+          "text": "Short sleep predicts all cause mortality.",
+          "score": 0.5828564
+        },
+        {
+          "rank": 3,
+          "is_relevant": false,
+          "start": 951.0,
+          "end": 957.0,
+          "text": "Sleep is a non-negotiable biological necessity.",
+          "score": 0.56931317
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 519.04,
+          "end": 527.16,
+          "text": "So that's an example of sleep for your brain, but sleep is just as essential for your",
+          "score": 0.53785694
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 945.0,
+          "end": 951.0,
+          "text": "Sleep unfortunately is not an optional lifestyle luxury.",
+          "score": 0.51852643
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "medium-033",
+        "video_key": "medium",
+        "query": "the shorter your sleep the shorter your life",
+        "expected_start_seconds": "720.36",
+        "expected_end_seconds": "734.36",
+        "relevance_window_seconds": "30",
+        "query_type": "near_exact",
+        "expected_text": "shorter your sleep; shorter your life",
+        "notes": "source transcript segments 2:20-2:23; manually curated from source transcript"
+      },
+      "video_id": "d0005a3b-478d-4737-b434-050c177c1e00",
+      "request_latency_seconds": 0.2003,
+      "api_metrics": {
+        "search_latency_seconds": 0.0577,
+        "query_embedding_seconds": 0.0074,
+        "qdrant_search_seconds": 0.0492
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 727.4,
+          "end": 730.04,
+          "text": "The shorter your sleep, the shorter your life.",
+          "score": 0.97633886
+        },
+        {
+          "rank": 2,
+          "is_relevant": false,
+          "start": 669.24,
+          "end": 676.04,
+          "text": "And you can perhaps understand why we're now finding significant links between short sleep duration",
+          "score": 0.6724627
+        },
+        {
+          "rank": 3,
+          "is_relevant": true,
+          "start": 730.92,
+          "end": 734.36,
+          "text": "Short sleep predicts all cause mortality.",
+          "score": 0.6722537
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 367.2,
+          "end": 374.04,
+          "text": "But what we've also discovered is that a physiological signature of aging is that your sleep",
+          "score": 0.6017251
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 951.0,
+          "end": 957.0,
+          "text": "Sleep is a non-negotiable biological necessity.",
+          "score": 0.5586756
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "medium-034",
+        "video_key": "medium",
+        "query": "lack of sleep erodes DNA and the genetic code",
+        "expected_start_seconds": "743.40",
+        "expected_end_seconds": "758.44",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "erode; biological life; DNA genetic code",
+        "notes": "source transcript segments 2:25-2:27; manually curated from source transcript"
+      },
+      "video_id": "d0005a3b-478d-4737-b434-050c177c1e00",
+      "request_latency_seconds": 0.4618,
+      "api_metrics": {
+        "search_latency_seconds": 0.0716,
+        "query_embedding_seconds": 0.0188,
+        "qdrant_search_seconds": 0.0517
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": false,
+          "start": 811.32,
+          "end": 816.76,
+          "text": "In contrast, those genes that were actually upregulated or increased by way of a lack of sleep",
+          "score": 0.7937125
+        },
+        {
+          "rank": 2,
+          "is_relevant": false,
+          "start": 800.36,
+          "end": 805.72,
+          "text": "Now those genes that were switched off by a lack of sleep were genes associated with your immune",
+          "score": 0.76968026
+        },
+        {
+          "rank": 3,
+          "is_relevant": false,
+          "start": 782.12,
+          "end": 790.92,
+          "text": "First, a sizable and significant 711 genes were distorted in their activity caused by a lack of sleep.",
+          "score": 0.7312838
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 951.0,
+          "end": 957.0,
+          "text": "Sleep is a non-negotiable biological necessity.",
+          "score": 0.71873134
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 1084.0,
+          "end": 1097.0,
+          "text": "As we're smart and I make that point because what it means is that mother nature throughout the course of evolution has never had to face the challenge of this thing called sleep deprivation.",
+          "score": 0.704401
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "medium-035",
+        "video_key": "medium",
+        "query": "six hours of sleep for one week changes gene activity",
+        "expected_start_seconds": "758.84",
+        "expected_end_seconds": "778.20",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "six hours; one week; gene activity profile",
+        "notes": "source transcript segments 2:28-2:30; manually curated from source transcript"
+      },
+      "video_id": "d0005a3b-478d-4737-b434-050c177c1e00",
+      "request_latency_seconds": 0.2167,
+      "api_metrics": {
+        "search_latency_seconds": 0.072,
+        "query_embedding_seconds": 0.024,
+        "qdrant_search_seconds": 0.047
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 766.2,
+          "end": 773.24,
+          "text": "hours of sleep a night for one week. And then they measured the change in their gene activity profile",
+          "score": 0.7907238
+        },
+        {
+          "rank": 2,
+          "is_relevant": false,
+          "start": 811.32,
+          "end": 816.76,
+          "text": "In contrast, those genes that were actually upregulated or increased by way of a lack of sleep",
+          "score": 0.6909172
+        },
+        {
+          "rank": 3,
+          "is_relevant": false,
+          "start": 800.36,
+          "end": 805.72,
+          "text": "Now those genes that were switched off by a lack of sleep were genes associated with your immune",
+          "score": 0.6754484
+        },
+        {
+          "rank": 4,
+          "is_relevant": true,
+          "start": 782.12,
+          "end": 790.92,
+          "text": "First, a sizable and significant 711 genes were distorted in their activity caused by a lack of sleep.",
+          "score": 0.64837915
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 951.0,
+          "end": 957.0,
+          "text": "Sleep is a non-negotiable biological necessity.",
+          "score": 0.57666814
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "medium-036",
+        "video_key": "medium",
+        "query": "seven hundred eleven genes were distorted by lack of sleep",
+        "expected_start_seconds": "779.32",
+        "expected_end_seconds": "790.92",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "711 genes were distorted",
+        "notes": "source transcript segments 2:31-2:32; manually curated from source transcript"
+      },
+      "video_id": "d0005a3b-478d-4737-b434-050c177c1e00",
+      "request_latency_seconds": 0.2181,
+      "api_metrics": {
+        "search_latency_seconds": 0.0674,
+        "query_embedding_seconds": 0.022,
+        "qdrant_search_seconds": 0.0445
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 782.12,
+          "end": 790.92,
+          "text": "First, a sizable and significant 711 genes were distorted in their activity caused by a lack of sleep.",
+          "score": 0.8593292
+        },
+        {
+          "rank": 2,
+          "is_relevant": false,
+          "start": 811.32,
+          "end": 816.76,
+          "text": "In contrast, those genes that were actually upregulated or increased by way of a lack of sleep",
+          "score": 0.74108726
+        },
+        {
+          "rank": 3,
+          "is_relevant": true,
+          "start": 800.36,
+          "end": 805.72,
+          "text": "Now those genes that were switched off by a lack of sleep were genes associated with your immune",
+          "score": 0.70665073
+        },
+        {
+          "rank": 4,
+          "is_relevant": true,
+          "start": 766.2,
+          "end": 773.24,
+          "text": "hours of sleep a night for one week. And then they measured the change in their gene activity profile",
+          "score": 0.61841106
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 1084.0,
+          "end": 1097.0,
+          "text": "As we're smart and I make that point because what it means is that mother nature throughout the course of evolution has never had to face the challenge of this thing called sleep deprivation.",
+          "score": 0.5854392
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "medium-037",
+        "video_key": "medium",
+        "query": "lack of sleep switches off immune system genes",
+        "expected_start_seconds": "800.36",
+        "expected_end_seconds": "810.04",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "genes switched off; immune system",
+        "notes": "source transcript segments 2:35-2:37; manually curated from source transcript"
+      },
+      "video_id": "d0005a3b-478d-4737-b434-050c177c1e00",
+      "request_latency_seconds": 0.2143,
+      "api_metrics": {
+        "search_latency_seconds": 0.0708,
+        "query_embedding_seconds": 0.0205,
+        "qdrant_search_seconds": 0.0495
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 800.36,
+          "end": 805.72,
+          "text": "Now those genes that were switched off by a lack of sleep were genes associated with your immune",
+          "score": 0.9170054
+        },
+        {
+          "rank": 2,
+          "is_relevant": true,
+          "start": 811.32,
+          "end": 816.76,
+          "text": "In contrast, those genes that were actually upregulated or increased by way of a lack of sleep",
+          "score": 0.73708236
+        },
+        {
+          "rank": 3,
+          "is_relevant": false,
+          "start": 589.12,
+          "end": 595.76,
+          "text": "But as a deeper dive I want to focus on this sleep loss and your immune system and here",
+          "score": 0.65344167
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 951.0,
+          "end": 957.0,
+          "text": "Sleep is a non-negotiable biological necessity.",
+          "score": 0.645895
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 1084.0,
+          "end": 1097.0,
+          "text": "As we're smart and I make that point because what it means is that mother nature throughout the course of evolution has never had to face the challenge of this thing called sleep deprivation.",
+          "score": 0.6428293
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "medium-038",
+        "video_key": "medium",
+        "query": "lack of sleep increases genes tied to tumors inflammation stress and cardiovascular disease",
+        "expected_start_seconds": "811.32",
+        "expected_end_seconds": "831.56",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "tumors; chronic inflammation; stress; cardiovascular disease",
+        "notes": "source transcript segments 2:38-2:41; manually curated from source transcript"
+      },
+      "video_id": "d0005a3b-478d-4737-b434-050c177c1e00",
+      "request_latency_seconds": 0.2327,
+      "api_metrics": {
+        "search_latency_seconds": 0.0821,
+        "query_embedding_seconds": 0.0348,
+        "qdrant_search_seconds": 0.0464
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 800.36,
+          "end": 805.72,
+          "text": "Now those genes that were switched off by a lack of sleep were genes associated with your immune",
+          "score": 0.7185503
+        },
+        {
+          "rank": 2,
+          "is_relevant": true,
+          "start": 811.32,
+          "end": 816.76,
+          "text": "In contrast, those genes that were actually upregulated or increased by way of a lack of sleep",
+          "score": 0.6943292
+        },
+        {
+          "rank": 3,
+          "is_relevant": false,
+          "start": 689.8,
+          "end": 696.52,
+          "text": "In fact, the link between a lack of sleep and cancer is now so strong that the world health",
+          "score": 0.6726239
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 730.92,
+          "end": 734.36,
+          "text": "Short sleep predicts all cause mortality.",
+          "score": 0.62220913
+        },
+        {
+          "rank": 5,
+          "is_relevant": true,
+          "start": 825.88,
+          "end": 831.56,
+          "text": "And genes associated with stress and as a consequence, cardiovascular disease.",
+          "score": 0.6033318
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "medium-039",
+        "video_key": "medium",
+        "query": "tips for better sleep include avoiding alcohol caffeine and naps",
+        "expected_start_seconds": "861.80",
+        "expected_end_seconds": "884.20",
+        "relevance_window_seconds": "30",
+        "query_type": "concept",
+        "expected_text": "tips for good sleep; alcohol and caffeine; avoiding naps",
+        "notes": "source transcript segments 2:47-2:51; manually curated from source transcript"
+      },
+      "video_id": "d0005a3b-478d-4737-b434-050c177c1e00",
+      "request_latency_seconds": 0.2014,
+      "api_metrics": {
+        "search_latency_seconds": 0.0512,
+        "query_embedding_seconds": 0.0065,
+        "qdrant_search_seconds": 0.0437
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 864.44,
+          "end": 869.24,
+          "text": "oh my goodness, how do I start to get better sleep? What are your tips for good sleep?",
+          "score": 0.7820263
+        },
+        {
+          "rank": 2,
+          "is_relevant": true,
+          "start": 870.12,
+          "end": 876.76,
+          "text": "Well, beyond avoiding the damaging and harmful impact of alcohol and caffeine on sleep.",
+          "score": 0.6820725
+        },
+        {
+          "rank": 3,
+          "is_relevant": true,
+          "start": 877.56,
+          "end": 882.12,
+          "text": "And if you're struggling with sleep at night avoiding naps during the day,",
+          "score": 0.6354486
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 1050.0,
+          "end": 1062.0,
+          "text": "Since we can't catch up on sleep, what are we supposed to do? What do we do when we're like tossing and turning in bed late at night or doing shift work or whatever else?",
+          "score": 0.5655074
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 1114.0,
+          "end": 1124.0,
+          "text": "So if you are staying in bed awake for too long, you should get out of bed and go to a different room and do something different.",
+          "score": 0.5293607
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "medium-040",
+        "video_key": "medium",
+        "query": "regularity means going to bed and waking up at the same time",
+        "expected_start_seconds": "885.08",
+        "expected_end_seconds": "900.00",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "regularity; same time; weekday or weekend",
+        "notes": "source transcript segments 2:52-2:55; manually curated from source transcript"
+      },
+      "video_id": "d0005a3b-478d-4737-b434-050c177c1e00",
+      "request_latency_seconds": 0.276,
+      "api_metrics": {
+        "search_latency_seconds": 0.0654,
+        "query_embedding_seconds": 0.0203,
+        "qdrant_search_seconds": 0.0439
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 891.32,
+          "end": 896.52,
+          "text": "No matter whether it's the weekday or the weekend, regularity is king.",
+          "score": 0.6018652
+        },
+        {
+          "rank": 2,
+          "is_relevant": true,
+          "start": 885.08,
+          "end": 887.4,
+          "text": "The first is regularity.",
+          "score": 0.59743154
+        },
+        {
+          "rank": 3,
+          "is_relevant": false,
+          "start": 1133.0,
+          "end": 1142.0,
+          "text": "So only return to bed when you are sleepy and that way you will relearn the association that you once had which is your bed is the place of sleep.",
+          "score": 0.48036763
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 390.96,
+          "end": 396.76,
+          "text": "And it suggests that the disruption of deep sleep is an underappreciated factor that is",
+          "score": 0.4509933
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 1124.0,
+          "end": 1133.0,
+          "text": "The reason is because your brain will very quickly associate your bedroom with the place of wakefulness and you need to break that association.",
+          "score": 0.43161333
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "medium-041",
+        "video_key": "medium",
+        "query": "keeping the bedroom cool at sixty five degrees helps sleep",
+        "expected_start_seconds": "902.00",
+        "expected_end_seconds": "929.00",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "keep it cool; 65 degrees; 18 Celsius",
+        "notes": "source transcript segments 3:1-3:3; manually curated from source transcript"
+      },
+      "video_id": "d0005a3b-478d-4737-b434-050c177c1e00",
+      "request_latency_seconds": 0.2218,
+      "api_metrics": {
+        "search_latency_seconds": 0.0619,
+        "query_embedding_seconds": 0.0163,
+        "qdrant_search_seconds": 0.0445
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 923.0,
+          "end": 929.0,
+          "text": "So aim for a bedroom temperature of around 65 degrees or about 18 degrees Celsius.",
+          "score": 0.663262
+        },
+        {
+          "rank": 2,
+          "is_relevant": true,
+          "start": 917.0,
+          "end": 923.0,
+          "text": "And it's the reason you will always find it easier to fall asleep in a room that's too cold than too hot.",
+          "score": 0.5801046
+        },
+        {
+          "rank": 3,
+          "is_relevant": true,
+          "start": 902.0,
+          "end": 916.0,
+          "text": "The second is keep it cool. Your body needs to drop its core temperature by about 2-3 degrees Fahrenheit to initiate sleep and then to stay asleep.",
+          "score": 0.55698687
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 1124.0,
+          "end": 1133.0,
+          "text": "The reason is because your brain will very quickly associate your bedroom with the place of wakefulness and you need to break that association.",
+          "score": 0.528416
+        },
+        {
+          "rank": 5,
+          "is_relevant": true,
+          "start": 929.0,
+          "end": 933.0,
+          "text": "That's going to be optimal for the sleep of most people.",
+          "score": 0.496832
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "medium-042",
+        "video_key": "medium",
+        "query": "sleep is a non negotiable biological necessity and life support system",
+        "expected_start_seconds": "945.00",
+        "expected_end_seconds": "966.00",
+        "relevance_window_seconds": "30",
+        "query_type": "near_exact",
+        "expected_text": "non-negotiable biological necessity; life support system",
+        "notes": "source transcript segments 3:7-3:9; manually curated from source transcript"
+      },
+      "video_id": "d0005a3b-478d-4737-b434-050c177c1e00",
+      "request_latency_seconds": 0.2503,
+      "api_metrics": {
+        "search_latency_seconds": 0.0711,
+        "query_embedding_seconds": 0.0236,
+        "qdrant_search_seconds": 0.0464
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 951.0,
+          "end": 957.0,
+          "text": "Sleep is a non-negotiable biological necessity.",
+          "score": 0.91908044
+        },
+        {
+          "rank": 2,
+          "is_relevant": false,
+          "start": 519.04,
+          "end": 527.16,
+          "text": "So that's an example of sleep for your brain, but sleep is just as essential for your",
+          "score": 0.74271196
+        },
+        {
+          "rank": 3,
+          "is_relevant": false,
+          "start": 1084.0,
+          "end": 1097.0,
+          "text": "As we're smart and I make that point because what it means is that mother nature throughout the course of evolution has never had to face the challenge of this thing called sleep deprivation.",
+          "score": 0.7179388
+        },
+        {
+          "rank": 4,
+          "is_relevant": true,
+          "start": 945.0,
+          "end": 951.0,
+          "text": "Sleep unfortunately is not an optional lifestyle luxury.",
+          "score": 0.70489573
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 1077.0,
+          "end": 1084.0,
+          "text": "First is because human beings are the only species that deliberately deprive themselves of sleep for no apparent reason.",
+          "score": 0.6752556
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "medium-043",
+        "video_key": "medium",
+        "query": "sleep loss is a public health challenge in the twenty first century",
+        "expected_start_seconds": "967.00",
+        "expected_end_seconds": "992.00",
+        "relevance_window_seconds": "30",
+        "query_type": "concept",
+        "expected_text": "silent sleep loss epidemic; public health challenges",
+        "notes": "source transcript segments 3:10-3:11; manually curated from source transcript"
+      },
+      "video_id": "d0005a3b-478d-4737-b434-050c177c1e00",
+      "request_latency_seconds": 0.2007,
+      "api_metrics": {
+        "search_latency_seconds": 0.0587,
+        "query_embedding_seconds": 0.0104,
+        "qdrant_search_seconds": 0.0473
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 980.0,
+          "end": 992.0,
+          "text": "It's a silent sleep loss epidemic and it is fast becoming one of the greatest public health challenges that we face in the 21st century.",
+          "score": 0.8273082
+        },
+        {
+          "rank": 2,
+          "is_relevant": true,
+          "start": 967.0,
+          "end": 980.0,
+          "text": "And the decimation of sleep throughout industrialized nations is having a catastrophic impact on our health or wellness, even the safety and the education of our children.",
+          "score": 0.6805707
+        },
+        {
+          "rank": 3,
+          "is_relevant": false,
+          "start": 689.8,
+          "end": 696.52,
+          "text": "In fact, the link between a lack of sleep and cancer is now so strong that the world health",
+          "score": 0.6591538
+        },
+        {
+          "rank": 4,
+          "is_relevant": true,
+          "start": 951.0,
+          "end": 957.0,
+          "text": "Sleep is a non-negotiable biological necessity.",
+          "score": 0.63674945
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 730.92,
+          "end": 734.36,
+          "text": "Short sleep predicts all cause mortality.",
+          "score": 0.6267428
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "medium-044",
+        "video_key": "medium",
+        "query": "reclaim a full night of sleep as the Swiss Army knife of health",
+        "expected_start_seconds": "992.00",
+        "expected_end_seconds": "1018.00",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "full night of sleep; Swiss Army knife of health",
+        "notes": "source transcript segments 3:12-3:13; manually curated from source transcript"
+      },
+      "video_id": "d0005a3b-478d-4737-b434-050c177c1e00",
+      "request_latency_seconds": 0.237,
+      "api_metrics": {
+        "search_latency_seconds": 0.0588,
+        "query_embedding_seconds": 0.0122,
+        "qdrant_search_seconds": 0.0456
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": false,
+          "start": 945.0,
+          "end": 951.0,
+          "text": "Sleep unfortunately is not an optional lifestyle luxury.",
+          "score": 0.66037685
+        },
+        {
+          "rank": 2,
+          "is_relevant": false,
+          "start": 503.04,
+          "end": 510.28,
+          "text": "Can we restore back some healthy quality of deep sleep and in doing so can we salvage",
+          "score": 0.63408244
+        },
+        {
+          "rank": 3,
+          "is_relevant": false,
+          "start": 833.08,
+          "end": 840.12,
+          "text": "There is simply no aspect of your wellness that can retreat at the sign of sleep deprivation",
+          "score": 0.59620273
+        },
+        {
+          "rank": 4,
+          "is_relevant": true,
+          "start": 980.0,
+          "end": 992.0,
+          "text": "It's a silent sleep loss epidemic and it is fast becoming one of the greatest public health challenges that we face in the 21st century.",
+          "score": 0.59433734
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 689.8,
+          "end": 696.52,
+          "text": "In fact, the link between a lack of sleep and cancer is now so strong that the world health",
+          "score": 0.5910217
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "medium-045",
+        "video_key": "medium",
+        "query": "you cannot catch up on sleep like paying off bank debt",
+        "expected_start_seconds": "1050.00",
+        "expected_end_seconds": "1071.00",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "can't catch up; not like the bank",
+        "notes": "source transcript segments 3:21-3:22; manually curated from source transcript"
+      },
+      "video_id": "d0005a3b-478d-4737-b434-050c177c1e00",
+      "request_latency_seconds": 0.2193,
+      "api_metrics": {
+        "search_latency_seconds": 0.0592,
+        "query_embedding_seconds": 0.0149,
+        "qdrant_search_seconds": 0.0431
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 1062.0,
+          "end": 1071.0,
+          "text": "So you're right. We can't catch up on sleep. Sleep is not like the bank. You can't accumulate a debt and then hope to pay it off at a later point in time.",
+          "score": 0.90388274
+        },
+        {
+          "rank": 2,
+          "is_relevant": false,
+          "start": 945.0,
+          "end": 951.0,
+          "text": "Sleep unfortunately is not an optional lifestyle luxury.",
+          "score": 0.5446517
+        },
+        {
+          "rank": 3,
+          "is_relevant": false,
+          "start": 833.08,
+          "end": 840.12,
+          "text": "There is simply no aspect of your wellness that can retreat at the sign of sleep deprivation",
+          "score": 0.5439794
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 951.0,
+          "end": 957.0,
+          "text": "Sleep is a non-negotiable biological necessity.",
+          "score": 0.54246897
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 877.56,
+          "end": 882.12,
+          "text": "And if you're struggling with sleep at night avoiding naps during the day,",
+          "score": 0.53050596
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "medium-046",
+        "video_key": "medium",
+        "query": "humans deliberately deprive themselves of sleep and have no safety net",
+        "expected_start_seconds": "1077.00",
+        "expected_end_seconds": "1107.00",
+        "relevance_window_seconds": "30",
+        "query_type": "concept",
+        "expected_text": "only species; deliberately deprive; never developed a safety net",
+        "notes": "source transcript segments 3:24-3:26; manually curated from source transcript"
+      },
+      "video_id": "d0005a3b-478d-4737-b434-050c177c1e00",
+      "request_latency_seconds": 0.2103,
+      "api_metrics": {
+        "search_latency_seconds": 0.0616,
+        "query_embedding_seconds": 0.0154,
+        "qdrant_search_seconds": 0.0453
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 1077.0,
+          "end": 1084.0,
+          "text": "First is because human beings are the only species that deliberately deprive themselves of sleep for no apparent reason.",
+          "score": 0.8091716
+        },
+        {
+          "rank": 2,
+          "is_relevant": false,
+          "start": 951.0,
+          "end": 957.0,
+          "text": "Sleep is a non-negotiable biological necessity.",
+          "score": 0.70776534
+        },
+        {
+          "rank": 3,
+          "is_relevant": true,
+          "start": 1084.0,
+          "end": 1097.0,
+          "text": "As we're smart and I make that point because what it means is that mother nature throughout the course of evolution has never had to face the challenge of this thing called sleep deprivation.",
+          "score": 0.6845092
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 743.4,
+          "end": 750.6,
+          "text": "we're not sufficiently, and disquieting, we have since discovered that a lack of sleep will even",
+          "score": 0.63907117
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 945.0,
+          "end": 951.0,
+          "text": "Sleep unfortunately is not an optional lifestyle luxury.",
+          "score": 0.62053263
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "medium-047",
+        "video_key": "medium",
+        "query": "when tossing and turning leave the bed and go to another room",
+        "expected_start_seconds": "1111.00",
+        "expected_end_seconds": "1124.00",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "tossing and turning; get out of bed; different room",
+        "notes": "source transcript segments 3:29-3:30; manually curated from source transcript"
+      },
+      "video_id": "d0005a3b-478d-4737-b434-050c177c1e00",
+      "request_latency_seconds": 0.1968,
+      "api_metrics": {
+        "search_latency_seconds": 0.0531,
+        "query_embedding_seconds": 0.0061,
+        "qdrant_search_seconds": 0.046
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 1111.0,
+          "end": 1114.0,
+          "text": "So but tossing and turning in bed. What do I do?",
+          "score": 0.6543462
+        },
+        {
+          "rank": 2,
+          "is_relevant": true,
+          "start": 1124.0,
+          "end": 1133.0,
+          "text": "The reason is because your brain will very quickly associate your bedroom with the place of wakefulness and you need to break that association.",
+          "score": 0.5519752
+        },
+        {
+          "rank": 3,
+          "is_relevant": true,
+          "start": 1133.0,
+          "end": 1142.0,
+          "text": "So only return to bed when you are sleepy and that way you will relearn the association that you once had which is your bed is the place of sleep.",
+          "score": 0.526991
+        },
+        {
+          "rank": 4,
+          "is_relevant": true,
+          "start": 1114.0,
+          "end": 1124.0,
+          "text": "So if you are staying in bed awake for too long, you should get out of bed and go to a different room and do something different.",
+          "score": 0.48795617
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 1050.0,
+          "end": 1062.0,
+          "text": "Since we can't catch up on sleep, what are we supposed to do? What do we do when we're like tossing and turning in bed late at night or doing shift work or whatever else?",
+          "score": 0.45000473
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "medium-048",
+        "video_key": "medium",
+        "query": "break the association between the bedroom and wakefulness",
+        "expected_start_seconds": "1124.00",
+        "expected_end_seconds": "1142.00",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "associate your bedroom with wakefulness; break that association",
+        "notes": "source transcript segments 3:31-3:32; manually curated from source transcript"
+      },
+      "video_id": "d0005a3b-478d-4737-b434-050c177c1e00",
+      "request_latency_seconds": 0.2042,
+      "api_metrics": {
+        "search_latency_seconds": 0.0566,
+        "query_embedding_seconds": 0.012,
+        "qdrant_search_seconds": 0.0435
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 1124.0,
+          "end": 1133.0,
+          "text": "The reason is because your brain will very quickly associate your bedroom with the place of wakefulness and you need to break that association.",
+          "score": 0.83583087
+        },
+        {
+          "rank": 2,
+          "is_relevant": true,
+          "start": 1133.0,
+          "end": 1142.0,
+          "text": "So only return to bed when you are sleepy and that way you will relearn the association that you once had which is your bed is the place of sleep.",
+          "score": 0.57171226
+        },
+        {
+          "rank": 3,
+          "is_relevant": true,
+          "start": 1114.0,
+          "end": 1124.0,
+          "text": "So if you are staying in bed awake for too long, you should get out of bed and go to a different room and do something different.",
+          "score": 0.5514588
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 390.96,
+          "end": 396.76,
+          "text": "And it suggests that the disruption of deep sleep is an underappreciated factor that is",
+          "score": 0.5099482
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 440.72,
+          "end": 446.56,
+          "text": "And one way that we are approaching this at my sleep center is not by using sleeping pills",
+          "score": 0.4919281
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "medium-049",
+        "video_key": "medium",
+        "query": "the dinner table analogy explains not waiting in bed to get sleepy",
+        "expected_start_seconds": "1142.00",
+        "expected_end_seconds": "1151.00",
+        "relevance_window_seconds": "30",
+        "query_type": "paraphrase",
+        "expected_text": "dinner table waiting to get hungry",
+        "notes": "source transcript segments 3:33-3:34; manually curated from source transcript"
+      },
+      "video_id": "d0005a3b-478d-4737-b434-050c177c1e00",
+      "request_latency_seconds": 0.2298,
+      "api_metrics": {
+        "search_latency_seconds": 0.0628,
+        "query_embedding_seconds": 0.0123,
+        "qdrant_search_seconds": 0.0495
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 1142.0,
+          "end": 1147.0,
+          "text": "So the analogy would be you'd never sit at the dinner table waiting to get hungry.",
+          "score": 0.7118633
+        },
+        {
+          "rank": 2,
+          "is_relevant": true,
+          "start": 1147.0,
+          "end": 1151.0,
+          "text": "So why would you lie in bed waiting to get sleepy?",
+          "score": 0.6790544
+        },
+        {
+          "rank": 3,
+          "is_relevant": false,
+          "start": 877.56,
+          "end": 882.12,
+          "text": "And if you're struggling with sleep at night avoiding naps during the day,",
+          "score": 0.52931
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 951.0,
+          "end": 957.0,
+          "text": "Sleep is a non-negotiable biological necessity.",
+          "score": 0.49527344
+        },
+        {
+          "rank": 5,
+          "is_relevant": false,
+          "start": 635.8,
+          "end": 640.6,
+          "text": "So here in this experiment, you're not going to have your sleep deprived for an entire night.",
+          "score": 0.4893124
+        }
+      ]
+    },
+    {
+      "label": {
+        "label_id": "medium-050",
+        "video_key": "medium",
+        "query": "the speaker closes by thanking the audience after the wake up call",
+        "expected_start_seconds": "1151.00",
+        "expected_end_seconds": "1156.00",
+        "relevance_window_seconds": "30",
+        "query_type": "concept",
+        "expected_text": "wake up call; thank you very much",
+        "notes": "source transcript segment 3:35; manually curated from source transcript"
+      },
+      "video_id": "d0005a3b-478d-4737-b434-050c177c1e00",
+      "request_latency_seconds": 0.2517,
+      "api_metrics": {
+        "search_latency_seconds": 0.0662,
+        "query_embedding_seconds": 0.019,
+        "qdrant_search_seconds": 0.0461
+      },
+      "results": [
+        {
+          "rank": 1,
+          "is_relevant": true,
+          "start": 1151.0,
+          "end": 1156.0,
+          "text": "All right. Well, thank you for that wake up call. Great job, man. Very welcome. Thank you very much.",
+          "score": 0.4137386
+        },
+        {
+          "rank": 2,
+          "is_relevant": false,
+          "start": 475.92,
+          "end": 481.88,
+          "text": "sort of singing in time with those deep sleep brain waves, not only can you amplify the",
+          "score": 0.292291
+        },
+        {
+          "rank": 3,
+          "is_relevant": false,
+          "start": 1027.0,
+          "end": 1031.0,
+          "text": "I do hope you sleep well. Thank you very much indeed.",
+          "score": 0.27496567
+        },
+        {
+          "rank": 4,
+          "is_relevant": false,
+          "start": 447.72,
+          "end": 453.76,
+          "text": "Unfortunately, they are blunt instruments that do not produce naturalistic sleep.",
+          "score": 0.26675466
+        },
+        {
+          "rank": 5,
+          "is_relevant": true,
+          "start": 1124.0,
+          "end": 1133.0,
+          "text": "The reason is because your brain will very quickly associate your bedroom with the place of wakefulness and you need to break that association.",
+          "score": 0.26391637
+        }
+      ]
+    }
+  ]
+}
