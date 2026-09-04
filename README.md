@@ -258,6 +258,18 @@ Vindex stores metrics per video in S3:
 
 These metrics are meant to support performance tuning and interview discussion.
 
+## Production Monitoring
+
+Vindex's production alerting should focus first on user-facing outcomes: upload success, search latency, and time-to-searchable. Because video length and file size vary, the main processing alert should use a dynamic expected-time model instead of a single fixed timeout.
+
+The proposed monitoring plan covers:
+
+- Dynamic time-to-searchable alerts based on duration, chunk count, queue wait, and active workers.
+- Queue age, chunk failure, retry exhaustion, stuck processing, and worker health alerts.
+- Dependency alerts for S3, Redis, Postgres, Qdrant, FFmpeg, Whisper, and embedding generation.
+
+See [`docs/production_monitoring.md`](docs/production_monitoring.md) for the full alert design.
+
 ## Design Tradeoffs
 
 Current MVP choices:
