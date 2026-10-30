@@ -1,7 +1,7 @@
 # Evidence-driven search decision project
 
 Status: executable investigation plan, 2026-09-17. No production promotion.
-Continuation results: `docs/search_context_experiment_results.md`. Query-level AI
+Continuation results: `search_context_experiment_results.md`. Query-level AI
 diagnoses cover all47 development misses; paired context review covers17 apparent
 gains and20 seeded success controls. This is not complete blinded regrading.
 Equal-weight minmax fusion was also tested and rejected as an improvement.

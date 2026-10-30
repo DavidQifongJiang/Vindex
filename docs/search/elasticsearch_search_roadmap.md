@@ -48,7 +48,7 @@ recommendations, OCR, Kubernetes and C++ are outside this release.
 - Historical 100-query, within-video results: dense Hit@1/Hit@5 65%/90%, Python
   BM25 74%/98%, Elasticsearch BM25 74%/99%. These are not library-wide results,
   held-out improvements, or concurrent API performance measurements. See
-  [retrieval experiments](../benchmarks/retrieval_experiments.md).
+  [retrieval experiments](../../benchmarks/retrieval_experiments.md).
 - Existing durable pipeline, attempt fencing and operational monitoring remain
   the foundation. See [recovery design](reliability_and_recovery.md).
 - Local edits were started before the design discussion: `lexical_index.py`,

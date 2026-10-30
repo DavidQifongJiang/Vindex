@@ -207,7 +207,7 @@ This continuation did not start Docker services or a persistent model server;
 reranking and lifecycle profiling processes finished. Earlier service cleanup
 status must be checked separately before any future service operations.
 
-Systematic decision plan (2026-09-17): `docs/search_decision_project_plan.md`.
+Systematic decision plan (2026-09-17): `search_decision_project_plan.md`.
 Fusion replay at `tmp/search-quality-v2/fusion-audit-01/` compared fixed k60/10/0
 on the saved development candidates. Hit@5:65.19/64.44/56.30%; k10 rescues7 but
 loses8, k0 rescues8 but loses20. Neither is promoted. New traces expose branch
@@ -217,7 +217,7 @@ affect the primary metrics, but remains unjudged. Focused regression tests:
 of47 development misses, prioritizing24 with known answers in the union, then
 freeze the context-retrieval experiment. No serving or AGENTS.md changes.
 
-Further continuation (2026-09-17): see `docs/search_context_experiment_results.md`
+Further continuation (2026-09-17): see `search_context_experiment_results.md`
 for the current decision, superseding the immediate next action above. Completed
 47-miss query-level AI diagnosis, a fixed equal-weight minmax fusion replay, and
 60/120s context packaging (unchanged ranking). Minmax cannot outperform baseline
@@ -232,7 +232,7 @@ tests passed;2500 anchor preservation/cap invariants checked. No serving default
 or AGENTS.md changes. Next: freeze/reconcile a version2 evidence-based label pool,
 then select and confirm a context candidate without reusing calibration as test.
 
-Child-plus-context pilot completed: `docs/search_context_quality_pilot.md`.
+Child-plus-context pilot completed: `search_context_quality_pilot.md`.
 Fixed ten-query,98-passage method-masked AI review, all top5 results in both
 conditions: Hit@1 .20→.50, Hit@5 .50→.70, MRR .3033→.5833. Two gained query answers,
 zero losses. Context is the explicitly opened condition, not collapsed search.

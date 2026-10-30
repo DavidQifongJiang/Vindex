@@ -52,7 +52,7 @@ Read-only keyset-paginated reconciliation at19:32UTC verified both live projecti
 - ACTIVE sustained run: `tmp/kafka-batch-30min-01`, log `tmp/kafka-batch-30min-01.log`, Python PID34532, exec session83974. Schema `analytics_588273d17e01`, topic `vindex.test.analytics_588273d17e01`. Started2026-09-18T18:52:50Z. Injection ends19:22:50Z; estimated final report including replay19:25Z (15:25 America/New_York). Synthetic100events/s for1800seconds. Do not stop broker/services or edit measured application files while running.
 - Monitor automation `check-kafka-benchmark` should wake near19:25Z, then one minute later if still incomplete. Check process+final report, not only file existence: report is also written before replay. Final report has `finished_at`. On finish, pause run monitor and continue authorized plan.
 - Remaining gates: sustained result review; actual60sconsumer/broker outages with120scatch-up; fresh capture overhead benchmark after stream run (avoid host contention); mixed-event/corrected-handler tests; migration/frontend verification; runbook/CI completion. Do not claim full acceptance from the screening run.
-- Prepared during sustained run (not applied to its services): dedicated Kafka integration CI job, compose volume-owner initializer, `docs/kafka_search_analytics_runbook.md`, and overhead benchmark `--output` plus durable late-capture count. CI and clean-volume startup still need execution. Runbook is now created, superseding the older missing-file note. Measured application source is frozen for the running experiment.
+- Prepared during sustained run (not applied to its services): dedicated Kafka integration CI job, compose volume-owner initializer, `kafka_search_analytics_runbook.md`, and overhead benchmark `--output` plus durable late-capture count. CI and clean-volume startup still need execution. Runbook is now created, superseding the older missing-file note. Measured application source is frozen for the running experiment.
 
 Earlier handoff follows; newer continuation above takes precedence.
 
@@ -72,9 +72,9 @@ User requested this checkpoint because the available token budget is low.
 - Kafka is justified as an educational demonstration of independent consumers,
   retained events, replay, and recovery; no proven production scaling need.
 
-Plan: `docs/kafka_search_analytics_plan.md`. It has partial updates from review,
+Plan: `kafka_search_analytics_plan.md`. It has partial updates from review,
 but needs reconciliation with the final implementation. The referenced
-`docs/kafka_search_analytics_runbook.md` has NOT yet been created.
+`kafka_search_analytics_runbook.md` has NOT yet been created.
 
 ## Workspace precautions
 
@@ -99,7 +99,7 @@ production deployment, real user telemetry, or production migration was performe
 | `app/workers/search_events.py` | Optional CLI bootstrap/publish/consume/maintain/replay/retire; manual offset commit after DB transaction; retry on transient consumer errors; saved-manifest replay |
 | `alembic/versions/20260918_0007_search_events.py` | Additive analytics tables and outbox budget seed; still a draft migration modified during this task |
 | `requirements-analytics.txt` | Optional pinned confluent-kafka 2.15.0 dependency, installed in project virtualenv |
-| `docker-compose.analytics.yml` | Isolated Kafka 4.1.1 and Postgres 16, loopback ports 19092 and 15434 |
+| `ops/compose/docker-compose.analytics.yml` | Isolated Kafka 4.1.1 and Postgres 16, loopback ports 19092 and 15434 |
 | `tests/test_search_events.py` | 12 focused tests covering capture isolation, timeout admission, schemas, permissions, consent, duplicates, retention and body limit |
 | `tests/test_search_events_integration.py` | Five real Postgres/Kafka tests: concurrent deduplication, publisher crash, consumer crash boundary, offset loss, replay/quarantine |
 | `tests/search_events_crash.py` | Subprocess crash injection after broker acknowledgment or DB commit |

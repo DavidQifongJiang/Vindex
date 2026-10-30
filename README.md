@@ -268,7 +268,7 @@ The proposed monitoring plan covers:
 - Queue age, chunk failure, retry exhaustion, stuck processing, and worker health alerts.
 - Dependency alerts for S3, Redis, Postgres, Qdrant, FFmpeg, Whisper, and embedding generation.
 
-See [`docs/production_monitoring.md`](docs/production_monitoring.md) for the full alert design.
+See [`docs/operations/production_monitoring.md`](docs/operations/production_monitoring.md) for the full alert design.
 
 ## Design Tradeoffs
 

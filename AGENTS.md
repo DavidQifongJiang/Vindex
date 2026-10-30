@@ -6,8 +6,8 @@
 - `app/db/` holds SQLAlchemy models and repositories; `alembic/` holds schema migrations.
 - `app/workers/` contains Celery tasks, the durable-job dispatcher, and maintenance processes.
 - `frontend/src/` contains React/TypeScript components, API helpers, and styles. Docker builds frontend assets into `app/frontend/dist/`.
-- `tests/` contains automated tests and integration helpers; `benchmarks/` contains evaluation scripts and reports.
-- `docs/` documents architecture and operations; `ops/` contains monitoring and backup configuration.
+- `tests/` contains automated tests (`test_*.py`) plus `tests/smoke/` chaos/smoke harnesses and `tests/browser/` Playwright-style scripts; `benchmarks/` contains evaluation scripts and reports.
+- `docs/` documents architecture (`docs/architecture/`), search (`docs/search/`), Kafka analytics (`docs/kafka/`), and operations (`docs/operations/`); `ops/` contains monitoring and backup configuration, with experimental compose stacks under `ops/compose/`.
 
 ## Build, Test, and Development Commands
 
@@ -39,8 +39,8 @@ Postgres owns durable job state; Redis transports Celery messages. Preserve leas
 
 ## Kafka Background Work and Follow-up
 
-- Evaluate Kafka readiness against `docs/kafka_search_analytics_plan.md`; report each acceptance gate as passed, failed, or unverified using completed run artifacts. Admission rate is not consumer throughput, and accepted-event accounting is not zero capture loss.
-- When starting or discovering an active background Kafka benchmark, record its process/session identity, output directory, start time, estimated completion time, and remaining acceptance gates in `docs/kafka_implementation_handoff.md`.
+- Evaluate Kafka readiness against `docs/kafka/kafka_search_analytics_plan.md`; report each acceptance gate as passed, failed, or unverified using completed run artifacts. Admission rate is not consumer throughput, and accepted-event accounting is not zero capture loss.
+- When starting or discovering an active background Kafka benchmark, record its process/session identity, output directory, start time, estimated completion time, and remaining acceptance gates in `docs/kafka/kafka_implementation_handoff.md`.
 - Use the Codex automation tool to schedule a follow-up in the current task at the estimated completion time. Inspect existing automations first and update a matching monitor instead of creating duplicates. A note in this file does not itself schedule a wake-up.
 - At the scheduled check, inspect the process and completed report. If the run is still active and incomplete, schedule the next check one minute later. If the scheduler cannot support that timing, state the limitation and use its supported timing; do not claim a wake-up was scheduled without tool confirmation.
 - Stay quiet on unchanged, non-actionable checks. Notify the user on completion, failure, a meaningful change, or required user action. Stop the run's monitor when the run finishes or fails; inspect failures rather than polling an exited process indefinitely.

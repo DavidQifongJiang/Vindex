@@ -12,7 +12,7 @@ const names = ['system-overview', 'processing-stages', 'upload-idempotency', 're
     await page.route('**/*', route => route.abort());
     await page.setContent('<main id="preview"></main>');
     await page.addScriptTag({ content: script });
-    const source = fs.readFileSync('docs/system_design.md', 'utf8');
+    const source = fs.readFileSync('docs/architecture/system_design.md', 'utf8');
     const diagrams = [...source.matchAll(/```mermaid\r?\n([\s\S]*?)```/g)].map(m => m[1]);
     if (diagrams.length !== names.length) throw new Error('Unexpected diagram count');
     fs.mkdirSync('docs/diagrams', { recursive: true });

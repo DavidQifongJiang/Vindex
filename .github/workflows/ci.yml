@@ -22,7 +22,7 @@ jobs:
           python -m pip install --index-url https://download.pytorch.org/whl/cpu torch==2.12.0
           python -m pip install -r requirements.txt -r requirements-analytics.txt
       - name: Start isolated analytics services
-        run: docker compose -p vindex-analytics -f docker-compose.analytics.yml up -d --wait
+        run: docker compose -p vindex-analytics -f ops/compose/docker-compose.analytics.yml up -d --wait
       - name: Test real commit, crash and replay paths
         env:
           VINDEX_TEST_DATABASE_URL: postgresql+psycopg2://analytics:local_analytics_only@127.0.0.1:15434/analytics
@@ -30,10 +30,10 @@ jobs:
         run: python -m unittest tests.test_search_events tests.test_search_event_worker tests.test_search_events_integration tests.test_search_events_rebalance -v
       - name: Capture service logs
         if: failure()
-        run: docker compose -p vindex-analytics -f docker-compose.analytics.yml logs --no-color
+        run: docker compose -p vindex-analytics -f ops/compose/docker-compose.analytics.yml logs --no-color
       - name: Stop isolated services
         if: always()
-        run: docker compose -p vindex-analytics -f docker-compose.analytics.yml down -v
+        run: docker compose -p vindex-analytics -f ops/compose/docker-compose.analytics.yml down -v
   smoke:
     name: Smoke checks
     runs-on: ubuntu-latest
@@ -78,7 +78,7 @@ jobs:
         run: |
           python -m alembic upgrade head
           docker build -f ops/Dockerfile.backup -t vindex-backup-test .
-          docker run --rm --network host -e PGHOST=127.0.0.1 -e PGDATABASE=vindex_test -e PGUSER=postgres -e PGPASSWORD=test --mount "type=bind,source=$PWD,target=/workspace,readonly" --entrypoint python3 vindex-backup-test /workspace/tests/backup_restore_smoke.py
+          docker run --rm --network host -e PGHOST=127.0.0.1 -e PGDATABASE=vindex_test -e PGUSER=postgres -e PGPASSWORD=test --mount "type=bind,source=$PWD,target=/workspace,readonly" --entrypoint python3 vindex-backup-test /workspace/tests/smoke/backup_restore_smoke.py
 
       - name: Set up Node
         uses: actions/setup-node@v4

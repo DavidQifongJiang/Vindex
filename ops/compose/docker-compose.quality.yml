@@ -1,5 +1,5 @@
 # Disposable local evaluation only; never shares production volumes or .env.
-# docker compose -p vindex-quality -f docker-compose.quality.yml up -d --wait
+# docker compose -p vindex-quality -f ops/compose/docker-compose.quality.yml up -d --wait
 services:
   postgres:
     image: postgres:16-alpine

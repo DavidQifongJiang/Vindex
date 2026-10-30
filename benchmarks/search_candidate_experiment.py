@@ -1,6 +1,6 @@
 """Capture authorized development candidates; no automatic relevance judgments.
 
-Run against docker-compose.quality.yml. Every run uses new schema/collections and
+Run against ops/compose/docker-compose.quality.yml. Every run uses new schema/collections and
 an exclusive output directory. Captions are development evidence, not ASR release
 evidence. No production environment file is loaded.
 """

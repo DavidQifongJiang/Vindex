@@ -96,7 +96,7 @@ without designing and testing that lifecycle.
 Commands run from the repository root. Use the project's Python environment.
 
 ```powershell
-docker compose -f docker-compose.search.yml up -d
+docker compose -f ops/compose/docker-compose.search.yml up -d
 python -m benchmarks.compare_retrieval --corpus benchmarks/expanded_15min_corpus.json --labels benchmarks/semantic_search_labels_expanded_15min.csv --algorithms dense,bm25,hybrid,elasticsearch_bm25,elasticsearch_hybrid --elasticsearch-url http://127.0.0.1:9200 --prepare-elasticsearch --output benchmarks/expanded_15min_retrieval_comparison.json
 ```
 
@@ -106,7 +106,7 @@ is disabled **only for this isolated local experiment**. Do not expose it remote
 Stop only the experimental service with:
 
 ```powershell
-docker compose -f docker-compose.search.yml stop elasticsearch
+docker compose -f ops/compose/docker-compose.search.yml stop elasticsearch
 ```
 
 The model must already be cached; the runner deliberately uses local-files-only.

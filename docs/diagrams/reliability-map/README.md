@@ -326,7 +326,7 @@ These are implemented backup checks and a documented operator recovery procedure
 Implementation:
 
 - [ops/backup.py](../../../ops/backup.py)
-- [docs/production_operations.md](../../../docs/production_operations.md)
+- [docs/operations/production_operations.md](../../../docs/operations/production_operations.md)
 - [Dockerfile](../../../Dockerfile)
 - [docker-compose.yml](../../../docker-compose.yml)
 
@@ -347,8 +347,8 @@ Implementation:
 
 - [app/workers/task.py](../../../app/workers/task.py)
 - [app/db/video_repository.py](../../../app/db/video_repository.py)
-- [docs/reliability_and_recovery.md](../../../docs/reliability_and_recovery.md)
-- [docs/kafka_validation_results.md](../../../docs/kafka_validation_results.md)
+- [docs/operations/reliability_and_recovery.md](../../../docs/operations/reliability_and_recovery.md)
+- [docs/kafka/kafka_validation_results.md](../../../docs/kafka/kafka_validation_results.md)
 
 Existing evidence/test definitions (not executed by this documentation task):
 

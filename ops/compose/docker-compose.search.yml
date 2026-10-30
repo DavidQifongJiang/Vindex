@@ -1,4 +1,4 @@
-# Isolated local experiment: docker compose -f docker-compose.search.yml up -d
+# Isolated local experiment: docker compose -f ops/compose/docker-compose.search.yml up -d
 services:
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:9.3.1

@@ -12,7 +12,7 @@ with 150 development and 350 reserved evaluation queries. Source hints link to
 the official captions; relevance judgments and a full-corpus run remain pending.
 
 For the current library-wide API comparison, real-store failure drills, and the
-decision to hold rollout, see [Phase 5 evaluation](../docs/search_phase5_evaluation.md).
+decision to hold rollout, see [Phase 5 evaluation](../docs/search/search_phase5_evaluation.md).
 Run `python -m benchmarks.evaluate_library --help` for the isolated harness.
 The earlier per-video measurements below are a different retrieval scope.
 
