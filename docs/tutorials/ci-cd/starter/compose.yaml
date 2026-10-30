@@ -1,0 +1,8 @@
+services:
+  app:
+    image: ${LAB_IMAGE:?Set LAB_IMAGE to the exact release image}
+    ports:
+      - "127.0.0.1:${LAB_PORT:-18080}:8080"
+    environment:
+      LAB_ENV: ${LAB_ENV:-practice}
+    # No restart policy: this is a learning service, started deliberately.

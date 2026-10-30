@@ -1,0 +1,29 @@
+flowchart TB
+A1["Capture flag + request opt-in required<br/>AUTH_REQUIRED or synthetic-only mode<br/>Disabled/no consent → search continues without capture"]:::optional
+A2["Acquire one of 2 capture slots without waiting<br/>Busy/submission error → no capture capability<br/>Separate DB pool: 2, no overflow, 10ms pool wait"]:::normal
+A3["Bound DB operations<br/>Connect 2s; statement 1000ms; lock 100ms<br/>Async caller waits at most 25ms, shielded worker"]:::normal
+A4["ONE transaction: context → event outbox → budget<br/>Postgres dependent CTE; rollback ALL if budget unavailable<br/>Event max 16KiB; pending outbox default 1GiB"]:::safe
+A5["Confirmed commit within wait → interaction enabled<br/>Failure → false; search response unchanged<br/>Timeout → unknown; slot released only on completion"]:::note
+A6["Interaction request: owner + search ID + event UUID<br/>Strict schema and rank checks; HTTP body max 8KiB<br/>Context must belong to owner and be younger than 7 days"]:::normal
+A7{"Existing event ID?"}:::decision
+A8["Same search + payload fingerprint → success replay<br/>Different payload/search → 409 event_id_conflict<br/>No second budget charge or interaction increment"]:::safe
+A9["New interaction; max 100 per context<br/>Validate against stored result count<br/>Increment count + outbox + budget atomically"]:::normal
+A10["HTTP outcomes<br/>202 after acceptance; 404 missing/disabled context<br/>409 limit/conflict; 503 + Retry-After 1 on storage failure"]:::note
+A11["UI feedback retry reuses event_id<br/>Same search and same feedback value<br/>A changed feedback value creates a new event"]:::retry
+A12["Viewed/opened events are best effort<br/>No durable client retry queue<br/>User can retry a failed feedback selection"]:::note
+A13["Consent and query protection<br/>Query stored only in shared Postgres context<br/>Withdrawal clears query/share; global withdrawal timestamp<br/>Review rechecks ownership, revision and deletion"]:::note
+A1 --> A2 --> A3 --> A4 --> A5
+A5 -->|Capability available| A6 --> A7
+A7 -->|Yes| A8 --> A10
+A7 -->|No| A9 --> A10
+A10 -.->|Feedback failed| A11 --> A6
+A5 -.-> A12
+A6 -.-> A13
+
+classDef normal fill:#edf4ff,stroke:#4b83bb,color:#172f4a
+classDef decision fill:#fff5dc,stroke:#b88d27,color:#4c3810
+classDef safe fill:#eaf7f0,stroke:#40916b,color:#193c2b
+classDef retry fill:#fff0de,stroke:#ce873a,color:#513211
+classDef fail fill:#ffeded,stroke:#c76a6a,color:#542525
+classDef note fill:#f1f3f6,stroke:#97a2ad,color:#344353
+classDef optional fill:#f2edfc,stroke:#8e74bc,color:#35254d

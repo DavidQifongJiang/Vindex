@@ -263,6 +263,7 @@ class VideoRepositoryRetryStateTest(unittest.TestCase):
         self.assertEqual(claimed.status, "processing")
         self.assertEqual(claimed.processing_attempt_count, 1)
 
+        token = claimed.processing_token
         duplicate = claim_search_chunk(db, "video-1", 0, "worker-2", 3)
         self.assertIsNone(duplicate)
 
@@ -277,6 +278,7 @@ class VideoRepositoryRetryStateTest(unittest.TestCase):
                 "segment_count": 2,
                 "transcript_character_count": 20,
             },
+            processing_token=token,
         )
 
         self.assertEqual(completed.status, "completed")
@@ -297,7 +299,7 @@ class VideoRepositoryRetryStateTest(unittest.TestCase):
             },
         ])
 
-        claim_search_chunk(db, "video-1", 0, "worker-1", 3)
+        claimed = claim_search_chunk(db, "video-1", 0, "worker-1", 3)
         retrying = record_search_chunk_retry(
             db,
             "video-1",
@@ -306,6 +308,7 @@ class VideoRepositoryRetryStateTest(unittest.TestCase):
             error_type="TemporaryProcessingError",
             error_message="temporary failure",
             next_retry_at=datetime.utcnow() - timedelta(seconds=1),
+            processing_token=claimed.processing_token,
         )
         self.assertEqual(retrying.status, "retrying")
 
@@ -320,6 +323,7 @@ class VideoRepositoryRetryStateTest(unittest.TestCase):
             error_code="permanent",
             error_type="PermanentProcessingError",
             error_message="permanent failure",
+            processing_token=claimed_again.processing_token,
         )
         self.assertEqual(failed.status, "failed")
         self.assertEqual(search_chunk_counts(db, "video-1")["failed"], 1)

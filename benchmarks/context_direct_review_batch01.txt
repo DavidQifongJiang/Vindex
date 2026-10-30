@@ -1,0 +1,30 @@
+1|0||Single-source BFS traversal does not explain incorrect bidirectional termination.
+2|1|that part of the level reset to its initial state|Explains offscreen reset but not what the dynamic-programming configuration stores.
+3|0||Ancestor updates in balanced search trees are not heap sift-down.
+4|0||Scheduling requests are not Mario game states.
+5|0||AVL rotations and ancestor counts do not explain heap sift-down.
+6|2|the shortest length path is not the shortest weight path|Explicit counterexample explains why the meeting point can produce weight ten instead of nine.
+7|0||BST rotation preserves an already valid ordering rather than restoring heap order by sifting down.
+8|0||Decision-tree execution is not moving a misplaced heap root.
+9|1|what do I need to know about the game state|Introduces configurations and objectives but stops before specifying state variables.
+10|0||Ancestor-update complexity does not explain heap sift-down.
+11|1|Where do I switch from pi f to pi b?|Discusses joining paths at a meeting point but does not expose the incorrect stopping rule.
+12|1|terminate the search when these frontiers meet|Sets up termination conditions without explaining their possible incorrectness.
+13|0||BFS back edges do not explain bidirectional shortest-path termination.
+14|2|the shortest length path is not the shortest weight path|Directly explains why first collision need not yield minimum weight.
+15|0||In-order BST traversal does not repair an out-of-place heap root.
+16|0||Generic DP instructions and a Mario topic announcement contain no Mario state explanation.
+17|1|it's not as simple as what I just described|Introduces bidirectional frontiers and warns of subtlety without its reason.
+18|1|that part of the level reset to its initial state|Offscreen reset is relevant but the DP state representation is missing.
+19|0||Interval scheduling is the wrong DP application.
+20|0||Only announces Mario among examples and supplies generic DP steps.
+21|0||AVL/BST rotation is the wrong operation for the requested sift-down explanation.
+22|1|it's not as simple as what I just described|Flags a complication without explaining why first contact can be wrong.
+23|1|terminate the search when these frontiers meet|Gives the intuition being questioned without the failure reason.
+24|0||Transitions to Mario after another game's recurrence without explaining Mario state.
+25|0||BST ordering and traversal do not explain restoring heap order.
+26|1|Then you use the pi f to go from that node|Describes joining predecessor paths but omits the termination error.
+27|2|For the monsters, I need to know their current position.|Connects DP configurations to on-screen monsters and object state, with concrete stored variables.
+28|0||Decision-tree path cost is unrelated to heap-order repair.
+29|1|that part of the level reset to its initial state|Relevant state-reset behavior without a DP configuration explanation.
+30|0||Upward aggregate maintenance in search trees is the wrong operation.

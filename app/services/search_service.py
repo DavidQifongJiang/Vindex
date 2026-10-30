@@ -5,16 +5,21 @@ from pathlib import Path
 import numpy as np
 from sentence_transformers import SentenceTransformer
 import os
+from threading import Lock
 
 _embedding_model = None
+_embedding_model_lock = Lock()
 
 
 def get_embedding_model():
     global _embedding_model
 
     if _embedding_model is None:
-        model_name = os.getenv("EMBEDDING_MODEL", "all-MiniLM-L6-v2")
-        _embedding_model = SentenceTransformer(model_name)
+        with _embedding_model_lock:
+            if _embedding_model is None:
+                model_name = os.getenv("EMBEDDING_MODEL", "all-MiniLM-L6-v2")
+                revision = os.getenv("SEARCH_EMBEDDING_REVISION")
+                _embedding_model = SentenceTransformer(model_name, **({"revision": revision} if revision else {}))
 
     return _embedding_model
 
@@ -43,7 +48,9 @@ def build_segment_embeddings(segments):
             "start": segment.get("start"),
             "end": segment.get("end"),
             "text": text,
-            "embedding": embedding
+            "embedding": embedding,
+            "embedding_model": os.getenv("EMBEDDING_MODEL", "all-MiniLM-L6-v2"),
+            "embedding_model_revision": getattr(model[0].auto_model.config, "_commit_hash", None),
         })
 
     return segment_embeddings

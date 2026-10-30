@@ -1,0 +1,316 @@
+[
+  {
+    "slug": "00-overview",
+    "title": "00 · Reliability overview",
+    "scope": "Core and optional paths",
+    "sources": [
+      "app/db/upload_repository.py",
+      "app/db/pipeline_repository.py",
+      "app/db/search_repository.py",
+      "app/db/search_event_repository.py"
+    ],
+    "tests": [
+      "tests/test_durable_pipeline.py",
+      "tests/test_operational_safety.py",
+      "tests/test_search_indexing.py",
+      "tests/test_search_events.py"
+    ],
+    "notes": "Solid arrows describe the main lifecycle. Numbered references lead to detailed panels. Postgres is the authority; Redis and Kafka carry messages. No exactly-once execution or cross-system rollback is claimed.",
+    "code": "O1[\"01 Upload intent<br/>Owner + idempotency key + fingerprint\"]:::normal\nO2[\"02 Atomic transaction<br/>Upload response + video + durable jobs\"]:::normal\nO3[\"02 Dispatcher → Redis<br/>Republish unclaimed work\"]:::normal\nO4[\"03 Claim + lease + deadline<br/>Postgres permits one current attempt\"]:::normal\nO5[\"06 Search jobs<br/>Prepare → chunks → finalize\"]:::normal\nO6[\"06 Playback job<br/>Transcode → optional thumbnail\"]:::normal\nO7[\"06 Guarded publication<br/>Accepted paths and tokens in Postgres\"]:::safe\nO8[\"Video processed<br/>Search complete AND playback published\"]:::safe\nO9[\"04-05 Errors and retries<br/>Classify → bounded retry or terminal failure\"]:::retry\nO10[\"07 Crash recovery<br/>08 Deletion, garbage collection and repair\"]:::note\nO11[\"09-10 OPTIONAL library search<br/>Projection leases, integrity checks and fail-closed reads\"]:::optional\nO12[\"11-13 OPTIONAL Kafka prototype<br/>Capture, outbox, receipts, quarantine and replay\"]:::optional\nO13[\"14-16 Supporting controls<br/>Metrics, alerts, backups and legacy limits\"]:::note\nO1 --> O2 --> O3 --> O4\nO4 --> O5 --> O7\nO4 --> O6 --> O7 --> O8\nO4 -.-> O9\nO9 -->|Retry due| O3\nO9 -.-> O10\nO7 -.-> O11 -.-> O12\nO10 -.-> O13",
+    "file": "00-overview.mmd"
+  },
+  {
+    "slug": "01-upload-idempotency",
+    "title": "01 · Upload idempotency",
+    "scope": "Core",
+    "sources": [
+      "frontend/src/api.ts",
+      "app/api/videos.py",
+      "app/db/upload_repository.py",
+      "app/db/video_repository.py"
+    ],
+    "tests": [
+      "tests/test_operational_safety.py"
+    ],
+    "notes": "The frontend retains a UUID for the same File object, title and visibility; a reload or new file selection is a new intent. No automatic upload retry loop is implemented. Without a supplied key the server generates a new key for that request. This is request deduplication, not global content deduplication.",
+    "code": "U1[\"Frontend retains Idempotency-Key<br/>WeakMap: File + title + visibility\"]:::normal\nU2[\"Authenticate; normalize metadata<br/>Stream file SHA-256; rewind file<br/>Fingerprint includes filename, title, visibility, size\"]:::normal\nU3{\"Size and key valid?\"}:::decision\nU4[\"413 above MAX_UPLOAD_MB: default 500<br/>400 invalid key: allowed A-Z a-z 0-9 . _ : -<br/>Key length: 1-128\"]:::fail\nU5[\"Owner + key is unique identity<br/>Insert with savepoint; tolerate insert race<br/>SELECT FOR UPDATE reservation\"]:::normal\nU6{\"Fingerprint matches?\"}:::decision\nU7[\"409 changed content<br/>Do not reuse this key for another payload\"]:::fail\nU8{\"Already completed?\"}:::decision\nU9{\"Video exists and is not deleting?\"}:::decision\nU10[\"Replay stored response<br/>No S3 upload; no duplicate jobs\"]:::safe\nU11[\"410 deleted upload<br/>Retain reservation tombstone; use new key\"]:::fail\nU12{\"Unexpired reservation?\"}:::decision\nU13[\"409 in progress<br/>Retry-After: 5; retry SAME key\"]:::retry\nU14[\"Reserve or take over expired intent<br/>Keep video ID; new UUID attempt token<br/>New raw S3 key; expiry default 1800s\"]:::normal\nU15[\"Commit reservation; release DB transaction<br/>Upload to raw_videos/video/token/file\"]:::normal\nU16{\"Current token AND unexpired?\"}:::decision\nU17[\"ONE transaction<br/>Response + completed reservation + video<br/>Search job + playback job\"]:::safe\nU18[\"409 expired attempt<br/>Cannot replace the newer upload owner\"]:::fail\nU19[\"S3 or transaction failure<br/>Rollback and expire matching uploading token<br/>DB unavailable: log and rely on expiry\"]:::retry\nU20[\"Lost response after commit<br/>Retry SAME key → replay stored response\"]:::safe\nU21[\"Unreferenced uploaded object<br/>Collected after grace period: panel 08\"]:::note\nU1 --> U2 --> U3\nU3 -->|No| U4\nU3 -->|Yes| U5 --> U6\nU6 -->|No| U7\nU6 -->|Yes| U8\nU8 -->|Yes| U9\nU9 -->|Yes| U10\nU9 -->|No| U11\nU8 -->|No| U12\nU12 -->|Yes| U13\nU12 -->|No| U14 --> U15 --> U16\nU16 -->|Yes| U17 --> U20\nU16 -->|No| U18 --> U21\nU15 -.->|Failure| U19\nU17 -.->|Failure| U19\nU19 --> U21",
+    "file": "01-upload-idempotency.mmd"
+  },
+  {
+    "slug": "02-durable-dag-dispatch",
+    "title": "02 · Durable dependencies and dispatch",
+    "scope": "Core",
+    "sources": [
+      "app/db/video_repository.py",
+      "app/db/pipeline_repository.py",
+      "app/workers/pipeline_dispatcher.py",
+      "app/workers/celery_app.py",
+      "app/db/models.py"
+    ],
+    "tests": [
+      "tests/test_durable_pipeline.py"
+    ],
+    "notes": "Redis delivery is at least once. Dispatch reservation does not increment the processing attempt count; a successful database claim does. The dispatcher is required for new uploads. Search, chunk and finalizer tasks use the search queue; playback uses playback; optional projections use indexing.",
+    "code": "D1[\"Upload commit creates durable intent<br/>pipeline_jobs: unique video + stage<br/>search preparation AND playback\"]:::normal\nD2[\"Preparation completion transaction<br/>Accepted audio paths + all chunk rows<br/>video_search_chunks: unique video + chunk index\"]:::safe\nD3[\"Each chunk completes independently<br/>Commit accepted artifact token<br/>Keep successful chunks when another retries\"]:::safe\nD4[\"Last completed chunk creates finalize job<br/>Same transaction; parent lock + unique stage<br/>One finalizer, independent attempt budget\"]:::safe\nD5[\"Dispatcher iteration<br/>Recover expired/exhausted work first<br/>Then dispatch; default every 5s, minimum 1s\"]:::normal\nD6[\"Read up to 100 candidates per model<br/>pending OR retrying with retry time due<br/>Attempts remain; dispatch window due; oldest first\"]:::normal\nD7[\"Release scan transaction; lock parent video<br/>Missing/deleting video → skip<br/>Recheck status and dispatch window\"]:::normal\nD8[\"Commit dispatch_after = now + 60s<br/>Minimum configured redispatch interval 10s<br/>Reserve BEFORE calling broker\"]:::normal\nD9[\"Publish Celery task to Redis<br/>send_task with retry=False<br/>Task carries video ID and optional chunk index\"]:::normal\nD10{\"Worker claims before next window?\"}:::decision\nD11[\"Processing row is no longer dispatchable<br/>Worker lifecycle: panel 03\"]:::safe\nD12[\"No claim; Redis loss; ambiguous send<br/>Dispatcher crash before/after send<br/>Durable row remains eligible after window\"]:::retry\nD13[\"Publish exception ends this dispatch batch<br/>Log; next iteration can recover leases<br/>Record successful dispatcher operation state\"]:::note\nD14[\"Redis/Celery transport controls<br/>Late ACK; reject on worker loss<br/>ACK failure/timeouts; prefetch multiplier 1\"]:::note\nD15[\"Transport defaults<br/>Visibility timeout 7200s<br/>Broker connect/socket timeouts 5s\"]:::note\nD1 --> D2 --> D3 --> D4\nD1 -.-> D5\nD2 -.-> D5\nD4 -.-> D5\nD5 --> D6 --> D7 --> D8 --> D9 --> D10\nD10 -->|Yes| D11\nD10 -->|No| D12 --> D5\nD9 -.->|Exception| D13\nD9 -.-> D14 --> D15",
+    "file": "02-durable-dag-dispatch.mmd"
+  },
+  {
+    "slug": "03-claim-lease-deadline",
+    "title": "03 · Claims, leases and deadlines",
+    "scope": "Core",
+    "sources": [
+      "app/db/pipeline_repository.py",
+      "app/workers/durable_task.py",
+      "app/services/processing_lease.py",
+      "app/services/media_service.py",
+      "app/workers/celery_app.py"
+    ],
+    "tests": [
+      "tests/test_durable_pipeline.py",
+      "tests/test_operational_safety.py"
+    ],
+    "notes": "No database transaction stays open across media/model work. Lease renewal and publication require both a live lease and a live absolute deadline. Ordinary failure recording checks the matching token and a live lease; expired-work recovery has a separate guarded path. Terminal video status alone does not cancel already pending sibling work.",
+    "code": "L1[\"Celery message arrives<br/>Owner = hostname, task ID, or unknown-worker\"]:::normal\nL2[\"Lock parent video<br/>Missing or deleting → no claim\"]:::normal\nL3{\"pending OR due retrying<br/>AND persisted attempts below max?\"}:::decision\nL4[\"Return skipped<br/>Duplicate, premature retry, active/completed/<br/>failed work, missing/deleting parent\"]:::safe\nL5[\"Atomic claim; commit and detach row<br/>status processing; attempt count +1<br/>New UUID token; owner; started/progress timestamps\"]:::normal\nL6[\"Lease = now + 300s; minimum 30s<br/>Absolute deadline = now + 1800s<br/>Clear next_retry_at; deadline is not renewable\"]:::normal\nL7[\"Run processor outside claim transaction<br/>Daemon heartbeat every lease/3: default 100s<br/>Explicit checkpoints also update progress_at\"]:::normal\nL8{\"Parent available; status processing;<br/>same token; lease and deadline live?\"}:::decision\nL9[\"Renew lease and commit<br/>Checkpoint records progress<br/>Never extend the absolute deadline\"]:::safe\nL10[\"Stale heartbeat → lost flag<br/>Next checkpoint raises StaleProcessingAttempt<br/>Wrapper returns stale; no result publication\"]:::fail\nL11[\"Other heartbeat exception → log<br/>May continue computing<br/>Cannot publish without a successful DB guard\"]:::retry\nL12[\"Additional limits<br/>FFmpeg/ffprobe command timeout 900s<br/>Celery soft 1800s; hard 1830s\"]:::note\nL13[\"Soft timeout → error classifier<br/>Hard kill/crash → lease/deadline recovery<br/>OS time limits require supported Linux prefork\"]:::note\nL14[\"Claim DB failure<br/>No processor starts; wrapper exits with error<br/>Pending work can be redispatched\"]:::retry\nL1 --> L2 --> L3\nL3 -->|No| L4\nL3 -->|Yes| L5 --> L6 --> L7 --> L8\nL8 -->|Yes| L9 --> L7\nL8 -->|No| L10\nL7 -.->|DB or network exception| L11 --> L8\nL7 -.-> L12 --> L13\nL2 -.->|DB unavailable| L14",
+    "file": "03-claim-lease-deadline.mmd"
+  },
+  {
+    "slug": "04-error-classification",
+    "title": "04 · Error classification",
+    "scope": "Core and reused by projection workers",
+    "sources": [
+      "app/services/processing_errors.py",
+      "app/services/video_service.py",
+      "app/services/storage_service.py"
+    ],
+    "tests": [
+      "tests/test_operational_safety.py",
+      "tests/test_video_repository_retry_state.py"
+    ],
+    "notes": "Classification determines whether another attempt is allowed; panel 05 also checks the persisted budget. Dotted links between error boxes group alternative cases rather than showing an execution sequence. Existing ProcessingError subclasses retain their classification. Wrapped S3 transfers are classified using their last exception/cause/context when available. Unknown exceptions are terminal rather than retried indefinitely.",
+    "code": "C1[\"Processor raises an exception\"]:::normal\nC2{\"StaleProcessingAttempt?\"}:::decision\nC3[\"Return stale<br/>No failure transition for replacement owner\"]:::safe\nC4[\"Existing ProcessingError → preserve<br/>Wrapped S3 transfer → unwrap cause<br/>Unclassified S3 transfer → temporary\"]:::normal\nC5[\"TEMPORARY: time and resource limits<br/>TimeoutExpired; SoftTimeLimitExceeded; TimeoutError<br/>MemoryError; ENOSPC / ENOMEM / EAGAIN; model OOM\"]:::retry\nC6[\"TEMPORARY: dependencies<br/>SQLAlchemy OperationalError / DisconnectionError<br/>S3 connect/read/endpoint/connection-closed errors\"]:::retry\nC7[\"TEMPORARY: HTTP and throttling<br/>408, 429, 500, 502, 503, 504<br/>RequestTimeout, SlowDown, Throttling,<br/>ThrottlingException, TooManyRequestsException\"]:::retry\nC8[\"TEMPORARY: vector/network/model clients<br/>Qdrant ResponseHandlingException<br/>httpx connect/timeout; requests connect/timeout<br/>Model HTTP errors with listed temporary status\"]:::retry\nC9[\"TEMPORARY: FFmpeg resource failure<br/>Exit -9 or 137; stderr contains no space,<br/>cannot allocate memory, resource unavailable\"]:::retry\nC10[\"PERMANENT: S3 required object missing<br/>404 / NoSuchKey / NotFound<br/>Other non-retryable S3 or Qdrant response\"]:::fail\nC11[\"PERMANENT: invalid media or source<br/>Other FFmpeg CalledProcessError<br/>Unsupported/corrupt media; invalid duration;<br/>missing video; invalid chunk manifest\"]:::fail\nC12[\"PERMANENT: unexpected exception<br/>Default unexpected_processing_error<br/>Stage wrappers provide specific error codes\"]:::fail\nC13[\"Retryable flag + persisted attempt count<br/>Continue to panel 05\"]:::normal\nC14[\"SPECIAL CASE: thumbnail generation<br/>Exception is caught; playback continues without thumbnail<br/>Thumbnail UPLOAD failure is classified normally\"]:::note\nC1 --> C2\nC2 -->|Yes| C3\nC2 -->|No| C4\nC4 --> C5\nC5 -.->|Other temporary cases| C6\nC6 -.-> C7\nC7 -.-> C8\nC8 -.-> C9\nC4 --> C10\nC10 -.->|Other permanent cases| C11\nC11 -.-> C12\nC9 --> C13\nC12 --> C13\nC1 -.-> C14",
+    "file": "04-error-classification.mmd"
+  },
+  {
+    "slug": "05-retry-and-recovery",
+    "title": "05 · Retry state and expired-work recovery",
+    "scope": "Core",
+    "sources": [
+      "app/db/pipeline_repository.py",
+      "app/services/retry_policy.py",
+      "app/workers/pipeline_dispatcher.py",
+      "app/workers/durable_task.py"
+    ],
+    "tests": [
+      "tests/test_durable_pipeline.py",
+      "tests/test_operational_safety.py"
+    ],
+    "notes": "Three attempts means three total successful claims, not three extra retries. A fresh Celery message with request.retries == 0 does not reset this budget. Retry is a Postgres state transition; durable tasks do not call Celery task.retry. Recovery latency includes detection, polling, backoff, and queue delay.",
+    "code": "R1[\"Worker exception → classify<br/>Lock parent; match processing status + token<br/>Ordinary failure recording requires live lease\"]:::normal\nR2[\"Dispatcher scans expired lease OR deadline<br/>Also repairs pending/retrying rows already exhausted<br/>Re-lock parent; re-read before changing state\"]:::normal\nR3[\"Recovery uses matching token + expired condition<br/>worker_lease_expired OR processing_deadline_exceeded<br/>Synthetic expired token for exhausted runnable rows\"]:::normal\nR4{\"Still owns eligible work?\"}:::decision\nR5[\"No transition / stale<br/>Do not overwrite a replacement attempt\"]:::safe\nR6{\"Retryable AND attempts below max?\"}:::decision\nR7[\"Default max attempts = 3, persisted per row<br/>Delay = min 600, 30 x 2^(attempt-1) seconds<br/>THEN random +/-20%, rounded, floor at zero\"]:::retry\nR8[\"Default retry waits: 24-36s then 48-72s<br/>Cap is before jitter; up to 720s if reached<br/>Commit retrying + next_retry_at\"]:::retry\nR9[\"Clear owner, token, lease and dispatch_after<br/>Persist code, class, message truncated to 1000,<br/>error time and updated_at\"]:::normal\nR10[\"Wrapper returns retrying<br/>Dispatcher waits until due and republishes<br/>Next successful claim increments attempt\"]:::retry\nR11[\"Commit work status = failed<br/>No automatic further attempt; mark video failed<br/>Search/chunk/finalize also mark search substates failed\"]:::fail\nR12[\"Wrapper raises terminal classified error<br/>Completed sibling chunks remain usable<br/>Pending siblings are not automatically cancelled\"]:::note\nR13[\"DB unavailable while recording failure<br/>No reliable state transition; error escapes<br/>After DB recovers, expiry path recovers work\"]:::retry\nR1 --> R4\nR2 --> R3 --> R4\nR4 -->|No| R5\nR4 -->|Yes| R6\nR6 -->|Yes| R7 --> R8 --> R9 --> R10\nR6 -->|No| R11 --> R12\nR1 -.->|DB failure| R13 --> R2\nR10 -.->|Another attempt fails| R1",
+    "file": "05-retry-and-recovery.mmd"
+  },
+  {
+    "slug": "06-publication-and-stages",
+    "title": "06 · Stage idempotency and guarded publication",
+    "scope": "Core",
+    "sources": [
+      "app/services/video_service.py",
+      "app/db/pipeline_repository.py",
+      "app/services/qdrant_service.py",
+      "app/db/video_repository.py"
+    ],
+    "tests": [
+      "tests/test_durable_pipeline.py",
+      "tests/test_fenced_vectors.py"
+    ],
+    "notes": "Fencing protects accepted metadata and read visibility, not every external write. S3, Qdrant and Postgres do not share a transaction. Each new attempt has isolated outputs; repeating a write within one attempt uses deterministic keys/IDs. A stale attempt can leave garbage for panel 08.",
+    "code": "P1[\"Preparation job<br/>If already searchable → guarded completion<br/>If chunks already exist → reuse, do not recreate\"]:::normal\nP2[\"Extract audio to attempt-prefixed S3 keys<br/>Guard + commit chunk rows and preparation completion<br/>Completed chunks survive other failures\"]:::safe\nP3[\"Chunk job: read audio → Whisper → embeddings<br/>Checkpoint before external publication<br/>Qdrant upsert wait=True + S3 manifests\"]:::normal\nP4[\"Deterministic Qdrant ID<br/>UUID5 video + attempt token + segment ID<br/>Payload: attempt_token, chunk_index, write timestamp\"]:::normal\nP5[\"S3 keys include attempt token<br/>Audio, chunk transcript/segments/embeddings,<br/>final manifests, processed video and thumbnail\"]:::normal\nP6{\"Final DB guard succeeds?<br/>Parent available; processing; matching token;<br/>unexpired lease AND deadline\"}:::decision\nP7[\"Commit accepted paths + completed state<br/>Chunk artifact_token = current attempt token<br/>Clear active ownership + errors; schedule dependencies\"]:::safe\nP8[\"Stale attempt cannot publish<br/>Earlier external writes remain unaccepted<br/>No distributed rollback\"]:::fail\nP9[\"Finalizer validates complete chunk manifest<br/>Read ONLY accepted chunks; merge and sort<br/>Write attempt-specific final outputs\"]:::normal\nP10[\"Finalizer transaction<br/>Publish final paths + search completed<br/>Optional revision + projection intent in same commit\"]:::safe\nP11[\"Playback job<br/>Already published → guarded completion<br/>Transcode; thumbnail generation is best effort\"]:::normal\nP12[\"Upload processed video; upload thumbnail if created<br/>Upload errors use normal retry policy<br/>Guard and commit accepted playback paths\"]:::normal\nP13[\"In completion transaction<br/>Search embeddings complete AND processed_path present<br/>Set overall video processed; avoid readiness crash gap\"]:::safe\nP14[\"Search visibility fence<br/>Filter vectors by completed chunk artifact tokens<br/>Legacy tokenless vectors only for eligible legacy indexes<br/>No accepted tokens → no results\"]:::safe\nP16[\"Core collection creation race<br/>Qdrant create 409 is tolerated only if collection now exists<br/>Other creation errors propagate to classification\"]:::note\nP1 --> P2 --> P3\nP3 --> P4 --> P6\nP3 --> P5 --> P6\nP6 -->|Yes| P7 --> P9 --> P10 --> P13\nP6 -->|No| P8\nP11 --> P12 --> P13\nP7 --> P14\nP4 -.-> P16\nP9 -.->|Failure before acceptance| P15[\"Use retry policy in panel 05<br/>Retry finalization from accepted chunks<br/>No retranscription\"]:::retry",
+    "file": "06-publication-and-stages.mmd"
+  },
+  {
+    "slug": "07-crash-windows",
+    "title": "07 · Failure windows and recovery paths",
+    "scope": "Core; scenarios are independent",
+    "sources": [
+      "app/db/upload_repository.py",
+      "app/workers/pipeline_dispatcher.py",
+      "app/workers/durable_task.py",
+      "app/db/pipeline_repository.py",
+      "app/services/processing_lease.py"
+    ],
+    "tests": [
+      "tests/test_durable_pipeline.py",
+      "tests/test_operational_safety.py",
+      "tests/lease_crash_worker.py"
+    ],
+    "notes": "These are independent recovery scenarios, not an execution chain or claims of production validation. Dotted connectors organize related cases vertically. No live service or benchmark is started to generate this board.",
+    "code": "X0[\"Independent crash windows<br/>Each box pairs a failure with its recovery\"]:::note\nX1[\"UPLOAD AND DELIVERY\"]:::normal\nX2[\"RUNNING WORK\"]:::normal\nX3[\"COMPLETION AND CLEANUP\"]:::normal\nX4[\"Lost response after upload commit<br/>Same owner/key/fingerprint replays response<br/>No second video or initial jobs\"]:::safe\nX5[\"S3 upload succeeded; DB commit did not<br/>Release reservation or await expiry<br/>New token on retry; orphan collected later\"]:::retry\nX6[\"Dispatcher crash / Redis loss / ambiguous send<br/>Postgres intent survives<br/>Redispatch after reserved window\"]:::retry\nX7[\"Duplicate or old queued message<br/>Atomic claim checks eligible state<br/>Active/completed/failed/missing work skips\"]:::safe\nX8[\"Worker dies / hard timeout / lost heartbeat<br/>Lease or deadline expiry → bounded retry<br/>Exhausted attempts → terminal failure\"]:::retry\nX9[\"DB fails during heartbeat or failure recording<br/>No unguarded acceptance<br/>Expiry recovery after database returns\"]:::retry\nX10[\"Old worker returns after replacement starts<br/>Old token cannot renew or publish<br/>Late artifacts remain hidden and collectible\"]:::safe\nX11[\"Finalizer fails after chunks completed<br/>Retry from accepted chunks; no retranscription<br/>Independent finalizer attempt budget\"]:::retry\nX12[\"Artifacts written; crash before DB completion<br/>Outputs remain unaccepted<br/>New attempt isolated; old artifacts later collected\"]:::retry\nX13[\"DB completion committed; crash before ACK<br/>Redelivery cannot claim completed work<br/>Accepted output is retained\"]:::safe\nX14[\"Deletion cleanup interrupted<br/>Keep deleting state; owner retries endpoint<br/>GC catches abandoned and late artifacts\"]:::retry\nX0 --> X1\nX0 --> X2\nX0 --> X3\nX1 -.-> X4 -.-> X5 -.-> X6 -.-> X7\nX2 -.-> X8 -.-> X9 -.-> X10 -.-> X11\nX3 -.-> X12 -.-> X13 -.-> X14",
+    "file": "07-crash-windows.mmd"
+  },
+  {
+    "slug": "08-delete-gc-repair",
+    "title": "08 · Deletion, orphan cleanup and vector repair",
+    "scope": "Core",
+    "sources": [
+      "app/api/videos.py",
+      "app/services/maintenance_service.py",
+      "app/services/storage_service.py",
+      "app/workers/maintenance.py"
+    ],
+    "tests": [
+      "tests/test_operational_safety.py",
+      "tests/test_durable_pipeline.py"
+    ],
+    "notes": "Deletion is not a distributed transaction. Some raw orphan paths are collected by maintenance rather than the endpoint. Unknown path formats are intentionally retained. Core Qdrant repair detects missing counts; it does not verify every vector value, restore missing S3 objects, or restart terminally failed processing.",
+    "code": "G1[\"Owner requests delete<br/>404 missing; enforce owner; lock video\"]:::normal\nG2{\"Active video status OR<br/>any pending / processing / retrying job or chunk?\"}:::decision\nG3[\"409 until work finishes or fails<br/>Even failed parent cannot delete active siblings\"]:::fail\nG4[\"Commit deleting BEFORE external cleanup<br/>Revoke search projections; deletion tombstone<br/>Future claims/publication reject unavailable parent\"]:::normal\nG5[\"Delete Elasticsearch if configured<br/>Failure → 503 retry deletion<br/>Delete Qdrant vectors and known S3 paths/prefixes\"]:::normal\nG6[\"S3 batched deletes check per-object errors<br/>Any cleanup exception leaves deleting state<br/>Owner can repeat endpoint\"]:::retry\nG7[\"After cleanup: remove chunks, jobs and video<br/>Upload tombstone remains for old key → 410\"]:::safe\nG8[\"Maintenance every 60s by default, minimum 10s<br/>Persist bounded scan cursors in operation_states<br/>S3/Qdrant pages 200; index repair 10 videos\"]:::normal\nG9[\"Artifact collection grace default 86400s<br/>Minimum configured grace 3600s<br/>Leave recent objects and unknown paths alone\"]:::note\nG10{\"Protected by database references?\"}:::decision\nG11[\"Keep accepted video/chunk paths<br/>Keep live upload raw path and active attempt tokens<br/>Keep accepted chunk vectors and restricted legacy data\"]:::safe\nG12[\"Delete old unreferenced objects and vectors<br/>Includes writes from stale attempts after deletion<br/>Continue via persisted cursor\"]:::normal\nG13[\"Repair accepted searchable videos<br/>Count Qdrant points for accepted token/chunk<br/>Missing count → reload S3 embedding manifest\"]:::normal\nG14[\"Upsert deterministic accepted vector IDs<br/>Record per-video error; continue other videos<br/>Wrap scan cursor rather than starve later rows\"]:::safe\nG1 --> G2\nG2 -->|Yes| G3\nG2 -->|No| G4 --> G5 --> G7\nG5 -.->|Failure| G6 --> G5\nG8 --> G9 --> G10\nG10 -->|Yes| G11\nG10 -->|No| G12\nG8 --> G13 --> G14",
+    "file": "08-delete-gc-repair.mmd"
+  },
+  {
+    "slug": "09-search-projection-recovery",
+    "title": "09 · Optional library projection jobs",
+    "scope": "OPTIONAL · SEARCH_PROJECTIONS_ENABLED",
+    "sources": [
+      "app/db/search_repository.py",
+      "app/services/search_indexing.py",
+      "app/services/projection_indexes.py",
+      "app/workers/search_indexing.py"
+    ],
+    "tests": [
+      "tests/test_search_indexing.py",
+      "tests/search_projection_crash.py"
+    ],
+    "notes": "Projection failure does not invalidate the uploaded video. These jobs have their own state machine and accepted attempt per backend. Bad source/schema/model data needs explicit repair. This system is separate from core vector-count repair and from legacy lexical reconciliation.",
+    "code": "Q1[\"Register accepted revision in finalizer transaction<br/>SHA-256 manifest + deterministic source key<br/>Unique video/revision/generation projection intent\"]:::optional\nQ2[\"Generation configuration is immutable<br/>Changed backend/target/settings → reject<br/>Semantic generation requires pinned model revision\"]:::note\nQ3[\"Superseded revision or deletion → obsolete<br/>Clear accepted attempt; lock parent then projection\"]:::fail\nQ4[\"Dispatch indexing queue; reserve 60s window<br/>Claim pending/due retrying; max 3 attempts<br/>UUID attempt; 300s lease; 1800s deadline\"]:::optional\nQ5[\"Heartbeat 100s + checkpoints<br/>Renew lease capped at deadline<br/>Stale ownership → return stale\"]:::normal\nQ6[\"Load accepted manifest and verify SHA/count<br/>Validate passage identity and aligned embeddings<br/>Reject model, dimension, timestamp or nonfinite mismatch\"]:::normal\nQ7[\"Validate target schema/dimension; tolerate valid create races<br/>Write attempt-scoped IDs in bounded batches<br/>Verify counts, exact payloads and semantic vectors\"]:::normal\nQ8[\"Guard parent/revision/token/lease/deadline<br/>Publish ready + accepted_attempt_id<br/>Readers use this exact identity\"]:::safe\nQ9[\"Exception → classify<br/>ValueError / KeyError / TypeError are permanent<br/>Other temporary failures use exponential jittered retry\"]:::retry\nQ10[\"Expired indexing → recover with same budget<br/>Permanent or exhausted → failed<br/>Wrong token/obsolete → no failure overwrite\"]:::fail\nQ11[\"Reconcile: bounded backfill + oldest verification<br/>Network uncertainty keeps eligibility<br/>Bad source integrity → failed and revoke acceptance\"]:::normal\nQ12[\"Verified missing/corrupt ready projection<br/>request_repair checks expected accepted attempt<br/>Set pending, reset attempts, clear accepted identity\"]:::retry\nQ13[\"Manual repair after correcting terminal cause<br/>python -m app.workers.search_indexing --repair JOB_UUID<br/>Allowed only for ready or failed current jobs\"]:::note\nQ14[\"Attempt cleanup after deadline + 3600s<br/>Protect accepted/current indexing attempt<br/>Recheck hourly for late writes; record cleanup errors\"]:::normal\nQ1 --> Q2 --> Q4 --> Q5 --> Q6 --> Q7 --> Q8\nQ4 -.->|Revision/deletion change| Q3\nQ6 -.->|Failure| Q9\nQ7 -.->|Failure| Q9\nQ9 --> Q10\nQ10 -->|Retry due| Q4\nQ8 --> Q11 --> Q12 --> Q4\nQ13 --> Q12\nQ10 -.-> Q14\nQ3 -.-> Q14",
+    "file": "09-search-projection-recovery.mmd"
+  },
+  {
+    "slug": "10-search-serving-and-lexical",
+    "title": "10 · Optional search failure policy and legacy lexical repair",
+    "scope": "OPTIONAL · separate feature flags",
+    "sources": [
+      "app/services/library_search.py",
+      "app/services/search_policy.py",
+      "app/api/search.py",
+      "app/services/lexical_index.py",
+      "app/services/lexical_reconciliation.py"
+    ],
+    "tests": [
+      "tests/test_library_search.py",
+      "tests/test_search_policy.py",
+      "tests/test_lexical_index.py"
+    ],
+    "notes": "Search results are revalidated against fresh Postgres state before return. A successful empty result differs from a failed backend. The legacy lexical reconciler runs only when Elasticsearch is configured and durable projections are disabled; it has different repair behavior.",
+    "code": "S1[\"Library search explicitly enabled?<br/>Disabled → 404; invalid request → 422<br/>Authenticated owner scope only\"]:::optional\nS2[\"Admission: 8 requests per process<br/>No slot → 429 + Retry-After 1<br/>Total request budget 3s\"]:::normal\nS3[\"Fresh Postgres scope; max 100 videos<br/>Scope too large → 422; unavailable scope → 503<br/>Only ready current revision + accepted attempt\"]:::normal\nS4[\"Execute ONLY requested backend(s)<br/>Parallel hybrid branches; branch budget up to 2s<br/>Reserve 250ms; scope read up to 500ms\"]:::normal\nS5[\"Reject invalid/nonfinite/foreign hits<br/>Re-read scope and generation before returning<br/>Drop deleted, revoked, superseded or repaired identities\"]:::safe\nS6{\"Any requested branch succeeded?\"}:::decision\nS7[\"200, including a valid empty result<br/>Hybrid survivor allowed with degradation metadata<br/>Incomplete coverage notices are separate\"]:::safe\nS8[\"No successful branch<br/>Failed/timed-out requested engine → 503<br/>Nonempty scope, no eligible projection → 409<br/>Truly empty authorized library → 200\"]:::fail\nS9[\"HTTP deadline can return before blocking calls end<br/>Admission stays occupied until all calls finish<br/>No unbounded pile-up of timed-out background work\"]:::note\nS10[\"LEGACY lexical reconciliation<br/>Deterministic video/revision IDs and fingerprint<br/>Create not-ready manifest; tolerate creation races\"]:::optional\nS11[\"Ready + matching count → reuse<br/>Changed content without revision → reject<br/>Bulk batches 250; reject partial write/refresh failure\"]:::normal\nS12[\"Publish ready only after successful refresh<br/>Recheck accepted source after I/O<br/>Delete superseded revision; bounded cursors + per-item errors\"]:::safe\nS13[\"Cleanup scans passages AND manifests<br/>Delete failure/version conflict/timeout → retry later<br/>Partial/timed-out search never reported as success\"]:::note\nS1 --> S2 --> S3 --> S4 --> S5 --> S6\nS6 -->|Yes| S7\nS6 -->|No| S8\nS4 -.-> S9\nS10 --> S11 --> S12 --> S13",
+    "file": "10-search-serving-and-lexical.mmd"
+  },
+  {
+    "slug": "11-event-capture-and-feedback",
+    "title": "11 · Optional Kafka capture and interaction idempotency",
+    "scope": "OPTIONAL · opt-in analytics prototype",
+    "sources": [
+      "app/services/search_events.py",
+      "app/db/search_event_repository.py",
+      "app/api/search.py",
+      "app/api/search_analytics.py",
+      "frontend/src/LibrarySearch.tsx"
+    ],
+    "tests": [
+      "tests/test_search_events.py",
+      "tests/test_search_events_integration.py",
+      "tests/search_analytics_browser.cjs"
+    ],
+    "notes": "No broker call occurs on the search request path. Optional capture may be skipped or fail before durable acceptance; a 25ms timeout is an unknown outcome because the bounded worker may commit later. Late capture does not enable feedback on an already returned response. Kafka contains content-free events, not raw queries.",
+    "code": "A1[\"Capture flag + request opt-in required<br/>AUTH_REQUIRED or synthetic-only mode<br/>Disabled/no consent → search continues without capture\"]:::optional\nA2[\"Acquire one of 2 capture slots without waiting<br/>Busy/submission error → no capture capability<br/>Separate DB pool: 2, no overflow, 10ms pool wait\"]:::normal\nA3[\"Bound DB operations<br/>Connect 2s; statement 1000ms; lock 100ms<br/>Async caller waits at most 25ms, shielded worker\"]:::normal\nA4[\"ONE transaction: context → event outbox → budget<br/>Postgres dependent CTE; rollback ALL if budget unavailable<br/>Event max 16KiB; pending outbox default 1GiB\"]:::safe\nA5[\"Confirmed commit within wait → interaction enabled<br/>Failure → false; search response unchanged<br/>Timeout → unknown; slot released only on completion\"]:::note\nA6[\"Interaction request: owner + search ID + event UUID<br/>Strict schema and rank checks; HTTP body max 8KiB<br/>Context must belong to owner and be younger than 7 days\"]:::normal\nA7{\"Existing event ID?\"}:::decision\nA8[\"Same search + payload fingerprint → success replay<br/>Different payload/search → 409 event_id_conflict<br/>No second budget charge or interaction increment\"]:::safe\nA9[\"New interaction; max 100 per context<br/>Validate against stored result count<br/>Increment count + outbox + budget atomically\"]:::normal\nA10[\"HTTP outcomes<br/>202 after acceptance; 404 missing/disabled context<br/>409 limit/conflict; 503 + Retry-After 1 on storage failure\"]:::note\nA11[\"UI feedback retry reuses event_id<br/>Same search and same feedback value<br/>A changed feedback value creates a new event\"]:::retry\nA12[\"Viewed/opened events are best effort<br/>No durable client retry queue<br/>User can retry a failed feedback selection\"]:::note\nA13[\"Consent and query protection<br/>Query stored only in shared Postgres context<br/>Withdrawal clears query/share; global withdrawal timestamp<br/>Review rechecks ownership, revision and deletion\"]:::note\nA1 --> A2 --> A3 --> A4 --> A5\nA5 -->|Capability available| A6 --> A7\nA7 -->|Yes| A8 --> A10\nA7 -->|No| A9 --> A10\nA10 -.->|Feedback failed| A11 --> A6\nA5 -.-> A12\nA6 -.-> A13",
+    "file": "11-event-capture-and-feedback.mmd"
+  },
+  {
+    "slug": "12-event-publisher",
+    "title": "12 · Optional Kafka publisher and outbox expiry",
+    "scope": "OPTIONAL · analytics prototype",
+    "sources": [
+      "app/workers/search_events.py",
+      "app/db/search_event_repository.py"
+    ],
+    "tests": [
+      "tests/test_search_events.py",
+      "tests/test_search_events_integration.py"
+    ],
+    "notes": "Producer idempotence does not make the Postgres-to-Kafka bridge exactly once. A crash after broker acceptance but before marking the outbox can republish the same event. Consumer receipts handle those duplicates. Seven-day expiry bounds retention; accepted events can expire during a sufficiently long outage.",
+    "code": "K1[\"Outbox claim transaction<br/>Unpublished, younger than 7 days, lease absent/expired<br/>Oldest first, batch 100, FOR UPDATE SKIP LOCKED\"]:::optional\nK2[\"Claim UUID + 30s lease; commit<br/>Concurrent publishers skip locked rows\"]:::normal\nK3[\"Produce keyed by search_id<br/>enable.idempotence=true; acks=all<br/>Delivery timeout 10s; request timeout 5s; linger 5ms\"]:::normal\nK4[\"Bound producer queue<br/>1000 messages / 16MiB; flush up to 11s<br/>Collect only successful delivery callbacks\"]:::normal\nK5{\"Broker ACK AND current live claim?\"}:::decision\nK6[\"Atomic mark published + decrement pending bytes<br/>Match event ID/token; unpublished; unexpired lease<br/>Duplicate ACK cannot release budget twice\"]:::safe\nK7[\"No mark on failure, unknown outcome or expired claim<br/>Outbox remains durable; reclaim after lease expiry<br/>Publisher loop catches errors and waits 250ms\"]:::retry\nK8[\"Crash after Kafka ACK but before DB mark<br/>Possible duplicate publication<br/>Consumer receipt prevents duplicate effects: panel 13\"]:::note\nK9[\"Maintenance each 60s<br/>Delete outbox rows older than 7 days in batches 1000<br/>Unpublished expiry decrements bytes and increments expired_events\"]:::note\nK10[\"Retain published interaction IDs during context lifetime<br/>Expire contexts and old projections<br/>Live receipts/checkpoints are not pruned here\"]:::note\nK11[\"Local bootstrap defaults<br/>3 partitions; replication factor 1; min ISR 1<br/>7-day / 1GiB-per-partition retention limits\"]:::note\nK12[\"Local prototype only<br/>Single-replica acks=all is not high availability<br/>Retained data bounds replay and recovery\"]:::fail\nK1 --> K2 --> K3 --> K4 --> K5\nK5 -->|Yes| K6\nK5 -->|No| K7 --> K1\nK6 -.->|Crash window| K8\nK7 -.->|Prolonged outage| K9 --> K10\nK3 -.-> K11 --> K12",
+    "file": "12-event-publisher.mmd"
+  },
+  {
+    "slug": "13-consumer-replay",
+    "title": "13 · Optional Kafka consumers, quarantine and replay",
+    "scope": "OPTIONAL · analytics prototype",
+    "sources": [
+      "app/workers/search_events.py",
+      "app/db/search_event_repository.py",
+      "app/db/search_event_models.py"
+    ],
+    "tests": [
+      "tests/test_search_event_worker.py",
+      "tests/test_search_events_rebalance.py",
+      "tests/test_search_events_integration.py"
+    ],
+    "notes": "Analytics and review use independent consumer groups and receipt generations. Receipt identity is generation + event_id. Deduplication applies to database effects within a generation, not producer capture. An absent broker offset is allowed only when the DB checkpoint equals the retained low watermark; a broker offset without a DB checkpoint fails closed. Replay creates a separate shadow and never replaces the live dashboard.",
+    "code": "N1[\"Assign partition using DB checkpoint + broker offset<br/>New group starts at retained low watermark<br/>Persist initial broker position before first event\"]:::optional\nN2{\"History consistent with retained bounds?\"}:::decision\nN3[\"Fail closed on lost history<br/>Missing/expired offset; missing DB projection history;<br/>broker ahead of DB or DB beyond high watermark\"]:::fail\nN4[\"Poll max 50 records or 100ms<br/>Auto commit and auto offset store disabled<br/>Revoke/lost partition → discard uncommitted buffer\"]:::normal\nN5[\"Validate batch order and strict event schema<br/>Max record 16KiB; malformed/null/oversized → quarantine<br/>Quarantine keyed by generation/topic/partition/offset + digest\"]:::normal\nN6[\"ONE DB transaction<br/>Checkpoint + sorted per-search advisory locks<br/>Receipt + projection OR quarantine\"]:::safe\nN7{\"Receipt generation + event_id already exists?\"}:::decision\nN8[\"Duplicate → skip projection effect<br/>Still advance checkpoint safely\"]:::safe\nN9[\"Apply deterministic projection<br/>Out-of-order interactions retain attribution<br/>Latest feedback ordered by recorded_at + event_id\"]:::normal\nN10[\"DB commit FIRST; then synchronous Kafka offset+1<br/>Commit separately per partition<br/>Crash/offset-commit failure → replay; receipts deduplicate\"]:::safe\nN11[\"DB failure → transaction rollback, no offset commit<br/>Consumer restarts after 1s for operational exceptions<br/>ValueError/lost history stops for operator recovery\"]:::retry\nN12[\"Replay into replay-UUID generation<br/>Capture current bounds or use saved manifest<br/>Validate topic, partitions and retained start/end\"]:::optional\nN13[\"Read only saved interval; batches 50; deadline 600s<br/>Same receipt/projection/quarantine transaction<br/>Changed payload must be a new event; corrected handler may replay\"]:::normal\nN14[\"Write manifest only after complete replay<br/>Bounds + event count + projection checksum<br/>Handler SHA + quarantine count; no live replacement\"]:::safe\nN15[\"Retire only replay-UUID generations explicitly<br/>Remove their projections, receipts, quarantine and checkpoints<br/>Live generations cannot use shadow retirement\"]:::note\nN1 --> N2\nN2 -->|No| N3\nN2 -->|Yes| N4 --> N5 --> N6 --> N7\nN7 -->|Yes| N8 --> N10\nN7 -->|No| N9 --> N10\nN6 -.->|Failure| N11 --> N1\nN10 -.->|Crash before offset commit| N1\nN3 -.->|Operator chooses bounded rebuild| N12 --> N13 --> N14 --> N15",
+    "file": "13-consumer-replay.mmd"
+  },
+  {
+    "slug": "14-metrics-and-alerts",
+    "title": "14 · Conditional metrics, bounded I/O and alerts",
+    "scope": "Core; optional monitoring requires configuration",
+    "sources": [
+      "app/services/metrics_service.py",
+      "app/services/storage_service.py",
+      "app/db/session.py",
+      "app/workers/maintenance.py",
+      "ops/alerts.yml",
+      "ops/prometheus.yml",
+      "ops/alertmanager.yml"
+    ],
+    "tests": [
+      "tests/test_conditional_storage.py",
+      "tests/test_operational_safety.py"
+    ],
+    "notes": "Metrics are best effort and never establish processing success. Conditional writes merge different fields but the same field remains last-successful-writer. Alerts describe supplied rules; delivery is not configured by generating this board. The earlier prose mentioning eight alerts is older than the current fourteen-rule file.",
+    "code": "M1[\"Read metrics JSON + ETag<br/>404 means absent; other read errors propagate\"]:::normal\nM2[\"Merge updated fields<br/>Existing object: If-Match ETag<br/>New object: If-None-Match *\"]:::normal\nM3{\"Conditional write succeeds?\"}:::decision\nM4[\"Success; preserve concurrent different fields\"]:::safe\nM5[\"404 / 409 / 412 → reload and merge again<br/>Maximum 8 conditional-write attempts<br/>Other error or exhausted attempts → raise\"]:::retry\nM6[\"safe_update_metrics logs and returns None<br/>Processing success/failure stays authoritative in Postgres\"]:::note\nM7[\"Dependency I/O bounds<br/>S3 connect 5s / read 30s, standard 3 total attempts<br/>Core Qdrant timeout 10s\"]:::normal\nM8[\"Core Postgres bounds<br/>Connect 5s; statement 30s; lock 5s<br/>pool_pre_ping; pool wait 10s\"]:::normal\nM9[\"Independent maintenance operations<br/>Catch per-operation failure; rollback, record error<br/>Successful timestamps advance only on success\"]:::normal\nM10[\"Core alerts<br/>Operations down 2m; dispatcher age  greater than 120s for 1m<br/>Queue age  greater than 300s for 2m; expired/progress  greater than 900s for 2m\"]:::note\nM11[\"Failure and repair alerts<br/>Terminal failures in last 10m; dependencies failed for 2m<br/>GC/index errors or success age  greater than 1800s for 2m<br/>Backup success age  greater than 86400s for 5m\"]:::note\nM12[\"Optional search alerts<br/>Lexical/projection/cleanup failures for 2m<br/>Unavailable ratio  greater than 5%, degraded  greater than 10%, p95  greater than 1.5s for 5m<br/>Admission active ≥8 for 2m\"]:::note\nM13[\"Operational limits<br/>Default Alertmanager receiver sends nothing<br/>Configure/test receiver and external uptime monitor<br/>Same-host monitoring cannot report complete host loss\"]:::fail\nM1 --> M2 --> M3\nM3 -->|Yes| M4\nM3 -->|Conflict| M5 --> M1\nM5 -->|Failure| M6\nM7 --> M9\nM8 --> M9\nM9 --> M10 --> M11 --> M12 --> M13",
+    "file": "14-metrics-and-alerts.mmd"
+  },
+  {
+    "slug": "15-backup-and-disaster-recovery",
+    "title": "15 · Verified backups and operator recovery",
+    "scope": "OPTIONAL · operations profile",
+    "sources": [
+      "ops/backup.py",
+      "docs/production_operations.md",
+      "Dockerfile",
+      "docker-compose.yml"
+    ],
+    "tests": [
+      "tests/test_backup.py",
+      "tests/backup_restore_smoke.py"
+    ],
+    "notes": "These are implemented backup checks and a documented operator recovery procedure, not evidence of a completed cloud disaster-recovery drill. Six-hour logical snapshots do not provide point-in-time recovery. Restore commands are not run while creating this diagram.",
+    "code": "B1[\"Backup requires separate S3 bucket<br/>Media AND backup buckets must have versioning enabled<br/>Failure → do not mark backup successful\"]:::optional\nB2[\"pg_dump custom format; unique object key<br/>Upload → download → verify SHA-256<br/>Commands have 1800s timeout\"]:::normal\nB3[\"Real restore into unique disposable database<br/>pg_restore --exit-on-error<br/>Check schema revision, row counts and orphan chunks\"]:::normal\nB4[\"Finally drop ONLY generated drill database<br/>Write checksum/restore manifest<br/>Record backup success only after all steps succeed\"]:::safe\nB5[\"Any upload/checksum/restore error<br/>Record error; preserve last successful timestamp<br/>Loop retries next interval: default 21600s, minimum 300s\"]:::retry\nB6[\"Operator disaster recovery<br/>Pause uploads, workers, dispatcher AND maintenance<br/>Preserve failed state for diagnosis\"]:::note\nB7[\"Verify trusted backup + disposable restore drill<br/>Restore into separate recovery database<br/>Check compatible schema and reviewed migrations\"]:::normal\nB8[\"Reconcile all referenced S3 object versions<br/>Rebuild accepted Qdrant vectors from manifests<br/>Validate searches, timestamps and ownership\"]:::normal\nB9[\"Resume dispatcher/workers<br/>Expired leases recovered; pending jobs republished<br/>Inspect terminal/exhausted work before manual reprocessing\"]:::normal\nB10[\"Restart GC only after artifact reconciliation<br/>Verify playback, uploads, alerts and backups<br/>Resume traffic after checks\"]:::safe\nB11[\"Deployment safety<br/>Pause/drain old workers; backup; Alembic migration first<br/>Application startup exits on migration failure<br/>Old workers cannot participate in new token protocol\"]:::note\nB1 --> B2 --> B3 --> B4\nB2 -.->|Failure| B5\nB3 -.->|Failure| B5\nB6 --> B7 --> B8 --> B9 --> B10\nB11 -.-> B6",
+    "file": "15-backup-and-disaster-recovery.mmd"
+  },
+  {
+    "slug": "16-legacy-and-boundaries",
+    "title": "16 · Legacy compatibility and guarantee boundaries",
+    "scope": "Legacy and implementation limits",
+    "sources": [
+      "app/workers/task.py",
+      "app/db/video_repository.py",
+      "docs/reliability_and_recovery.md",
+      "docs/kafka_validation_results.md"
+    ],
+    "tests": [
+      "tests/test_video_repository_retry_state.py",
+      "tests/test_pipeline_migration.py"
+    ],
+    "notes": "The legacy whole-video handler remains for old messages; new uploads use the durable pipeline. No unverified benchmark result is promoted to a passed gate. Kafka remains a locally validated prototype with outstanding acceptance gates, as recorded in the validation report.",
+    "code": "Z1[\"Legacy whole-video Celery message<br/>Claim only uploaded or due retrying video<br/>Require NO durable pipeline_jobs for that video\"]:::note\nZ2[\"Legacy claim increments video attempt count<br/>New token and owner; token-checked updates<br/>No claim → skipped; stale token → stale\"]:::normal\nZ3[\"Legacy temporary claim error<br/>Uses request.retries + 1 and Celery task.retry<br/>Decorator max_retries = max attempts - 1\"]:::retry\nZ4[\"Legacy processing error<br/>Persist retrying/failed on Video with matching token<br/>Then Celery task.retry with jittered countdown\"]:::retry\nZ5[\"Not the new durable retry protocol<br/>No durable-row outbox bridge for legacy retry publication<br/>Do not describe legacy handler as equivalent recovery\"]:::fail\nZ6[\"Core guarantee<br/>At-least-once delivery + idempotent claims<br/>Guarded acceptance; computation/writes may repeat\"]:::safe\nZ7[\"Cross-system limit<br/>No Postgres/S3/Qdrant distributed transaction<br/>Fencing does not stop every stale external write\"]:::note\nZ8[\"Terminal-work limit<br/>Core terminal failures are not automatically restarted<br/>Projection repair can explicitly reset its own budget\"]:::note\nZ9[\"Timing limit<br/>UTC application clocks must be synchronized<br/>Defaults are code values, not measured recovery times<br/>Tune deadlines to real workloads\"]:::note\nZ10[\"Kafka limit<br/>Optional pre-acceptance capture can be lost<br/>Timed-out capture can commit later<br/>Accepted-event accounting is not zero capture loss\"]:::note\nZ11[\"Validation boundary<br/>No new tests or load runs are claimed here<br/>Existing tests are source references, not fresh passes<br/>Cloud HA and outstanding Kafka gates remain unverified\"]:::note\nZ1 --> Z2\nZ1 -.->|Claim error| Z3\nZ2 -.->|Processing error| Z4 --> Z5\nZ6 --> Z7 --> Z8 --> Z9 --> Z10 --> Z11",
+    "file": "16-legacy-and-boundaries.mmd"
+  }
+]

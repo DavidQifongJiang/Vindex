@@ -1,0 +1,32 @@
+flowchart TB
+N1["Assign partition using DB checkpoint + broker offset<br/>New group starts at retained low watermark<br/>Persist initial broker position before first event"]:::optional
+N2{"History consistent with retained bounds?"}:::decision
+N3["Fail closed on lost history<br/>Missing/expired offset; missing DB projection history;<br/>broker ahead of DB or DB beyond high watermark"]:::fail
+N4["Poll max 50 records or 100ms<br/>Auto commit and auto offset store disabled<br/>Revoke/lost partition → discard uncommitted buffer"]:::normal
+N5["Validate batch order and strict event schema<br/>Max record 16KiB; malformed/null/oversized → quarantine<br/>Quarantine keyed by generation/topic/partition/offset + digest"]:::normal
+N6["ONE DB transaction<br/>Checkpoint + sorted per-search advisory locks<br/>Receipt + projection OR quarantine"]:::safe
+N7{"Receipt generation + event_id already exists?"}:::decision
+N8["Duplicate → skip projection effect<br/>Still advance checkpoint safely"]:::safe
+N9["Apply deterministic projection<br/>Out-of-order interactions retain attribution<br/>Latest feedback ordered by recorded_at + event_id"]:::normal
+N10["DB commit FIRST; then synchronous Kafka offset+1<br/>Commit separately per partition<br/>Crash/offset-commit failure → replay; receipts deduplicate"]:::safe
+N11["DB failure → transaction rollback, no offset commit<br/>Consumer restarts after 1s for operational exceptions<br/>ValueError/lost history stops for operator recovery"]:::retry
+N12["Replay into replay-UUID generation<br/>Capture current bounds or use saved manifest<br/>Validate topic, partitions and retained start/end"]:::optional
+N13["Read only saved interval; batches 50; deadline 600s<br/>Same receipt/projection/quarantine transaction<br/>Changed payload must be a new event; corrected handler may replay"]:::normal
+N14["Write manifest only after complete replay<br/>Bounds + event count + projection checksum<br/>Handler SHA + quarantine count; no live replacement"]:::safe
+N15["Retire only replay-UUID generations explicitly<br/>Remove their projections, receipts, quarantine and checkpoints<br/>Live generations cannot use shadow retirement"]:::note
+N1 --> N2
+N2 -->|No| N3
+N2 -->|Yes| N4 --> N5 --> N6 --> N7
+N7 -->|Yes| N8 --> N10
+N7 -->|No| N9 --> N10
+N6 -.->|Failure| N11 --> N1
+N10 -.->|Crash before offset commit| N1
+N3 -.->|Operator chooses bounded rebuild| N12 --> N13 --> N14 --> N15
+
+classDef normal fill:#edf4ff,stroke:#4b83bb,color:#172f4a
+classDef decision fill:#fff5dc,stroke:#b88d27,color:#4c3810
+classDef safe fill:#eaf7f0,stroke:#40916b,color:#193c2b
+classDef retry fill:#fff0de,stroke:#ce873a,color:#513211
+classDef fail fill:#ffeded,stroke:#c76a6a,color:#542525
+classDef note fill:#f1f3f6,stroke:#97a2ad,color:#344353
+classDef optional fill:#f2edfc,stroke:#8e74bc,color:#35254d

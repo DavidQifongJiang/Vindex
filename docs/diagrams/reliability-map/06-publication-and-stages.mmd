@@ -1,0 +1,33 @@
+flowchart TB
+P1["Preparation job<br/>If already searchable → guarded completion<br/>If chunks already exist → reuse, do not recreate"]:::normal
+P2["Extract audio to attempt-prefixed S3 keys<br/>Guard + commit chunk rows and preparation completion<br/>Completed chunks survive other failures"]:::safe
+P3["Chunk job: read audio → Whisper → embeddings<br/>Checkpoint before external publication<br/>Qdrant upsert wait=True + S3 manifests"]:::normal
+P4["Deterministic Qdrant ID<br/>UUID5 video + attempt token + segment ID<br/>Payload: attempt_token, chunk_index, write timestamp"]:::normal
+P5["S3 keys include attempt token<br/>Audio, chunk transcript/segments/embeddings,<br/>final manifests, processed video and thumbnail"]:::normal
+P6{"Final DB guard succeeds?<br/>Parent available; processing; matching token;<br/>unexpired lease AND deadline"}:::decision
+P7["Commit accepted paths + completed state<br/>Chunk artifact_token = current attempt token<br/>Clear active ownership + errors; schedule dependencies"]:::safe
+P8["Stale attempt cannot publish<br/>Earlier external writes remain unaccepted<br/>No distributed rollback"]:::fail
+P9["Finalizer validates complete chunk manifest<br/>Read ONLY accepted chunks; merge and sort<br/>Write attempt-specific final outputs"]:::normal
+P10["Finalizer transaction<br/>Publish final paths + search completed<br/>Optional revision + projection intent in same commit"]:::safe
+P11["Playback job<br/>Already published → guarded completion<br/>Transcode; thumbnail generation is best effort"]:::normal
+P12["Upload processed video; upload thumbnail if created<br/>Upload errors use normal retry policy<br/>Guard and commit accepted playback paths"]:::normal
+P13["In completion transaction<br/>Search embeddings complete AND processed_path present<br/>Set overall video processed; avoid readiness crash gap"]:::safe
+P14["Search visibility fence<br/>Filter vectors by completed chunk artifact tokens<br/>Legacy tokenless vectors only for eligible legacy indexes<br/>No accepted tokens → no results"]:::safe
+P16["Core collection creation race<br/>Qdrant create 409 is tolerated only if collection now exists<br/>Other creation errors propagate to classification"]:::note
+P1 --> P2 --> P3
+P3 --> P4 --> P6
+P3 --> P5 --> P6
+P6 -->|Yes| P7 --> P9 --> P10 --> P13
+P6 -->|No| P8
+P11 --> P12 --> P13
+P7 --> P14
+P4 -.-> P16
+P9 -.->|Failure before acceptance| P15["Use retry policy in panel 05<br/>Retry finalization from accepted chunks<br/>No retranscription"]:::retry
+
+classDef normal fill:#edf4ff,stroke:#4b83bb,color:#172f4a
+classDef decision fill:#fff5dc,stroke:#b88d27,color:#4c3810
+classDef safe fill:#eaf7f0,stroke:#40916b,color:#193c2b
+classDef retry fill:#fff0de,stroke:#ce873a,color:#513211
+classDef fail fill:#ffeded,stroke:#c76a6a,color:#542525
+classDef note fill:#f1f3f6,stroke:#97a2ad,color:#344353
+classDef optional fill:#f2edfc,stroke:#8e74bc,color:#35254d

@@ -1,0 +1,33 @@
+flowchart TB
+D1["Upload commit creates durable intent<br/>pipeline_jobs: unique video + stage<br/>search preparation AND playback"]:::normal
+D2["Preparation completion transaction<br/>Accepted audio paths + all chunk rows<br/>video_search_chunks: unique video + chunk index"]:::safe
+D3["Each chunk completes independently<br/>Commit accepted artifact token<br/>Keep successful chunks when another retries"]:::safe
+D4["Last completed chunk creates finalize job<br/>Same transaction; parent lock + unique stage<br/>One finalizer, independent attempt budget"]:::safe
+D5["Dispatcher iteration<br/>Recover expired/exhausted work first<br/>Then dispatch; default every 5s, minimum 1s"]:::normal
+D6["Read up to 100 candidates per model<br/>pending OR retrying with retry time due<br/>Attempts remain; dispatch window due; oldest first"]:::normal
+D7["Release scan transaction; lock parent video<br/>Missing/deleting video → skip<br/>Recheck status and dispatch window"]:::normal
+D8["Commit dispatch_after = now + 60s<br/>Minimum configured redispatch interval 10s<br/>Reserve BEFORE calling broker"]:::normal
+D9["Publish Celery task to Redis<br/>send_task with retry=False<br/>Task carries video ID and optional chunk index"]:::normal
+D10{"Worker claims before next window?"}:::decision
+D11["Processing row is no longer dispatchable<br/>Worker lifecycle: panel 03"]:::safe
+D12["No claim; Redis loss; ambiguous send<br/>Dispatcher crash before/after send<br/>Durable row remains eligible after window"]:::retry
+D13["Publish exception ends this dispatch batch<br/>Log; next iteration can recover leases<br/>Record successful dispatcher operation state"]:::note
+D14["Redis/Celery transport controls<br/>Late ACK; reject on worker loss<br/>ACK failure/timeouts; prefetch multiplier 1"]:::note
+D15["Transport defaults<br/>Visibility timeout 7200s<br/>Broker connect/socket timeouts 5s"]:::note
+D1 --> D2 --> D3 --> D4
+D1 -.-> D5
+D2 -.-> D5
+D4 -.-> D5
+D5 --> D6 --> D7 --> D8 --> D9 --> D10
+D10 -->|Yes| D11
+D10 -->|No| D12 --> D5
+D9 -.->|Exception| D13
+D9 -.-> D14 --> D15
+
+classDef normal fill:#edf4ff,stroke:#4b83bb,color:#172f4a
+classDef decision fill:#fff5dc,stroke:#b88d27,color:#4c3810
+classDef safe fill:#eaf7f0,stroke:#40916b,color:#193c2b
+classDef retry fill:#fff0de,stroke:#ce873a,color:#513211
+classDef fail fill:#ffeded,stroke:#c76a6a,color:#542525
+classDef note fill:#f1f3f6,stroke:#97a2ad,color:#344353
+classDef optional fill:#f2edfc,stroke:#8e74bc,color:#35254d

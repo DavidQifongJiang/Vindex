@@ -1,5 +1,25 @@
 # Vindex Benchmarks
 
+The expanded local corpus is listed in [videos_library_50.csv](videos_library_50.csv):
+50 full lectures, 48.63 hours, with source checksums and attribution in
+[open_lectures_50_manifest.json](open_lectures_50_manifest.json). The videos are in
+the original `vindex_benchmark_videos/` folder. This is corpus acquisition, not a
+completed 500-query relevance evaluation.
+
+The [500-query draft set](library_queries_500/README.md) is now available:
+150 lexical, 150 paraphrase, 150 conceptual, and 50 no-answer candidates,
+with 150 development and 350 reserved evaluation queries. Source hints link to
+the official captions; relevance judgments and a full-corpus run remain pending.
+
+For the current library-wide API comparison, real-store failure drills, and the
+decision to hold rollout, see [Phase 5 evaluation](../docs/search_phase5_evaluation.md).
+Run `python -m benchmarks.evaluate_library --help` for the isolated harness.
+The earlier per-video measurements below are a different retrieval scope.
+
+For the paired BM25, hybrid, and real Elasticsearch experiment over the frozen
+100-query corpus, see [retrieval_experiments.md](retrieval_experiments.md).
+It includes results, reproduction commands, API modes, and measurement limits.
+
 This folder records Vindex pipeline and semantic-search benchmark data, including historical pipeline stages, the original semantic-search baseline, and the expanded 10-video search-quality benchmark.
 
 The benchmark has two parts:
@@ -137,6 +157,50 @@ Current expanded benchmark summary:
 | P95 API search latency | 71.7ms |
 
 ## Metrics
+
+### Full 500-query paired API comparison
+
+`before_after_api500.py` compares semantic-only, Elasticsearch-only, and unchanged
+equal-weight hybrid search on the same owned library of 50 official-caption videos.
+It uses the real `/search` route, PostgreSQL scope/publication/revalidation, Qdrant,
+and Elasticsearch. Authentication is a fixed test owner; external network, JWT and
+video ingestion are excluded. This is a same-scope semantic ablation, not a timing
+comparison between the old single-video endpoint and the new library endpoint.
+
+The frozen `library_queries_500/before_after_api500_plan.json` fixes the query hash,
+two rounds, randomized paired request order, and methods before results are scored.
+Set `VINDEX_TEST_DATABASE_URL`, `VINDEX_TEST_QDRANT_URL`, and
+`VINDEX_TEST_ELASTICSEARCH_URL`, then run:
+
+```powershell
+.venv\Scripts\python.exe -m benchmarks.before_after_api500
+```
+
+Use disposable database/Qdrant services. The runner creates and removes an isolated
+database schema and search collections; it does not change production search flags.
+Run without competing model inference. Raw requests, spans, metrics, setup timing,
+and cleanup status are retained in `library_queries_500/before_after_api500*`.
+
+`download_local_judge.py` downloads a pinned official Qwen 7B GGUF and llama.cpp
+CUDA runtime, checks published hashes, and keeps large binaries under ignored
+`model_cache/`. `gguf_relevance_judge.py --pilot --output PATH` grades the original
+30 verified pairs without showing the model human labels, engine, or rank. A local
+llama.cpp server must listen on `127.0.0.1:18081`. The cached Gemma 1B pilot failed
+calibration and its output is excluded from accuracy scores.
+
+After calibration, `gguf_relevance_judge.py --output
+benchmarks/library_queries_500/before_after_judgments.jsonl` assesses the complete
+unique query/text pool from both API rounds. Each grade records provenance, model,
+revision and rubric hash. Resuming skips already recorded pairs; missing
+or invalid responses fail instead of becoming zero. Then run
+`python -m benchmarks.summarize_before_after500`.
+
+Primary quality metrics use grade 2 and the first measured round: Hit@1, Hit@5,
+MRR@5 on 450 candidate-answerable queries. The 50 candidate negatives are separate.
+Existing human labels take precedence on exact query/text matches. All other new
+labels are **automated estimates, not human judgments**. Pooled nDCG and partial
+answer coverage are secondary. Repeated calls add latency samples, not independent
+queries. Paired intervals do not capture model judgment error or lecture clustering.
 
 Hit Rate@5:
 

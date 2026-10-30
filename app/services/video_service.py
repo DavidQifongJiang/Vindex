@@ -1,4 +1,5 @@
 import os
+import json
 import math
 import shutil
 import subprocess
@@ -6,20 +7,18 @@ from pathlib import Path
 
 from tempfile import TemporaryDirectory
 from app.services.storage_service import get_storage
+from app.services.media_service import run_media_command
 from app.services.search_service import build_segment_embeddings, get_embedding_model
 
 from app.db.session import create_session
+from app.db.models import PipelineJob, Video, VideoSearchChunk
+from app.db.pipeline_repository import guard_work, complete_work
 from app.db.video_repository import (
-    claim_search_chunk,
     create_search_chunks,
-    delete_search_chunks,
     get_video,
     get_video_for_processing_attempt,
-    get_search_chunk,
     list_search_chunks,
     mark_video_processed_if_ready,
-    mark_video_search_failed,
-    record_search_chunk_success,
     record_processing_success,
     search_chunk_counts,
     update_video,
@@ -117,6 +116,8 @@ def probe_duration_seconds(video_path: Path, ffmpeg_path: str):
                 str(video_path),
             ],
             text=True,
+            timeout=int(os.getenv("MEDIA_COMMAND_TIMEOUT_SECONDS", "900")),
+            stderr=subprocess.PIPE,
         )
     except Exception as exc:
         raise_classified(
@@ -274,7 +275,10 @@ def raise_classified(error: Exception, *, message: str, error_code: str):
 
 
 def seconds_from_upload(storage, video_id: str):
-    metrics = read_metrics(storage, video_id)
+    try:
+        metrics = read_metrics(storage, video_id)
+    except Exception:
+        return None
     accepted_at_epoch = metrics.get("upload", {}).get("accepted_at_epoch")
 
     if not accepted_at_epoch:
@@ -300,7 +304,7 @@ def record_full_processing_if_ready(db, storage, video_id: str):
     return video
 
 
-def prepare_video_search_chunks(video_id):
+def prepare_video_search_chunks(video_id, *, processing_token, lease):
     db = create_session()
     storage = get_storage()
     prepare_start = perf_counter()
@@ -314,6 +318,7 @@ def prepare_video_search_chunks(video_id):
             )
 
         if video.embedding_status == "completed":
+            complete_work(db, PipelineJob, video_id, "search", processing_token)
             record_full_processing_if_ready(db, storage, video_id)
             return {
                 "video_id": video_id,
@@ -324,7 +329,7 @@ def prepare_video_search_chunks(video_id):
 
         existing_chunks = list_search_chunks(db, video_id)
         if existing_chunks:
-            finalize_chunked_search_if_ready(video_id)
+            complete_work(db, PipelineJob, video_id, "search", processing_token)
             chunk_indexes = [
                 chunk.chunk_index
                 for chunk in existing_chunks
@@ -337,13 +342,14 @@ def prepare_video_search_chunks(video_id):
                 "chunk_count": len(existing_chunks),
             }
 
+        guard_work(db, PipelineJob, video_id, "search", processing_token)
         update_video(db, video_id, {
-            "status": "processing",
+            "status": "failed" if video.status == "failed" else "processing",
             "audio_status": "processing",
             "transcript_status": "processing",
             "segments_status": "processing",
             "embedding_status": "processing",
-            "error_message": None,
+            "error_message": video.error_message if video.status == "failed" else None,
         })
 
         try:
@@ -387,13 +393,14 @@ def prepare_video_search_chunks(video_id):
             prepared_chunks = []
             for chunk in chunk_specs:
                 chunk_index = chunk["chunk_index"]
-                audio_key = f"audio_chunks/{video_id}/{chunk_index:04d}.wav"
+                lease.check()
+                audio_key = f"audio_chunks/{video_id}/{processing_token}/{chunk_index:04d}.wav"
                 audio_path = temp_dir / f"{video_id}_{chunk_index:04d}.wav"
                 audio_duration = chunk["audio_end_seconds"] - chunk["audio_start_seconds"]
 
                 audio_extraction_start = perf_counter()
                 try:
-                    subprocess.run(
+                    run_media_command(
                         [
                             ffmpeg_path,
                             "-y",
@@ -435,21 +442,12 @@ def prepare_video_search_chunks(video_id):
                     "max_processing_attempts": MAX_PROCESSING_ATTEMPTS,
                 })
 
-            try:
-                delete_segments(video_id)
-            except Exception as exc:
-                raise_classified(
-                    exc,
-                    message="Could not clear old Qdrant vectors before chunked indexing",
-                    error_code="qdrant_vector_delete_failed",
-                )
-
-            delete_search_chunks(db, video_id)
-            chunks = create_search_chunks(db, video_id, prepared_chunks)
-            update_video(db, video_id, {
-                "audio_path": f"audio_chunks/{video_id}/",
-                "audio_status": "extracted",
-            })
+            guard_work(db, PipelineJob, video_id, "search", processing_token)
+            chunks = create_search_chunks(db, video_id, prepared_chunks, commit=False)
+            db.query(Video).filter_by(video_id=video_id).update({
+                "audio_path": f"audio_chunks/{video_id}/{processing_token}/", "audio_status": "extracted",
+            }, synchronize_session=False)
+            complete_work(db, PipelineJob, video_id, "search", processing_token)
 
             try:
                 safe_update_metrics(storage, video_id, "processing", {
@@ -480,51 +478,22 @@ def prepare_video_search_chunks(video_id):
 def process_video_search_chunk(
     video_id: str,
     chunk_index: int,
-    processing_owner: str,
-    max_processing_attempts: int = MAX_PROCESSING_ATTEMPTS,
+    *,
+    claimed_chunk,
+    lease,
 ):
     db = create_session()
     storage = get_storage()
     chunk_start = perf_counter()
 
     try:
-        claimed_chunk = claim_search_chunk(
-            db,
-            video_id,
-            chunk_index,
-            processing_owner,
-            max_processing_attempts,
-        )
-
-        if claimed_chunk is None:
-            existing_chunk = get_search_chunk(db, video_id, chunk_index)
-            if existing_chunk is not None and existing_chunk.status == "completed":
-                finalize_chunked_search_if_ready(video_id)
-                return {
-                    "video_id": video_id,
-                    "chunk_index": chunk_index,
-                    "status": "already_completed",
-                }
-
-            return {
-                "video_id": video_id,
-                "chunk_index": chunk_index,
-                "status": "skipped",
-            }
-
+        processing_token = claimed_chunk.processing_token
         video = get_video(db, video_id)
         if video is None:
             raise PermanentProcessingError(
                 "Video not found",
                 error_code="video_not_found",
             )
-
-        if video.embedding_status == "completed":
-            return {
-                "video_id": video_id,
-                "chunk_index": chunk_index,
-                "status": "search_already_completed",
-            }
 
         with TemporaryDirectory() as temp_dir:
             temp_dir = Path(temp_dir)
@@ -589,9 +558,10 @@ def process_video_search_chunk(
             embedding_generation_seconds = seconds_since(embedding_start)
 
             qdrant_start = perf_counter()
+            lease.check()
             if segment_embeddings:
                 try:
-                    upsert_segments(video_id, segment_embeddings)
+                    upsert_segments(video_id, segment_embeddings, attempt_token=processing_token)
                 except Exception as exc:
                     raise_classified(
                         exc,
@@ -600,9 +570,9 @@ def process_video_search_chunk(
                     )
             qdrant_upsert_seconds = seconds_since(qdrant_start)
 
-            transcript_key = f"transcripts/chunks/{video_id}/{chunk_index:04d}.txt"
-            segments_key = f"transcripts/chunks/{video_id}/{chunk_index:04d}_segments.json"
-            embedding_key = f"embeddings/chunks/{video_id}/{chunk_index:04d}_embeddings.json"
+            transcript_key = f"transcripts/chunks/{video_id}/{processing_token}/{chunk_index:04d}.txt"
+            segments_key = f"transcripts/chunks/{video_id}/{processing_token}/{chunk_index:04d}_segments.json"
+            embedding_key = f"embeddings/chunks/{video_id}/{processing_token}/{chunk_index:04d}_embeddings.json"
 
             artifact_write_start = perf_counter()
             try:
@@ -617,10 +587,12 @@ def process_video_search_chunk(
                 )
             s3_artifact_write_seconds = seconds_since(artifact_write_start)
 
-            updated_chunk = record_search_chunk_success(
+            updated_chunk = complete_work(
                 db,
+                VideoSearchChunk,
                 video_id,
                 chunk_index,
+                processing_token,
                 {
                     "transcript_path": transcript_key,
                     "segments_path": segments_key,
@@ -644,8 +616,6 @@ def process_video_search_chunk(
                     error_code="stale_search_chunk_attempt",
                 )
 
-        finalize_chunked_search_if_ready(video_id)
-
         return {
             "video_id": video_id,
             "chunk_index": chunk_index,
@@ -655,59 +625,16 @@ def process_video_search_chunk(
         db.close()
 
 
-def finalize_chunked_search_if_ready(video_id: str):
+def finalize_chunked_search_if_ready(video_id: str, *, processing_token, lease):
     db = create_session()
     storage = get_storage()
     finalize_start = perf_counter()
 
     try:
         counts = search_chunk_counts(db, video_id)
-        if counts["total"] == 0:
-            return None
-
-        if counts["failed"] > 0:
-            failed_chunk = (
-                chunk
-                for chunk in list_search_chunks(db, video_id)
-                if chunk.status == "failed"
-            )
-            failed_chunk = next(failed_chunk, None)
-            error_code = failed_chunk.last_error_code if failed_chunk else "search_chunk_failed"
-            error_type = failed_chunk.last_error_type if failed_chunk else "SearchChunkFailed"
-            error_message = (
-                failed_chunk.last_error_message
-                if failed_chunk
-                else "One or more search chunks failed"
-            )
-            video = mark_video_search_failed(
-                db,
-                video_id,
-                error_code=error_code or "search_chunk_failed",
-                error_type=error_type or "SearchChunkFailed",
-                error_message=error_message or "One or more search chunks failed",
-            )
-            try:
-                safe_update_metrics(storage, video_id, "processing", {
-                    "search_failed_at_epoch": now_epoch(),
-                    "search_failed_chunks": counts["failed"],
-                    "search_completed_chunks": counts["completed"],
-                })
-            except Exception:
-                pass
-            return video
-
-        if counts["completed"] < counts["total"]:
-            try:
-                safe_update_metrics(storage, video_id, "processing", {
-                    "search_completed_chunks": counts["completed"],
-                    "search_processing_chunks": counts["processing"],
-                    "search_pending_chunks": counts["pending"],
-                    "search_retrying_chunks": counts["retrying"],
-                    "search_chunk_count": counts["total"],
-                })
-            except Exception:
-                pass
-            return None
+        if not counts["total"] or counts["completed"] != counts["total"]:
+            raise PermanentProcessingError("Finalization requires a complete chunk manifest",
+                                           error_code="invalid_chunk_manifest")
 
         video = get_video(db, video_id)
         if video is None:
@@ -717,6 +644,7 @@ def finalize_chunked_search_if_ready(video_id: str):
             )
 
         if video.embedding_status == "completed":
+            complete_work(db, PipelineJob, video_id, "finalize", processing_token)
             return record_full_processing_if_ready(db, storage, video_id)
 
         chunks = list_search_chunks(db, video_id)
@@ -740,9 +668,10 @@ def finalize_chunked_search_if_ready(video_id: str):
         all_embeddings.sort(key=lambda segment: (segment.get("start") or 0, segment.get("end") or 0))
         transcript_text = "\n".join(part for part in transcript_parts if part)
 
-        transcript_key = f"transcripts/{video_id}.txt"
-        segments_key = f"transcripts/{video_id}_segments.json"
-        embedding_key = f"embeddings/{video_id}_embeddings.json"
+        lease.check()
+        transcript_key = f"transcripts/final/{video_id}/{processing_token}.txt"
+        segments_key = f"transcripts/final/{video_id}/{processing_token}_segments.json"
+        embedding_key = f"embeddings/final/{video_id}/{processing_token}_embeddings.json"
 
         artifact_write_start = perf_counter()
         try:
@@ -757,7 +686,8 @@ def finalize_chunked_search_if_ready(video_id: str):
             )
         final_artifact_write_seconds = seconds_since(artifact_write_start)
 
-        video = update_video(db, video_id, {
+        guard_work(db, PipelineJob, video_id, "finalize", processing_token)
+        db.query(Video).filter_by(video_id=video_id).update({
             "transcript_path": transcript_key,
             "transcript_status": "completed",
             "segments_path": segments_key,
@@ -765,7 +695,14 @@ def finalize_chunked_search_if_ready(video_id: str):
             "embedding_path": embedding_key,
             "embedding_status": "completed",
             "error_message": None,
-        })
+        }, synchronize_session=False)
+        from app.db import search_repository
+        if search_repository.enabled():
+            # Matches the exact bytes written by S3Storage.write_json above.
+            search_repository.register_revision(db, video_id, segments_key,
+                json.dumps(all_segments, indent=4).encode("utf-8"), embedding_key)
+        complete_work(db, PipelineJob, video_id, "finalize", processing_token)
+        video = get_video(db, video_id)
 
         completed_at_epoch = now_epoch()
         time_to_searchable_seconds = seconds_from_upload(storage, video_id)
@@ -879,7 +816,7 @@ def process_video_search_artifacts(video_id):
 
             audio_extraction_start = perf_counter()
             try:
-                subprocess.run(
+                run_media_command(
                     [
                         ffmpeg_path,
                         "-y",
@@ -1057,7 +994,7 @@ def process_video_search_artifacts(video_id):
         db.close()
 
 
-def process_video_playback_artifacts(video_id):
+def process_video_playback_artifacts(video_id, *, processing_token, lease):
     db = create_session()
     storage = get_storage()
     playback_start = perf_counter()
@@ -1071,12 +1008,14 @@ def process_video_playback_artifacts(video_id):
             )
 
         if video.processed_path:
+            complete_work(db, PipelineJob, video_id, "playback", processing_token)
             record_full_processing_if_ready(db, storage, video_id)
             return
 
+        guard_work(db, PipelineJob, video_id, "playback", processing_token)
         update_video(db, video_id, {
-            "status": "processing",
-            "error_message": None,
+            "status": "failed" if video.status == "failed" else "processing",
+            "error_message": video.error_message if video.status == "failed" else None,
         })
 
         try:
@@ -1120,7 +1059,7 @@ def process_video_playback_artifacts(video_id):
 
             transcode_start = perf_counter()
             try:
-                subprocess.run(
+                run_media_command(
                     [
                         ffmpeg_path,
                         "-y",
@@ -1143,7 +1082,7 @@ def process_video_playback_artifacts(video_id):
             thumbnail_generation_seconds = None
             try:
                 thumbnail_start = perf_counter()
-                subprocess.run(
+                run_media_command(
                     [
                         ffmpeg_path,
                         "-y",
@@ -1159,8 +1098,9 @@ def process_video_playback_artifacts(video_id):
             except Exception:
                 thumbnail_path = None
 
-            processed_key = f"processed_videos/{processed_filename}"
-            thumbnail_key = f"thumbnails/{video_id}.jpg"
+            lease.check()
+            processed_key = f"processed_videos/{video_id}/{processing_token}/{processed_filename}"
+            thumbnail_key = f"thumbnails/{video_id}/{processing_token}.jpg"
 
             processed_upload_start = perf_counter()
             try:
@@ -1186,9 +1126,12 @@ def process_video_playback_artifacts(video_id):
                     )
                 s3_thumbnail_upload_seconds = seconds_since(thumbnail_upload_start)
 
-            update_video(db, video_id, {
+            guard_work(db, PipelineJob, video_id, "playback", processing_token)
+            db.query(Video).filter_by(video_id=video_id).update({
                 "processed_path": processed_key,
-            })
+                "thumbnail_path": thumbnail_key if s3_thumbnail_upload_seconds is not None else None,
+            }, synchronize_session=False)
+            complete_work(db, PipelineJob, video_id, "playback", processing_token)
 
             try:
                 safe_update_metrics(storage, video_id, "processing", {
@@ -1273,7 +1216,7 @@ def process_video(video_id, processing_token: str):
             
             transcode_start = perf_counter()
             try:
-                subprocess.run(
+                run_media_command(
                     [
                         ffmpeg_path,
                         "-y",
@@ -1296,7 +1239,7 @@ def process_video(video_id, processing_token: str):
             thumbnail_generation_seconds = None
             try:
                 thumbnail_start = perf_counter()
-                subprocess.run(
+                run_media_command(
                     [
                         ffmpeg_path,
                         "-y",
@@ -1314,7 +1257,7 @@ def process_video(video_id, processing_token: str):
 
             audio_extraction_start = perf_counter()
             try:
-                subprocess.run(
+                run_media_command(
                     [
                         ffmpeg_path,
                         "-y",

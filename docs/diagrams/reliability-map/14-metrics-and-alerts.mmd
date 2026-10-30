@@ -1,0 +1,29 @@
+flowchart TB
+M1["Read metrics JSON + ETag<br/>404 means absent; other read errors propagate"]:::normal
+M2["Merge updated fields<br/>Existing object: If-Match ETag<br/>New object: If-None-Match *"]:::normal
+M3{"Conditional write succeeds?"}:::decision
+M4["Success; preserve concurrent different fields"]:::safe
+M5["404 / 409 / 412 → reload and merge again<br/>Maximum 8 conditional-write attempts<br/>Other error or exhausted attempts → raise"]:::retry
+M6["safe_update_metrics logs and returns None<br/>Processing success/failure stays authoritative in Postgres"]:::note
+M7["Dependency I/O bounds<br/>S3 connect 5s / read 30s, standard 3 total attempts<br/>Core Qdrant timeout 10s"]:::normal
+M8["Core Postgres bounds<br/>Connect 5s; statement 30s; lock 5s<br/>pool_pre_ping; pool wait 10s"]:::normal
+M9["Independent maintenance operations<br/>Catch per-operation failure; rollback, record error<br/>Successful timestamps advance only on success"]:::normal
+M10["Core alerts<br/>Operations down 2m; dispatcher age  greater than 120s for 1m<br/>Queue age  greater than 300s for 2m; expired/progress  greater than 900s for 2m"]:::note
+M11["Failure and repair alerts<br/>Terminal failures in last 10m; dependencies failed for 2m<br/>GC/index errors or success age  greater than 1800s for 2m<br/>Backup success age  greater than 86400s for 5m"]:::note
+M12["Optional search alerts<br/>Lexical/projection/cleanup failures for 2m<br/>Unavailable ratio  greater than 5%, degraded  greater than 10%, p95  greater than 1.5s for 5m<br/>Admission active ≥8 for 2m"]:::note
+M13["Operational limits<br/>Default Alertmanager receiver sends nothing<br/>Configure/test receiver and external uptime monitor<br/>Same-host monitoring cannot report complete host loss"]:::fail
+M1 --> M2 --> M3
+M3 -->|Yes| M4
+M3 -->|Conflict| M5 --> M1
+M5 -->|Failure| M6
+M7 --> M9
+M8 --> M9
+M9 --> M10 --> M11 --> M12 --> M13
+
+classDef normal fill:#edf4ff,stroke:#4b83bb,color:#172f4a
+classDef decision fill:#fff5dc,stroke:#b88d27,color:#4c3810
+classDef safe fill:#eaf7f0,stroke:#40916b,color:#193c2b
+classDef retry fill:#fff0de,stroke:#ce873a,color:#513211
+classDef fail fill:#ffeded,stroke:#c76a6a,color:#542525
+classDef note fill:#f1f3f6,stroke:#97a2ad,color:#344353
+classDef optional fill:#f2edfc,stroke:#8e74bc,color:#35254d

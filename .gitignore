@@ -1,4 +1,5 @@
 .venv/
+benchmarks/model_cache/
 __pycache__/
 *.pyc
 .env
@@ -11,6 +12,7 @@ search.json
 downloaded_test_video.mp4
 app/ez.mp4
 *.mp4
+*.mp4.part
 *.log
 .DS_Store
 app/ez.mp4

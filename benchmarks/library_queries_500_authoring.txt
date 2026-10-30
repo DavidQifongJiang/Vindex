@@ -1,0 +1,552 @@
+# Nine answer-seeking queries per lecture: three lexical, three paraphrase,
+# three conceptual. Source-video associations are authoring hints, not qrels.
+
+[mit6006_lecture01]
+1D peak finding binary search complexity
+2D peak finding middle column maximum
+Peak finding local maximum definition
+Find the explanation of locating a high point without examining every array entry.
+Where does the lecturer show why climbing uphill in a grid can take too long?
+How do we decide which half of a sequence can still contain a peak?
+Why is finding a peak easier than finding the largest value?
+What guarantees that discarding half the array preserves a possible solution?
+Why does a strategy that works on a line need extra care on a two-dimensional grid?
+
+[mit6006_lecture02]
+Document distance word frequency vectors
+Random access machine model constant time operations
+Python cost model dictionary operations
+Find the part about measuring how similar two documents are using their words.
+How can a document be turned into numbers that can be compared geometrically?
+Where does the lecturer explain which elementary computer operations we count?
+Why compare the angle between document vectors instead of their raw lengths?
+Why can the same-looking operation have a different cost depending on the computation model?
+How does ignoring word order affect a document similarity representation?
+
+[mit6006_lecture03]
+Insertion sort worst case quadratic time
+Merge sort recurrence recursion tree
+Binary insertion sort comparisons and shifts
+Where is the example of repeatedly placing the next item into an already ordered prefix?
+Find the explanation of splitting a list, sorting the pieces, and combining them.
+How can two ordered lists be combined without sorting their union from scratch?
+Why doesn't binary search make insertion sort run in n log n time?
+How do the levels of the merge sort recursion tree add up to n log n work?
+What determines whether insertion sort is fast on a particular input order?
+
+[mit6006_lecture04]
+Max heap property array representation
+Build max heap linear time analysis
+Heap sort extract maximum operation
+How can a nearly complete tree be stored without explicit child pointers?
+Where is the explanation of moving an out-of-place root down until order is restored?
+Find the demonstration of repeatedly removing the largest element to sort a collection.
+Why is building a heap linear even though repairing a single node can take logarithmic time?
+Why doesn't the heap property mean the entire underlying array is sorted?
+How does a priority queue differ from a structure that supports arbitrary ordered lookup?
+
+[mit6006_lecture05]
+Binary search tree successor algorithm
+BST deletion node with two children
+BST sort inorder traversal
+Where does the lecturer show how to find the next larger key in a tree?
+How can an ordered tree produce its values in ascending order?
+What happens when values are inserted into a search tree in already sorted order?
+Why does a binary search tree need a height bound to guarantee fast operations?
+How can deleting a node with two children preserve the search ordering?
+Why is the minimum key found by following only left-child links?
+
+[mit6006_lecture06]
+AVL tree height balance invariant
+AVL single rotation double rotation
+AVL height Fibonacci recurrence
+How can an ordered tree repair itself after an insertion makes one side too tall?
+Find the explanation of changing local tree links without changing the sorted order.
+Where is the case in which one local rotation is insufficient to rebalance a tree?
+Why does limiting the height difference at every node imply logarithmic total height?
+How can rotations preserve the binary search property while changing the root?
+Why do the sparsest AVL trees lead to a Fibonacci-like recurrence?
+
+[mit6006_lecture07]
+Comparison sorting decision tree lower bound
+Counting sort stable output
+Radix sort digit order
+How can we sort small integer keys by counting occurrences instead of comparing pairs?
+Where does the lecturer explain sorting numbers one digit at a time?
+Find the argument that a sorting procedure must distinguish all possible input permutations.
+Why does linear-time integer sorting not contradict the comparison-sorting lower bound?
+Why must the inner sorting step preserve the order of equal digits in radix sort?
+How does the size of the key universe affect counting sort's running time?
+
+[mit6006_lecture08]
+Hashing with chaining load factor
+Simple uniform hashing assumption
+Dictionary abstract data type hashing
+Where is the explanation of storing several keys that map to the same bucket?
+How does the ratio of stored items to available buckets affect lookup work?
+Find the discussion of turning a large key into a table position.
+Why is constant-time hash lookup usually an expected bound rather than a worst-case guarantee?
+How can collisions occur even when every original key is different?
+What assumption about key placement makes the average chain length useful for analysis?
+
+[mit6006_lecture09]
+Table doubling amortized analysis
+Karp Rabin rolling hash substring search
+Hash table shrinking threshold
+How can a table grow without making every insertion expensive?
+Where is the explanation of updating a text-window fingerprint after moving one character?
+Find the reason a table should not shrink immediately after crossing the halfway mark.
+Why can an occasional linear-time resize still allow constant amortized insertion cost?
+Why does a matching text fingerprint require an additional equality check?
+How does leaving a gap between growth and shrink thresholds prevent repeated resizing?
+
+[mit6006_lecture10]
+Open addressing linear probing clustering
+Double hashing probe sequence
+Cryptographic hash collision resistance
+How can colliding keys be stored inside the table rather than in separate lists?
+Where does the lecturer explain why deleting an entry cannot simply leave an ordinary empty slot?
+Find the discussion of making the next table position depend on a second hash calculation.
+Why does a nearly full open-addressed table become expensive to search?
+How is a cryptographic hash's purpose different from distributing dictionary keys evenly?
+Why can a poor probe pattern produce long runs of occupied slots?
+
+[mit6006_lecture11]
+Karatsuba multiplication three recursive products
+Arbitrary precision integer representation
+Newton method reciprocal division
+How can two large numbers be multiplied using fewer recursive multiplications than the obvious method?
+Find the part about representing a number that is too large for one machine word.
+Where does the lecturer replace division with an approximation to the reciprocal?
+Why can extra additions be worthwhile if they eliminate one large multiplication?
+How does splitting the operands into high and low parts expose reusable arithmetic?
+Why should the cost of arithmetic depend on the number of digits for very large integers?
+
+[mit6006_lecture12]
+Newton square root iteration
+Newton method quadratic convergence
+High precision square root computation
+Where is the explanation of repeatedly improving a guess for a number's square root?
+How does the tangent line help choose the next approximation to a root?
+Find the discussion of increasing the number of correct digits during an iterative calculation.
+Why is computing every early iteration at full precision wasteful?
+What does quadratic convergence mean for the number of accurate digits?
+How do multiplication costs influence the complexity of high-precision square roots?
+
+[mit6006_lecture13]
+Breadth first search level sets
+BFS adjacency list complexity
+BFS parent pointers shortest path
+How can we explore everything one step away before considering vertices farther away?
+Where does the lecturer show how to reconstruct a route after visiting a graph?
+Find the explanation of recording a vertex when it is first discovered.
+Why does breadth-first search find a path with the fewest edges in an unweighted graph?
+How does choosing an adjacency matrix instead of adjacency lists change traversal work?
+Why must previously discovered vertices be tracked during graph exploration?
+
+[mit6006_lecture14]
+DFS edge classification back edges
+Topological sort reverse finishing order
+Directed acyclic graph cycle detection
+How can a traversal follow one branch as far as possible before returning to other choices?
+Where is the explanation of ordering tasks so every prerequisite comes first?
+Find the part about identifying a loop through an edge to an active ancestor.
+Why does reversing depth-first finishing order give a valid dependency ordering in a DAG?
+What distinguishes a back edge from an edge to a vertex whose exploration is already complete?
+Why is a topological ordering impossible when directed dependencies form a cycle?
+
+[mit6006_lecture15]
+Single source shortest paths relaxation
+Shortest path optimal substructure
+DAG shortest paths topological order
+How do we improve a tentative route length after considering one more connection?
+Where does the lecturer explain why a route may have no finite minimum cost?
+Find the method for processing weighted acyclic graphs in dependency order.
+Why is every subpath of a shortest path itself shortest between its endpoints?
+When can a reachable negative cycle make a shortest-path answer undefined?
+Why can an acyclic graph support a simpler shortest-path algorithm than a general graph?
+
+[mit6006_lecture16]
+Dijkstra extract min priority queue
+Dijkstra nonnegative edge weights
+Dijkstra Fibonacci heap running time
+How can the next vertex with a final route length be chosen from tentative distances?
+Find the explanation of reducing a queue key after discovering a cheaper route.
+Where does the lecturer compare data structures used to manage the search frontier?
+Why can a negative-weight edge invalidate Dijkstra's greedy choice?
+How does separating extract-min and decrease-key costs change the algorithm's total bound?
+Why is a vertex's distance final when it is removed from the priority queue under the required assumptions?
+
+[mit6006_lecture17]
+Bellman Ford repeated edge relaxation
+Bellman Ford negative cycle detection
+Bellman Ford V minus one passes
+How can shortest routes be computed when some connections have negative costs?
+Where is the explanation of performing one more pass to test whether distances can still improve?
+Find the proof based on considering routes with progressively more edges.
+Why are at most one fewer than the number of vertices needed in a simple shortest path?
+What does a further distance improvement after the normal relaxation passes imply?
+How does Bellman-Ford trade speed for weaker restrictions on edge weights?
+
+[mit6006_lecture18]
+Bidirectional Dijkstra stopping condition
+A star search potential function
+Shortest path goal directed search
+How can starting a search from both ends reduce the explored region?
+Where is the explanation of using an estimate of the remaining travel distance?
+Find the discussion of preprocessing a road network to make later route queries faster.
+Why is simply stopping when two search frontiers first touch potentially incorrect?
+How can reweighting edges guide a shortest-path search without changing the best route?
+What tradeoff is made when extra preprocessing is used to accelerate repeated route requests?
+
+[mit6006_lecture19]
+Fibonacci memoization dynamic programming
+Bottom up dynamic programming topological order
+Shortest paths dynamic programming subproblems
+Why does the straightforward recursive calculation of a Fibonacci number repeat so much work?
+Where does the lecturer show how to save an answer and reuse it on later calls?
+How can a recursive computation be turned into an ordered table calculation?
+How do the number of subproblems and the work per subproblem determine total time?
+What dependency condition allows a bottom-up evaluation order to exist?
+Why must a shortest-path recurrence be changed when its subproblem dependencies contain cycles?
+
+[mit6006_lecture20]
+Text justification line badness dynamic programming
+Blackjack dynamic programming state
+Text justification parent pointers reconstruction
+How can we choose where lines break so an entire paragraph looks good?
+Find the explanation of trying the possible next line endings and combining them with the remaining paragraph.
+Where does the lecturer use a card game to illustrate choosing the next action?
+Why can choosing the best-looking next line fail to produce the best paragraph overall?
+What information must a subproblem retain so future choices can be evaluated independently?
+Why is storing the best score insufficient if we also want to print the selected line breaks?
+
+[mit6006_lecture21]
+Matrix chain parenthesization recurrence
+Edit distance insert delete replace
+Knapsack pseudopolynomial dynamic programming
+How can the order of multiplying several matrices change the amount of arithmetic?
+Where is the explanation of turning one string into another with a sequence of edits?
+Find the method for selecting valuable items when a bag has a weight limit.
+Why can a knapsack algorithm be polynomial in capacity but not polynomial in input length?
+How does guessing the last split reduce matrix parenthesization to smaller intervals?
+Why does an edit-distance state need positions in both input strings?
+
+[mit6006_lecture22]
+Guitar fingering dynamic programming state
+Tetris dynamic programming configuration
+Super Mario dynamic programming game state
+How can a sequence of finger choices be optimized across an entire piece of music?
+Find the explanation of representing a game's changing situation as a subproblem.
+Where does the lecturer discuss adding information to a state when a simpler state loses necessary history?
+Why can the number of possible board configurations make an otherwise valid recurrence impractical?
+How does including the current finger choice affect later transition costs?
+What makes a state description sufficient to choose future actions without remembering the complete past?
+
+[mit6006_lecture23]
+P NP NP complete definitions
+Polynomial time reduction hardness
+Pseudopolynomial algorithm input bit length
+Where is the explanation of quickly checking a proposed solution even when finding it seems difficult?
+How can solving one problem efficiently give us a way to solve a different problem?
+Find the distinction between an algorithm's dependence on a number and on the number's encoded length.
+Why does a fast verifier not automatically provide a fast method for finding a solution?
+Which direction must a reduction go to establish that a new problem is hard?
+What would an efficient algorithm for one NP-complete problem imply about the others?
+
+[mit6006_lecture24]
+Multicore execution migration data migration
+Algorithmic origami folding research
+Integer predecessor fusion trees
+Where does the lecturer discuss moving a computation to its data instead of moving the data?
+Find the example of using dynamic programming to decide when a thread should migrate.
+How can folding a sheet of paper become a computational research problem?
+Why do communication costs matter when adding more processor cores?
+What tradeoff determines whether remote memory access is better than moving execution?
+How can assumptions about integer keys permit faster operations than comparison-based search trees?
+
+[mit6046_lecture01]
+Interval scheduling earliest finish greedy
+Weighted interval scheduling dynamic programming
+Compatible interval subset optimization
+How can we choose the largest number of activities that do not overlap?
+Where does the lecturer show that attaching different values to activities changes the problem?
+Find the reasoning for considering the activity that ends first.
+Why can an earliest-finish choice be safe for maximizing the number of intervals?
+Why does the unweighted scheduling rule fail when activities have unequal rewards?
+How does a small change in the objective turn an easy greedy problem into a different algorithmic task?
+
+[mit6046_lecture02]
+Convex hull divide and conquer merge
+Median of medians deterministic selection
+Selection groups of five pivot
+How can the boundary enclosing a set of points be found by combining smaller hulls?
+Where is the explanation of finding a middle-ranked value without sorting all values?
+Find the argument for choosing a pivot that cannot be too close to either extreme.
+Why does a guaranteed balanced partition make worst-case linear selection possible?
+How do the costs of solving subproblems and merging their results interact in divide and conquer?
+Why is selecting one order statistic potentially cheaper than computing the complete sorted order?
+
+[mit6046_lecture03]
+Fast Fourier transform roots of unity
+Polynomial multiplication coefficient point value
+FFT even odd coefficient recursion
+How can multiplying polynomials become easier after evaluating them at carefully chosen points?
+Where does the lecturer split a polynomial into its even-power and odd-power terms?
+Find the explanation of converting computed values back into polynomial coefficients.
+Why do roots of unity allow the evaluation work to be reused recursively?
+How does a change of representation turn polynomial multiplication into pointwise multiplication?
+Why does the FFT recurrence produce an n log n running time?
+
+[mit6046_lecture04]
+Van Emde Boas predecessor successor
+Van Emde Boas square root universe decomposition
+Van Emde Boas summary clusters
+How can a set of bounded integers support ordered lookups faster than a balanced search tree?
+Where is the explanation of dividing a key into a cluster index and a position inside that cluster?
+Find the role of a smaller structure that records which clusters are occupied.
+Why does repeatedly taking the square root of the universe lead to a log log universe bound?
+What makes the universe size relevant to this data structure's space cost?
+How does storing the minimum separately help avoid unnecessary recursive work?
+
+[mit6046_lecture05]
+Amortized analysis aggregate accounting potential
+Dynamic table potential function
+Amortized cost actual cost potential change
+How can expensive operations be paid for by credit accumulated during earlier cheap operations?
+Where does the lecturer distinguish a guarantee over a sequence from a probabilistic average?
+Find the explanation of assigning stored work to the state of a data structure.
+Why does an amortized constant bound not guarantee that every individual operation is fast?
+How do potential changes cancel when costs are summed across many operations?
+What properties must a potential function satisfy to give a useful upper bound on total actual cost?
+
+[mit6046_lecture06]
+Freivalds randomized matrix multiplication verification
+Randomized quicksort expected comparisons
+Randomized algorithms one sided error
+How can we check a claimed matrix product without recomputing the entire product?
+Where is the explanation of choosing sorting pivots randomly to avoid dependence on input order?
+Find the analysis of whether a particular pair of elements gets compared during sorting.
+Why can repeating a randomized verification procedure reduce its error probability?
+How does randomness in the algorithm differ from assuming a random input distribution?
+Why can randomized quicksort have good expected time while retaining a quadratic worst case?
+
+[mit6046_lecture07]
+Skip list randomized levels
+Skip list search insertion deletion
+Skip list expected logarithmic height
+How can extra express lanes make searching a linked list fast?
+Where does the lecturer decide how many levels a newly inserted item should occupy?
+Find the backward analysis of a search path through a layered list.
+Why do independent coin flips tend to create progressively sparser upper levels?
+How can a randomized linked structure offer search performance similar to a balanced tree?
+Why do expected bounds and high-probability bounds make different claims about skip-list performance?
+
+[mit6046_lecture08]
+Universal hashing collision probability
+Perfect hashing two level construction
+Static dictionary quadratic secondary tables
+How can selecting a hash function randomly protect against a bad fixed set of keys?
+Where is the explanation of eliminating collisions when the stored keys are known in advance?
+Find the reason a bucket with several keys gets a disproportionately larger secondary table.
+Why does a quadratic table inside each bucket not necessarily imply quadratic total storage?
+How does a universal family provide a guarantee without assuming the input keys are random?
+What tradeoff makes perfect hashing more suitable for a static set than a frequently changing one?
+
+[mit6046_lecture09]
+Order statistic tree subtree size augmentation
+Two dimensional range tree query
+Range tree associated structures space complexity
+How can an ordered tree be extended to find the element at a requested rank?
+Where is the explanation of reporting points that fall inside a rectangular region?
+Find the discussion of maintaining extra information when a tree rotates.
+Why can locally recomputable metadata be maintained efficiently in a balanced tree?
+How does adding another search structure at each node affect range-query space usage?
+Why must the time needed to report matching points appear in a range-search complexity bound?
+
+[mit6046_lecture10]
+Longest palindromic subsequence recurrence
+Optimal binary search tree weighted depth
+Alternating coin game dynamic programming
+How can we find a sequence that reads the same in both directions while skipping some input characters?
+Where does the lecturer design a search tree for keys that are requested with unequal frequency?
+Find the game where players choose coins from the ends of a row.
+Why can choosing the most frequently accessed key as the root fail to minimize total search cost?
+How does an adversary's next move change the recurrence for the coin game?
+Why does the palindromic-subsequence recurrence consider dropping either endpoint when they differ?
+
+[mit6046_lecture11]
+Floyd Warshall intermediate vertex recurrence
+Johnson all pairs shortest paths reweighting
+All pairs shortest paths matrix multiplication
+How can shortest routes between every pair be built by gradually allowing more intermediate vertices?
+Where is the explanation of changing edge costs so a faster single-source method becomes applicable?
+Find the connection between combining route costs and multiplying matrices.
+Why must a reweighting preserve the relative costs of paths with the same endpoints?
+How does graph density affect the choice of an all-pairs shortest-path algorithm?
+What invariant makes the intermediate-vertex dynamic program correct?
+
+[mit6046_lecture12]
+Minimum spanning tree cut property
+Kruskal algorithm union find
+Prim algorithm priority queue
+How can all vertices be connected with minimum total edge cost?
+Where does the lecturer decide whether adding an edge would create a cycle?
+Find the method that grows one connected region by repeatedly attaching a cheapest crossing edge.
+Why is a minimum spanning tree a different objective from a shortest-path tree?
+How does the cut property justify a locally cheapest edge choice?
+Why can processing edges from cheapest to most expensive produce a globally optimal spanning tree?
+
+[mit6046_lecture13]
+Ford Fulkerson residual graph augmenting path
+Max flow min cut theorem
+Flow network reverse edge residual capacity
+How can a routing decision be partly undone to make room for more total flow?
+Where is the explanation of increasing throughput along a path with spare capacity?
+Find the argument that a partition of the network puts an upper bound on possible flow.
+Why does the absence of an augmenting path certify that the current flow is maximum?
+How do reverse residual edges represent the ability to cancel earlier choices?
+Why does the choice of augmenting paths matter for the running time of a flow algorithm?
+
+[mit6034_lecture01]
+Artificial intelligence representation problem solving
+Generate and test intelligent behavior
+AI learning reasoning perception introduction
+Where does the lecturer discuss what it means to build a machine that behaves intelligently?
+Find the introductory examples showing how the way a problem is described affects solving it.
+How does the course connect reasoning, perception, and learning?
+Why can a suitable representation make an apparently difficult problem easier?
+What is the relationship between understanding human intelligence and constructing intelligent programs?
+Why should an AI system's demonstrated behavior be examined rather than just its name?
+
+[mit6034_lecture02]
+Goal tree AND OR decomposition
+Problem reduction subgoals reasoning
+Goal tree problem solving representation
+How can a difficult objective be broken into smaller things that must be accomplished?
+Where is the explanation of representing several alternative ways to reach the same goal?
+Find the distinction between needing every child goal and needing only one of them.
+Why does an AND node require a different success condition from an OR node?
+How can the choice of subgoals change the size of a problem-solving search?
+What information does a goal tree make explicit that a flat list of possible actions does not?
+
+[mit6034_lecture03]
+Rule based expert system forward chaining
+Backward chaining goal tree
+Expert system conflict resolution rules
+How can known facts trigger rules that produce additional facts?
+Where does the lecturer start with a desired conclusion and work backward to supporting evidence?
+Find the explanation of what to do when several rules can fire at once.
+When is reasoning backward from a question more focused than deriving every available consequence?
+How does a collection of individually simple rules produce a chain of inferences?
+Why does a rule's antecedent need to be matched against the current facts before its conclusion is used?
+
+[mit6034_lecture04]
+Depth first search backtracking
+Hill climbing local maximum
+Beam search beam width
+Where does the lecturer show a search that commits to one path until it must backtrack?
+How can keeping only a few promising candidates reduce the memory used by search?
+Find the example of a locally appealing move leading away from the best overall solution.
+Why can hill climbing stop without reaching a goal even when a solution exists?
+What is lost when beam search discards candidates outside its width limit?
+How do search procedures trade memory use against their willingness to revisit alternatives?
+
+[mit6034_lecture05]
+Branch and bound search path length
+A star admissible heuristic
+Search extended list duplicate paths
+How can a search combine the distance already traveled with an estimate of what remains?
+Where is the explanation of exploring the cheapest partial route first?
+Find the discussion of avoiding repeated work when different paths reach the same location.
+Why must an optimistic estimate avoid overstating the remaining route cost for the stated optimality guarantee?
+How does adding a useful estimate change the amount of search compared with using path cost alone?
+Why can the first complete route found by an arbitrary search fail to be the cheapest one?
+
+[mit6034_lecture06]
+Minimax game tree evaluation
+Alpha beta pruning bounds
+Game search static evaluation depth limit
+How can a game-playing program choose a move while assuming its opponent responds well?
+Where does the lecturer stop expanding a game tree and estimate a position's quality instead?
+Find the explanation of ignoring a branch once it cannot affect the selected move.
+Why do maximizing and minimizing levels alternate in a two-player game tree?
+How does move ordering affect the amount of pruning without changing the minimax result?
+Why does searching farther ahead still depend on the quality of the position evaluator?
+
+[mit6034_lecture07]
+Waltz algorithm line labeling
+Huffman Clowes junction constraints
+Convex concave boundary edge labels
+How can a simple line drawing be interpreted as the edges of solid objects?
+Where is the explanation of eliminating junction labels that disagree with neighboring junctions?
+Find the example of a drawing that cannot be labeled consistently under the assumed object model.
+Why can local constraints propagate information across an entire drawing?
+How do assumptions about the physical world limit the possible labels at a junction?
+Why might a drawing that looks plausible violate the particular model used by the labeling algorithm?
+
+[mit6034_lecture08]
+Constraint satisfaction domain reduction
+Map coloring backtracking search
+Constraint propagation variable assignment
+How can choices that are already incompatible with neighboring choices be removed before trying them?
+Where does the lecturer use coloring regions on a map to illustrate constraints?
+Find the explanation of combining trial assignments with elimination of impossible values.
+Why does reducing domains early prevent wasted exploration later?
+Why does local consistency not always mean that a complete satisfying assignment exists?
+How can the order of variable assignments change the size of a constraint search?
+
+[mit6034_lecture09]
+Visual recognition alignment theory Ullman
+Marr generalized cylinders object recognition
+Image correlation face recognition
+How can several stored views help recognize an object seen from a different angle?
+Where is the explanation of sliding a small picture across a larger image to find a match?
+Find the discussion of matching corresponding points between views of an object.
+Why can a representation based on generalized cylinders be too coarse to distinguish similar objects?
+How does solving for an alignment depend on identifying corresponding landmarks?
+Why can recognizing an action require more than matching the visible shape of an object?
+
+[mit6034_lecture10]
+Nearest neighbor learning distance metric
+K nearest neighbors classification
+Feature scaling nearest neighbor recognition
+How can a new example be classified by comparing it with previously labeled examples?
+Where does the lecturer discuss which measurements should count as signs of similarity?
+Find the explanation of using several nearby examples rather than just one.
+Why can changing the scale of one feature change the nearest-neighbor prediction?
+What tradeoff arises when the number of neighbors used to vote becomes larger?
+Why can an irrelevant feature make similarity-based learning less reliable?
+
+[mit6034_lecture11]
+Identification tree disorder entropy
+Decision tree information gain test selection
+Identification tree branching classification
+How can a classifier ask a sequence of questions until it reaches a category?
+Where is the explanation of choosing a question that makes the remaining examples less mixed?
+Find the discussion of measuring the uncertainty within a group of labeled examples.
+Why should the quality of a split account for the sizes of its resulting groups?
+Why does a homogeneous group have zero disorder while an evenly mixed group has greater disorder?
+Why is a test that separates the classes preferable to one that leaves the same mixture in every branch?
+
+[mit6034_lecture12]
+Neural network backpropagation chain rule
+Sigmoid activation gradient ascent
+Neural net weight update performance function
+How does a network adjust its connection strengths after seeing the error in its output?
+Where is the explanation of sending credit for an output mistake backward through hidden units?
+Find the reason for replacing a hard threshold with a smooth response curve.
+Why does differentiability matter when training a network by following a gradient?
+How does the chain rule connect an internal weight to the final performance measure?
+How does reusing intermediate derivatives avoid enumerating every path through a neural network?
+
+[mit6034_lecture13]
+Genetic algorithms fitness selection
+Genetic algorithm crossover mutation
+Genetic algorithm fitness rank diversity rank
+How can candidate solutions improve by repeatedly keeping and recombining successful individuals?
+Where does the lecturer introduce random changes into an inherited solution?
+Find the explanation of assigning a score that determines which candidates are more likely to reproduce.
+Why does the way a solution is encoded affect whether recombination produces useful offspring?
+How do mutation and selection play different roles in exploring a solution space?
+Why can favoring the currently best candidates too strongly reduce the diversity needed for further improvement?

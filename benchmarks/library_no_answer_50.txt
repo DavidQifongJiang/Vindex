@@ -1,0 +1,51 @@
+# Candidate negatives: require full-library human review before scoring abstention.
+How do I configure Elasticsearch index lifecycle management to move old indexes to a cold tier?
+What SQL isolation level prevents write skew in PostgreSQL?
+How do Kafka consumer groups rebalance partitions after a worker crashes?
+What Kubernetes readiness probe should a gRPC service expose?
+How do I implement an idempotency key for a payment API?
+How does the Raft leader election timeout avoid repeated split votes?
+What is the difference between an LSM-tree compaction strategy and a B-tree page split in RocksDB?
+How do I configure OpenTelemetry to export traces to Jaeger?
+How does Qdrant tune HNSW ef_search for vector recall?
+What is the exact HTTP request body for Elasticsearch reciprocal rank fusion?
+How does the QUIC handshake reduce connection establishment latency?
+How can eBPF trace system calls without modifying application code?
+What CUDA kernel layout coalesces global memory reads for a tiled transpose?
+How do C++ move constructors interact with noexcept during vector reallocation?
+How does Rust's borrow checker enforce lifetimes across an async await point?
+What is the Python asyncio cancellation behavior of TaskGroup?
+How do I configure a Terraform backend to lock state in Amazon S3?
+How does AWS Lambda provisioned concurrency affect cold-start billing?
+How do I set a Content Security Policy nonce in a Next.js application?
+What are the steps to rotate a Kubernetes service account signing key?
+How does a transformer compute multi-head self-attention with a causal mask?
+How does low-rank adaptation reduce the trainable parameters of a language model?
+How is the denoising objective defined for a latent diffusion image model?
+How does retrieval-augmented generation cite retrieved passages in a language-model response?
+How does the AdamW optimizer decouple weight decay from its gradient update?
+What is the PPO clipped surrogate objective in reinforcement learning?
+How does a convolutional U-Net use skip connections in image segmentation?
+How do rotary positional embeddings encode relative position in a transformer?
+How does flash attention avoid materializing the full attention matrix?
+What is the difference between BERT masked-language training and GPT autoregressive training?
+How do I feed and maintain a sourdough starter in a cold kitchen?
+What camera aperture should I use to photograph the Milky Way?
+How do tectonic plates create a subduction-zone volcanic arc?
+How does photosynthesis split water in photosystem II?
+What distinguishes a Baroque fugue from a Classical sonata?
+How do ocean corals obtain nutrients from symbiotic algae?
+How can watercolor washes be layered without lifting the earlier pigment?
+What is the mechanism behind a lithium-ion battery's solid electrolyte interphase?
+How does a telescope's diffraction limit depend on its aperture?
+How does a mechanical watch escapement regulate the release of energy?
+How is an espresso extraction adjusted when the beans are freshly roasted?
+What makes a planetary orbit precess under general relativity?
+How do historians date an archaeological site using pottery typology?
+How does an aircraft's angle of attack relate to aerodynamic stall?
+What is the difference between a violin's sound post and its bass bar?
+How do mangrove roots tolerate saltwater environments?
+How does a heat pump transfer heat when the outside air is cold?
+How is the glaze on a ceramic pot affected by reduction firing?
+What determines the color of an aurora at different atmospheric altitudes?
+How do bees communicate the direction and distance of a food source?

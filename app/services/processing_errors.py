@@ -1,6 +1,9 @@
 import subprocess
+import errno
+from billiard.exceptions import SoftTimeLimitExceeded
 
 import httpx
+from boto3.exceptions import S3UploadFailedError, RetriesExceededError
 from botocore.exceptions import (
     ClientError,
     ConnectTimeoutError,
@@ -88,6 +91,18 @@ def classify_processing_exception(
 ) -> ProcessingError:
     if isinstance(error, ProcessingError):
         return error
+    if isinstance(error, (S3UploadFailedError, RetriesExceededError)):
+        original = getattr(error, "last_exception", None) or error.__cause__ or error.__context__
+        if original is not None and original is not error:
+            return classify_processing_exception(original, default_message=default_message,
+                default_error_code=default_error_code)
+        return TemporaryStorageError("S3 transfer failed", error_code="s3_transfer_failed", cause=error)
+    if isinstance(error, (subprocess.TimeoutExpired, SoftTimeLimitExceeded, TimeoutError)):
+        return TemporaryProcessingError("Processing operation timed out", error_code="processing_timeout", cause=error)
+    if isinstance(error, MemoryError) or (isinstance(error, OSError) and error.errno in {errno.ENOSPC, errno.ENOMEM, errno.EAGAIN}):
+        return TemporaryProcessingError("Worker resources exhausted", error_code="worker_resources_exhausted", cause=error)
+    if isinstance(error, RuntimeError) and "out of memory" in str(error).lower():
+        return TemporaryProcessingError("Model memory exhausted", error_code="model_out_of_memory", cause=error)
 
     if isinstance(error, (OperationalError, DisconnectionError)):
         return TemporaryDatabaseError(
@@ -174,6 +189,13 @@ def classify_processing_exception(
             )
 
     if isinstance(error, subprocess.CalledProcessError):
+        stderr = error.stderr or ""
+        if isinstance(stderr, bytes):
+            stderr = stderr.decode("utf-8", errors="replace")
+        if error.returncode in {-9, 137} or any(hint in stderr.lower() for hint in (
+            "no space left on device", "cannot allocate memory", "resource temporarily unavailable",
+        )):
+            return TemporaryProcessingError("Media worker resources exhausted", error_code="media_resources_exhausted", cause=error)
         return PermanentMediaError(
             "FFmpeg could not process this video",
             error_code="unsupported_or_corrupt_media",

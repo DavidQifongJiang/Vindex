@@ -1,0 +1,357 @@
+{
+  "fetched_at": "2026-09-17T01:36:11.319444+00:00",
+  "attribution": "MIT OpenCourseWare; authors and terms on each source page",
+  "terms_url": "https://ocw.mit.edu/pages/privacy-and-terms-of-use/",
+  "captions": [
+    {
+      "video_key": "mit6006_lecture01",
+      "source_page": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-fall-2011/resources/lecture-1-algorithmic-thinking-peak-finding/",
+      "caption_url": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-fall-2011/f219ea40335d59aca990a5e0d99cdc6d_HtSuA80QTyo.vtt",
+      "file_path": "benchmarks/lecture_captions/mit6006_lecture01.vtt",
+      "sha256": "212567739ef0eddfc7bb04c5fa5e7dca027ede4edd57828d701e8deb5a76551f"
+    },
+    {
+      "video_key": "mit6006_lecture02",
+      "source_page": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-fall-2011/resources/lecture-2-models-of-computation-document-distance/",
+      "caption_url": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-fall-2011/8c0381777059554e9a9d2ff3f7aa7708_Zc54gFhdpLA.vtt",
+      "file_path": "benchmarks/lecture_captions/mit6006_lecture02.vtt",
+      "sha256": "2ed236663c847d39ebcfc3ec52c08fb256fb2549e583ab2ad2ff1305553e5656"
+    },
+    {
+      "video_key": "mit6006_lecture03",
+      "source_page": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-fall-2011/resources/lecture-3-insertion-sort-merge-sort/",
+      "caption_url": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-fall-2011/2c7458c5a44a5b7a90d54bf3143c0630_Kg4bqzAqRBM.vtt",
+      "file_path": "benchmarks/lecture_captions/mit6006_lecture03.vtt",
+      "sha256": "b505616e1648c7cb9f3a5338a33d00cb7cd3dfa192bf6180d1bd89f84f1c627c"
+    },
+    {
+      "video_key": "mit6006_lecture04",
+      "source_page": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-fall-2011/resources/lecture-4-heaps-and-heap-sort/",
+      "caption_url": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-fall-2011/4f81dd26f998521081cc5276aeddfc4d_B7hVxCmfPtM.vtt",
+      "file_path": "benchmarks/lecture_captions/mit6006_lecture04.vtt",
+      "sha256": "56d6e0ef2c1de230261b85fb29acc59da88d1421a749b0a8023f554824705944"
+    },
+    {
+      "video_key": "mit6006_lecture05",
+      "source_page": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-fall-2011/resources/lecture-5-binary-search-trees-bst-sort/",
+      "caption_url": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-fall-2011/ddc95d983ff2538c8a3f2b176023cf89_9Jry5-82I68.vtt",
+      "file_path": "benchmarks/lecture_captions/mit6006_lecture05.vtt",
+      "sha256": "2dad318301a3601d57ce2a9321cc0957a951199ad1c27625c36d9eece60ea5de"
+    },
+    {
+      "video_key": "mit6006_lecture06",
+      "source_page": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-fall-2011/resources/lecture-6-avl-trees-avl-sort/",
+      "caption_url": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-fall-2011/a16dd75fd6d853fd87f3e0fdf1573339_FNeL18KsWPc.vtt",
+      "file_path": "benchmarks/lecture_captions/mit6006_lecture06.vtt",
+      "sha256": "b98c78054b68a6bf50b1f41e3133649ce9edc79ceba16787c014134d0d8f1d43"
+    },
+    {
+      "video_key": "mit6006_lecture07",
+      "source_page": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-fall-2011/resources/lecture-7-counting-sort-radix-sort-lower-bounds-for-sorting/",
+      "caption_url": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-fall-2011/3507543a0b115ab08261e225d1635d20_Nz1KZXbghj8.vtt",
+      "file_path": "benchmarks/lecture_captions/mit6006_lecture07.vtt",
+      "sha256": "a4812548c54f72238cd6465e682bd96041f4d1958099f3993dc5e6cacabda69a"
+    },
+    {
+      "video_key": "mit6006_lecture08",
+      "source_page": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-fall-2011/resources/lecture-8-hashing-with-chaining/",
+      "caption_url": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-fall-2011/aa3effa97bbb5a6ea62cabb4a3de0f1e_0M_kIqhwbFo.vtt",
+      "file_path": "benchmarks/lecture_captions/mit6006_lecture08.vtt",
+      "sha256": "9fdeeeb665e21284f16cfe3ba08e13069902035989b5759e21e428910c332c97"
+    },
+    {
+      "video_key": "mit6006_lecture09",
+      "source_page": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-fall-2011/resources/lecture-9-table-doubling-karp-rabin/",
+      "caption_url": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-fall-2011/ff424b53159158be8dedf57411a1dd20_BRO7mVIFt08.vtt",
+      "file_path": "benchmarks/lecture_captions/mit6006_lecture09.vtt",
+      "sha256": "f557c360f174635a6ca73b08ba374126063864f6d0e5dd118f62936cefa64b9e"
+    },
+    {
+      "video_key": "mit6006_lecture10",
+      "source_page": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-fall-2011/resources/lecture-10-open-addressing-cryptographic-hashing/",
+      "caption_url": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-fall-2011/447689ac8fec5e338ad018d2bd1148e3_rvdJDijO2Ro.vtt",
+      "file_path": "benchmarks/lecture_captions/mit6006_lecture10.vtt",
+      "sha256": "caf4dc5bd0463d1450dc9e070f0f9400825fc6baa8e8b5fb96913e7590303da7"
+    },
+    {
+      "video_key": "mit6006_lecture11",
+      "source_page": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-fall-2011/resources/lecture-11-integer-arithmetic-karatsuba-multiplication/",
+      "caption_url": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-fall-2011/59cbfc197f5b55d78c147886bcc8283c_eCaXlAaN2uE.vtt",
+      "file_path": "benchmarks/lecture_captions/mit6006_lecture11.vtt",
+      "sha256": "7167b962d9b6da605751f4ef0b8e579f6b008e7c1067b27acc0361298c85d9b5"
+    },
+    {
+      "video_key": "mit6006_lecture12",
+      "source_page": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-fall-2011/resources/lecture-12-square-roots-newtons-method/",
+      "caption_url": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-fall-2011/96fe3138687d5cd49d232ab5c64e9c61_2YeJ-5UAke8.vtt",
+      "file_path": "benchmarks/lecture_captions/mit6006_lecture12.vtt",
+      "sha256": "81bef2066d61193283e97211335d94f6e53e9db07047211b8c7dfb34c9c43f90"
+    },
+    {
+      "video_key": "mit6006_lecture13",
+      "source_page": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-fall-2011/resources/lecture-13-breadth-first-search-bfs/",
+      "caption_url": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-fall-2011/1d2fc994429153ec89f4bd0c3c88565b_s-CYnVz-uh4.vtt",
+      "file_path": "benchmarks/lecture_captions/mit6006_lecture13.vtt",
+      "sha256": "2c086f4e80ca88825dad96bbcf94bd605c7aaa6a3fe6335355b79f0e886eebf1"
+    },
+    {
+      "video_key": "mit6006_lecture14",
+      "source_page": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-fall-2011/resources/lecture-14-depth-first-search-dfs-topological-sort/",
+      "caption_url": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-fall-2011/c13d3b3ea7ee52beb17d73f74b191601_AfSk24UTFS8.vtt",
+      "file_path": "benchmarks/lecture_captions/mit6006_lecture14.vtt",
+      "sha256": "632f44e24fa77f84d7d94f5fd992c0ef2c79b356f48965b10139d400bf21d0ae"
+    },
+    {
+      "video_key": "mit6006_lecture15",
+      "source_page": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-fall-2011/resources/lecture-15-single-source-shortest-paths-problem/",
+      "caption_url": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-fall-2011/b46cc500f9ec5ee6ac52c0c1f57906e9_Aa2sqUhIn-E.vtt",
+      "file_path": "benchmarks/lecture_captions/mit6006_lecture15.vtt",
+      "sha256": "409c3dccc5ccc705d6460af8766219449cf02adde7712aeec04d4258beac9400"
+    },
+    {
+      "video_key": "mit6006_lecture16",
+      "source_page": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-fall-2011/resources/lecture-16-dijkstra/",
+      "caption_url": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-fall-2011/280f09331d09527199c4b79b5064d087_2E7MmKv0Y24.vtt",
+      "file_path": "benchmarks/lecture_captions/mit6006_lecture16.vtt",
+      "sha256": "8ea8d68a6cbe069a2ea6aaf85bb0a2d4a81b349ede8457f034a5dd7106377fcf"
+    },
+    {
+      "video_key": "mit6006_lecture17",
+      "source_page": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-fall-2011/resources/lecture-17-bellman-ford/",
+      "caption_url": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-fall-2011/27af5e1c62d45b9ba252cea376622863_ozsuci5pIso.vtt",
+      "file_path": "benchmarks/lecture_captions/mit6006_lecture17.vtt",
+      "sha256": "92900f8fb416d534754ce1652289da9c33b8cc9c11fb1316e6902cca33f5a758"
+    },
+    {
+      "video_key": "mit6006_lecture18",
+      "source_page": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-fall-2011/resources/lecture-18-speeding-up-dijkstra/",
+      "caption_url": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-fall-2011/a7c5d930d9a256309547d3359542269d_CHvQ3q_gJ7E.vtt",
+      "file_path": "benchmarks/lecture_captions/mit6006_lecture18.vtt",
+      "sha256": "455a984d4e08840b87f2c40d22be5113e1766e0bb308f67e1a2b4767a4f603bb"
+    },
+    {
+      "video_key": "mit6006_lecture19",
+      "source_page": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-fall-2011/resources/lecture-19-dynamic-programming-i-fibonacci-shortest-paths/",
+      "caption_url": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-fall-2011/fb69bbc1ca0754898f935f9fb46596c0_OQ5jsbhAv_M.vtt",
+      "file_path": "benchmarks/lecture_captions/mit6006_lecture19.vtt",
+      "sha256": "5b6b0b714b56d670e533369181d5bfaee9147c60c4898e54350859a295b84572"
+    },
+    {
+      "video_key": "mit6006_lecture20",
+      "source_page": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-fall-2011/resources/lecture-20-dynamic-programming-ii-text-justification-blackjack/",
+      "caption_url": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-fall-2011/27390eb13a985d4cbc78448ec4e43c8a_ENyox7kNKeY.vtt",
+      "file_path": "benchmarks/lecture_captions/mit6006_lecture20.vtt",
+      "sha256": "d3d01fe055e21c23a2206709bb037c3013cd6ffa79b24cd46955c35e891202c0"
+    },
+    {
+      "video_key": "mit6006_lecture21",
+      "source_page": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-fall-2011/resources/lecture-21-dp-iii-parenthesization-edit-distance-knapsack/",
+      "caption_url": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-fall-2011/01e094b0403b556e856ea00f0ab86a0a_ocZMDMZwhCY.vtt",
+      "file_path": "benchmarks/lecture_captions/mit6006_lecture21.vtt",
+      "sha256": "82005aafdb21d84149b40b10626f18ac901090650c858893fd1d82c1ff83912d"
+    },
+    {
+      "video_key": "mit6006_lecture22",
+      "source_page": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-fall-2011/resources/lecture-22-dp-iv-guitar-fingering-tetris-super-mario-bros/",
+      "caption_url": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-fall-2011/fd07efc416985706b048aef4805505d7_tp4_UXaVyx8.vtt",
+      "file_path": "benchmarks/lecture_captions/mit6006_lecture22.vtt",
+      "sha256": "0490ca975ecc95aec78af59e2c130bb215b29b90d0d6b39a7314ae4a2a5f0d8f"
+    },
+    {
+      "video_key": "mit6006_lecture23",
+      "source_page": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-fall-2011/resources/lecture-23-computational-complexity/",
+      "caption_url": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-fall-2011/19a98a90ed155a41aa80505ab74281cc_moPtwq_cVH8.vtt",
+      "file_path": "benchmarks/lecture_captions/mit6006_lecture23.vtt",
+      "sha256": "fc4ef485a15344106239e4a0f32cdc7bd73ebec9e366f3309bc63cdc043c75c8"
+    },
+    {
+      "video_key": "mit6006_lecture24",
+      "source_page": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-fall-2011/resources/lecture-24-topics-in-algorithms-research/",
+      "caption_url": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-fall-2011/ed91ddaefc445a76b7931c248b5da3f9_dU40AvBURDQ.vtt",
+      "file_path": "benchmarks/lecture_captions/mit6006_lecture24.vtt",
+      "sha256": "7d0034e0921b387ce783b96106ab0bec052c1a5b5da4b1883cdb28b6dc9f47c1"
+    },
+    {
+      "video_key": "mit6046_lecture01",
+      "source_page": "https://ocw.mit.edu/courses/6-046j-design-and-analysis-of-algorithms-spring-2015/resources/lecture-1-course-overview-interval-scheduling/",
+      "caption_url": "https://ocw.mit.edu/courses/6-046j-design-and-analysis-of-algorithms-spring-2015/e2dbe428a4145662ac6e099b0fbf14c4_2P-yW7LQr08.vtt",
+      "file_path": "benchmarks/lecture_captions/mit6046_lecture01.vtt",
+      "sha256": "a998190e826b5163a62c9a148ee47276c312d64ba678c5e153fd5289fa04a6f3"
+    },
+    {
+      "video_key": "mit6046_lecture02",
+      "source_page": "https://ocw.mit.edu/courses/6-046j-design-and-analysis-of-algorithms-spring-2015/resources/lecture-2-divide-conquer-convex-hull-median-finding/",
+      "caption_url": "https://ocw.mit.edu/courses/6-046j-design-and-analysis-of-algorithms-spring-2015/4f2ce382bf595565858246f358677cc7_EzeYI7p9MjU.vtt",
+      "file_path": "benchmarks/lecture_captions/mit6046_lecture02.vtt",
+      "sha256": "79b507ab367c1175391d888a4639f51d1ebe60690050aba7ac45370b2d000e42"
+    },
+    {
+      "video_key": "mit6046_lecture03",
+      "source_page": "https://ocw.mit.edu/courses/6-046j-design-and-analysis-of-algorithms-spring-2015/resources/lecture-3-divide-conquer-fft/",
+      "caption_url": "https://ocw.mit.edu/courses/6-046j-design-and-analysis-of-algorithms-spring-2015/07e6328d8f0d50e7b643e5f2974d41e4_iTMn0Kt18tg.vtt",
+      "file_path": "benchmarks/lecture_captions/mit6046_lecture03.vtt",
+      "sha256": "d8f2bd9bba9baabd6d8922b0f55adfb4cd48f2fab15d18364757cc0e46f6a962"
+    },
+    {
+      "video_key": "mit6046_lecture04",
+      "source_page": "https://ocw.mit.edu/courses/6-046j-design-and-analysis-of-algorithms-spring-2015/resources/lecture-4-divide-conquer-van-emde-boas-trees/",
+      "caption_url": "https://ocw.mit.edu/courses/6-046j-design-and-analysis-of-algorithms-spring-2015/0320c487d92e557ab8499475a32a9267_hmReJCupbNU.vtt",
+      "file_path": "benchmarks/lecture_captions/mit6046_lecture04.vtt",
+      "sha256": "732f4600b426387f9bcbfafb8dfde6b0102bb70901036e59e9b85066773f0b7e"
+    },
+    {
+      "video_key": "mit6046_lecture05",
+      "source_page": "https://ocw.mit.edu/courses/6-046j-design-and-analysis-of-algorithms-spring-2015/resources/lecture-5-amortization-amortized-analysis/",
+      "caption_url": "https://ocw.mit.edu/courses/6-046j-design-and-analysis-of-algorithms-spring-2015/f341f1524160555586733d8f894b8979_3MpzavN3Mco.vtt",
+      "file_path": "benchmarks/lecture_captions/mit6046_lecture05.vtt",
+      "sha256": "9c6d376caa58b0584766f74542d5473155fc3494918d3e8e2a53fadd351405c0"
+    },
+    {
+      "video_key": "mit6046_lecture06",
+      "source_page": "https://ocw.mit.edu/courses/6-046j-design-and-analysis-of-algorithms-spring-2015/resources/lecture-6-randomization-matrix-multiply-quicksort/",
+      "caption_url": "https://ocw.mit.edu/courses/6-046j-design-and-analysis-of-algorithms-spring-2015/f62deae5ca885d2db2efb621e02a92fb_cNB2lADK3_s.vtt",
+      "file_path": "benchmarks/lecture_captions/mit6046_lecture06.vtt",
+      "sha256": "9e09bc4231e9f7887b994a028104a4dd24a96c4e09677869e9567b4b14cf3784"
+    },
+    {
+      "video_key": "mit6046_lecture07",
+      "source_page": "https://ocw.mit.edu/courses/6-046j-design-and-analysis-of-algorithms-spring-2015/resources/lecture-7-randomization-skip-lists/",
+      "caption_url": "https://ocw.mit.edu/courses/6-046j-design-and-analysis-of-algorithms-spring-2015/01c8b880aadb5990989b8d9457bd8dd4_2g9OSRKJuzM.vtt",
+      "file_path": "benchmarks/lecture_captions/mit6046_lecture07.vtt",
+      "sha256": "47af0169be4ec6ef7b4932da095ab117133496f8e7b972e6e664fbb925f1a33e"
+    },
+    {
+      "video_key": "mit6046_lecture08",
+      "source_page": "https://ocw.mit.edu/courses/6-046j-design-and-analysis-of-algorithms-spring-2015/resources/lecture-8-randomization-universal-perfect-hashing/",
+      "caption_url": "https://ocw.mit.edu/courses/6-046j-design-and-analysis-of-algorithms-spring-2015/d36b4c4c9a995e8fab18e4aacc3e0e10_z0lJ2k0sl1g.vtt",
+      "file_path": "benchmarks/lecture_captions/mit6046_lecture08.vtt",
+      "sha256": "891f6a4d1cac167f865ae3e452697b80c079800c3917342d60bc4dd802085226"
+    },
+    {
+      "video_key": "mit6046_lecture09",
+      "source_page": "https://ocw.mit.edu/courses/6-046j-design-and-analysis-of-algorithms-spring-2015/resources/lecture-9-augmentation-range-trees/",
+      "caption_url": "https://ocw.mit.edu/courses/6-046j-design-and-analysis-of-algorithms-spring-2015/45f27f0ddc5955e79f3cbfe9e2ee0fa5_xVka6z1hu-I.vtt",
+      "file_path": "benchmarks/lecture_captions/mit6046_lecture09.vtt",
+      "sha256": "47d0021d6508d24b3b0853e9c81f14fd00355ffc372ee59f0e282e6f6176dc3a"
+    },
+    {
+      "video_key": "mit6046_lecture10",
+      "source_page": "https://ocw.mit.edu/courses/6-046j-design-and-analysis-of-algorithms-spring-2015/resources/lecture-10-dynamic-programming-advanced-dp/",
+      "caption_url": "https://ocw.mit.edu/courses/6-046j-design-and-analysis-of-algorithms-spring-2015/6d8efa24d8bc5679a28ae6924f42a016_Tw1k46ywN6E.vtt",
+      "file_path": "benchmarks/lecture_captions/mit6046_lecture10.vtt",
+      "sha256": "23fa0c2f70f6a3a018714a46ed51070d7c93b96ea136dbbe70e2c31cd0495f99"
+    },
+    {
+      "video_key": "mit6046_lecture11",
+      "source_page": "https://ocw.mit.edu/courses/6-046j-design-and-analysis-of-algorithms-spring-2015/resources/lecture-11-dynamic-programming-all-pairs-shortest-paths/",
+      "caption_url": "https://ocw.mit.edu/courses/6-046j-design-and-analysis-of-algorithms-spring-2015/520a226d3fa95360a5fce37bdc13ec3a_NzgFUwOaoIw.vtt",
+      "file_path": "benchmarks/lecture_captions/mit6046_lecture11.vtt",
+      "sha256": "5d829ab6a7296ba01bb201712a47bb07d02ea374ba9290d6d240194b8644871a"
+    },
+    {
+      "video_key": "mit6046_lecture12",
+      "source_page": "https://ocw.mit.edu/courses/6-046j-design-and-analysis-of-algorithms-spring-2015/resources/lecture-12-greedy-algorithms-minimum-spanning-tree/",
+      "caption_url": "https://ocw.mit.edu/courses/6-046j-design-and-analysis-of-algorithms-spring-2015/864729115a5e546188f5d5d2b86c3fa6_tKwnms5iRBU.vtt",
+      "file_path": "benchmarks/lecture_captions/mit6046_lecture12.vtt",
+      "sha256": "a18a47084fe653d988d1235c52686293f0f3acc192daf2465401141f0e5457fd"
+    },
+    {
+      "video_key": "mit6046_lecture13",
+      "source_page": "https://ocw.mit.edu/courses/6-046j-design-and-analysis-of-algorithms-spring-2015/resources/lecture-13-incremental-improvement-max-flow-min-cut/",
+      "caption_url": "https://ocw.mit.edu/courses/6-046j-design-and-analysis-of-algorithms-spring-2015/b77dccb515db5896a94852af89eaada2_VYZGlgzr_As.vtt",
+      "file_path": "benchmarks/lecture_captions/mit6046_lecture13.vtt",
+      "sha256": "956280ebe1f34cc67cdf5f75a69f593b2f7dc4b0d1e8067f84d585be1c4407d3"
+    },
+    {
+      "video_key": "mit6034_lecture01",
+      "source_page": "https://ocw.mit.edu/courses/6-034-artificial-intelligence-fall-2010/resources/lecture-1-introduction-and-scope/",
+      "caption_url": "https://ocw.mit.edu/courses/6-034-artificial-intelligence-fall-2010/c392f6e074945c7488e5835ed9a74b7d_TjZBTDzGeGg.vtt",
+      "file_path": "benchmarks/lecture_captions/mit6034_lecture01.vtt",
+      "sha256": "7a632edda7e55190738414605cec04f6d274e0356df016983e7aa1add7939cb8"
+    },
+    {
+      "video_key": "mit6034_lecture02",
+      "source_page": "https://ocw.mit.edu/courses/6-034-artificial-intelligence-fall-2010/resources/lecture-2-reasoning-goal-trees-and-problem-solving/",
+      "caption_url": "https://ocw.mit.edu/courses/6-034-artificial-intelligence-fall-2010/220209716a875af2b4085168a251264b_PNKj529yY5c.vtt",
+      "file_path": "benchmarks/lecture_captions/mit6034_lecture02.vtt",
+      "sha256": "08a29e3b659d70c0160a3eb3e830fb278285b1ea1908ef292f8b800a70952aae"
+    },
+    {
+      "video_key": "mit6034_lecture03",
+      "source_page": "https://ocw.mit.edu/courses/6-034-artificial-intelligence-fall-2010/resources/lecture-3-reasoning-goal-trees-and-rule-based-expert-systems/",
+      "caption_url": "https://ocw.mit.edu/courses/6-034-artificial-intelligence-fall-2010/375df741d5705ed5a9c3da9345bbf855_leXa7EKUPFk.vtt",
+      "file_path": "benchmarks/lecture_captions/mit6034_lecture03.vtt",
+      "sha256": "4e8dedb5f195166bb381eea577b283604d479c78ec1be5eb917aaf40711b79a0"
+    },
+    {
+      "video_key": "mit6034_lecture04",
+      "source_page": "https://ocw.mit.edu/courses/6-034-artificial-intelligence-fall-2010/resources/lecture-4-search-depth-first-hill-climbing-beam/",
+      "caption_url": "https://ocw.mit.edu/courses/6-034-artificial-intelligence-fall-2010/e39058e630fe5f1f8c012d7c7abe474c_j1H3jAAGlEA.vtt",
+      "file_path": "benchmarks/lecture_captions/mit6034_lecture04.vtt",
+      "sha256": "7aca97ba6a739c20f4e9a9d5a3e24b054b14cb31eb1f38dde8243eef27e3d61a"
+    },
+    {
+      "video_key": "mit6034_lecture05",
+      "source_page": "https://ocw.mit.edu/courses/6-034-artificial-intelligence-fall-2010/resources/lecture-5-search-optimal-branch-and-bound-a/",
+      "caption_url": "https://ocw.mit.edu/courses/6-034-artificial-intelligence-fall-2010/c7730e2ca4d75a189880041c6cc4a682_gGQ-vAmdAOI.vtt",
+      "file_path": "benchmarks/lecture_captions/mit6034_lecture05.vtt",
+      "sha256": "b8d470d88f88ab8e48bbed44474319a07bd28a284cfedf928e85b661e31b7659"
+    },
+    {
+      "video_key": "mit6034_lecture06",
+      "source_page": "https://ocw.mit.edu/courses/6-034-artificial-intelligence-fall-2010/resources/lecture-6-search-games-minimax-and-alpha-beta/",
+      "caption_url": "https://ocw.mit.edu/courses/6-034-artificial-intelligence-fall-2010/1b5991c5626d56c7ad58473068a82b20_STjW3eH0Cik.vtt",
+      "file_path": "benchmarks/lecture_captions/mit6034_lecture06.vtt",
+      "sha256": "8bb3ad7ef81e2d15b752ebd328b358ecadcd5f7ca48e8d9bc9a2e412165a0801"
+    },
+    {
+      "video_key": "mit6034_lecture07",
+      "source_page": "https://ocw.mit.edu/courses/6-034-artificial-intelligence-fall-2010/resources/lecture-7-constraints-interpreting-line-drawings/",
+      "caption_url": "https://ocw.mit.edu/courses/6-034-artificial-intelligence-fall-2010/20d33de559575624a52ed176048ee1a2_l-tzjenXrvI.vtt",
+      "file_path": "benchmarks/lecture_captions/mit6034_lecture07.vtt",
+      "sha256": "8799e517450009cb4335d759f36e1ab9d3a7af95e4473d9d253b7eaae0b3fd25"
+    },
+    {
+      "video_key": "mit6034_lecture08",
+      "source_page": "https://ocw.mit.edu/courses/6-034-artificial-intelligence-fall-2010/resources/lecture-8-constraints-search-domain-reduction/",
+      "caption_url": "https://ocw.mit.edu/courses/6-034-artificial-intelligence-fall-2010/85921260debe53e8873ed8c51d81189e_dARl_gGrS4o.vtt",
+      "file_path": "benchmarks/lecture_captions/mit6034_lecture08.vtt",
+      "sha256": "86231aec6b78a2e34cae2ad5f0c63ac9da481ae1a2ed47609e35943f58af5c2b"
+    },
+    {
+      "video_key": "mit6034_lecture09",
+      "source_page": "https://ocw.mit.edu/courses/6-034-artificial-intelligence-fall-2010/resources/lecture-9-constraints-visual-object-recognition/",
+      "caption_url": "https://ocw.mit.edu/courses/6-034-artificial-intelligence-fall-2010/967b6b840fcb5cdc91ea4b6b81c7362d_gvmfbePC2pc.vtt",
+      "file_path": "benchmarks/lecture_captions/mit6034_lecture09.vtt",
+      "sha256": "cdb5f7245747633586dbdae9d8783b46e3a96e6099ee2f8a5df57309ede105a9"
+    },
+    {
+      "video_key": "mit6034_lecture10",
+      "source_page": "https://ocw.mit.edu/courses/6-034-artificial-intelligence-fall-2010/resources/lecture-10-introduction-to-learning-nearest-neighbors/",
+      "caption_url": "https://ocw.mit.edu/courses/6-034-artificial-intelligence-fall-2010/960c38a9fa145a3f9f7a501bf6d0a486_09mb78oiPkA.vtt",
+      "file_path": "benchmarks/lecture_captions/mit6034_lecture10.vtt",
+      "sha256": "cf750ded567b13e7455258e3e702f53d98447a5ee17e06e31342d99c4f6f4bf7"
+    },
+    {
+      "video_key": "mit6034_lecture11",
+      "source_page": "https://ocw.mit.edu/courses/6-034-artificial-intelligence-fall-2010/resources/lecture-11-learning-identification-trees-disorder/",
+      "caption_url": "https://ocw.mit.edu/courses/6-034-artificial-intelligence-fall-2010/aabda0d636425778b53430faaec8c5a4_SXBG3RGr_Rc.vtt",
+      "file_path": "benchmarks/lecture_captions/mit6034_lecture11.vtt",
+      "sha256": "97430f3dabfdcc8a5d71399b505fd23c5d6cc5e63b1c7acb5c70bca23e87f13b"
+    },
+    {
+      "video_key": "mit6034_lecture12",
+      "source_page": "https://ocw.mit.edu/courses/6-034-artificial-intelligence-fall-2010/resources/lecture-12a-neural-nets/",
+      "caption_url": "https://ocw.mit.edu/courses/6-034-artificial-intelligence-fall-2010/4ba6f3e177fa506cb50bca51344e4df7_uXt8qF2Zzfo.vtt",
+      "file_path": "benchmarks/lecture_captions/mit6034_lecture12.vtt",
+      "sha256": "4db5e85ba50a79396fe0bcacb6810bb7d5640756b0980f7941470325636c9859"
+    },
+    {
+      "video_key": "mit6034_lecture13",
+      "source_page": "https://ocw.mit.edu/courses/6-034-artificial-intelligence-fall-2010/resources/lecture-13-learning-genetic-algorithms/",
+      "caption_url": "https://ocw.mit.edu/courses/6-034-artificial-intelligence-fall-2010/87eb6a4ffdcc5881a0a90621155b39d9_kHyNqSnzP8Y.vtt",
+      "file_path": "benchmarks/lecture_captions/mit6034_lecture13.vtt",
+      "sha256": "7c52cd05d68bd6f0903b1c40af4d2576c2c5f598642e00957f957717364bd809"
+    }
+  ]
+}

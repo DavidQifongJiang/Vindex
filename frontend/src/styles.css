@@ -9,6 +9,23 @@
   -webkit-font-smoothing: antialiased;
 }
 
+.library-search { margin-bottom: 24px; }
+.library-search h3 { margin: 0; }
+.library-search > p { margin: 8px 0 16px; line-height: 1.5; }
+.library-search [aria-live] p { margin: 12px 0; line-height: 1.5; }
+.library-search-form { display: flex; gap: 12px; }
+.library-search-form input { flex: 1; min-width: 0; padding: 12px; border: 1px solid #b4c2c9; border-radius: 8px; }
+.library-search-results { display: grid; gap: 10px; }
+.library-search-result { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px 16px; text-align: left; padding: 16px; border: 1px solid #c7d3d9; border-radius: 10px; background: #fff; color: inherit; }
+.library-search-result:hover { background: #eef7f9; }
+.library-passage { grid-column: 1 / -1; line-height: 1.6; white-space: pre-wrap; overflow-wrap: anywhere; }
+.library-search-notice { padding: 10px 14px; border-left: 3px solid #a97620; background: #fff8e8; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+@media (max-width: 520px) {
+  .library-search-form { flex-direction: column; }
+  .library-search-result { grid-template-columns: 1fr; }
+}
+
 * {
   box-sizing: border-box;
 }
@@ -864,3 +881,16 @@ h3 {
     grid-column: 2;
   }
 }
+.search-consent { display: grid; gap: 10px; margin: 16px 0; font-size: .88rem; color: #405158; }
+.search-consent label { display: flex; gap: 8px; align-items: flex-start; line-height: 1.5; }
+.search-consent input { margin-top: 4px; flex-shrink: 0; }
+.search-feedback { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 16px; }
+.search-feedback span, .search-feedback p { flex-basis: 100%; margin: 0; }
+.search-feedback button, .search-analytics button { border: 1px solid #c9d8de; border-radius: 8px; padding: 8px 12px; background: #fff; color: #17495c; cursor: pointer; }
+.search-feedback button:disabled { opacity: .5; cursor: default; }
+.search-analytics { margin-top: 20px; padding-top: 16px; border-top: 1px solid #dbe4e8; font-size: .9rem; }
+.search-analytics summary { cursor: pointer; font-weight: 600; margin-bottom: 12px; }
+.search-analytics table { width: 100%; border-collapse: collapse; font-size: .82rem; }
+.search-analytics th, .search-analytics td { text-align: left; padding: 10px; border-bottom: 1px solid #dbe4e8; white-space: nowrap; }
+.search-analytics th { background: #edf3f5; }
+.library-search-form select { border: 1px solid #b8cbd4; border-radius: 8px; background: white; padding: 8px; color: #17495c; }

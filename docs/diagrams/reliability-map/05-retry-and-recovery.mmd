@@ -1,0 +1,30 @@
+flowchart TB
+R1["Worker exception → classify<br/>Lock parent; match processing status + token<br/>Ordinary failure recording requires live lease"]:::normal
+R2["Dispatcher scans expired lease OR deadline<br/>Also repairs pending/retrying rows already exhausted<br/>Re-lock parent; re-read before changing state"]:::normal
+R3["Recovery uses matching token + expired condition<br/>worker_lease_expired OR processing_deadline_exceeded<br/>Synthetic expired token for exhausted runnable rows"]:::normal
+R4{"Still owns eligible work?"}:::decision
+R5["No transition / stale<br/>Do not overwrite a replacement attempt"]:::safe
+R6{"Retryable AND attempts below max?"}:::decision
+R7["Default max attempts = 3, persisted per row<br/>Delay = min 600, 30 x 2^(attempt-1) seconds<br/>THEN random +/-20%, rounded, floor at zero"]:::retry
+R8["Default retry waits: 24-36s then 48-72s<br/>Cap is before jitter; up to 720s if reached<br/>Commit retrying + next_retry_at"]:::retry
+R9["Clear owner, token, lease and dispatch_after<br/>Persist code, class, message truncated to 1000,<br/>error time and updated_at"]:::normal
+R10["Wrapper returns retrying<br/>Dispatcher waits until due and republishes<br/>Next successful claim increments attempt"]:::retry
+R11["Commit work status = failed<br/>No automatic further attempt; mark video failed<br/>Search/chunk/finalize also mark search substates failed"]:::fail
+R12["Wrapper raises terminal classified error<br/>Completed sibling chunks remain usable<br/>Pending siblings are not automatically cancelled"]:::note
+R13["DB unavailable while recording failure<br/>No reliable state transition; error escapes<br/>After DB recovers, expiry path recovers work"]:::retry
+R1 --> R4
+R2 --> R3 --> R4
+R4 -->|No| R5
+R4 -->|Yes| R6
+R6 -->|Yes| R7 --> R8 --> R9 --> R10
+R6 -->|No| R11 --> R12
+R1 -.->|DB failure| R13 --> R2
+R10 -.->|Another attempt fails| R1
+
+classDef normal fill:#edf4ff,stroke:#4b83bb,color:#172f4a
+classDef decision fill:#fff5dc,stroke:#b88d27,color:#4c3810
+classDef safe fill:#eaf7f0,stroke:#40916b,color:#193c2b
+classDef retry fill:#fff0de,stroke:#ce873a,color:#513211
+classDef fail fill:#ffeded,stroke:#c76a6a,color:#542525
+classDef note fill:#f1f3f6,stroke:#97a2ad,color:#344353
+classDef optional fill:#f2edfc,stroke:#8e74bc,color:#35254d

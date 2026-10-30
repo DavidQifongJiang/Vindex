@@ -1,0 +1,47 @@
+0004|wrong task; missing mechanism|Range search and binary search for a specified item do not explain peak finding. Peak passages in the original top5 omit the divide-and-conquer procedure.
+0007|missing requested relation|Peak-finding introductions do not explain why a local peak is easier than a global maximum.
+0009|query ambiguity; wrong topic|The query omits peak finding. Returned geometry, line-labeling and classification passages do not establish the intended algorithmic comparison.
+0011|label conflict|Original rank2 describes word-count vectors, dot product and normalization; this appears answer-bearing despite its accepted grade0. Preserve the original label pending independent review.
+0017|missing requested relation; split context|The original first passage calls angle a natural measure but omits the scale-invariance motivation immediately before it.
+0019|missing requested relation|Counting word frequencies describes the representation but does not explicitly explain the effect of discarding order.
+0024|wrong task|BST insertion, van Emde Boas insertion and list concatenation are not insertion sort's ordered-prefix example.
+0025|split context|Rank5 discusses merging pairs upward but its preceding and following passages supply the split and sorted-output explanation.
+0026|wrong task; introductory mention|Sorting in graphics, set union and merge-sort introductions omit the two-head comparison procedure for merging ordered lists.
+0031|split context; incomplete answer|Heap maintenance and a fragment about reversing inequalities omit a standalone definition and array relationships. Neighboring text supplies the parent-child inequality, but still lacks a complete index formula.
+0032|wrong operation; missing proof; label conflict|Heapsort n log n and assertions about build-heap do not derive the linear bound. A separately accepted grade2 candidate merely asks for build-heap pseudocode.
+0034|incomplete answer|The array/nearly-complete-tree statement omits the index relationships that replace explicit child pointers.
+0035|wrong operation|BST traversal and rotation results do not explain sifting a heap root down.
+0037|wrong operation; split context|Top passages describe heapsort n log n. The linear heap-construction proof spans several other consecutive segments.
+0038|missing requested relation|Heap operations and sorting mentions omit the distinction between a partial heap order and a fully sorted array.
+0042|wrong operation|BST definitions, 2-3-tree splitting and augmentation do not explain deleting a BST node with two children.
+0045|split context|The sorted traversal example begins mid-walk; the preceding segment supplies the left-root-right order.
+0049|incomplete answer|The ordering invariant supports the explanation but the original top5 does not give a clear standalone leftmost-node minimum procedure and termination argument.
+0051|introductory mention; fusion demotion|Roughly equal subtree heights is less precise than the requested AVL invariant. The exact at-most-one passage is semantic rank18 and fusion rank40.
+0054|wrong algorithm; incomplete answer|Minimax and 2-3-tree insertion are distractors. The AVL introduction does not show repairing insertion-induced imbalance.
+0055|wrong requested relation|In-order traversal and linked-list sorting do not explain why changing tree links in a rotation preserves sorted order.
+0056|missing requested case|Rotation costs and augmentation do not explain the double-rotation case where a single rotation is insufficient.
+0058|split context|The first passage explains changed links; its adjacent continuation explains preservation of the in-order traversal.
+0062|split context; incomplete answer|Counting-sort complexity and output assembly do not, in the original snippets, establish stable ordering of equal-key items.
+0067|label conflict|Original rank1 explicitly says linear sorting breaks outside the comparison model. This directly addresses why the comparison lower bound does not apply, despite accepted grade0.
+0075|wrong task|DP caching, duplicate keys and slot-count constraints do not explain load factor and expected lookup work.
+0076|missing mechanism|Direct access and list lookup do not explain mapping a large key space into bounded table positions.
+0081|split context; missing proof|Aggregate-cost assertions and incomplete coin-payment explanations omit a self-contained derivation of amortized table doubling.
+0091|label conflict; split context|Rank3 describes growing consecutive clusters and their tendency to grow further. It appears more relevant than accepted grade0; neighboring passages make the mechanism clearer.
+0092|split context; fusion demotion|The name double hashing ends in one segment and h1(k)+i*h2(k) mod m begins in the next. The formula is semantic rank4 but fusion rank15.
+0094|wrong strategy; split context|Secondary perfect-hash tables are distractors. Open-address probing snippets omit part of the comparison with external lists.
+0095|split context|Original snippets separately explain stopping at an empty slot and continuing past a deleted flag. The intervening example supplies the false-negative consequence.
+0097|missing requested relation|Tombstones, resizing and capacity constraints do not explain how near-full occupancy increases probe cost.
+0242|introductory mention; incomplete answer|Weighted-interval conclusions and weight introductions do not give a usable recurrence and compatible-predecessor choice.
+0243|incomplete answer|A statement about selecting a largest compatible subset describes the objective rather than how to optimize it.
+0244|wrong topic; counterexample without repair|Course activities and unrelated greedy examples distract; the shortest-interval counterexample does not supply the requested maximum compatible set procedure.
+0245|wrong topic|Generic course activities and attaching values to tree nodes do not explain weighted activity selection.
+0246|wrong requested relation|A counterexample to a greedy rule in the weighted case does not justify earliest finish time for the unweighted case.
+0287|label conflict|Original rank2 explicitly states amortized cost constrains total actual cost, not individual operation costs. It appears to answer the query despite accepted grade0.
+0312|split context|First-level hashing and collision-free secondary-table construction are returned separately without a complete two-level construction in one snippet.
+0315|introductory mention; split context|Claims that collisions can be eliminated do not show the construction. Nearby text explains choosing secondary functions again on collision.
+0375|query ambiguity; introductory mention|Broad introductory promises and recaps do not provide a worked problem-representation example. Intended scope needs care.
+0376|query ambiguity; incomplete answer|General learning, perception and reasoning comments do not explicitly explain their requested connection. A human-reviewed partial result remains partial.
+0461|split context|The need for a different nearest-neighbor metric is stated before the actual vector-angle metric appears.
+0464|wrong task; introductory mention|Recognition recaps and example setup omit classification by comparing a new example with labeled neighbors.
+0467|missing requested relation|Nearest-neighbor introductions and general distance calculations omit how feature scaling changes neighbor selection.
+0468|wrong topic; candidate coverage unresolved|Constraint propagation, graph degree and FFT neighbors are not k-nearest-neighbor voting. Do not assume the requested k-voting explanation exists in the corpus.

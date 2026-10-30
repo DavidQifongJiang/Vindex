@@ -1,0 +1,17 @@
+0017|1|2|The added preceding text explicitly contrasts document lengths and says the raw score is not scale invariant; normalization and the angle formula then answer why.
+0025|1|2|The window adds splitting into L and R, recursive splitting, bottom-up merges, and the final sorted array. The original snippet alone starts at merging pairs.
+0031|1|1|The parent-child inequality is now explicit, but the array representation still depends on the drawing and does not supply the index relationships. Do not count as a complete repair.
+0092|1|2|The window joins the double-hashing introduction to h(k,i)=h1(k)+i*h2(k) mod m and identifies h1 and h2 as ordinary hash functions.
+0157|1|1|The expanded text repeats that negative edges are unsupported but never explains how a later negative edge invalidates a settled greedy distance.
+0162|1|1|The window explains aborting on negative cycles, not the Bellman-Ford extra-relaxation detection test.
+0172|0|0|This is a potential function for amortized data-structure analysis, not the A* search potential. The inherited accepted answer label is a wrong-topic conflict.
+0178|1|1|The window mentions heuristic edge-weight modification but does not explain the telescoping potential differences that preserve the best route.
+0266|0|0|The passage computes values from polynomial coefficients, the opposite direction from the requested interpolation. Longer text does not fix this.
+0274|0|0|Hash-table membership is not ordered predecessor/successor lookup on bounded integers. The apparent gain comes from a wrong-task accepted label.
+0363|1|1|The passage gives forward residual capacity c(u,v)-f(u,v), not the reverse edge's cancellation capacity.
+0394|1|1|The expanded passage contrasts deduction with database updates but does not show facts satisfying antecedents and triggering a rule. The requested mechanism remains missing.
+0395|0|0|This is an introduction to mathematical induction, not backward-chaining from a goal to supporting facts.
+0403|1|2|The added text defines keeping the best two paths at each level, explicitly calls this beam width, and gives the heuristic selection example. Both containing windows provide the mechanism.
+0404|1|2|The added preceding example reaches a dead end, backs up to the last choice and takes another branch. It supplies the requested behavior missing from the original summary fragment.
+0431|1|1|The window explains Waltz's richer labels and junction vocabulary but omits the line-label constraint-propagation procedure. Treat as partial algorithm coverage.
+0433|2|2|The original already maps convex to plus, concave to minus and boundary to an arrow. Expansion adds context but is not a newly answered query under this review.

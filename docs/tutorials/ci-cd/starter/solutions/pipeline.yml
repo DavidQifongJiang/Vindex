@@ -1,0 +1,154 @@
+name: Practice pipeline
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# Do not interrupt a deployment halfway through with a newer push.
+concurrency:
+  group: practice-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  test:
+    name: test
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.11'
+      - run: |
+          python -m compileall -q app.py scripts tests
+          python -m unittest discover -s tests -v
+
+  build:
+    needs: test
+    # PRs get tests; only the trusted main branch produces release artifacts.
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    outputs:
+      image: ${{ steps.release.outputs.image }}
+      image_id: ${{ steps.release.outputs.image_id }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - name: Build once and save that exact image
+        id: release
+        env:
+          RELEASE_SHA: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+          IMAGE="cicd-lab:$RELEASE_SHA"
+          docker build --build-arg "RELEASE_SHA=$RELEASE_SHA" -t "$IMAGE" .
+          IMAGE_ID=$(docker image inspect "$IMAGE" --format '{{.Id}}')
+          mkdir -p release
+          docker save --output release/image.tar "$IMAGE"
+          printf '%s\n' "$IMAGE" > release/image-ref.txt
+          printf '%s\n' "$IMAGE_ID" > release/image-id.txt
+          printf '%s\n' "$RELEASE_SHA" > release/commit.txt
+          cp compose.yaml release/compose.yaml
+          cp scripts/smoke.py release/smoke.py
+          (cd release && sha256sum image.tar image-ref.txt image-id.txt commit.txt compose.yaml smoke.py > SHA256SUMS)
+          echo "image=$IMAGE" >> "$GITHUB_OUTPUT"
+          echo "image_id=$IMAGE_ID" >> "$GITHUB_OUTPUT"
+      - name: Preserve the release after this runner disappears
+        uses: actions/upload-artifact@v7
+        with:
+          name: release-${{ github.sha }}
+          path: release/
+          retention-days: 7
+          compression-level: 0
+          if-no-files-found: error
+
+  staging:
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.11'
+      - uses: actions/download-artifact@v8
+        with:
+          name: release-${{ github.sha }}
+          path: release
+      - name: Load the built image and verify its identity
+        env:
+          EXPECTED_ID: ${{ needs.build.outputs.image_id }}
+          LAB_IMAGE: ${{ needs.build.outputs.image }}
+        run: |
+          set -euo pipefail
+          (cd release && sha256sum -c SHA256SUMS)
+          docker load --input release/image.tar
+          test "$(docker image inspect "$LAB_IMAGE" --format '{{.Id}}')" = "$EXPECTED_ID"
+      - name: Deploy to temporary staging and test it
+        env:
+          LAB_IMAGE: ${{ needs.build.outputs.image }}
+          LAB_ENV: staging
+          LAB_PORT: '18080'
+          RELEASE_SHA: ${{ github.sha }}
+        run: |
+          docker compose -f release/compose.yaml -p cicd-lab-staging up -d --wait --wait-timeout 45
+          python release/smoke.py http://127.0.0.1:18080 --expected-release "$RELEASE_SHA"
+      - name: Collect logs on failure
+        if: failure()
+        env:
+          LAB_IMAGE: ${{ needs.build.outputs.image }}
+        run: docker compose -f release/compose.yaml -p cicd-lab-staging logs --no-color
+      - name: Remove this temporary deployment
+        if: always()
+        env:
+          LAB_IMAGE: ${{ needs.build.outputs.image }}
+        run: docker compose -f release/compose.yaml -p cicd-lab-staging down
+
+  production-demo:
+    # Create this environment and its required-reviewer rule BEFORE running.
+    # The name alone does not create an approval requirement.
+    needs: [build, staging]
+    environment: production-demo
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.11'
+      - uses: actions/download-artifact@v8
+        with:
+          name: release-${{ github.sha }}
+          path: release
+      - name: Promote the same image after approval
+        env:
+          EXPECTED_ID: ${{ needs.build.outputs.image_id }}
+          LAB_IMAGE: ${{ needs.build.outputs.image }}
+          LAB_ENV: production-demo
+          LAB_PORT: '18080'
+          RELEASE_SHA: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+          (cd release && sha256sum -c SHA256SUMS)
+          docker load --input release/image.tar
+          test "$(docker image inspect "$LAB_IMAGE" --format '{{.Id}}')" = "$EXPECTED_ID"
+          docker compose -f release/compose.yaml -p cicd-lab-production up -d --wait --wait-timeout 45
+          python release/smoke.py http://127.0.0.1:18080 --expected-release "$RELEASE_SHA"
+      - name: Collect logs on failure
+        if: failure()
+        env:
+          LAB_IMAGE: ${{ needs.build.outputs.image }}
+        run: docker compose -f release/compose.yaml -p cicd-lab-production logs --no-color
+      - name: Remove this temporary deployment
+        if: always()
+        env:
+          LAB_IMAGE: ${{ needs.build.outputs.image }}
+        run: docker compose -f release/compose.yaml -p cicd-lab-production down

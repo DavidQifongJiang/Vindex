@@ -7,6 +7,7 @@ export default defineConfig({
     port: 5173,
     proxy: {
       "/health": "http://localhost:8000",
+      "/search": "http://localhost:8000",
       "/videos": "http://localhost:8000"
     }
   }

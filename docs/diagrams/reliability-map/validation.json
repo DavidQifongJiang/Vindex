@@ -1,0 +1,197 @@
+{
+  "checked": "Mermaid syntax; individual rendering; node bounds; guide navigation and narrow layout",
+  "combinedParsed": true,
+  "panelCount": 17,
+  "nodeCount": 237,
+  "remoteWhimsicalImportVerified": false,
+  "backendTestsRun": false,
+  "panels": [
+    {
+      "panel": "00-overview",
+      "parsed": true,
+      "width": 1118.25634765625,
+      "height": 956.39990234375,
+      "nodes": 13,
+      "nativeText": 27,
+      "foreignObjects": 0,
+      "clipped": [],
+      "escapedText": []
+    },
+    {
+      "panel": "01-upload-idempotency",
+      "parsed": true,
+      "width": 2054.25439453125,
+      "height": 2633.8623046875,
+      "nodes": 21,
+      "nativeText": 43,
+      "foreignObjects": 0,
+      "clipped": [],
+      "escapedText": []
+    },
+    {
+      "panel": "02-durable-dag-dispatch",
+      "parsed": true,
+      "width": 1292.2904052734375,
+      "height": 1911.762451171875,
+      "nodes": 15,
+      "nativeText": 32,
+      "foreignObjects": 0,
+      "clipped": [],
+      "escapedText": []
+    },
+    {
+      "panel": "03-claim-lease-deadline",
+      "parsed": true,
+      "width": 1056.7161865234375,
+      "height": 1886.1656494140625,
+      "nodes": 14,
+      "nativeText": 29,
+      "foreignObjects": 0,
+      "clipped": [],
+      "escapedText": []
+    },
+    {
+      "panel": "04-error-classification",
+      "parsed": true,
+      "width": 938.3941650390625,
+      "height": 1554.390625,
+      "nodes": 14,
+      "nativeText": 28,
+      "foreignObjects": 0,
+      "clipped": [],
+      "escapedText": []
+    },
+    {
+      "panel": "05-retry-and-recovery",
+      "parsed": true,
+      "width": 1073.832275390625,
+      "height": 2065.47509765625,
+      "nodes": 13,
+      "nativeText": 27,
+      "foreignObjects": 0,
+      "clipped": [],
+      "escapedText": []
+    },
+    {
+      "panel": "06-publication-and-stages",
+      "parsed": true,
+      "width": 1742.6981201171875,
+      "height": 1838.2313232421875,
+      "nodes": 16,
+      "nativeText": 32,
+      "foreignObjects": 0,
+      "clipped": [],
+      "escapedText": []
+    },
+    {
+      "panel": "07-crash-windows",
+      "parsed": true,
+      "width": 1158.95068359375,
+      "height": 841.2000732421875,
+      "nodes": 15,
+      "nativeText": 29,
+      "foreignObjects": 0,
+      "clipped": [],
+      "escapedText": []
+    },
+    {
+      "panel": "08-delete-gc-repair",
+      "parsed": true,
+      "width": 1737.7706298828125,
+      "height": 1369.662109375,
+      "nodes": 14,
+      "nativeText": 27,
+      "foreignObjects": 0,
+      "clipped": [],
+      "escapedText": []
+    },
+    {
+      "panel": "09-search-projection-recovery",
+      "parsed": true,
+      "width": 1963.7479248046875,
+      "height": 1602.300048828125,
+      "nodes": 14,
+      "nativeText": 31,
+      "foreignObjects": 0,
+      "clipped": [],
+      "escapedText": []
+    },
+    {
+      "panel": "10-search-serving-and-lexical",
+      "parsed": true,
+      "width": 1185.044189453125,
+      "height": 1409.949951171875,
+      "nodes": 13,
+      "nativeText": 24,
+      "foreignObjects": 0,
+      "clipped": [],
+      "escapedText": []
+    },
+    {
+      "panel": "11-event-capture-and-feedback",
+      "parsed": true,
+      "width": 1208.17529296875,
+      "height": 1876.0311279296875,
+      "nodes": 13,
+      "nativeText": 27,
+      "foreignObjects": 0,
+      "clipped": [],
+      "escapedText": []
+    },
+    {
+      "panel": "12-event-publisher",
+      "parsed": true,
+      "width": 1005.0205078125,
+      "height": 1497.050048828125,
+      "nodes": 12,
+      "nativeText": 24,
+      "foreignObjects": 0,
+      "clipped": [],
+      "escapedText": []
+    },
+    {
+      "panel": "13-consumer-replay",
+      "parsed": true,
+      "width": 1457.0045166015625,
+      "height": 2019.3201904296875,
+      "nodes": 15,
+      "nativeText": 32,
+      "foreignObjects": 0,
+      "clipped": [],
+      "escapedText": []
+    },
+    {
+      "panel": "14-metrics-and-alerts",
+      "parsed": true,
+      "width": 1504.856201171875,
+      "height": 1248.4874267578125,
+      "nodes": 13,
+      "nativeText": 25,
+      "foreignObjects": 0,
+      "clipped": [],
+      "escapedText": []
+    },
+    {
+      "panel": "15-backup-and-disaster-recovery",
+      "parsed": true,
+      "width": 1148.5518798828125,
+      "height": 1051.199951171875,
+      "nodes": 11,
+      "nativeText": 21,
+      "foreignObjects": 0,
+      "clipped": [],
+      "escapedText": []
+    },
+    {
+      "panel": "16-legacy-and-boundaries",
+      "parsed": true,
+      "width": 1178.1778564453125,
+      "height": 1111.5999755859375,
+      "nodes": 11,
+      "nativeText": 20,
+      "foreignObjects": 0,
+      "clipped": [],
+      "escapedText": []
+    }
+  ]
+}

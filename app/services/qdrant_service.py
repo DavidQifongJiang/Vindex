@@ -1,7 +1,9 @@
 import os
+from time import time
 from uuid import uuid5, NAMESPACE_DNS
 
 from qdrant_client import QdrantClient
+from qdrant_client.http.exceptions import UnexpectedResponse
 from qdrant_client.models import (
     Distance,
     VectorParams,
@@ -10,6 +12,9 @@ from qdrant_client.models import (
     FilterSelector,
     FieldCondition,
     MatchValue,
+    MatchAny,
+    IsEmptyCondition,
+    PayloadField,
 )
 
 COLLECTION_NAME = "vindex_segments"
@@ -26,6 +31,7 @@ def get_qdrant_client():
             url=os.getenv("QDRANT_URL", "http://localhost:6333"),
             api_key=os.getenv("QDRANT_API_KEY"),
             check_compatibility=False,
+            timeout=10,
         )
 
     return _client
@@ -38,16 +44,17 @@ def ensure_collection():
     collection_names = [collection.name for collection in collections]
 
     if COLLECTION_NAME not in collection_names:
-        client.create_collection(
-            collection_name=COLLECTION_NAME,
-            vectors_config=VectorParams(
-                size=VECTOR_SIZE,
-                distance=Distance.COSINE
+        try:
+            client.create_collection(
+                collection_name=COLLECTION_NAME,
+                vectors_config=VectorParams(size=VECTOR_SIZE, distance=Distance.COSINE),
             )
-        )
+        except UnexpectedResponse as exc:
+            if exc.status_code != 409 or not client.collection_exists(COLLECTION_NAME):
+                raise
 
 
-def upsert_segments(video_id: str, segment_embeddings: list[dict]):
+def upsert_segments(video_id: str, segment_embeddings: list[dict], *, attempt_token: str | None = None):
     ensure_collection()
     client = get_qdrant_client()
 
@@ -63,10 +70,13 @@ def upsert_segments(video_id: str, segment_embeddings: list[dict]):
         }
         if segment.get("chunk_index") is not None:
             payload["chunk_index"] = segment["chunk_index"]
+        if attempt_token is not None:
+            payload["attempt_token"] = attempt_token
+            payload["written_at_epoch"] = time()
 
         points.append(
             PointStruct(
-                id=str(uuid5(NAMESPACE_DNS, f"{video_id}:{segment_id}")),
+                id=str(uuid5(NAMESPACE_DNS, f"{video_id}:{attempt_token}:{segment_id}" if attempt_token else f"{video_id}:{segment_id}")),
                 vector=segment["embedding"],
                 payload=payload,
             )
@@ -79,21 +89,30 @@ def upsert_segments(video_id: str, segment_embeddings: list[dict]):
     )
 
 
-def search_segments(query_embedding: list[float], video_id: str, top_k: int = 5):
+def search_segments(query_embedding: list[float], video_id: str, top_k: int = 5, *, chunk_attempts=None):
     ensure_collection()
     client = get_qdrant_client()
+
+    conditions = [FieldCondition(key="video_id", match=MatchValue(value=video_id))]
+    if chunk_attempts is not None:
+        tokens = [token for _, token in chunk_attempts if token]
+        legacy_indexes = [index for index, token in chunk_attempts if not token]
+        accepted = []
+        if tokens:
+            accepted.append(FieldCondition(key="attempt_token", match=MatchAny(any=tokens)))
+        if legacy_indexes:
+            accepted.append(Filter(must=[
+                FieldCondition(key="chunk_index", match=MatchAny(any=legacy_indexes)),
+                IsEmptyCondition(is_empty=PayloadField(key="attempt_token")),
+            ]))
+        if not accepted:
+            return []
+        conditions.append(Filter(should=accepted))
 
     results = client.query_points(
         collection_name=COLLECTION_NAME,
         query=query_embedding,
-        query_filter=Filter(
-            must=[
-                FieldCondition(
-                    key="video_id",
-                    match=MatchValue(value=video_id)
-                )
-            ]
-        ),
+        query_filter=Filter(must=conditions),
         limit=top_k,
     ).points
 

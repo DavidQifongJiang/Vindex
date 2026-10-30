@@ -1,0 +1,2 @@
+# Optional analytics workers; install alongside the application requirements.
+confluent-kafka==2.15.0

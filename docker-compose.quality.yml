@@ -1,0 +1,32 @@
+# Disposable local evaluation only; never shares production volumes or .env.
+# docker compose -p vindex-quality -f docker-compose.quality.yml up -d --wait
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: vindex_quality
+      POSTGRES_PASSWORD: local_quality_only
+      POSTGRES_DB: vindex_quality
+    ports: ["127.0.0.1:15433:5432"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U vindex_quality -d vindex_quality"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:9.3.1
+    environment:
+      discovery.type: single-node
+      xpack.security.enabled: 'false'
+      ES_JAVA_OPTS: '-Xms512m -Xmx512m'
+    mem_limit: 2g
+    ports: ["127.0.0.1:19201:9200"]
+    healthcheck:
+      test: ['CMD', 'curl', '-fsS', 'http://localhost:9200/_cluster/health?wait_for_status=yellow&timeout=5s']
+      interval: 5s
+      timeout: 10s
+      retries: 30
+  qdrant:
+    # Match the repository's current image; record the server version per run.
+    image: qdrant/qdrant:latest
+    ports: ["127.0.0.1:16336:6333"]

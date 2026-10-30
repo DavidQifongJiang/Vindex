@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { LibrarySearch } from "./LibrarySearch";
 import {
   Activity,
   ArrowLeft,
@@ -247,6 +248,8 @@ function VideoCard({
 
 export function App() {
   const videoRef = useRef<HTMLVideoElement | null>(null);
+  const pendingSeek = useRef<{ videoId: string; seconds: number } | null>(null);
+  const selectedVideoIdRef = useRef("");
   const [authSession, setAuthSession] = useState<AuthSession | null>(null);
   const [currentUser, setCurrentUser] = useState<UserProfile | null>(null);
   const [isAuthLoading, setIsAuthLoading] = useState(true);
@@ -411,6 +414,7 @@ export function App() {
       try {
         if (showSpinner) setIsLoadingMetrics(true);
         const nextMetrics = await getVideoMetrics(targetVideoId.trim());
+        if (selectedVideoIdRef.current !== targetVideoId.trim()) return;
         setMetrics(nextMetrics);
       } catch {
         setMetrics(null);
@@ -447,6 +451,7 @@ export function App() {
       try {
         if (showSpinner) setIsRefreshing(true);
         const nextStatus = await getVideoStatus(targetVideoId.trim());
+        if (selectedVideoIdRef.current !== targetVideoId.trim()) return;
         setStatus(nextStatus);
         void refreshMetrics(targetVideoId.trim(), false);
         setMessage("");
@@ -467,6 +472,7 @@ export function App() {
         getTranscript(videoId),
         getSegments(videoId)
       ]);
+      if (selectedVideoIdRef.current !== videoId) return;
       setTranscript(transcriptResponse.transcript);
       setSegments(segmentsResponse.segments);
     } catch (error) {
@@ -475,10 +481,14 @@ export function App() {
   }, [searchable, videoId]);
 
   const loadVideoById = useCallback(
-    async (targetVideoId: string, nextView: ViewMode = "watch") => {
+    async (targetVideoId: string, nextView: ViewMode = "watch", seconds?: number) => {
       if (!targetVideoId.trim()) return;
 
       const nextVideoId = targetVideoId.trim();
+      selectedVideoIdRef.current = nextVideoId;
+      pendingSeek.current = seconds === undefined ? null : { videoId: nextVideoId, seconds };
+      setStatus(null);
+      setPlayerUrl("");
       setViewMode(nextView);
       setVideoId(nextVideoId);
       localStorage.setItem(SAVED_VIDEO_ID_KEY, nextVideoId);
@@ -531,9 +541,11 @@ export function App() {
 
     const savedVideoId = localStorage.getItem(SAVED_VIDEO_ID_KEY);
     if (savedVideoId && isSignedIn) {
+      selectedVideoIdRef.current = savedVideoId;
       setVideoId(savedVideoId);
       void Promise.all([getVideoStatus(savedVideoId), getVideoMetrics(savedVideoId)])
         .then(([nextStatus, nextMetrics]) => {
+          if (selectedVideoIdRef.current !== savedVideoId) return;
           setStatus(nextStatus);
           setMetrics(nextMetrics);
         })
@@ -562,7 +574,7 @@ export function App() {
     let active = true;
     setPlayerUrl("");
 
-    if (!playable || !videoId) return;
+    if (!playable || !videoId || status?.video_id !== videoId) return;
 
     void getVideoFileUrl(videoId)
       .then((response) => {
@@ -577,7 +589,7 @@ export function App() {
     return () => {
       active = false;
     };
-  }, [playable, videoId]);
+  }, [playable, videoId, status?.video_id]);
 
   async function handleUpload() {
     if (!isSignedIn) {
@@ -602,6 +614,8 @@ export function App() {
       const uploaded = await uploadVideo(selectedFile, cleanTitle, videoVisibility);
       setViewMode("watch");
       setVideoId(uploaded.video_id);
+      selectedVideoIdRef.current = uploaded.video_id;
+      pendingSeek.current = null;
       setVideoTitle("");
       setVideoVisibility("private");
       setSelectedFile(null);
@@ -628,6 +642,7 @@ export function App() {
     try {
       setIsSearching(true);
       const response = await searchVideo(videoId, query.trim(), algorithm);
+      if (selectedVideoIdRef.current !== videoId) return;
       setResults(response.results);
       await refreshMetrics(videoId, false);
       setMessage("");
@@ -654,6 +669,8 @@ export function App() {
       );
 
       if (targetVideo.video_id === videoId) {
+        selectedVideoIdRef.current = "";
+        pendingSeek.current = null;
         localStorage.removeItem(SAVED_VIDEO_ID_KEY);
         setViewMode("library");
         setVideoId("");
@@ -677,7 +694,7 @@ export function App() {
   function jumpTo(seconds: number) {
     if (!videoRef.current) return;
     videoRef.current.currentTime = seconds;
-    void videoRef.current.play();
+    void videoRef.current.play().catch(() => { /* Playback may require another user gesture. */ });
   }
 
   function renderUploadCard() {
@@ -768,6 +785,9 @@ export function App() {
             </button>
           </div>
         </div>
+
+        {feedMode === "library" && isSignedIn && import.meta.env.VITE_LIBRARY_SEARCH_ENABLED === "true" &&
+          <LibrarySearch key={currentUser?.user_id || "local"} onOpen={(hit) => void loadVideoById(hit.video_id, "watch", hit.start_seconds)} />}
 
         <div className="library-layout">
           {renderUploadCard()}
@@ -884,7 +904,13 @@ export function App() {
           <div className="center-column">
             <section className="player-surface">
               {playerUrl ? (
-                <video ref={videoRef} src={playerUrl} controls />
+                <video key={playerUrl} ref={videoRef} src={playerUrl} controls onLoadedMetadata={() => {
+                  const target = pendingSeek.current;
+                  if (target?.videoId === videoId && videoRef.current) {
+                    videoRef.current.currentTime = target.seconds;
+                    pendingSeek.current = null;
+                  }
+                }} />
               ) : (
                 <div className="empty-player">
                   <Play size={42} aria-hidden="true" />
@@ -909,6 +935,10 @@ export function App() {
                   onChange={(event) => setAlgorithm(event.target.value as SearchAlgorithm)}
                 >
                   <option value="qdrant_embedding">Semantic</option>
+                  {status?.keyword_search_enabled && <option value="elasticsearch_bm25">Keyword</option>}
+                  {status?.keyword_search_enabled && <option value="elasticsearch_hybrid">Semantic + keyword</option>}
+                  <option value="bm25">BM25</option>
+                  <option value="hybrid">Hybrid (semantic + BM25)</option>
                   <option value="exact">Exact</option>
                   <option value="overlap">Overlap</option>
                   <option value="stopword_overlap">Stopword overlap</option>

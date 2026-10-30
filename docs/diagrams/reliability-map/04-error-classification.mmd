@@ -1,0 +1,37 @@
+flowchart TB
+C1["Processor raises an exception"]:::normal
+C2{"StaleProcessingAttempt?"}:::decision
+C3["Return stale<br/>No failure transition for replacement owner"]:::safe
+C4["Existing ProcessingError → preserve<br/>Wrapped S3 transfer → unwrap cause<br/>Unclassified S3 transfer → temporary"]:::normal
+C5["TEMPORARY: time and resource limits<br/>TimeoutExpired; SoftTimeLimitExceeded; TimeoutError<br/>MemoryError; ENOSPC / ENOMEM / EAGAIN; model OOM"]:::retry
+C6["TEMPORARY: dependencies<br/>SQLAlchemy OperationalError / DisconnectionError<br/>S3 connect/read/endpoint/connection-closed errors"]:::retry
+C7["TEMPORARY: HTTP and throttling<br/>408, 429, 500, 502, 503, 504<br/>RequestTimeout, SlowDown, Throttling,<br/>ThrottlingException, TooManyRequestsException"]:::retry
+C8["TEMPORARY: vector/network/model clients<br/>Qdrant ResponseHandlingException<br/>httpx connect/timeout; requests connect/timeout<br/>Model HTTP errors with listed temporary status"]:::retry
+C9["TEMPORARY: FFmpeg resource failure<br/>Exit -9 or 137; stderr contains no space,<br/>cannot allocate memory, resource unavailable"]:::retry
+C10["PERMANENT: S3 required object missing<br/>404 / NoSuchKey / NotFound<br/>Other non-retryable S3 or Qdrant response"]:::fail
+C11["PERMANENT: invalid media or source<br/>Other FFmpeg CalledProcessError<br/>Unsupported/corrupt media; invalid duration;<br/>missing video; invalid chunk manifest"]:::fail
+C12["PERMANENT: unexpected exception<br/>Default unexpected_processing_error<br/>Stage wrappers provide specific error codes"]:::fail
+C13["Retryable flag + persisted attempt count<br/>Continue to panel 05"]:::normal
+C14["SPECIAL CASE: thumbnail generation<br/>Exception is caught; playback continues without thumbnail<br/>Thumbnail UPLOAD failure is classified normally"]:::note
+C1 --> C2
+C2 -->|Yes| C3
+C2 -->|No| C4
+C4 --> C5
+C5 -.->|Other temporary cases| C6
+C6 -.-> C7
+C7 -.-> C8
+C8 -.-> C9
+C4 --> C10
+C10 -.->|Other permanent cases| C11
+C11 -.-> C12
+C9 --> C13
+C12 --> C13
+C1 -.-> C14
+
+classDef normal fill:#edf4ff,stroke:#4b83bb,color:#172f4a
+classDef decision fill:#fff5dc,stroke:#b88d27,color:#4c3810
+classDef safe fill:#eaf7f0,stroke:#40916b,color:#193c2b
+classDef retry fill:#fff0de,stroke:#ce873a,color:#513211
+classDef fail fill:#ffeded,stroke:#c76a6a,color:#542525
+classDef note fill:#f1f3f6,stroke:#97a2ad,color:#344353
+classDef optional fill:#f2edfc,stroke:#8e74bc,color:#35254d

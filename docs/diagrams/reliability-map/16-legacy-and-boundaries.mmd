@@ -1,0 +1,24 @@
+flowchart TB
+Z1["Legacy whole-video Celery message<br/>Claim only uploaded or due retrying video<br/>Require NO durable pipeline_jobs for that video"]:::note
+Z2["Legacy claim increments video attempt count<br/>New token and owner; token-checked updates<br/>No claim → skipped; stale token → stale"]:::normal
+Z3["Legacy temporary claim error<br/>Uses request.retries + 1 and Celery task.retry<br/>Decorator max_retries = max attempts - 1"]:::retry
+Z4["Legacy processing error<br/>Persist retrying/failed on Video with matching token<br/>Then Celery task.retry with jittered countdown"]:::retry
+Z5["Not the new durable retry protocol<br/>No durable-row outbox bridge for legacy retry publication<br/>Do not describe legacy handler as equivalent recovery"]:::fail
+Z6["Core guarantee<br/>At-least-once delivery + idempotent claims<br/>Guarded acceptance; computation/writes may repeat"]:::safe
+Z7["Cross-system limit<br/>No Postgres/S3/Qdrant distributed transaction<br/>Fencing does not stop every stale external write"]:::note
+Z8["Terminal-work limit<br/>Core terminal failures are not automatically restarted<br/>Projection repair can explicitly reset its own budget"]:::note
+Z9["Timing limit<br/>UTC application clocks must be synchronized<br/>Defaults are code values, not measured recovery times<br/>Tune deadlines to real workloads"]:::note
+Z10["Kafka limit<br/>Optional pre-acceptance capture can be lost<br/>Timed-out capture can commit later<br/>Accepted-event accounting is not zero capture loss"]:::note
+Z11["Validation boundary<br/>No new tests or load runs are claimed here<br/>Existing tests are source references, not fresh passes<br/>Cloud HA and outstanding Kafka gates remain unverified"]:::note
+Z1 --> Z2
+Z1 -.->|Claim error| Z3
+Z2 -.->|Processing error| Z4 --> Z5
+Z6 --> Z7 --> Z8 --> Z9 --> Z10 --> Z11
+
+classDef normal fill:#edf4ff,stroke:#4b83bb,color:#172f4a
+classDef decision fill:#fff5dc,stroke:#b88d27,color:#4c3810
+classDef safe fill:#eaf7f0,stroke:#40916b,color:#193c2b
+classDef retry fill:#fff0de,stroke:#ce873a,color:#513211
+classDef fail fill:#ffeded,stroke:#c76a6a,color:#542525
+classDef note fill:#f1f3f6,stroke:#97a2ad,color:#344353
+classDef optional fill:#f2edfc,stroke:#8e74bc,color:#35254d

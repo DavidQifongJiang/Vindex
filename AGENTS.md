@@ -1,0 +1,48 @@
+# Repository Guidelines
+
+## Project Structure & Module Organization
+
+- `app/api/` contains FastAPI routes; `app/services/` implements processing, search, authentication, and S3 storage.
+- `app/db/` holds SQLAlchemy models and repositories; `alembic/` holds schema migrations.
+- `app/workers/` contains Celery tasks, the durable-job dispatcher, and maintenance processes.
+- `frontend/src/` contains React/TypeScript components, API helpers, and styles. Docker builds frontend assets into `app/frontend/dist/`.
+- `tests/` contains automated tests and integration helpers; `benchmarks/` contains evaluation scripts and reports.
+- `docs/` documents architecture and operations; `ops/` contains monitoring and backup configuration.
+
+## Build, Test, and Development Commands
+
+Use Python 3.11 and Node.js 22, matching CI. Install backend dependencies with `python -m pip install -r requirements.txt`.
+
+- `docker compose up --build -d`: build and start the application stack after configuring `.env` from `.env.example`. Review the AWS credential mounts in `docker-compose.override.yml` for your machine.
+- `cd frontend && npm ci`: install locked frontend dependencies.
+- `cd frontend && npm run dev`: start Vite on port 5173; the backend must run separately.
+- `cd frontend && npm run build`: type-check TypeScript and build production assets.
+- `python -m unittest discover -s tests`: run backend tests.
+- `python -m compileall app alembic`: check Python compilation.
+- `alembic upgrade head`: apply database migrations.
+
+## Coding Style & Naming Conventions
+
+Follow surrounding code: four-space indentation and `snake_case` for Python functions/modules; two-space indentation and `camelCase` for TypeScript functions. Use `PascalCase` for classes and React components. Keep HTTP concerns in routes and reusable logic in services/repositories. No dedicated formatter or linter is configured; preserve existing style.
+
+## Testing Guidelines
+
+Tests use `unittest` and `unittest.mock`; name files `test_*.py` and methods `test_*`. Add focused regression tests for behavioral changes. Integration tests require isolated services through `VINDEX_TEST_DATABASE_URL`, `VINDEX_TEST_REDIS_URL`, or `VINDEX_TEST_ELASTICSEARCH_URL`; some skip when unset. No numeric coverage threshold is configured. Run relevant tests and the frontend build for UI changes.
+
+## Commit & Pull Request Guidelines
+
+History uses short imperative subjects, such as “Implement chunked search workers.” Keep commits focused. PRs should explain the problem, resulting behavior, validation, and migration/configuration changes. Link related issues when applicable and include screenshots for visible UI changes.
+
+## Architecture & Configuration Safeguards
+
+Postgres owns durable job state; Redis transports Celery messages. Preserve lease/token checks and attempt-specific artifact publication. Keep schema changes in Alembic migrations. Never commit `.env`, AWS credentials, or tokens. Library search and search projections require explicit feature configuration.
+
+## Kafka Background Work and Follow-up
+
+- Evaluate Kafka readiness against `docs/kafka_search_analytics_plan.md`; report each acceptance gate as passed, failed, or unverified using completed run artifacts. Admission rate is not consumer throughput, and accepted-event accounting is not zero capture loss.
+- When starting or discovering an active background Kafka benchmark, record its process/session identity, output directory, start time, estimated completion time, and remaining acceptance gates in `docs/kafka_implementation_handoff.md`.
+- Use the Codex automation tool to schedule a follow-up in the current task at the estimated completion time. Inspect existing automations first and update a matching monitor instead of creating duplicates. A note in this file does not itself schedule a wake-up.
+- At the scheduled check, inspect the process and completed report. If the run is still active and incomplete, schedule the next check one minute later. If the scheduler cannot support that timing, state the limitation and use its supported timing; do not claim a wake-up was scheduled without tool confirmation.
+- Stay quiet on unchanged, non-actionable checks. Notify the user on completion, failure, a meaningful change, or required user action. Stop the run's monitor when the run finishes or fails; inspect failures rather than polling an exited process indefinitely.
+- If no background benchmark is running, say so explicitly. Do not create a polling monitor for nonexistent work or describe planned work as running. Continue separately authorized implementation work as appropriate.
+- Keep tests isolated from production and preserve failed benchmark evidence. Do not lower acceptance gates merely to obtain passing results.

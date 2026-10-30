@@ -13,7 +13,9 @@ class S3Storage:
         self.client = boto3.client(
             "s3",
             region_name=os.getenv("AWS_REGION"),
-            config=Config(signature_version="s3v4"),
+            endpoint_url=os.getenv("S3_ENDPOINT_URL") or None,
+            config=Config(signature_version="s3v4", connect_timeout=5, read_timeout=30,
+                          retries={"mode": "standard", "total_max_attempts": 3}),
         )
 
     def upload_fileobj(self, fileobj, key: str):
@@ -34,8 +36,14 @@ class S3Storage:
         )
 
     def read_text(self, key: str) -> str:
+        return self.read_bytes(key).decode("utf-8")
+
+    def read_bytes(self, key: str) -> bytes:
         response = self.client.get_object(Bucket=self.bucket, Key=key)
-        return response["Body"].read().decode("utf-8")
+        try:
+            return response["Body"].read()
+        finally:
+            response["Body"].close()
 
     def write_json(self, key: str, data, indent: int | None = None):
         self.client.put_object(
@@ -47,6 +55,31 @@ class S3Storage:
 
     def read_json(self, key: str):
         return json.loads(self.read_text(key))
+
+    def read_json_versioned(self, key):
+        try:
+            response = self.client.get_object(Bucket=self.bucket, Key=key)
+        except ClientError as exc:
+            if exc.response.get("ResponseMetadata", {}).get("HTTPStatusCode") == 404:
+                return None, None
+            raise
+        return json.loads(response["Body"].read()), response["ETag"]
+
+    def write_json_conditional(self, key, value, etag):
+        condition = {"IfMatch": etag} if etag is not None else {"IfNoneMatch": "*"}
+        self.client.put_object(Bucket=self.bucket, Key=key, Body=json.dumps(value).encode(),
+                               ContentType="application/json", **condition)
+
+    def list_objects(self, prefix):
+        for page in self.client.get_paginator("list_objects_v2").paginate(Bucket=self.bucket, Prefix=prefix):
+            yield from page.get("Contents", [])
+
+    def scan_objects(self, prefix, cursor=None, limit=200):
+        kwargs = {"Bucket": self.bucket, "Prefix": prefix, "MaxKeys": limit}
+        if cursor:
+            kwargs["ContinuationToken"] = cursor
+        response = self.client.list_objects_v2(**kwargs)
+        return response.get("Contents", []), response.get("NextContinuationToken")
 
     def presigned_url(self, key: str, seconds: int = 3600, response_content_type: str | None = None):
         params = {"Bucket": self.bucket, "Key": key}
@@ -112,6 +145,14 @@ class S3Storage:
 
         return deleted_count
 
+
+    def delete_prefix(self, prefix: str):
+        if not prefix.endswith("/") or prefix.count("/") < 2:
+            raise ValueError("Cleanup requires a video-specific prefix")
+        deleted = 0
+        for page in self.client.get_paginator("list_objects_v2").paginate(Bucket=self.bucket, Prefix=prefix):
+            deleted += self.delete_many([item["Key"] for item in page.get("Contents", [])])
+        return deleted
 
     def file_response(self, key: str, media_type: str):
         url = self.client.generate_presigned_url(

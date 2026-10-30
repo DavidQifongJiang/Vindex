@@ -1,6 +1,7 @@
 import os
 
 from sqlalchemy import create_engine
+from sqlalchemy.engine import URL, make_url
 from sqlalchemy.orm import sessionmaker
 
 engine = None
@@ -30,11 +31,15 @@ def _init_engine():
         pgpassword = os.getenv("PGPASSWORD", "vindex")
         pgdatabase = os.getenv("PGDATABASE", "vindex")
 
-        database_url = (
-            f"postgresql+psycopg2://{pguser}:{pgpassword}@{pghost}:{pgport}/{pgdatabase}"
-        )
+        database_url = URL.create("postgresql+psycopg2", username=pguser, password=pgpassword,
+                                 host=pghost, port=int(pgport), database=pgdatabase)
+    else:
+        database_url = make_url(database_url)
 
-    engine = create_engine(database_url, pool_pre_ping=True)
+    connect_args = {}
+    if database_url.get_backend_name() == "postgresql":
+        connect_args = {"connect_timeout": 5, "options": f"{os.getenv('PGOPTIONS', '')} -c statement_timeout=30000 -c lock_timeout=5000"}
+    engine = create_engine(database_url, pool_pre_ping=True, pool_timeout=10, connect_args=connect_args)
     SessionLocal = sessionmaker(
         bind=engine,
         autoflush=False,

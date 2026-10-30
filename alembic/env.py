@@ -3,6 +3,7 @@ from logging.config import fileConfig
 from alembic import context
 
 from app.db.models import Base
+import app.db.search_event_models  # Include optional analytics schema in metadata comparisons.
 from app.db.session import get_engine
 
 config = context.config

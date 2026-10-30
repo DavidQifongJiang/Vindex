@@ -1,0 +1,25 @@
+{
+  "status": "frozen_before_phase5_run",
+  "corpus": "benchmarks/expanded_15min_corpus.json",
+  "labels": "benchmarks/semantic_search_labels_expanded_15min.csv",
+  "modes": ["semantic", "lexical", "hybrid"],
+  "model": "all-MiniLM-L6-v2",
+  "model_revision": "c9745ed1d9f207416be6d2e6f8de32d1f16199bf",
+  "candidate_count": 50,
+  "rrf_k": 60,
+  "seed": 20260916,
+  "regression_gate": {
+    "hybrid_hit5_delta_min": 0,
+    "hybrid_mrr_delta_min": -0.02,
+    "paraphrase_hit5_delta_min": -0.02,
+    "warm_hybrid_p95_ms_max": 1500,
+    "healthy_non200_max": 0
+  },
+  "promotion_requires": [
+    "security and failure invariants pass",
+    "independent held-out relevance labels including no-answer queries",
+    "adequately sized terminology slice",
+    "review resource cost and deployment-specific mixed-load capacity"
+  ],
+  "limitations": "Existing labels are reused regression labels, not held-out. Timestamp relevance is constrained to the labeled video; other relevant videos may be unjudged. Numeric thresholds are engineering starting gates, not user-approved SLOs. Passing regression gates alone does not authorize rollout."
+}

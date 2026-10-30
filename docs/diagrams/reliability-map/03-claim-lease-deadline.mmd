@@ -1,0 +1,31 @@
+flowchart TB
+L1["Celery message arrives<br/>Owner = hostname, task ID, or unknown-worker"]:::normal
+L2["Lock parent video<br/>Missing or deleting → no claim"]:::normal
+L3{"pending OR due retrying<br/>AND persisted attempts below max?"}:::decision
+L4["Return skipped<br/>Duplicate, premature retry, active/completed/<br/>failed work, missing/deleting parent"]:::safe
+L5["Atomic claim; commit and detach row<br/>status processing; attempt count +1<br/>New UUID token; owner; started/progress timestamps"]:::normal
+L6["Lease = now + 300s; minimum 30s<br/>Absolute deadline = now + 1800s<br/>Clear next_retry_at; deadline is not renewable"]:::normal
+L7["Run processor outside claim transaction<br/>Daemon heartbeat every lease/3: default 100s<br/>Explicit checkpoints also update progress_at"]:::normal
+L8{"Parent available; status processing;<br/>same token; lease and deadline live?"}:::decision
+L9["Renew lease and commit<br/>Checkpoint records progress<br/>Never extend the absolute deadline"]:::safe
+L10["Stale heartbeat → lost flag<br/>Next checkpoint raises StaleProcessingAttempt<br/>Wrapper returns stale; no result publication"]:::fail
+L11["Other heartbeat exception → log<br/>May continue computing<br/>Cannot publish without a successful DB guard"]:::retry
+L12["Additional limits<br/>FFmpeg/ffprobe command timeout 900s<br/>Celery soft 1800s; hard 1830s"]:::note
+L13["Soft timeout → error classifier<br/>Hard kill/crash → lease/deadline recovery<br/>OS time limits require supported Linux prefork"]:::note
+L14["Claim DB failure<br/>No processor starts; wrapper exits with error<br/>Pending work can be redispatched"]:::retry
+L1 --> L2 --> L3
+L3 -->|No| L4
+L3 -->|Yes| L5 --> L6 --> L7 --> L8
+L8 -->|Yes| L9 --> L7
+L8 -->|No| L10
+L7 -.->|DB or network exception| L11 --> L8
+L7 -.-> L12 --> L13
+L2 -.->|DB unavailable| L14
+
+classDef normal fill:#edf4ff,stroke:#4b83bb,color:#172f4a
+classDef decision fill:#fff5dc,stroke:#b88d27,color:#4c3810
+classDef safe fill:#eaf7f0,stroke:#40916b,color:#193c2b
+classDef retry fill:#fff0de,stroke:#ce873a,color:#513211
+classDef fail fill:#ffeded,stroke:#c76a6a,color:#542525
+classDef note fill:#f1f3f6,stroke:#97a2ad,color:#344353
+classDef optional fill:#f2edfc,stroke:#8e74bc,color:#35254d

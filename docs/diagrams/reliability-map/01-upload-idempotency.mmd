@@ -1,0 +1,46 @@
+flowchart TB
+U1["Frontend retains Idempotency-Key<br/>WeakMap: File + title + visibility"]:::normal
+U2["Authenticate; normalize metadata<br/>Stream file SHA-256; rewind file<br/>Fingerprint includes filename, title, visibility, size"]:::normal
+U3{"Size and key valid?"}:::decision
+U4["413 above MAX_UPLOAD_MB: default 500<br/>400 invalid key: allowed A-Z a-z 0-9 . _ : -<br/>Key length: 1-128"]:::fail
+U5["Owner + key is unique identity<br/>Insert with savepoint; tolerate insert race<br/>SELECT FOR UPDATE reservation"]:::normal
+U6{"Fingerprint matches?"}:::decision
+U7["409 changed content<br/>Do not reuse this key for another payload"]:::fail
+U8{"Already completed?"}:::decision
+U9{"Video exists and is not deleting?"}:::decision
+U10["Replay stored response<br/>No S3 upload; no duplicate jobs"]:::safe
+U11["410 deleted upload<br/>Retain reservation tombstone; use new key"]:::fail
+U12{"Unexpired reservation?"}:::decision
+U13["409 in progress<br/>Retry-After: 5; retry SAME key"]:::retry
+U14["Reserve or take over expired intent<br/>Keep video ID; new UUID attempt token<br/>New raw S3 key; expiry default 1800s"]:::normal
+U15["Commit reservation; release DB transaction<br/>Upload to raw_videos/video/token/file"]:::normal
+U16{"Current token AND unexpired?"}:::decision
+U17["ONE transaction<br/>Response + completed reservation + video<br/>Search job + playback job"]:::safe
+U18["409 expired attempt<br/>Cannot replace the newer upload owner"]:::fail
+U19["S3 or transaction failure<br/>Rollback and expire matching uploading token<br/>DB unavailable: log and rely on expiry"]:::retry
+U20["Lost response after commit<br/>Retry SAME key → replay stored response"]:::safe
+U21["Unreferenced uploaded object<br/>Collected after grace period: panel 08"]:::note
+U1 --> U2 --> U3
+U3 -->|No| U4
+U3 -->|Yes| U5 --> U6
+U6 -->|No| U7
+U6 -->|Yes| U8
+U8 -->|Yes| U9
+U9 -->|Yes| U10
+U9 -->|No| U11
+U8 -->|No| U12
+U12 -->|Yes| U13
+U12 -->|No| U14 --> U15 --> U16
+U16 -->|Yes| U17 --> U20
+U16 -->|No| U18 --> U21
+U15 -.->|Failure| U19
+U17 -.->|Failure| U19
+U19 --> U21
+
+classDef normal fill:#edf4ff,stroke:#4b83bb,color:#172f4a
+classDef decision fill:#fff5dc,stroke:#b88d27,color:#4c3810
+classDef safe fill:#eaf7f0,stroke:#40916b,color:#193c2b
+classDef retry fill:#fff0de,stroke:#ce873a,color:#513211
+classDef fail fill:#ffeded,stroke:#c76a6a,color:#542525
+classDef note fill:#f1f3f6,stroke:#97a2ad,color:#344353
+classDef optional fill:#f2edfc,stroke:#8e74bc,color:#35254d

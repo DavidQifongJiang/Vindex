@@ -52,7 +52,7 @@ services:
       OPENBLAS_NUM_THREADS: ${WORKER_OPENBLAS_NUM_THREADS:-1}
       NUMEXPR_NUM_THREADS: ${WORKER_NUMEXPR_NUM_THREADS:-1}
       TOKENIZERS_PARALLELISM: ${TOKENIZERS_PARALLELISM:-false}
-    command: celery -A app.workers.celery_app.celery_app worker --loglevel=info --pool=solo -Q search,celery -n search@%h
+    command: celery -A app.workers.celery_app.celery_app worker --loglevel=info --pool=prefork --concurrency=1 -Q search,celery -n search@%h
     restart: unless-stopped
     stop_grace_period: 2m
     volumes:
@@ -75,7 +75,7 @@ services:
         VITE_COGNITO_DOMAIN: ${VITE_COGNITO_DOMAIN:-}
         VITE_COGNITO_CLIENT_ID: ${VITE_COGNITO_CLIENT_ID:-}
         VITE_COGNITO_REDIRECT_URI: ${VITE_COGNITO_REDIRECT_URI:-}
-    command: celery -A app.workers.celery_app.celery_app worker --loglevel=info --pool=solo -Q playback -n playback@%h
+    command: celery -A app.workers.celery_app.celery_app worker --loglevel=info --pool=prefork --concurrency=1 -Q playback -n playback@%h
     restart: unless-stopped
     stop_grace_period: 2m
     volumes:
@@ -89,6 +89,94 @@ services:
         condition: service_healthy
       qdrant:
         condition: service_started
+
+  indexing-worker:
+    build:
+      context: .
+    profiles: [search]
+    command: celery -A app.workers.celery_app.celery_app worker --loglevel=info --pool=prefork --concurrency=1 -Q indexing -n indexing@%h
+    restart: unless-stopped
+    stop_grace_period: 2m
+    env_file: [.env]
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  pipeline-dispatcher:
+    build:
+      context: .
+    command: python -m app.workers.pipeline_dispatcher
+    restart: unless-stopped
+    env_file:
+      - .env
+    depends_on:
+      postgres:
+        condition: service_healthy
+      api:
+        condition: service_started
+
+  maintenance:
+    build:
+      context: .
+    command: python -m app.workers.maintenance
+    restart: unless-stopped
+    env_file: [.env]
+    depends_on:
+      postgres:
+        condition: service_healthy
+      api:
+        condition: service_started
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:9101/health', timeout=5)"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  backup:
+    build:
+      context: .
+      dockerfile: ops/Dockerfile.backup
+    profiles: [operations]
+    restart: unless-stopped
+    env_file: [.env]
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  prometheus:
+    image: prom/prometheus:v3.2.1
+    restart: unless-stopped
+    ports: ['127.0.0.1:9090:9090']
+    volumes:
+      - ./ops/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ./ops/alerts.yml:/etc/prometheus/alerts.yml:ro
+      - prometheus_data:/prometheus
+
+  alertmanager:
+    image: prom/alertmanager:v0.28.1
+    restart: unless-stopped
+    ports: ['127.0.0.1:9093:9093']
+    volumes:
+      - ./ops/alertmanager.yml:/etc/alertmanager/alertmanager.yml:ro
+      - alertmanager_data:/alertmanager
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:9.3.1
+    profiles: [search]
+    restart: unless-stopped
+    environment:
+      discovery.type: single-node
+      xpack.security.enabled: 'false'
+      ES_JAVA_OPTS: '-Xms512m -Xmx512m'
+    mem_limit: 2g
+    volumes: ['lexical_data:/usr/share/elasticsearch/data']
+    healthcheck:
+      test: ['CMD', 'curl', '-fsS', 'http://localhost:9200/_cluster/health?wait_for_status=yellow&timeout=5s']
+      interval: 10s
+      timeout: 10s
+      retries: 12
 
   redis:
     image: redis:7
@@ -124,6 +212,9 @@ services:
       - qdrant_data:/qdrant/storage
 
 volumes:
+  lexical_data:
+  prometheus_data:
+  alertmanager_data:
   caddy_data:
   caddy_config:
   redis_data:

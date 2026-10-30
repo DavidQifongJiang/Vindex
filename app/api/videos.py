@@ -1,14 +1,20 @@
 
 import os
 from pathlib import Path
-from typing import Literal
+from typing import Annotated, Literal
 from uuid import uuid4
 
-from fastapi import APIRouter, Depends, File, Form, HTTPException, UploadFile
+from fastapi import APIRouter, Depends, File, Form, Header, HTTPException, UploadFile
 
 from pydantic import BaseModel
 from app.services.search_service import score_segment
-from app.workers.task import process_video_playback_task, process_video_search_task
+from app.services.hybrid_search import BM25, CANDIDATES, reciprocal_rank_fusion
+from app.services.elasticsearch_service import IndexNotReady
+from app.services.lexical_index import LexicalIndex as ElasticsearchSearch
+import requests
+from app.db.models import PipelineJob
+from app.db.pipeline_repository import has_active_work
+from app.db.upload_repository import upload_fingerprint, reserve_upload, commit_upload, abandon_upload
 
 from app.db.session import get_db
 from app.db.video_repository import (
@@ -18,6 +24,7 @@ from app.db.video_repository import (
     get_video,
     list_public_videos,
     list_search_chunk_artifact_keys,
+    list_search_chunks,
     list_videos,
 )
 from app.db.user_repository import upsert_user
@@ -48,6 +55,10 @@ class SearchRequest(BaseModel):
     algorithm: Literal[
     "embedding",
     "qdrant_embedding",
+    "bm25",
+    "hybrid",
+    "elasticsearch_bm25",
+    "elasticsearch_hybrid",
     "exact",
     "overlap",
     "stopword_overlap"
@@ -118,6 +129,7 @@ def video_artifact_keys(video):
         video.transcript_path,
         video.segments_path,
         video.embedding_path,
+        video.thumbnail_path,
         f"thumbnails/{video.video_id}.jpg",
         metrics_key(video.video_id),
     ]
@@ -152,18 +164,35 @@ def delete_video_endpoint(
 
     require_video_owner(video, current_user)
 
-    if video.status in ACTIVE_DELETE_BLOCK_STATUSES:
+    db.refresh(video, with_for_update=True)
+    if video.status in ACTIVE_DELETE_BLOCK_STATUSES or has_active_work(db, video_id):
         raise HTTPException(
             status_code=409,
             detail=f"Video is still {video.status}. Delete after processing finishes or fails."
         )
 
+    video.status = "deleting"
+    from app.db.search_repository import revoke_video
+    revoke_video(db, video_id)
+    db.commit()
+    if os.getenv("ELASTICSEARCH_URL"):
+        elastic = ElasticsearchSearch()
+        try:
+            elastic.delete(video_id)
+        except (requests.RequestException, RuntimeError) as exc:
+            raise HTTPException(503, "Search cleanup is unavailable; retry deleting this video") from exc
+        finally:
+            elastic.close()
     delete_segments(video_id)
     s3_deleted_count = storage.delete_many(
         video_artifact_keys(video)
         + list_search_chunk_artifact_keys(db, video_id)
     )
+    for root in ("audio_chunks", "transcripts/chunks", "embeddings/chunks",
+                 "transcripts/final", "embeddings/final", "processed_videos", "thumbnails"):
+        s3_deleted_count += storage.delete_prefix(f"{root}/{video_id}/")
     delete_search_chunks(db, video_id)
+    db.query(PipelineJob).filter_by(video_id=video_id).delete(synchronize_session=False)
     delete_video(db, video)
 
     return {
@@ -255,6 +284,69 @@ def search(
             detail="File-based embedding search is not available with S3 storage. Use qdrant_embedding."
         )
 
+    if video.status == "deleting":
+        raise HTTPException(404, "Video not found")
+
+    if request.algorithm in {"bm25", "hybrid", "elasticsearch_bm25", "elasticsearch_hybrid"}:
+        if video.segments_status != "completed" or not video.segments_path:
+            raise HTTPException(409, "Search segments are not ready")
+        lexical_start = perf_counter()
+        lexical_publication = None
+        if request.algorithm.startswith("elasticsearch_"):
+            elastic = None
+            try:
+                if not os.getenv("ELASTICSEARCH_URL"):
+                    raise HTTPException(503, "Keyword search is not enabled")
+                from app.db import search_repository
+                if search_repository.enabled():
+                    from app.services.projection_indexes import ElasticsearchProjectionIndex
+                    lexical_publication = search_repository.published_lexical(db, video)
+                    if lexical_publication is None:
+                        raise IndexNotReady("Current revision is not indexed")
+                    elastic = ElasticsearchProjectionIndex(lexical_publication["target"])
+                    lexical = elastic.search(lexical_publication["attempt_id"], request.query, CANDIDATES)
+                    # This endpoint is scoped to one video and still uses legacy
+                    # dense hits. Library fusion will retain canonical identities.
+                    lexical = [{key: hit[key] for key in ("start", "end", "text", "score")} for hit in lexical]
+                else:
+                    elastic = ElasticsearchSearch()
+                    lexical = elastic.search(video_id, video.segments_path, request.query, CANDIDATES)
+            except IndexNotReady as exc:
+                raise HTTPException(409, "Keyword search is still indexing this video; try again shortly") from exc
+            except (requests.RequestException, RuntimeError) as exc:
+                raise HTTPException(503, "Elasticsearch is unavailable") from exc
+            finally:
+                if elastic:
+                    elastic.close()
+        else:
+            lexical = BM25(storage.read_json(video.segments_path)).search(request.query, CANDIDATES)
+        lexical_seconds = seconds_since(lexical_start)
+        results = lexical[:5]
+        dense_seconds = 0.0
+        if request.algorithm in {"hybrid", "elasticsearch_hybrid"}:
+            if video.embedding_status != "completed":
+                raise HTTPException(409, "Embeddings are not ready")
+            dense_start = perf_counter()
+            chunks = list_search_chunks(db, video_id)
+            dense = search_segments(encode_text(request.query), video_id, top_k=CANDIDATES,
+                chunk_attempts=[(chunk.chunk_index, chunk.artifact_token) for chunk in chunks] if chunks else None)
+            results = reciprocal_rank_fusion(dense, lexical)
+            dense_seconds = seconds_since(dense_start)
+        if request.algorithm.startswith("elasticsearch_"):
+            revision = video.segments_path
+            db.expire_all()
+            current = get_video(db, video_id)
+            if current is None or current.status == "deleting":
+                raise HTTPException(404, "Video not found")
+            require_video_access(current, current_user)
+            if current.segments_path != revision or current.segments_status != "completed":
+                raise HTTPException(409, "The transcript changed during search; please retry")
+            if lexical_publication is not None and search_repository.published_lexical(db, current) != lexical_publication:
+                raise HTTPException(409, "The search index changed during search; please retry")
+        return {"video_id": video_id, "query": request.query, "algorithm": request.algorithm,
+                "results": results, "metrics": {"search_latency_seconds": seconds_since(search_start),
+                    "lexical_seconds": lexical_seconds, "dense_seconds": dense_seconds}}
+
     if request.algorithm == "qdrant_embedding":
         if video.embedding_status != "completed":
             raise HTTPException(
@@ -267,7 +359,9 @@ def search(
         query_embedding_seconds = seconds_since(query_embedding_start)
 
         qdrant_start = perf_counter()
-        results = search_segments(query_embedding, video_id)
+        chunks = list_search_chunks(db, video_id)
+        results = search_segments(query_embedding, video_id,
+            chunk_attempts=[(chunk.chunk_index, chunk.artifact_token) for chunk in chunks] if chunks else None)
         qdrant_search_seconds = seconds_since(qdrant_start)
 
 
@@ -387,7 +481,7 @@ def get_video_thumbnail(
 
     require_video_access(video, current_user)
 
-    thumbnail_key = f"thumbnails/{video_id}.jpg"
+    thumbnail_key = video.thumbnail_path or f"thumbnails/{video_id}.jpg"
     if not storage.exists(thumbnail_key):
         raise HTTPException(status_code=404, detail="Thumbnail not found")
 
@@ -407,7 +501,7 @@ def get_video_thumbnail_url(
 
     require_video_access(video, current_user)
 
-    thumbnail_key = f"thumbnails/{video_id}.jpg"
+    thumbnail_key = video.thumbnail_path or f"thumbnails/{video_id}.jpg"
     if not storage.exists(thumbnail_key):
         raise HTTPException(status_code=404, detail="Thumbnail not found")
 
@@ -430,7 +524,8 @@ def get_video_status(
 
     require_video_access(video, current_user)
 
-    return video
+    return {column.name: getattr(video, column.name) for column in video.__table__.columns} | {
+        "keyword_search_enabled": bool(os.getenv("ELASTICSEARCH_URL"))}
 
 
 @router.post("/videos/upload")
@@ -440,30 +535,40 @@ def upload_videos(
     visibility: str = Form("private"),
     current_user: AuthUser = Depends(get_current_user),
     db: Session = Depends(get_db),
+    idempotency_key: Annotated[str | None, Header(alias="Idempotency-Key")] = None,
 ):
 
     request_start = perf_counter()
     upload_accepted_at_epoch = now_epoch()
 
-    video_id = str(uuid4())
-
-    suffix = Path(file.filename).suffix
-    saved_file = f"{video_id}{suffix}"
-    raw_key = f"raw_videos/{saved_file}"
+    suffix = Path(file.filename or "video").suffix
     video_title = normalize_title(title, file.filename)
     video_visibility = normalize_visibility(visibility)
     upsert_user(db, current_user)
+    idempotency_key = idempotency_key or str(uuid4())
+    fingerprint = upload_fingerprint(file.file, filename=file.filename, title=video_title,
+        visibility=video_visibility, max_bytes=MAX_UPLOAD_BYTES)
+    reservation, replay = reserve_upload(db, current_user.user_id, idempotency_key, fingerprint, suffix)
+    if replay is not None:
+        return replay
+    video_id, token, raw_key = reservation.video_id, reservation.processing_token, reservation.raw_path
+    db.rollback()
+    saved_file = f"{video_id}{suffix}"
 
     s3_start = perf_counter()
 
     try:
         uploaded_bytes = storage.save_upload(file.file, raw_key, MAX_UPLOAD_BYTES)
-    except ValueError:
-        raise HTTPException(status_code=413, detail="Uploaded video is too large")
+    except Exception:
+        abandon_upload(db, current_user.user_id, idempotency_key, token)
+        raise
 
     s3_raw_upload_seconds = seconds_since(s3_start)
 
-    create_video(db, {
+    enqueue_start = perf_counter()
+    response = {"video_id": video_id, "title": video_title, "visibility": video_visibility,
+                "filename": saved_file, "status": "uploaded", "idempotency_key": idempotency_key}
+    commit_upload(db, current_user.user_id, idempotency_key, token, response, {
         "video_id": video_id,
         "owner_user_id": current_user.user_id,
         "title": video_title,
@@ -482,6 +587,7 @@ def upload_videos(
         "embedding_status": "not_started",
         "error_message": None,
     })
+    celery_enqueue_seconds = seconds_since(enqueue_start)
 
     upload_response_latency_seconds = seconds_since(request_start)
 
@@ -492,34 +598,13 @@ def upload_videos(
         "uploaded_bytes": uploaded_bytes,
     })
 
-    enqueue_start = perf_counter()
-    process_video_search_task.apply_async(args=[video_id], queue="search")
-    search_enqueue_seconds = seconds_since(enqueue_start)
-
-    playback_enqueue_start = perf_counter()
-    process_video_playback_task.apply_async(args=[video_id], queue="playback")
-    playback_enqueue_seconds = seconds_since(playback_enqueue_start)
-
-    celery_enqueue_seconds = seconds_since(enqueue_start)
     safe_update_metrics(storage, video_id, "upload", {
         "enqueued_at_epoch": now_epoch(),
         "celery_enqueue_seconds": celery_enqueue_seconds,
-        "search_enqueue_seconds": search_enqueue_seconds,
-        "playback_enqueue_seconds": playback_enqueue_seconds,
+        "enqueue_backend": "postgres_outbox",
     })
 
-    return {
-        "metrics": {
-            "upload_response_latency_seconds": upload_response_latency_seconds,
-            "s3_raw_upload_seconds": s3_raw_upload_seconds,
-            "celery_enqueue_seconds": celery_enqueue_seconds,
-        },
-        "video_id": video_id,
-        "title": video_title,
-        "visibility": video_visibility,
-        "filename": saved_file,
-        "status": "uploaded"
-    }
+    return response
 # @router.post("/videos/upload")
 # def upload_videos(file: UploadFile = File(...), db: Session = Depends(get_db)):
 #     video_id = str(uuid4())

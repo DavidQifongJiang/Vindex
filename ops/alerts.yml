@@ -1,0 +1,72 @@
+groups:
+  - name: vindex-reliability
+    rules:
+      - alert: VindexOperationsUnavailable
+        expr: up{job="vindex-operations"} == 0
+        for: 2m
+        labels: {severity: critical}
+        annotations: {summary: 'Vindex operations endpoint or Postgres is unavailable'}
+      - alert: VindexDispatcherStalled
+        expr: vindex_dispatcher_success_age_seconds > 120
+        for: 1m
+        labels: {severity: critical}
+        annotations: {summary: 'Dispatcher has not completed a healthy cycle'}
+      - alert: VindexQueueDelayed
+        expr: vindex_pending_age_seconds > 300
+        for: 2m
+        labels: {severity: warning}
+        annotations: {summary: 'Runnable work has waited more than five minutes'}
+      - alert: VindexWorkStalled
+        expr: vindex_expired_work > 0 or vindex_progress_age_seconds > 900
+        for: 2m
+        labels: {severity: warning}
+        annotations: {summary: 'Work has expired or stopped recording progress'}
+      - alert: VindexProcessingFailed
+        expr: vindex_recent_failures > 0
+        labels: {severity: warning}
+        annotations: {summary: 'Processing reached terminal failure in the last ten minutes'}
+      - alert: VindexDependencyFailure
+        expr: vindex_dependencies_error > 0
+        for: 2m
+        labels: {severity: critical}
+        annotations: {summary: 'An S3, Redis, or Qdrant dependency check failed'}
+      - alert: VindexMaintenanceFailed
+        expr: vindex_garbage_collection_error > 0 or vindex_index_repair_error > 0 or vindex_garbage_collection_success_age_seconds > 1800 or vindex_index_repair_success_age_seconds > 1800
+        for: 2m
+        labels: {severity: warning}
+        annotations: {summary: 'Artifact cleanup or index repair has stopped succeeding'}
+      - alert: VindexLexicalIndexFailed
+        expr: vindex_lexical_index_error > 0 or vindex_lexical_index_success_age_seconds > 1800
+        for: 2m
+        labels: {severity: warning}
+        annotations: {summary: 'Keyword search indexing or cleanup has stopped succeeding'}
+      - alert: VindexSearchProjectionFailed
+        expr: vindex_search_projections_error > 0 or vindex_search_projection_failed > 0 or vindex_search_cleanup_errors > 0 or vindex_search_projections_success_age_seconds > 1800
+        for: 2m
+        labels: {severity: warning}
+        annotations: {summary: 'Search projection indexing, verification or cleanup needs attention'}
+      - alert: VindexBackupOverdue
+        expr: vindex_backup_success_age_seconds > 86400
+        for: 5m
+        labels: {severity: critical}
+        annotations: {summary: 'No verified off-host backup succeeded in the last 24 hours'}
+      - alert: VindexLibrarySearchUnavailable
+        expr: sum(rate(vindex_library_requests_total{outcome="unavailable"}[5m])) / clamp_min(sum(rate(vindex_library_requests_total[5m])), 0.001) > 0.05
+        for: 5m
+        labels: {severity: warning}
+        annotations: {summary: 'More than 5% of library searches are unavailable'}
+      - alert: VindexLibrarySearchSaturated
+        expr: vindex_library_active >= 8
+        for: 2m
+        labels: {severity: warning}
+        annotations: {summary: 'Library search admission remains saturated on an API process'}
+      - alert: VindexLibrarySearchDegraded
+        expr: sum(rate(vindex_library_requests_total{outcome="degraded"}[5m])) / clamp_min(sum(rate(vindex_library_requests_total[5m])), 0.001) > 0.1
+        for: 5m
+        labels: {severity: warning}
+        annotations: {summary: 'More than 10% of library searches use degraded results'}
+      - alert: VindexLibrarySearchSlow
+        expr: histogram_quantile(0.95, sum by (le) (rate(vindex_library_request_seconds_bucket[5m]))) > 1.5
+        for: 5m
+        labels: {severity: warning}
+        annotations: {summary: 'Library search p95 exceeds the provisional 1.5 second target'}

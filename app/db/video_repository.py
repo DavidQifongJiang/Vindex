@@ -3,13 +3,18 @@ from uuid import uuid4
 
 from sqlalchemy import and_, func, or_
 
-from app.db.models import Video, VideoSearchChunk
+from app.db.models import PipelineJob, Video, VideoSearchChunk
+from app.db.pipeline_repository import add_job, claim_work, guard_work, complete_work
 
 
-def create_video(db, video_data: dict):
+def create_video(db, video_data: dict, *, enqueue_processing=False):
     video = Video(**video_data)
 
     db.add(video)
+    if enqueue_processing:
+        db.flush()
+        add_job(db, video.video_id, "search")
+        add_job(db, video.video_id, "playback")
     db.commit()
     db.refresh(video)
 
@@ -67,7 +72,7 @@ def delete_search_chunks(db, video_id: str):
     return deleted_count
 
 
-def create_search_chunks(db, video_id: str, chunks: list[dict]):
+def create_search_chunks(db, video_id: str, chunks: list[dict], *, commit=True):
     now = datetime.utcnow()
     rows = []
 
@@ -92,7 +97,9 @@ def create_search_chunks(db, video_id: str, chunks: list[dict]):
         )
 
     db.add_all(rows)
-    db.commit()
+    db.flush()
+    if commit:
+        db.commit()
 
     return list_search_chunks(db, video_id)
 
@@ -136,49 +143,7 @@ def claim_search_chunk(
     processing_owner: str,
     max_processing_attempts: int,
 ):
-    now = datetime.utcnow()
-
-    updated_count = (
-        db.query(VideoSearchChunk)
-        .filter(
-            VideoSearchChunk.video_id == video_id,
-            VideoSearchChunk.chunk_index == chunk_index,
-            or_(
-                VideoSearchChunk.status == "pending",
-                and_(
-                    VideoSearchChunk.status == "retrying",
-                    VideoSearchChunk.next_retry_at <= now,
-                ),
-            ),
-            func.coalesce(VideoSearchChunk.processing_attempt_count, 0)
-            < func.coalesce(VideoSearchChunk.max_processing_attempts, max_processing_attempts),
-        )
-        .update(
-            {
-                VideoSearchChunk.status: "processing",
-                VideoSearchChunk.processing_attempt_count:
-                    func.coalesce(VideoSearchChunk.processing_attempt_count, 0) + 1,
-                VideoSearchChunk.max_processing_attempts:
-                    func.coalesce(VideoSearchChunk.max_processing_attempts, max_processing_attempts),
-                VideoSearchChunk.processing_started_at: now,
-                VideoSearchChunk.processing_owner: processing_owner,
-                VideoSearchChunk.next_retry_at: None,
-                VideoSearchChunk.last_error_code: None,
-                VideoSearchChunk.last_error_type: None,
-                VideoSearchChunk.last_error_message: None,
-                VideoSearchChunk.last_error_at: None,
-                VideoSearchChunk.updated_at: now,
-            },
-            synchronize_session=False,
-        )
-    )
-    db.commit()
-    db.expire_all()
-
-    if updated_count != 1:
-        return None
-
-    return get_search_chunk(db, video_id, chunk_index)
+    return claim_work(db, VideoSearchChunk, video_id, chunk_index, processing_owner, max_processing_attempts)
 
 
 def record_search_chunk_retry(
@@ -186,11 +151,13 @@ def record_search_chunk_retry(
     video_id: str,
     chunk_index: int,
     *,
+    processing_token: str,
     error_code: str,
     error_type: str,
     error_message: str,
     next_retry_at: datetime,
 ):
+    guard_work(db, VideoSearchChunk, video_id, chunk_index, processing_token)
     now = datetime.utcnow()
     updated_count = (
         db.query(VideoSearchChunk)
@@ -202,6 +169,9 @@ def record_search_chunk_retry(
         .update(
             {
                 VideoSearchChunk.status: "retrying",
+                VideoSearchChunk.processing_token: None,
+                VideoSearchChunk.lease_expires_at: None,
+                VideoSearchChunk.dispatch_after: None,
                 VideoSearchChunk.processing_owner: None,
                 VideoSearchChunk.processing_started_at: None,
                 VideoSearchChunk.last_error_code: error_code,
@@ -228,10 +198,12 @@ def record_search_chunk_failure(
     video_id: str,
     chunk_index: int,
     *,
+    processing_token: str,
     error_code: str,
     error_type: str,
     error_message: str,
 ):
+    guard_work(db, VideoSearchChunk, video_id, chunk_index, processing_token)
     now = datetime.utcnow()
     updated_count = (
         db.query(VideoSearchChunk)
@@ -243,6 +215,8 @@ def record_search_chunk_failure(
         .update(
             {
                 VideoSearchChunk.status: "failed",
+                VideoSearchChunk.processing_token: None,
+                VideoSearchChunk.lease_expires_at: None,
                 VideoSearchChunk.processing_owner: None,
                 VideoSearchChunk.processing_started_at: None,
                 VideoSearchChunk.last_error_code: error_code,
@@ -269,33 +243,10 @@ def record_search_chunk_success(
     video_id: str,
     chunk_index: int,
     updates: dict,
+    *,
+    processing_token: str,
 ):
-    now = datetime.utcnow()
-    updates = {
-        **updates,
-        "status": "completed",
-        "processing_owner": None,
-        "next_retry_at": None,
-        "completed_at": now,
-        "updated_at": now,
-    }
-
-    updated_count = (
-        db.query(VideoSearchChunk)
-        .filter(
-            VideoSearchChunk.video_id == video_id,
-            VideoSearchChunk.chunk_index == chunk_index,
-            VideoSearchChunk.status == "processing",
-        )
-        .update(updates, synchronize_session=False)
-    )
-    db.commit()
-    db.expire_all()
-
-    if updated_count != 1:
-        return None
-
-    return get_search_chunk(db, video_id, chunk_index)
+    return complete_work(db, VideoSearchChunk, video_id, chunk_index, processing_token, updates)
 
 
 def search_chunk_counts(db, video_id: str):
@@ -421,6 +372,7 @@ def claim_video_for_processing(
             ),
             func.coalesce(Video.processing_attempt_count, 0)
             < func.coalesce(Video.max_processing_attempts, max_processing_attempts),
+            ~db.query(PipelineJob).filter(PipelineJob.video_id == Video.video_id).exists(),
         )
         .update(
             {
