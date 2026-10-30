@@ -15,6 +15,9 @@ app/ez.mp4
 *.mp4.part
 *.log
 .DS_Store
-app/ez.mp4
 benchmarks/*pipeline.csv
 benchmarks/*video_ids.csv
+benchmarks/library_queries_500/
+benchmarks/results/
+tmp/
+vindex_benchmark_videos/
