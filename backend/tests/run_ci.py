@@ -71,7 +71,7 @@ def evaluate(job, discovered, passed, skip_reasons, failed, owners):
 def load_suite(job, owners):
     loader = unittest.TestLoader()
     if job == "backend":
-        return loader.discover("tests", pattern="no_such_*.py", top_level_dir=".")
+        return loader.discover("tests", top_level_dir=".")
     return loader.loadTestsFromNames([entry["test"] for entry in owners if entry["job"] == job])
 
 
