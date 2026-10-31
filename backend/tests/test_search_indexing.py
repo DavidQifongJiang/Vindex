@@ -264,7 +264,7 @@ class PostgresProjectionTest(SearchIndexingTest):
 
     def test_process_crash_after_claim_is_recovered(self):
         environment = dict(os.environ, VINDEX_TEST_SCHEMA=self.schema, VINDEX_TEST_JOB=self.job_id)
-        child = subprocess.run([sys.executable, "-m", "tests.search_projection_crash"], env=environment,
+        child = subprocess.run([sys.executable, "-m", "tests.smoke.search_projection_crash"], env=environment,
                                capture_output=True, text=True, timeout=30)
         self.assertEqual(child.returncode, 23, child.stderr)
         with self.sessions() as db:

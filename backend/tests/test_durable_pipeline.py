@@ -420,7 +420,7 @@ class PostgresDurablePipelineTest(DurablePipelineTest):
 
     def test_killed_process_leaves_work_recoverable(self):
         self.chunks()
-        process = subprocess.Popen([sys.executable, "-m", "tests.lease_crash_worker"],
+        process = subprocess.Popen([sys.executable, "-m", "tests.smoke.lease_crash_worker"],
             env={**os.environ, "VINDEX_TEST_SCHEMA": self.schema},
             stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
         try:
@@ -458,7 +458,7 @@ class PostgresDurablePipelineTest(DurablePipelineTest):
         redis_url = os.environ["VINDEX_TEST_REDIS_URL"]
         app = Celery("pipeline-smoke", broker=redis_url, backend=redis_url)
         process = subprocess.Popen([
-            sys.executable, "-m", "celery", "-A", "tests.pipeline_smoke_app:app",
+            sys.executable, "-m", "celery", "-A", "tests.smoke.pipeline_smoke_app:app",
             "worker", "--pool=solo", "--loglevel=WARNING", "-Q", "search",
             "--without-heartbeat", "--without-gossip", "--without-mingle",
         ], env={**os.environ, "DATABASE_URL": self.database_url, "PGOPTIONS": f"-csearch_path={self.schema}",
