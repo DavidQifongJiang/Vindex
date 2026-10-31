@@ -57,7 +57,7 @@ jobs:
           docker run --rm --network host -e PGHOST=127.0.0.1 -e PGDATABASE=vindex_test -e PGUSER=postgres -e PGPASSWORD=test \
             -e EXPECTED_ALEMBIC_HEAD="$head" --mount "type=bind,source=$PWD,target=/workspace,readonly" \
             --entrypoint python3 vindex-backup-test /workspace/backend/tests/smoke/backup_restore_smoke.py
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: backend-results
@@ -88,7 +88,7 @@ jobs:
         env:
           VINDEX_BROWSER_OUTPUT: ${{ github.workspace }}/browser-results
         run: bash ops/ci/run_browser_suites.sh
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: browser-results
@@ -157,7 +157,7 @@ jobs:
       - name: Stop isolated services
         if: always()
         run: docker compose -p vindex-analytics -f ops/compose/docker-compose.analytics.yml down -v
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: kafka-results
@@ -194,7 +194,7 @@ jobs:
       - name: Stop isolated services
         if: always()
         run: docker compose -p vindex-search -f ops/compose/docker-compose.search.yml down -v
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: elasticsearch-results
