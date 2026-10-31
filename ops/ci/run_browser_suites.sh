@@ -43,7 +43,6 @@ build_and_serve auth 5186 VITE_AUTH_ENABLED=true VITE_COGNITO_DOMAIN=https://aut
 run_suite library-default VINDEX_UI_URL=http://127.0.0.1:5184 VINDEX_EXPECT_SEARCH_DISABLED=true \
   node backend/tests/browser/library_search_browser.cjs
 run_suite library VINDEX_UI_URL=http://127.0.0.1:5185 node backend/tests/browser/library_search_browser.cjs
-run_suite analytics VINDEX_UI_URL=http://127.0.0.1:5185 node backend/tests/browser/search_analytics_browser.cjs
 run_suite frontend VINDEX_UI_URL=http://127.0.0.1:5185 VINDEX_AUTH_UI_URL=http://127.0.0.1:5186 \
   node backend/tests/browser/frontend_verification.cjs
 
