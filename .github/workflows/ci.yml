@@ -186,7 +186,6 @@ jobs:
         working-directory: backend
         env:
           VINDEX_TEST_DATABASE_URL: postgresql+psycopg2://postgres:test@localhost:5432/vindex_test
-          VINDEX_TEST_ELASTICSEARCH_URL: http://127.0.0.1:9200
         run: python -m tests.run_ci --job elasticsearch --output ../ci-results/elasticsearch.json
       - name: Capture service logs
         if: failure()
