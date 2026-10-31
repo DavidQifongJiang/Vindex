@@ -165,3 +165,4 @@ export function getVideoFileUrl(videoId: string) {
 export function getVideoThumbnailUrl(videoId: string) {
   return request<{ video_id: string; url: string }>(`/videos/${videoId}/thumbnail-url`);
 }
+export const negativeTest: number = "not a number";
