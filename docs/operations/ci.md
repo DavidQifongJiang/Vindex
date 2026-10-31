@@ -45,6 +45,8 @@ To accept a finding, add it to `ops/ci/audit_exceptions.json` after review. An e
 [{"id": "PYSEC-2026-0000", "reason": "Why this does not affect VIndex", "expires": "2027-01-31"}]
 ```
 
+**Open backlog:** the current entries were added on 2026-10-31 so CI could be validated. They are existing findings whose impact has not been assessed, not findings judged safe. They expire on 2026-11-30, after which the weekly run fails until the packages are upgraded or each finding is reviewed.
+
 ## What CI does not prove
 
 - Browser suites use fixtures. They verify UI behavior, not real Cognito sign-in or cloud video processing.
