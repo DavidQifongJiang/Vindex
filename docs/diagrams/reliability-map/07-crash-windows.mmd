@@ -1,0 +1,30 @@
+flowchart TB
+X0["Independent crash windows<br/>Each box pairs a failure with its recovery"]:::note
+X1["UPLOAD AND DELIVERY"]:::normal
+X2["RUNNING WORK"]:::normal
+X3["COMPLETION AND CLEANUP"]:::normal
+X4["Lost response after upload commit<br/>Same owner/key/fingerprint replays response<br/>No second video or initial jobs"]:::safe
+X5["S3 upload succeeded; DB commit did not<br/>Release reservation or await expiry<br/>New token on retry; orphan collected later"]:::retry
+X6["Dispatcher crash / Redis loss / ambiguous send<br/>Postgres intent survives<br/>Redispatch after reserved window"]:::retry
+X7["Duplicate or old queued message<br/>Atomic claim checks eligible state<br/>Active/completed/failed/missing work skips"]:::safe
+X8["Worker dies / hard timeout / lost heartbeat<br/>Lease or deadline expiry → bounded retry<br/>Exhausted attempts → terminal failure"]:::retry
+X9["DB fails during heartbeat or failure recording<br/>No unguarded acceptance<br/>Expiry recovery after database returns"]:::retry
+X10["Old worker returns after replacement starts<br/>Old token cannot renew or publish<br/>Late artifacts remain hidden and collectible"]:::safe
+X11["Finalizer fails after chunks completed<br/>Retry from accepted chunks; no retranscription<br/>Independent finalizer attempt budget"]:::retry
+X12["Artifacts written; crash before DB completion<br/>Outputs remain unaccepted<br/>New attempt isolated; old artifacts later collected"]:::retry
+X13["DB completion committed; crash before ACK<br/>Redelivery cannot claim completed work<br/>Accepted output is retained"]:::safe
+X14["Deletion cleanup interrupted<br/>Keep deleting state; owner retries endpoint<br/>GC catches abandoned and late artifacts"]:::retry
+X0 --> X1
+X0 --> X2
+X0 --> X3
+X1 -.-> X4 -.-> X5 -.-> X6 -.-> X7
+X2 -.-> X8 -.-> X9 -.-> X10 -.-> X11
+X3 -.-> X12 -.-> X13 -.-> X14
+
+classDef normal fill:#edf4ff,stroke:#4b83bb,color:#172f4a
+classDef decision fill:#fff5dc,stroke:#b88d27,color:#4c3810
+classDef safe fill:#eaf7f0,stroke:#40916b,color:#193c2b
+classDef retry fill:#fff0de,stroke:#ce873a,color:#513211
+classDef fail fill:#ffeded,stroke:#c76a6a,color:#542525
+classDef note fill:#f1f3f6,stroke:#97a2ad,color:#344353
+classDef optional fill:#f2edfc,stroke:#8e74bc,color:#35254d

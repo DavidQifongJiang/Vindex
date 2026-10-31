@@ -1,0 +1,31 @@
+{
+  "local_python": "3.12.7",
+  "checks": {
+    "python_syntax": "passed",
+    "baseline_tests": "10 passed",
+    "intentional_rounding_regression": "expected failure confirmed in disposable copy",
+    "practice_copy": "fresh copy succeeds; existing and nested-repository destinations refused",
+    "http_smoke": "success, wrong release rejection, and HTTP 503 rejection passed",
+    "workflow_yaml_and_dependencies": {
+      "ci.yml": [
+        "test"
+      ],
+      "pipeline.yml": [
+        "test",
+        "build",
+        "staging",
+        "production-demo"
+      ],
+      "publish.yml": [
+        "publish"
+      ]
+    },
+    "workflow_bash_syntax": "13 command blocks passed",
+    "compose_configuration": "passed without starting services",
+    "docker_runtime": "unverified",
+    "guide": "17 sections checked at 390px; navigation, exact copy, saved progress and desktop preview passed"
+  },
+  "docker_build_and_container_run": "not run: Docker Desktop engine is stopped",
+  "github_actions_runs": "not run: learner creates and pushes the practice repository",
+  "ec2_deployment": "not run: optional learner exercise"
+}

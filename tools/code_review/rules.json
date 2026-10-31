@@ -1,0 +1,10 @@
+[
+  {"id":"VIX-AUTH","area":"security","rule":"Postgres ownership, visibility and deletion state control access. Authenticate private reads and mutations; revalidate search hits before exposing text or metadata. Client owner IDs and vector payloads are not authority."},
+  {"id":"VIX-INPUT","area":"security","rule":"Validate uploaded media, paths and request limits. Never interpolate user input into shell commands or expose credentials, private transcripts or signed media URLs to unauthorized callers."},
+  {"id":"VIX-DURABLE","area":"patterns","rule":"Postgres owns durable work and retry state; Redis is only transport. Commit new job intent with the corresponding state transition. Preserve persisted attempt limits and transactional finalizer creation."},
+  {"id":"VIX-FENCING","area":"patterns","rule":"Lease, deadline and processing-token checks fence renewals, publication, completion and failures. S3 paths and Qdrant writes are attempt-specific; obsolete workers cannot replace accepted artifacts."},
+  {"id":"VIX-UPLOAD","area":"patterns","rule":"Upload idempotency keys are owner-scoped and bound to the payload fingerprint. Retries replay the committed response; changed payloads conflict and old tokens cannot commit a replacement reservation."},
+  {"id":"VIX-SCHEMA","area":"patterns","rule":"Schema changes require Alembic migrations and compatibility consideration. Route HTTP behavior belongs in routes; reusable logic belongs in services/repositories."},
+  {"id":"VIX-CONTRACT","area":"patterns","rule":"Keep React/TypeScript and FastAPI response, error and readiness contracts aligned. Preserve optional feature configuration and report degraded or unavailable search separately from successful empty results."},
+  {"id":"VIX-EVIDENCE","area":"patterns","rule":"Require focused regression coverage for changed behavior. Tests must use isolated services. Kafka readiness claims require completed evidence for each acceptance gate; admission is not consumer throughput and accepted-event accounting is not zero capture loss."}
+]

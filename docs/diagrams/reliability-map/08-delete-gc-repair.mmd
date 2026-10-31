@@ -1,0 +1,31 @@
+flowchart TB
+G1["Owner requests delete<br/>404 missing; enforce owner; lock video"]:::normal
+G2{"Active video status OR<br/>any pending / processing / retrying job or chunk?"}:::decision
+G3["409 until work finishes or fails<br/>Even failed parent cannot delete active siblings"]:::fail
+G4["Commit deleting BEFORE external cleanup<br/>Revoke search projections; deletion tombstone<br/>Future claims/publication reject unavailable parent"]:::normal
+G5["Delete Elasticsearch if configured<br/>Failure → 503 retry deletion<br/>Delete Qdrant vectors and known S3 paths/prefixes"]:::normal
+G6["S3 batched deletes check per-object errors<br/>Any cleanup exception leaves deleting state<br/>Owner can repeat endpoint"]:::retry
+G7["After cleanup: remove chunks, jobs and video<br/>Upload tombstone remains for old key → 410"]:::safe
+G8["Maintenance every 60s by default, minimum 10s<br/>Persist bounded scan cursors in operation_states<br/>S3/Qdrant pages 200; index repair 10 videos"]:::normal
+G9["Artifact collection grace default 86400s<br/>Minimum configured grace 3600s<br/>Leave recent objects and unknown paths alone"]:::note
+G10{"Protected by database references?"}:::decision
+G11["Keep accepted video/chunk paths<br/>Keep live upload raw path and active attempt tokens<br/>Keep accepted chunk vectors and restricted legacy data"]:::safe
+G12["Delete old unreferenced objects and vectors<br/>Includes writes from stale attempts after deletion<br/>Continue via persisted cursor"]:::normal
+G13["Repair accepted searchable videos<br/>Count Qdrant points for accepted token/chunk<br/>Missing count → reload S3 embedding manifest"]:::normal
+G14["Upsert deterministic accepted vector IDs<br/>Record per-video error; continue other videos<br/>Wrap scan cursor rather than starve later rows"]:::safe
+G1 --> G2
+G2 -->|Yes| G3
+G2 -->|No| G4 --> G5 --> G7
+G5 -.->|Failure| G6 --> G5
+G8 --> G9 --> G10
+G10 -->|Yes| G11
+G10 -->|No| G12
+G8 --> G13 --> G14
+
+classDef normal fill:#edf4ff,stroke:#4b83bb,color:#172f4a
+classDef decision fill:#fff5dc,stroke:#b88d27,color:#4c3810
+classDef safe fill:#eaf7f0,stroke:#40916b,color:#193c2b
+classDef retry fill:#fff0de,stroke:#ce873a,color:#513211
+classDef fail fill:#ffeded,stroke:#c76a6a,color:#542525
+classDef note fill:#f1f3f6,stroke:#97a2ad,color:#344353
+classDef optional fill:#f2edfc,stroke:#8e74bc,color:#35254d

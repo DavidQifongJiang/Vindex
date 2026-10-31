@@ -1,4 +1,5 @@
 export type VideoStatus = {
+  keyword_search_enabled?: boolean;
   video_id: string;
   owner_user_id: string | null;
   title: string | null;
@@ -32,6 +33,10 @@ export type UserProfile = {
 
 export type SearchAlgorithm =
   | "qdrant_embedding"
+  | "bm25"
+  | "hybrid"
+  | "elasticsearch_bm25"
+  | "elasticsearch_hybrid"
   | "exact"
   | "overlap"
   | "stopword_overlap";
@@ -42,6 +47,33 @@ export type SearchResult = {
   text: string;
   score: number;
   algorithm?: string;
+};
+
+export type LibrarySearchHit = {
+  video_id: string;
+  revision_id: string;
+  passage_id: string;
+  title: string | null;
+  start_seconds: number;
+  end_seconds: number;
+  text: string;
+  matched_by: string[];
+};
+
+export type LibrarySearchResponse = {
+  request_id: string;
+  interaction_enabled?: boolean;
+  degraded: boolean;
+  effective_mode: string;
+  notices: string[];
+  coverage: {
+    complete: boolean;
+    total_videos: number;
+    processing_videos: number;
+    indexing_failed_videos: number;
+    eligible_videos: { semantic: number; lexical: number; either: number };
+  };
+  results: LibrarySearchHit[];
 };
 
 export type Segment = {

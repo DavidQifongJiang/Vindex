@@ -1,0 +1,25 @@
+flowchart TB
+    %% Happy path. Search stages are separately dispatched and claimed jobs.
+    %% The playback column shows steps within one playback job.
+    A["Upload and authorize<br/>Browser + FastAPI"]:::upload --> B["Store raw video<br/>Amazon S3"]:::upload
+    B --> C["Commit video and jobs<br/>Postgres transaction"]:::upload
+    C --> D["Dispatch pending jobs<br/>Dispatcher to Redis"]:::jobs
+    D --> E["Consume and claim jobs<br/>Celery workers + Postgres"]:::jobs
+
+    E -->|Search jobs| F["Extract audio chunks<br/>FFmpeg"]:::search
+    F --> G["Transcribe and embed<br/>Index vectors in Qdrant"]:::search
+    G --> H["Finalize search results<br/>Accepted chunk artifacts"]:::search
+
+    E -->|Playback job| I["Transcode video<br/>FFmpeg"]:::playback
+    I --> J["Create thumbnail<br/>FFmpeg"]:::playback
+    J --> L["Publish playback<br/>Amazon S3 + Postgres"]:::playback
+
+    H -->|Search complete| K["Both branches complete<br/>Video status: processed"]:::complete
+    L -->|Playback complete| K
+
+    classDef upload fill:#edf4ff,stroke:#468cce,color:#182c48
+    classDef jobs fill:#f2edff,stroke:#9470c5,color:#302048
+    classDef search fill:#edf8f5,stroke:#37a787,color:#173e33
+    classDef playback fill:#fff2e6,stroke:#e59848,color:#523519
+    classDef complete fill:#e8f0f6,stroke:#718b9e,color:#233b4d
+

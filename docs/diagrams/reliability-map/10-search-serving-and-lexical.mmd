@@ -1,0 +1,27 @@
+flowchart TB
+S1["Library search explicitly enabled?<br/>Disabled → 404; invalid request → 422<br/>Authenticated owner scope only"]:::optional
+S2["Admission: 8 requests per process<br/>No slot → 429 + Retry-After 1<br/>Total request budget 3s"]:::normal
+S3["Fresh Postgres scope; max 100 videos<br/>Scope too large → 422; unavailable scope → 503<br/>Only ready current revision + accepted attempt"]:::normal
+S4["Execute ONLY requested backend(s)<br/>Parallel hybrid branches; branch budget up to 2s<br/>Reserve 250ms; scope read up to 500ms"]:::normal
+S5["Reject invalid/nonfinite/foreign hits<br/>Re-read scope and generation before returning<br/>Drop deleted, revoked, superseded or repaired identities"]:::safe
+S6{"Any requested branch succeeded?"}:::decision
+S7["200, including a valid empty result<br/>Hybrid survivor allowed with degradation metadata<br/>Incomplete coverage notices are separate"]:::safe
+S8["No successful branch<br/>Failed/timed-out requested engine → 503<br/>Nonempty scope, no eligible projection → 409<br/>Truly empty authorized library → 200"]:::fail
+S9["HTTP deadline can return before blocking calls end<br/>Admission stays occupied until all calls finish<br/>No unbounded pile-up of timed-out background work"]:::note
+S10["LEGACY lexical reconciliation<br/>Deterministic video/revision IDs and fingerprint<br/>Create not-ready manifest; tolerate creation races"]:::optional
+S11["Ready + matching count → reuse<br/>Changed content without revision → reject<br/>Bulk batches 250; reject partial write/refresh failure"]:::normal
+S12["Publish ready only after successful refresh<br/>Recheck accepted source after I/O<br/>Delete superseded revision; bounded cursors + per-item errors"]:::safe
+S13["Cleanup scans passages AND manifests<br/>Delete failure/version conflict/timeout → retry later<br/>Partial/timed-out search never reported as success"]:::note
+S1 --> S2 --> S3 --> S4 --> S5 --> S6
+S6 -->|Yes| S7
+S6 -->|No| S8
+S4 -.-> S9
+S10 --> S11 --> S12 --> S13
+
+classDef normal fill:#edf4ff,stroke:#4b83bb,color:#172f4a
+classDef decision fill:#fff5dc,stroke:#b88d27,color:#4c3810
+classDef safe fill:#eaf7f0,stroke:#40916b,color:#193c2b
+classDef retry fill:#fff0de,stroke:#ce873a,color:#513211
+classDef fail fill:#ffeded,stroke:#c76a6a,color:#542525
+classDef note fill:#f1f3f6,stroke:#97a2ad,color:#344353
+classDef optional fill:#f2edfc,stroke:#8e74bc,color:#35254d

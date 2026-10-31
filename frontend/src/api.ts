@@ -1,4 +1,5 @@
 import type {
+  LibrarySearchResponse,
   SearchAlgorithm,
   SearchResult,
   Segment,
@@ -9,6 +10,12 @@ import type {
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? "";
 let authTokenProvider: () => string | null = () => null;
+export class ApiError extends Error {
+  constructor(public status: number, public payload: unknown, message: string) {
+    super(message);
+  }
+}
+const uploadKeys = new WeakMap<File, Map<string, string>>();
 
 export function setAuthTokenProvider(provider: () => string | null) {
   authTokenProvider = provider;
@@ -31,7 +38,7 @@ async function request<T>(path: string, options?: RequestInit): Promise<T> {
   if (!response.ok) {
     const detail = payload?.detail;
     const message = typeof detail === "string" ? detail : "Request failed";
-    throw new Error(message);
+    throw new ApiError(response.status, payload, message);
   }
 
   return payload as T;
@@ -41,7 +48,57 @@ export function getMe() {
   return request<UserProfile>("/me");
 }
 
+export async function searchLibrary(query: string, signal: AbortSignal, mode: "semantic" | "lexical" = "semantic", analyticsOptIn = false, shareForReview = false): Promise<{ status: number; data: LibrarySearchResponse }> {
+  try {
+    const data = await request<LibrarySearchResponse>("/search", {
+      method: "POST", signal,
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ query, scope: "my_library", mode, limit: 10, analytics_opt_in: analyticsOptIn, share_for_review: shareForReview })
+    });
+    return { status: 200, data };
+  } catch (error) {
+    if (error instanceof ApiError && (error.status === 409 || error.status === 503)) {
+      const data = error.payload as LibrarySearchResponse | null;
+      if (data && Array.isArray(data.results) && Array.isArray(data.notices) && data.coverage) {
+        return { status: error.status, data };
+      }
+    }
+    throw error;
+  }
+}
+
+export function sendSearchInteraction(searchId: string, body: { event_id: string; event_type: string; rank?: number; ranks?: number[]; feedback?: string }) {
+  return request(`/search/${encodeURIComponent(searchId)}/interactions`, {
+    method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body)
+  });
+}
+
+export function withdrawSearchSharing(searchId: string) {
+  return request(`/search/${encodeURIComponent(searchId)}/sharing`, { method: "DELETE" });
+}
+
+export function withdrawAllSearchSharing() { return request("/search-sharing", { method: "DELETE" }); }
+
+export type SearchAnalytics = {
+  retention_days: number; pending_events: number; pending_bytes: number; expired_events: number;
+  quarantined: number; latest_update: string | null;
+  review_next_cursor?: string | null;
+  modes: Record<string, { searches: number; errors: number; zero_results: number; degraded: number;
+    viewed: number; opened: number; helpful: number; not_helpful: number; p50_ms: number; p95_ms: number }>;
+  review: { search_id: string; query: string; mode: string; reason: string }[];
+};
+
+export function getSearchAnalytics(cursor?: string) { return request<SearchAnalytics>("/search-analytics" + (cursor ? `?cursor=${encodeURIComponent(cursor)}` : "")); }
+
 export async function uploadVideo(file: File, title: string, visibility: "private" | "public") {
+  let keys = uploadKeys.get(file);
+  if (!keys) {
+    keys = new Map();
+    uploadKeys.set(file, keys);
+  }
+  const metadata = JSON.stringify([title, visibility]);
+  const key = keys.get(metadata) ?? crypto.randomUUID();
+  keys.set(metadata, key);
   const formData = new FormData();
   formData.append("file", file);
   formData.append("title", title);
@@ -55,6 +112,7 @@ export async function uploadVideo(file: File, title: string, visibility: "privat
     status: string;
   }>("/videos/upload", {
     method: "POST",
+    headers: { "Idempotency-Key": key },
     body: formData
   });
 }

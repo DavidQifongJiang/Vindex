@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1320" height="1034" viewBox="0 0 1320 1034" role="img" aria-labelledby="title description">
+<title id="title">Vindex project mind map</title>
+<desc id="description">Six branches describe product experience, media processing, search and retrieval, reliable jobs, optional analytics, and delivery and operations. Library search requires feature configuration. Kafka analytics is a prototype. Branches group responsibilities and do not indicate execution order.</desc>
+<metadata>Sources: README.md; docs/system_design.md; docs/production_operations.md; frontend/src/auth.ts; app/services/video_service.py. Working-tree overview, 2026-10-26. Labels are editable SVG text.</metadata>
+<rect width="1320" height="1034" fill="white"/>
+<g font-family="Arial, Helvetica, sans-serif" font-weight="400">
+<g id="branch-1" aria-label="Product experience">
+<path d="M 254 515.0 C 329 515.0, 330 96.5, 406 96.5 H 617.0" fill="none" stroke="#ef8738" stroke-width="1.8" stroke-linecap="round"/>
+<text x="418" y="87.5" font-size="22" fill="#2875d5">Product experience</text>
+<path d="M 617.0 96.5 C 659.0 96.5, 776 50, 834 50 H 1107.98" fill="none" stroke="#52a24d" stroke-width="1.5" stroke-linecap="round"/>
+<text x="844" y="42" font-size="20" fill="#2875d5">React + TypeScript interface</text>
+<path d="M 617.0 96.5 C 659.0 96.5, 776 81, 834 81 H 1133" fill="none" stroke="#ef8738" stroke-width="1.5" stroke-linecap="round"/>
+<text x="844" y="73" font-size="20" fill="#2875d5">Cognito sign-in &amp; owner checks</text>
+<path d="M 617.0 96.5 C 659.0 96.5, 776 112, 834 112 H 1190" fill="none" stroke="#9470c5" stroke-width="1.5" stroke-linecap="round"/>
+<text x="844" y="104" font-size="20" fill="#2875d5">Upload, visibility &amp; video management</text>
+<path d="M 617.0 96.5 C 659.0 96.5, 776 143, 834 143 H 1206" fill="none" stroke="#a96f68" stroke-width="1.5" stroke-linecap="round"/>
+<text x="844" y="135" font-size="20" fill="#2875d5">Search results with timestamp playback</text>
+<circle cx="617" cy="96.5" r="6" fill="white" stroke="#ef8738" stroke-width="1.5"/>
+</g>
+<g id="branch-2" aria-label="Media processing">
+<path d="M 254 515.0 C 329 515.0, 330 267.0, 406 267.0 H 600.0" fill="none" stroke="#91aa37" stroke-width="1.8" stroke-linecap="round"/>
+<text x="418" y="258" font-size="22" fill="#2875d5">Media processing</text>
+<path d="M 600.0 267.0 C 642.0 267.0, 776 205, 834 205 H 1156" fill="none" stroke="#ef8738" stroke-width="1.5" stroke-linecap="round"/>
+<text x="844" y="197" font-size="20" fill="#2875d5">FFmpeg video &amp; audio processing</text>
+<path d="M 600.0 267.0 C 642.0 267.0, 776 236, 834 236 H 1176" fill="none" stroke="#9470c5" stroke-width="1.5" stroke-linecap="round"/>
+<text x="844" y="228" font-size="20" fill="#2875d5">Independent playback &amp; search jobs</text>
+<path d="M 600.0 267.0 C 642.0 267.0, 776 267, 834 267 H 1182" fill="none" stroke="#a96f68" stroke-width="1.5" stroke-linecap="round"/>
+<text x="844" y="259" font-size="20" fill="#2875d5">Parallel Whisper transcription chunks</text>
+<path d="M 600.0 267.0 C 642.0 267.0, 776 298, 834 298 H 1163" fill="none" stroke="#cc6abd" stroke-width="1.5" stroke-linecap="round"/>
+<text x="844" y="290" font-size="20" fill="#2875d5">Sentence-transformer embeddings</text>
+<path d="M 600.0 267.0 C 642.0 267.0, 776 329, 834 329 H 1154" fill="none" stroke="#49b7c7" stroke-width="1.5" stroke-linecap="round"/>
+<text x="844" y="321" font-size="20" fill="#2875d5">S3 media, transcripts &amp; manifests</text>
+<circle cx="600" cy="267" r="6" fill="white" stroke="#91aa37" stroke-width="1.5"/>
+</g>
+<g id="branch-3" aria-label="Search &amp; retrieval">
+<path d="M 254 515.0 C 329 515.0, 330 437.5, 406 437.5 H 603.0" fill="none" stroke="#cc6abd" stroke-width="1.8" stroke-linecap="round"/>
+<text x="418" y="428.5" font-size="22" fill="#2875d5">Search &amp; retrieval</text>
+<path d="M 603.0 437.5 C 645.0 437.5, 776 391, 834 391 H 1068" fill="none" stroke="#9470c5" stroke-width="1.5" stroke-linecap="round"/>
+<text x="844" y="383" font-size="20" fill="#2875d5">Qdrant semantic search</text>
+<path d="M 603.0 437.5 C 645.0 437.5, 776 422, 834 422 H 1156.98" fill="none" stroke="#a96f68" stroke-width="1.5" stroke-linecap="round"/>
+<text x="844" y="414" font-size="20" fill="#2875d5">Timestamped transcript segments</text>
+<path d="M 603.0 437.5 C 645.0 437.5, 776 453, 834 453 H 1186" fill="none" stroke="#cc6abd" stroke-width="1.5" stroke-linecap="round"/>
+<text x="844" y="445" font-size="20" fill="#2875d5">Elasticsearch library search · optional</text>
+<path d="M 603.0 437.5 C 645.0 437.5, 776 484, 834 484 H 1183" fill="none" stroke="#49b7c7" stroke-width="1.5" stroke-linecap="round"/>
+<text x="844" y="476" font-size="20" fill="#2875d5">Semantic + keyword hybrid · optional</text>
+<circle cx="603" cy="437.5" r="6" fill="white" stroke="#cc6abd" stroke-width="1.5"/>
+</g>
+<g id="branch-4" aria-label="Reliable jobs">
+<path d="M 254 515.0 C 329 515.0, 330 608.0, 406 608.0 H 555.0" fill="none" stroke="#49b7c7" stroke-width="1.8" stroke-linecap="round"/>
+<text x="418" y="599" font-size="22" fill="#2875d5">Reliable jobs</text>
+<path d="M 555.0 608.0 C 597.0 608.0, 776 546, 834 546 H 1164" fill="none" stroke="#a96f68" stroke-width="1.5" stroke-linecap="round"/>
+<text x="844" y="538" font-size="20" fill="#2875d5">Postgres durable jobs &amp; dispatcher</text>
+<path d="M 555.0 608.0 C 597.0 608.0, 776 577, 834 577 H 1147" fill="none" stroke="#cc6abd" stroke-width="1.5" stroke-linecap="round"/>
+<text x="844" y="569" font-size="20" fill="#2875d5">Celery workers + Redis transport</text>
+<path d="M 555.0 608.0 C 597.0 608.0, 776 608, 834 608 H 1103" fill="none" stroke="#49b7c7" stroke-width="1.5" stroke-linecap="round"/>
+<text x="844" y="600" font-size="20" fill="#2875d5">Idempotent upload requests</text>
+<path d="M 555.0 608.0 C 597.0 608.0, 776 639, 834 639 H 1144" fill="none" stroke="#52a24d" stroke-width="1.5" stroke-linecap="round"/>
+<text x="844" y="631" font-size="20" fill="#2875d5">Leases, attempt tokens &amp; retries</text>
+<path d="M 555.0 608.0 C 597.0 608.0, 776 670, 834 670 H 1121" fill="none" stroke="#ef8738" stroke-width="1.5" stroke-linecap="round"/>
+<text x="844" y="662" font-size="20" fill="#2875d5">Artifact cleanup &amp; index repair</text>
+<circle cx="555" cy="608" r="6" fill="white" stroke="#49b7c7" stroke-width="1.5"/>
+</g>
+<g id="branch-5" aria-label="Analytics · optional">
+<path d="M 254 515.0 C 329 515.0, 330 778.5, 406 778.5 H 613.0" fill="none" stroke="#9470c5" stroke-width="1.8" stroke-linecap="round"/>
+<text x="418" y="769.5" font-size="22" fill="#2875d5">Analytics · optional</text>
+<path d="M 613.0 778.5 C 655.0 778.5, 776 732, 834 732 H 1139" fill="none" stroke="#cc6abd" stroke-width="1.5" stroke-linecap="round"/>
+<text x="844" y="724" font-size="20" fill="#2875d5">Kafka search events · prototype</text>
+<path d="M 613.0 778.5 C 655.0 778.5, 776 763, 834 763 H 1188" fill="none" stroke="#49b7c7" stroke-width="1.5" stroke-linecap="round"/>
+<text x="844" y="755" font-size="20" fill="#2875d5">Postgres outbox &amp; consumer receipts</text>
+<path d="M 613.0 778.5 C 655.0 778.5, 776 794, 834 794 H 1176" fill="none" stroke="#52a24d" stroke-width="1.5" stroke-linecap="round"/>
+<text x="844" y="786" font-size="20" fill="#2875d5">Analytics &amp; review consumer groups</text>
+<path d="M 613.0 778.5 C 655.0 778.5, 776 825, 834 825 H 1150.98" fill="none" stroke="#ef8738" stroke-width="1.5" stroke-linecap="round"/>
+<text x="844" y="817" font-size="20" fill="#2875d5">Replay, checkpoints &amp; quarantine</text>
+<circle cx="613" cy="778.5" r="6" fill="white" stroke="#9470c5" stroke-width="1.5"/>
+</g>
+<g id="branch-6" aria-label="Delivery &amp; operations">
+<path d="M 254 515.0 C 329 515.0, 330 933.5, 406 933.5 H 637.0" fill="none" stroke="#468cce" stroke-width="1.8" stroke-linecap="round"/>
+<text x="418" y="924.5" font-size="22" fill="#2875d5">Delivery &amp; operations</text>
+<path d="M 637.0 933.5 C 679.0 933.5, 776 887, 834 887 H 1106" fill="none" stroke="#49b7c7" stroke-width="1.5" stroke-linecap="round"/>
+<text x="844" y="879" font-size="20" fill="#2875d5">FastAPI application backend</text>
+<path d="M 637.0 933.5 C 679.0 933.5, 776 918, 834 918 H 1130.97" fill="none" stroke="#52a24d" stroke-width="1.5" stroke-linecap="round"/>
+<text x="844" y="910" font-size="20" fill="#2875d5">Docker Compose on AWS EC2</text>
+<path d="M 637.0 933.5 C 679.0 933.5, 776 949, 834 949 H 981" fill="none" stroke="#ef8738" stroke-width="1.5" stroke-linecap="round"/>
+<text x="844" y="941" font-size="20" fill="#2875d5">Caddy HTTPS</text>
+<path d="M 637.0 933.5 C 679.0 933.5, 776 980, 834 980 H 1139" fill="none" stroke="#9470c5" stroke-width="1.5" stroke-linecap="round"/>
+<text x="844" y="972" font-size="20" fill="#2875d5">Metrics, backups &amp; benchmarks</text>
+<circle cx="637" cy="933.5" r="6" fill="white" stroke="#468cce" stroke-width="1.5"/>
+</g>
+<path d="M 136 515.0 H 254" fill="none" stroke="#468cce" stroke-width="2.5" stroke-linecap="round"/>
+<text x="148" y="504" font-size="28" fill="#18212d">Vindex</text>
+<text x="64" y="543" font-size="17" fill="#657184">Video search platform</text>
+<circle cx="254" cy="515" r="7" fill="white" stroke="#468cce" stroke-width="1.5"/>
+</g>
+</svg>

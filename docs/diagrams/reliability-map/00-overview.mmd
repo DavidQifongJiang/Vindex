@@ -1,0 +1,30 @@
+flowchart TB
+O1["01 Upload intent<br/>Owner + idempotency key + fingerprint"]:::normal
+O2["02 Atomic transaction<br/>Upload response + video + durable jobs"]:::normal
+O3["02 Dispatcher → Redis<br/>Republish unclaimed work"]:::normal
+O4["03 Claim + lease + deadline<br/>Postgres permits one current attempt"]:::normal
+O5["06 Search jobs<br/>Prepare → chunks → finalize"]:::normal
+O6["06 Playback job<br/>Transcode → optional thumbnail"]:::normal
+O7["06 Guarded publication<br/>Accepted paths and tokens in Postgres"]:::safe
+O8["Video processed<br/>Search complete AND playback published"]:::safe
+O9["04-05 Errors and retries<br/>Classify → bounded retry or terminal failure"]:::retry
+O10["07 Crash recovery<br/>08 Deletion, garbage collection and repair"]:::note
+O11["09-10 OPTIONAL library search<br/>Projection leases, integrity checks and fail-closed reads"]:::optional
+O12["11-13 OPTIONAL Kafka prototype<br/>Capture, outbox, receipts, quarantine and replay"]:::optional
+O13["14-16 Supporting controls<br/>Metrics, alerts, backups and legacy limits"]:::note
+O1 --> O2 --> O3 --> O4
+O4 --> O5 --> O7
+O4 --> O6 --> O7 --> O8
+O4 -.-> O9
+O9 -->|Retry due| O3
+O9 -.-> O10
+O7 -.-> O11 -.-> O12
+O10 -.-> O13
+
+classDef normal fill:#edf4ff,stroke:#4b83bb,color:#172f4a
+classDef decision fill:#fff5dc,stroke:#b88d27,color:#4c3810
+classDef safe fill:#eaf7f0,stroke:#40916b,color:#193c2b
+classDef retry fill:#fff0de,stroke:#ce873a,color:#513211
+classDef fail fill:#ffeded,stroke:#c76a6a,color:#542525
+classDef note fill:#f1f3f6,stroke:#97a2ad,color:#344353
+classDef optional fill:#f2edfc,stroke:#8e74bc,color:#35254d

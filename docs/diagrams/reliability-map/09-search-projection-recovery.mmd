@@ -1,0 +1,33 @@
+flowchart TB
+Q1["Register accepted revision in finalizer transaction<br/>SHA-256 manifest + deterministic source key<br/>Unique video/revision/generation projection intent"]:::optional
+Q2["Generation configuration is immutable<br/>Changed backend/target/settings → reject<br/>Semantic generation requires pinned model revision"]:::note
+Q3["Superseded revision or deletion → obsolete<br/>Clear accepted attempt; lock parent then projection"]:::fail
+Q4["Dispatch indexing queue; reserve 60s window<br/>Claim pending/due retrying; max 3 attempts<br/>UUID attempt; 300s lease; 1800s deadline"]:::optional
+Q5["Heartbeat 100s + checkpoints<br/>Renew lease capped at deadline<br/>Stale ownership → return stale"]:::normal
+Q6["Load accepted manifest and verify SHA/count<br/>Validate passage identity and aligned embeddings<br/>Reject model, dimension, timestamp or nonfinite mismatch"]:::normal
+Q7["Validate target schema/dimension; tolerate valid create races<br/>Write attempt-scoped IDs in bounded batches<br/>Verify counts, exact payloads and semantic vectors"]:::normal
+Q8["Guard parent/revision/token/lease/deadline<br/>Publish ready + accepted_attempt_id<br/>Readers use this exact identity"]:::safe
+Q9["Exception → classify<br/>ValueError / KeyError / TypeError are permanent<br/>Other temporary failures use exponential jittered retry"]:::retry
+Q10["Expired indexing → recover with same budget<br/>Permanent or exhausted → failed<br/>Wrong token/obsolete → no failure overwrite"]:::fail
+Q11["Reconcile: bounded backfill + oldest verification<br/>Network uncertainty keeps eligibility<br/>Bad source integrity → failed and revoke acceptance"]:::normal
+Q12["Verified missing/corrupt ready projection<br/>request_repair checks expected accepted attempt<br/>Set pending, reset attempts, clear accepted identity"]:::retry
+Q13["Manual repair after correcting terminal cause<br/>python -m app.workers.search_indexing --repair JOB_UUID<br/>Allowed only for ready or failed current jobs"]:::note
+Q14["Attempt cleanup after deadline + 3600s<br/>Protect accepted/current indexing attempt<br/>Recheck hourly for late writes; record cleanup errors"]:::normal
+Q1 --> Q2 --> Q4 --> Q5 --> Q6 --> Q7 --> Q8
+Q4 -.->|Revision/deletion change| Q3
+Q6 -.->|Failure| Q9
+Q7 -.->|Failure| Q9
+Q9 --> Q10
+Q10 -->|Retry due| Q4
+Q8 --> Q11 --> Q12 --> Q4
+Q13 --> Q12
+Q10 -.-> Q14
+Q3 -.-> Q14
+
+classDef normal fill:#edf4ff,stroke:#4b83bb,color:#172f4a
+classDef decision fill:#fff5dc,stroke:#b88d27,color:#4c3810
+classDef safe fill:#eaf7f0,stroke:#40916b,color:#193c2b
+classDef retry fill:#fff0de,stroke:#ce873a,color:#513211
+classDef fail fill:#ffeded,stroke:#c76a6a,color:#542525
+classDef note fill:#f1f3f6,stroke:#97a2ad,color:#344353
+classDef optional fill:#f2edfc,stroke:#8e74bc,color:#35254d

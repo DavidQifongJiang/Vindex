@@ -1,0 +1,20 @@
+0373|1|1|Broad AI introduction names thinking, perception and action, but does not explain the learning component requested in the query.
+0028|0|0|Context reveals a different recurrence with quadratic merge work and theta n squared total, not merge sort's n log n analysis.
+0462|0|0|A bankruptcy anecdote and transition to sleep do not explain k-nearest-neighbor classification.
+0072|1|1|The assumption is named and criticized but its uniform/independent placement statement is absent.
+0064|1|2|The original only names counting sort; context gives occurrence counts and emitting each key that many times in increasing order.
+0314|2|2|Randomly selecting the hash function removes assumptions on fixed keys; context further states the small collision probability requirement.
+0059|0|0|This is the runtime recurrence for recursive Fibonacci computation, not minimum-node AVL subtree heights.
+0001|1|1|Context adds recursive halving but neither selected passage states the requested logarithmic complexity clearly; much of the window analyzes the linear scan.
+0033|1|1|Max-heapify preconditions are useful context but neither passage explains extract-maximum or its role in the sorting loop.
+0084|2|2|Both describe incremental migration into a doubled table with constant work per insert.
+0313|1|1|Static dictionaries and perfect hashing are introduced but quadratic secondary tables are not explained.
+0077|1|1|The expected bound is asserted; collision-induced worst cases and the source of expectation are not explained.
+0311|2|2|Both specify random hash-function choice, fixed worst-case keys and collision probability one over m.
+0286|0|0|Search-tree interfaces and order statistics are unrelated to assigning stored work through a potential function.
+0048|0|0|This is 2-3-tree insertion/splitting, not BST deletion of a node with two children.
+0052|1|1|The original names two rotations and the window gives a diagram-dependent example, but the single versus double selection cases are not established.
+0281|1|1|The accounting approach is partly illustrated; aggregate and potential methods requested alongside it are not covered.
+0465|2|2|The query is broad enough for document similarity: the passage proposes vector-length normalization and the window gives the length-bias counterexample.
+0087|2|2|Charging each past insertion once by a constant amount explains how the resize is paid for; context strengthens the n versus n/2 accounting.
+0003|2|2|Both give the local greater-than-or-equal-to-neighbors peak definition; context includes boundary positions.

@@ -1,0 +1,7 @@
+route:
+  receiver: local-alerts
+  group_by: [alertname]
+  group_wait: 30s
+  repeat_interval: 4h
+receivers:
+  - name: local-alerts

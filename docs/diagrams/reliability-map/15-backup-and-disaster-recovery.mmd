@@ -1,0 +1,25 @@
+flowchart TB
+B1["Backup requires separate S3 bucket<br/>Media AND backup buckets must have versioning enabled<br/>Failure → do not mark backup successful"]:::optional
+B2["pg_dump custom format; unique object key<br/>Upload → download → verify SHA-256<br/>Commands have 1800s timeout"]:::normal
+B3["Real restore into unique disposable database<br/>pg_restore --exit-on-error<br/>Check schema revision, row counts and orphan chunks"]:::normal
+B4["Finally drop ONLY generated drill database<br/>Write checksum/restore manifest<br/>Record backup success only after all steps succeed"]:::safe
+B5["Any upload/checksum/restore error<br/>Record error; preserve last successful timestamp<br/>Loop retries next interval: default 21600s, minimum 300s"]:::retry
+B6["Operator disaster recovery<br/>Pause uploads, workers, dispatcher AND maintenance<br/>Preserve failed state for diagnosis"]:::note
+B7["Verify trusted backup + disposable restore drill<br/>Restore into separate recovery database<br/>Check compatible schema and reviewed migrations"]:::normal
+B8["Reconcile all referenced S3 object versions<br/>Rebuild accepted Qdrant vectors from manifests<br/>Validate searches, timestamps and ownership"]:::normal
+B9["Resume dispatcher/workers<br/>Expired leases recovered; pending jobs republished<br/>Inspect terminal/exhausted work before manual reprocessing"]:::normal
+B10["Restart GC only after artifact reconciliation<br/>Verify playback, uploads, alerts and backups<br/>Resume traffic after checks"]:::safe
+B11["Deployment safety<br/>Pause/drain old workers; backup; Alembic migration first<br/>Application startup exits on migration failure<br/>Old workers cannot participate in new token protocol"]:::note
+B1 --> B2 --> B3 --> B4
+B2 -.->|Failure| B5
+B3 -.->|Failure| B5
+B6 --> B7 --> B8 --> B9 --> B10
+B11 -.-> B6
+
+classDef normal fill:#edf4ff,stroke:#4b83bb,color:#172f4a
+classDef decision fill:#fff5dc,stroke:#b88d27,color:#4c3810
+classDef safe fill:#eaf7f0,stroke:#40916b,color:#193c2b
+classDef retry fill:#fff0de,stroke:#ce873a,color:#513211
+classDef fail fill:#ffeded,stroke:#c76a6a,color:#542525
+classDef note fill:#f1f3f6,stroke:#97a2ad,color:#344353
+classDef optional fill:#f2edfc,stroke:#8e74bc,color:#35254d

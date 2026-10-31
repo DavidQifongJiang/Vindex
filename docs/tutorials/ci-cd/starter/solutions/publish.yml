@@ -1,0 +1,72 @@
+# Optional registry lab. Downloads a previously tested artifact; never rebuilds it.
+name: Publish tested practice image
+on:
+  workflow_dispatch:
+    inputs:
+      run_id:
+        description: Successful Practice pipeline run ID
+        required: true
+        type: string
+permissions:
+  contents: read
+  actions: read
+  packages: write
+jobs:
+  publish:
+    if: github.ref == 'refs/heads/main'
+    environment: registry-publish
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.11'
+      - name: Check provenance of the selected run
+        id: selected
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+          RUN_ID: ${{ inputs.run_id }}
+        run: |
+          set -euo pipefail
+          [[ "$RUN_ID" =~ ^[0-9]+$ ]]
+          gh api "repos/$REPOSITORY/actions/runs/$RUN_ID" > selected-run.json
+          python - <<'PY'
+          import json, os
+          run = json.load(open('selected-run.json'))
+          assert run['name'] == 'Practice pipeline', 'Choose a Practice pipeline run'
+          assert run['path'] == '.github/workflows/ci.yml', 'Wrong workflow path'
+          assert run['head_branch'] == 'main', 'Release must come from main'
+          assert run['event'] in ('push', 'workflow_dispatch'), 'PR artifacts are not releases'
+          assert run['conclusion'] == 'success', 'All pipeline jobs must have succeeded'
+          assert run['head_repository']['full_name'] == os.environ['REPOSITORY']
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as out:
+              out.write('sha=' + run['head_sha'] + '\n')
+          PY
+      - uses: actions/download-artifact@v8
+        with:
+          name: release-${{ steps.selected.outputs.sha }}
+          path: release
+          run-id: ${{ inputs.run_id }}
+          github-token: ${{ github.token }}
+      - name: Verify and publish the tested image
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+          ACTOR: ${{ github.actor }}
+          RELEASE_SHA: ${{ steps.selected.outputs.sha }}
+        run: |
+          set -euo pipefail
+          (cd release && sha256sum -c SHA256SUMS)
+          test "$(cat release/commit.txt)" = "$RELEASE_SHA"
+          IMAGE="cicd-lab:$RELEASE_SHA"
+          docker load --input release/image.tar
+          test "$(docker image inspect "$IMAGE" --format '{{.Id}}')" = "$(cat release/image-id.txt)"
+          TARGET="ghcr.io/${REPOSITORY,,}:$RELEASE_SHA"
+          printf '%s' "$GH_TOKEN" | docker login ghcr.io -u "$ACTOR" --password-stdin
+          docker tag "$IMAGE" "$TARGET"
+          docker push "$TARGET"
+          docker image inspect "$TARGET" --format '{{json .RepoDigests}}'
+      - name: End registry login
+        if: always()
+        run: docker logout ghcr.io

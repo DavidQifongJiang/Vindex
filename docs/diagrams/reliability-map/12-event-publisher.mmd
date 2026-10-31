@@ -1,0 +1,27 @@
+flowchart TB
+K1["Outbox claim transaction<br/>Unpublished, younger than 7 days, lease absent/expired<br/>Oldest first, batch 100, FOR UPDATE SKIP LOCKED"]:::optional
+K2["Claim UUID + 30s lease; commit<br/>Concurrent publishers skip locked rows"]:::normal
+K3["Produce keyed by search_id<br/>enable.idempotence=true; acks=all<br/>Delivery timeout 10s; request timeout 5s; linger 5ms"]:::normal
+K4["Bound producer queue<br/>1000 messages / 16MiB; flush up to 11s<br/>Collect only successful delivery callbacks"]:::normal
+K5{"Broker ACK AND current live claim?"}:::decision
+K6["Atomic mark published + decrement pending bytes<br/>Match event ID/token; unpublished; unexpired lease<br/>Duplicate ACK cannot release budget twice"]:::safe
+K7["No mark on failure, unknown outcome or expired claim<br/>Outbox remains durable; reclaim after lease expiry<br/>Publisher loop catches errors and waits 250ms"]:::retry
+K8["Crash after Kafka ACK but before DB mark<br/>Possible duplicate publication<br/>Consumer receipt prevents duplicate effects: panel 13"]:::note
+K9["Maintenance each 60s<br/>Delete outbox rows older than 7 days in batches 1000<br/>Unpublished expiry decrements bytes and increments expired_events"]:::note
+K10["Retain published interaction IDs during context lifetime<br/>Expire contexts and old projections<br/>Live receipts/checkpoints are not pruned here"]:::note
+K11["Local bootstrap defaults<br/>3 partitions; replication factor 1; min ISR 1<br/>7-day / 1GiB-per-partition retention limits"]:::note
+K12["Local prototype only<br/>Single-replica acks=all is not high availability<br/>Retained data bounds replay and recovery"]:::fail
+K1 --> K2 --> K3 --> K4 --> K5
+K5 -->|Yes| K6
+K5 -->|No| K7 --> K1
+K6 -.->|Crash window| K8
+K7 -.->|Prolonged outage| K9 --> K10
+K3 -.-> K11 --> K12
+
+classDef normal fill:#edf4ff,stroke:#4b83bb,color:#172f4a
+classDef decision fill:#fff5dc,stroke:#b88d27,color:#4c3810
+classDef safe fill:#eaf7f0,stroke:#40916b,color:#193c2b
+classDef retry fill:#fff0de,stroke:#ce873a,color:#513211
+classDef fail fill:#ffeded,stroke:#c76a6a,color:#542525
+classDef note fill:#f1f3f6,stroke:#97a2ad,color:#344353
+classDef optional fill:#f2edfc,stroke:#8e74bc,color:#35254d

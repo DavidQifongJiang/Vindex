@@ -1,0 +1,9 @@
+{
+  "description": "Older complete local sleep-talk transcript, NOT the September chunked benchmark corpus. Explicit medium-only exploratory evaluation.",
+  "videos": [{
+    "video_key": "medium",
+    "video_id": "42b58cbd-2252-4b8b-9b5f-9f5f3e788fe0",
+    "revision": "local-legacy-120-segments-v1",
+    "segments_file": "storage/transcripts/42b58cbd-2252-4b8b-9b5f-9f5f3e788fe0_segments.json"
+  }]
+}

@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+.venv/
+.env
+*.pem
+*.key
+*.tar
+*.tar.gz
+reports/
+release/

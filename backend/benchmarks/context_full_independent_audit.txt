@@ -1,0 +1,40 @@
+1|0||CPU SRAM/DRAM architecture does not explain a CUDA tiled-transpose kernel or coalesced accesses.
+2|0||Geometric object rotation is unrelated to transformer positional embeddings.
+3|1|accumulated distance plus the estimated distance|Explains heuristic priorities through a counterexample, but not the amount of search compared with cost-only search.
+4|2|most of the work is done when you get to the millions of digits of precision|Explains growing precision and why square-root computation has the asymptotic complexity of multiplication.
+5|1|accumulated distance plus the estimated distance is 101|Shows how a heuristic changes priority, but not its effect on search effort relative to path cost alone.
+6|0||Thread migration and memory prediction do not explain eBPF syscall tracing.
+7|1|this tree of problems is a tree that shows how our goals are related to one another|Defines goal-tree terminology and notation but does not explain backward chaining through supporting subgoals.
+8|0||Object-coordinate rotation is the wrong task for rotary positional embeddings in transformers.
+9|0||Mapping a key to an integer does not implement payment request idempotency.
+10|0||Tree interval searches have no connection to Terraform state locking or S3 backend configuration.
+11|0||A fragment about amortized costs does not explain shortest-path reweighting.
+12|0||Prehashing keys into integers does not implement idempotency for payments.
+13|1|search to figure out where x fits into the bottom list|Explains bottom-list insertion but omits the upper-level promotion rule and deletion details.
+14|0||Binary-search recurrence analysis is unrelated to constraint variable ordering.
+15|0||Defines item sizes and values but supplies no method for selecting them under a limit.
+16|0||General CPU memory hierarchy is not a CUDA transpose layout.
+17|1|it's an or node. Which one of these problems do we work on?|Introduces OR-node choice but lacks a self-contained explanation of how alternatives satisfy the parent goal.
+18|0||Van Emde Boas recurrences do not answer constraint-assignment ordering.
+19|1|There are two subproblems. They have half the size|Describes recursive subproblem sizes but omits the nonrecursive merge contribution.
+20|1|a set of requests that come later|Describes a DP suffix subproblem but not the optimal compatible-selection recurrence.
+21|1|order log n expected time|States the performance improvement over a list but omits the express-lane mechanism.
+22|0||Amortized operation accounting is not shortest-path reweighting.
+23|1|requests that are later than f of i|Defines compatible suffix subproblems and their count but not how optimal selection is computed.
+24|0||Promises to explain insertion without giving an operation.
+25|0||Computer word lengths do not specify the elementary operations counted.
+26|2|the number of digits doubles with each step|Explains why early iterations need only small precision and cheap multiplication, instead of full-size work.
+27|1|multiplies are going to be trivial|Suggests early multiplication can be cheap but leaves the reason obscured by missing audio/context.
+28|2|theta n raised to alpha complexity for computing square roots|Relates n-digit square-root complexity to the multiplication complexity and explains where the work is concentrated.
+29|1|you want to pick the maximum priority or the min priority|Explains priority-queue operations but not their role in Prim's algorithm.
+30|2|plus however much it costs to do the combined step|Explicitly adds the two recursive subproblem costs and nonrecursive divide/combine work in a recurrence.
+31|0||An introduction to priority keys does not explain Prim's priority queue.
+32|0||Square-root-sized skip-list intervals are unrelated to iterative numerical square roots.
+33|1|search takes expected order log n time|States a bound but not how express lanes achieve it.
+34|0||Aliases for goal trees do not explain representation of alternatives.
+35|1|maximize the sum of the values|Formulates the constrained selection objective but omits a method for computing the selection.
+36|0||Motivation for high-precision arithmetic does not identify elementary operations counted.
+37|0||Skip-list search costs involving square root of n are the wrong task.
+38|0||Goal-tree aliases do not explain backward chaining.
+39|0||Hardware prefetch prediction is unrelated to eBPF syscall instrumentation.
+40|0||Tree searches moving in lock step are unrelated to state-file locking.
