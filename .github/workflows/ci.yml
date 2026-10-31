@@ -18,12 +18,14 @@ jobs:
         with:
           python-version: '3.11'
       - name: Install test dependencies
+        working-directory: backend
         run: |
           python -m pip install --index-url https://download.pytorch.org/whl/cpu torch==2.12.0
           python -m pip install -r requirements.txt -r requirements-analytics.txt
       - name: Start isolated analytics services
         run: docker compose -p vindex-analytics -f ops/compose/docker-compose.analytics.yml up -d --wait
       - name: Test real commit, crash and replay paths
+        working-directory: backend
         env:
           VINDEX_TEST_DATABASE_URL: postgresql+psycopg2://analytics:local_analytics_only@127.0.0.1:15434/analytics
           VINDEX_TEST_KAFKA_BOOTSTRAP: 127.0.0.1:19092
@@ -62,23 +64,31 @@ jobs:
           python-version: "3.11"
 
       - name: Install backend dependencies
+        working-directory: backend
         run: |
           python -m pip install --index-url https://download.pytorch.org/whl/cpu torch==2.12.0
           python -m pip install -r requirements.txt
 
       - name: Compile backend
+        working-directory: backend
         run: python -m compileall app alembic
 
       - name: Run backend unit tests
+        working-directory: backend
         run: python -m unittest discover -s tests
+
+      - name: Apply database migrations
+        working-directory: backend
+        env:
+          DATABASE_URL: ${{ env.VINDEX_TEST_DATABASE_URL }}
+        run: python -m alembic upgrade head
 
       - name: Verify real backup and restore with mocked S3
         env:
           DATABASE_URL: ${{ env.VINDEX_TEST_DATABASE_URL }}
         run: |
-          python -m alembic upgrade head
           docker build -f ops/Dockerfile.backup -t vindex-backup-test .
-          docker run --rm --network host -e PGHOST=127.0.0.1 -e PGDATABASE=vindex_test -e PGUSER=postgres -e PGPASSWORD=test --mount "type=bind,source=$PWD,target=/workspace,readonly" --entrypoint python3 vindex-backup-test /workspace/tests/smoke/backup_restore_smoke.py
+          docker run --rm --network host -e PGHOST=127.0.0.1 -e PGDATABASE=vindex_test -e PGUSER=postgres -e PGPASSWORD=test --mount "type=bind,source=$PWD,target=/workspace,readonly" --entrypoint python3 vindex-backup-test /workspace/backend/tests/smoke/backup_restore_smoke.py
 
       - name: Set up Node
         uses: actions/setup-node@v4

@@ -153,8 +153,8 @@ recovery only.”
   budget reservation, receipts and projection batches.
 - [Workers](../app/workers/search_events.py): publication, consumer offsets,
   rebalance behavior, replay and maintenance.
-- [Integration tests](../tests/test_search_events_integration.py) and
-  [rebalance test](../tests/test_search_events_rebalance.py).
+- [Integration tests](../../backend/tests/test_search_events_integration.py) and
+  [rebalance test](../../backend/tests/test_search_events_rebalance.py).
 - [Full results and caveats](kafka_validation_results.md) and
   [reproduction runbook](kafka_search_analytics_runbook.md).
 

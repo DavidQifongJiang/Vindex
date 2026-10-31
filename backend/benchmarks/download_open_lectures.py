@@ -15,9 +15,9 @@ from urllib.parse import urljoin, urlparse, unquote
 
 import requests
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 DEST = ROOT / "vindex_benchmark_videos"
-CATALOG = ROOT / "benchmarks" / "open_lectures_50_manifest.json"
+CATALOG = Path(__file__).resolve().parent / "open_lectures_50_manifest.json"
 COURSES = [
     ("6-006-introduction-to-algorithms-fall-2011", "mit6006", 11, 24),
     ("6-046j-design-and-analysis-of-algorithms-spring-2015", "mit6046", 1, 13),

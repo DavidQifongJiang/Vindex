@@ -219,8 +219,8 @@ Expected implementation locations: `app/api/search.py`, a new interaction route,
 and Alembic migration, `app/workers/search_event_publisher.py`,
 `app/workers/search_analytics.py`, `app/workers/search_review.py`,
 `frontend/src/LibrarySearch.tsx`, a developer analytics view,
-`ops/compose/docker-compose.analytics.yml`, focused `tests/test_search_events*.py`, and
-`benchmarks/search_event_stream.py`. Names are proposals, not existing modules.
+`ops/compose/docker-compose.analytics.yml`, focused `backend/tests/test_search_events*.py`, and
+`backend/benchmarks/search_event_stream.py`. Names are proposals, not existing modules.
 
 ## Verification and acceptance gates
 

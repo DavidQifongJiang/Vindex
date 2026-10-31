@@ -4,7 +4,7 @@ import os
 import sys
 from uuid import uuid4
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+sys.path.insert(0, str(Path(__file__).resolve().parents[3]))
 from ops.backup import backup_once, connect, database_environment
 
 

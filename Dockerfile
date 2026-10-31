@@ -16,10 +16,12 @@ RUN npm run build
 FROM python:3.11-slim
 WORKDIR /app
 RUN apt-get update && apt-get install -y ffmpeg && rm -rf /var/lib/apt/lists/*
-COPY requirements.txt .
+COPY backend/requirements.txt .
 RUN pip install --no-cache-dir --index-url https://download.pytorch.org/whl/cpu torch==2.12.0 \
     && pip install --no-cache-dir -r requirements.txt
-COPY . .
+COPY backend/app ./app
+COPY backend/alembic ./alembic
+COPY backend/alembic.ini .
 COPY --from=frontend /frontend/dist /app/app/frontend/dist
 EXPOSE 8000
 CMD sh -ec "if [ \"${RUN_MIGRATIONS_ON_STARTUP:-true}\" = \"true\" ]; then alembic upgrade head; fi; exec uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000}"

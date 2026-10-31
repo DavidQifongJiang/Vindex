@@ -2,24 +2,25 @@
 
 ## Project Structure & Module Organization
 
-- `app/api/` contains FastAPI routes; `app/services/` implements processing, search, authentication, and S3 storage.
-- `app/db/` holds SQLAlchemy models and repositories; `alembic/` holds schema migrations.
-- `app/workers/` contains Celery tasks, the durable-job dispatcher, and maintenance processes.
-- `frontend/src/` contains React/TypeScript components, API helpers, and styles. Docker builds frontend assets into `app/frontend/dist/`.
-- `tests/` contains automated tests (`test_*.py`) plus `tests/smoke/` chaos/smoke harnesses and `tests/browser/` Playwright-style scripts; `benchmarks/` contains evaluation scripts and reports.
-- `docs/` documents architecture (`docs/architecture/`), search (`docs/search/`), Kafka analytics (`docs/kafka/`), and operations (`docs/operations/`); `ops/` contains monitoring and backup configuration, with experimental compose stacks under `ops/compose/`.
+- `backend/` is the entire Python backend, self-contained like `frontend/`: `app/`, `alembic/`, `alembic.ini`, `tests/`, `benchmarks/`, and `requirements*.txt` all live here. Run every command in this section from inside `backend/` unless noted otherwise.
+- `backend/app/api/` contains FastAPI routes; `backend/app/services/` implements processing, search, authentication, and S3 storage.
+- `backend/app/db/` holds SQLAlchemy models and repositories; `backend/alembic/` holds schema migrations.
+- `backend/app/workers/` contains Celery tasks, the durable-job dispatcher, and maintenance processes.
+- `frontend/src/` contains React/TypeScript components, API helpers, and styles. Docker builds frontend assets into `backend/app/frontend/dist/`.
+- `backend/tests/` contains automated tests (`test_*.py`) plus `backend/tests/smoke/` chaos/smoke harnesses and `backend/tests/browser/` Playwright-style scripts; `backend/benchmarks/` contains evaluation scripts and reports.
+- `docs/` documents architecture (`docs/architecture/`), search (`docs/search/`), Kafka analytics (`docs/kafka/`), and operations (`docs/operations/`); `ops/` contains monitoring and backup configuration, with experimental compose stacks under `ops/compose/` (run from the repo root, not `backend/`).
 
 ## Build, Test, and Development Commands
 
-Use Python 3.11 and Node.js 22, matching CI. Install backend dependencies with `python -m pip install -r requirements.txt`.
+Use Python 3.11 and Node.js 22, matching CI. From `backend/`, install backend dependencies with `python -m pip install -r requirements.txt`.
 
-- `docker compose up --build -d`: build and start the application stack after configuring `.env` from `.env.example`. Review the AWS credential mounts in `docker-compose.override.yml` for your machine.
+- `docker compose up --build -d` (repo root): build and start the application stack after configuring `.env` from `.env.example`. Review the AWS credential mounts in `docker-compose.override.yml` for your machine.
 - `cd frontend && npm ci`: install locked frontend dependencies.
 - `cd frontend && npm run dev`: start Vite on port 5173; the backend must run separately.
 - `cd frontend && npm run build`: type-check TypeScript and build production assets.
-- `python -m unittest discover -s tests`: run backend tests.
-- `python -m compileall app alembic`: check Python compilation.
-- `alembic upgrade head`: apply database migrations.
+- `cd backend && python -m unittest discover -s tests`: run backend tests.
+- `cd backend && python -m compileall app alembic`: check Python compilation.
+- `cd backend && alembic upgrade head`: apply database migrations.
 
 ## Coding Style & Naming Conventions
 

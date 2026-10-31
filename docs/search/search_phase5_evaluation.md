@@ -12,7 +12,7 @@ The frozen corpus contains 2,450 accepted passages across ten 15-minute algorith
 lectures. All 100 existing labeled queries searched the entire owner library in
 each mode. The source and label hashes, model commit, candidate count (50), RRF
 k (60), randomized mode order, and starting regression gates are recorded in
-[`library_evaluation_plan.json`](../benchmarks/library_evaluation_plan.json).
+[`library_evaluation_plan.json`](../../backend/benchmarks/library_evaluation_plan.json).
 No retrieval parameters were tuned against the new results.
 
 The harness uses the actual FastAPI route, PostgreSQL scope/publication records,
@@ -176,8 +176,8 @@ The metrics require a persistent scrape for history; API restarts reset counters
   ran; Qdrant REST was exercised by the evaluation harness.
 - All nine follow-up failure gates passed. All five provisional regression gates
   passed; those are engineering screening thresholds, not accepted production SLOs.
-- Primary data: [library_phase5_results.json](../benchmarks/library_phase5_results.json).
-- Additional drills/repeat: [library_phase5_followup.json](../benchmarks/library_phase5_followup.json).
+- Primary data: [library_phase5_results.json](../../backend/benchmarks/library_phase5_results.json).
+- Additional drills/repeat: [library_phase5_followup.json](../../backend/benchmarks/library_phase5_followup.json).
 - Each report has `.traces.jsonl` and `.metrics.txt` companions. Logs of the runs
   and final regression are under `tmp/phase5-*.log`.
 - Runner: `python -m benchmarks.evaluate_library`; requires explicit test database,

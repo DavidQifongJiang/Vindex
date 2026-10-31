@@ -44,7 +44,7 @@ The strongest measured result was:
 226.74s original online baseline -> 40.73s chunked DAG with 4 search workers
 ```
 
-That is an 82.0% reduction in time-to-searchable. Full benchmark notes are in [`benchmarks/pipeline_stats_summary.md`](benchmarks/pipeline_stats_summary.md).
+That is an 82.0% reduction in time-to-searchable. Full benchmark notes are in [`backend/benchmarks/pipeline_stats_summary.md`](backend/benchmarks/pipeline_stats_summary.md).
 
 ### Semantic Search Quality
 
@@ -60,7 +60,7 @@ Expanded benchmark set: 10 MIT algorithms lecture videos, clipped to the first 1
 | P95 timestamp error | 62.3s |
 | P95 API search latency | 71.7ms |
 
-This benchmark is intentionally harder than a single-video demo because the videos share one lecture-series domain and many overlapping algorithm topics. The result shows reliable top-5 retrieval for lecture semantic search while also exposing ranking and timestamp-localization gaps for future improvement. Full quality benchmark notes are in [`benchmarks/expanded_15min_search_quality_report.md`](benchmarks/expanded_15min_search_quality_report.md).
+This benchmark is intentionally harder than a single-video demo because the videos share one lecture-series domain and many overlapping algorithm topics. The result shows reliable top-5 retrieval for lecture semantic search while also exposing ranking and timestamp-localization gaps for future improvement. Full quality benchmark notes are in [`backend/benchmarks/expanded_15min_search_quality_report.md`](backend/benchmarks/expanded_15min_search_quality_report.md).
 
 ## Architecture
 
@@ -230,7 +230,7 @@ Deletion is owner-only. Active videos in `uploaded` or `processing` state are bl
 
 Vindex uses Alembic for versioned Postgres schema migrations.
 
-Useful commands:
+Useful commands (run from `backend/`):
 
 ```bash
 alembic upgrade head

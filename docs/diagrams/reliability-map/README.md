@@ -25,10 +25,10 @@ Implementation:
 
 Existing evidence/test definitions (not executed by this documentation task):
 
-- [tests/test_durable_pipeline.py](../../../tests/test_durable_pipeline.py)
-- [tests/test_operational_safety.py](../../../tests/test_operational_safety.py)
-- [tests/test_search_indexing.py](../../../tests/test_search_indexing.py)
-- [tests/test_search_events.py](../../../tests/test_search_events.py)
+- [tests/test_durable_pipeline.py](../../../backend/tests/test_durable_pipeline.py)
+- [tests/test_operational_safety.py](../../../backend/tests/test_operational_safety.py)
+- [tests/test_search_indexing.py](../../../backend/tests/test_search_indexing.py)
+- [tests/test_search_events.py](../../../backend/tests/test_search_events.py)
 
 ### 01 · Upload idempotency
 
@@ -47,7 +47,7 @@ Implementation:
 
 Existing evidence/test definitions (not executed by this documentation task):
 
-- [tests/test_operational_safety.py](../../../tests/test_operational_safety.py)
+- [tests/test_operational_safety.py](../../../backend/tests/test_operational_safety.py)
 
 ### 02 · Durable dependencies and dispatch
 
@@ -67,7 +67,7 @@ Implementation:
 
 Existing evidence/test definitions (not executed by this documentation task):
 
-- [tests/test_durable_pipeline.py](../../../tests/test_durable_pipeline.py)
+- [tests/test_durable_pipeline.py](../../../backend/tests/test_durable_pipeline.py)
 
 ### 03 · Claims, leases and deadlines
 
@@ -87,8 +87,8 @@ Implementation:
 
 Existing evidence/test definitions (not executed by this documentation task):
 
-- [tests/test_durable_pipeline.py](../../../tests/test_durable_pipeline.py)
-- [tests/test_operational_safety.py](../../../tests/test_operational_safety.py)
+- [tests/test_durable_pipeline.py](../../../backend/tests/test_durable_pipeline.py)
+- [tests/test_operational_safety.py](../../../backend/tests/test_operational_safety.py)
 
 ### 04 · Error classification
 
@@ -106,8 +106,8 @@ Implementation:
 
 Existing evidence/test definitions (not executed by this documentation task):
 
-- [tests/test_operational_safety.py](../../../tests/test_operational_safety.py)
-- [tests/test_video_repository_retry_state.py](../../../tests/test_video_repository_retry_state.py)
+- [tests/test_operational_safety.py](../../../backend/tests/test_operational_safety.py)
+- [tests/test_video_repository_retry_state.py](../../../backend/tests/test_video_repository_retry_state.py)
 
 ### 05 · Retry state and expired-work recovery
 
@@ -126,8 +126,8 @@ Implementation:
 
 Existing evidence/test definitions (not executed by this documentation task):
 
-- [tests/test_durable_pipeline.py](../../../tests/test_durable_pipeline.py)
-- [tests/test_operational_safety.py](../../../tests/test_operational_safety.py)
+- [tests/test_durable_pipeline.py](../../../backend/tests/test_durable_pipeline.py)
+- [tests/test_operational_safety.py](../../../backend/tests/test_operational_safety.py)
 
 ### 06 · Stage idempotency and guarded publication
 
@@ -146,8 +146,8 @@ Implementation:
 
 Existing evidence/test definitions (not executed by this documentation task):
 
-- [tests/test_durable_pipeline.py](../../../tests/test_durable_pipeline.py)
-- [tests/test_fenced_vectors.py](../../../tests/test_fenced_vectors.py)
+- [tests/test_durable_pipeline.py](../../../backend/tests/test_durable_pipeline.py)
+- [tests/test_fenced_vectors.py](../../../backend/tests/test_fenced_vectors.py)
 
 ### 07 · Failure windows and recovery paths
 
@@ -167,9 +167,9 @@ Implementation:
 
 Existing evidence/test definitions (not executed by this documentation task):
 
-- [tests/test_durable_pipeline.py](../../../tests/test_durable_pipeline.py)
-- [tests/test_operational_safety.py](../../../tests/test_operational_safety.py)
-- [tests/lease_crash_worker.py](../../../tests/lease_crash_worker.py)
+- [tests/test_durable_pipeline.py](../../../backend/tests/test_durable_pipeline.py)
+- [tests/test_operational_safety.py](../../../backend/tests/test_operational_safety.py)
+- [tests/lease_crash_worker.py](../../../backend/tests/lease_crash_worker.py)
 
 ### 08 · Deletion, orphan cleanup and vector repair
 
@@ -188,8 +188,8 @@ Implementation:
 
 Existing evidence/test definitions (not executed by this documentation task):
 
-- [tests/test_operational_safety.py](../../../tests/test_operational_safety.py)
-- [tests/test_durable_pipeline.py](../../../tests/test_durable_pipeline.py)
+- [tests/test_operational_safety.py](../../../backend/tests/test_operational_safety.py)
+- [tests/test_durable_pipeline.py](../../../backend/tests/test_durable_pipeline.py)
 
 ### 09 · Optional library projection jobs
 
@@ -208,8 +208,8 @@ Implementation:
 
 Existing evidence/test definitions (not executed by this documentation task):
 
-- [tests/test_search_indexing.py](../../../tests/test_search_indexing.py)
-- [tests/search_projection_crash.py](../../../tests/search_projection_crash.py)
+- [tests/test_search_indexing.py](../../../backend/tests/test_search_indexing.py)
+- [tests/search_projection_crash.py](../../../backend/tests/search_projection_crash.py)
 
 ### 10 · Optional search failure policy and legacy lexical repair
 
@@ -229,8 +229,8 @@ Implementation:
 
 Existing evidence/test definitions (not executed by this documentation task):
 
-- [tests/test_library_search.py](../../../tests/test_library_search.py)
-- [tests/test_lexical_index.py](../../../tests/test_lexical_index.py)
+- [tests/test_library_search.py](../../../backend/tests/test_library_search.py)
+- [tests/test_lexical_index.py](../../../backend/tests/test_lexical_index.py)
 
 ### 11 · Optional Kafka capture and interaction idempotency
 
@@ -250,9 +250,9 @@ Implementation:
 
 Existing evidence/test definitions (not executed by this documentation task):
 
-- [tests/test_search_events.py](../../../tests/test_search_events.py)
-- [tests/test_search_events_integration.py](../../../tests/test_search_events_integration.py)
-- [tests/search_analytics_browser.cjs](../../../tests/search_analytics_browser.cjs)
+- [tests/test_search_events.py](../../../backend/tests/test_search_events.py)
+- [tests/test_search_events_integration.py](../../../backend/tests/test_search_events_integration.py)
+- [tests/search_analytics_browser.cjs](../../../backend/tests/search_analytics_browser.cjs)
 
 ### 12 · Optional Kafka publisher and outbox expiry
 
@@ -269,8 +269,8 @@ Implementation:
 
 Existing evidence/test definitions (not executed by this documentation task):
 
-- [tests/test_search_events.py](../../../tests/test_search_events.py)
-- [tests/test_search_events_integration.py](../../../tests/test_search_events_integration.py)
+- [tests/test_search_events.py](../../../backend/tests/test_search_events.py)
+- [tests/test_search_events_integration.py](../../../backend/tests/test_search_events_integration.py)
 
 ### 13 · Optional Kafka consumers, quarantine and replay
 
@@ -288,9 +288,9 @@ Implementation:
 
 Existing evidence/test definitions (not executed by this documentation task):
 
-- [tests/test_search_event_worker.py](../../../tests/test_search_event_worker.py)
-- [tests/test_search_events_rebalance.py](../../../tests/test_search_events_rebalance.py)
-- [tests/test_search_events_integration.py](../../../tests/test_search_events_integration.py)
+- [tests/test_search_event_worker.py](../../../backend/tests/test_search_event_worker.py)
+- [tests/test_search_events_rebalance.py](../../../backend/tests/test_search_events_rebalance.py)
+- [tests/test_search_events_integration.py](../../../backend/tests/test_search_events_integration.py)
 
 ### 14 · Conditional metrics, bounded I/O and alerts
 
@@ -312,8 +312,8 @@ Implementation:
 
 Existing evidence/test definitions (not executed by this documentation task):
 
-- [tests/test_conditional_storage.py](../../../tests/test_conditional_storage.py)
-- [tests/test_operational_safety.py](../../../tests/test_operational_safety.py)
+- [tests/test_conditional_storage.py](../../../backend/tests/test_conditional_storage.py)
+- [tests/test_operational_safety.py](../../../backend/tests/test_operational_safety.py)
 
 ### 15 · Verified backups and operator recovery
 
@@ -332,8 +332,8 @@ Implementation:
 
 Existing evidence/test definitions (not executed by this documentation task):
 
-- [tests/test_backup.py](../../../tests/test_backup.py)
-- [tests/backup_restore_smoke.py](../../../tests/backup_restore_smoke.py)
+- [tests/test_backup.py](../../../backend/tests/test_backup.py)
+- [tests/backup_restore_smoke.py](../../../backend/tests/backup_restore_smoke.py)
 
 ### 16 · Legacy compatibility and guarantee boundaries
 
@@ -352,8 +352,8 @@ Implementation:
 
 Existing evidence/test definitions (not executed by this documentation task):
 
-- [tests/test_video_repository_retry_state.py](../../../tests/test_video_repository_retry_state.py)
-- [tests/test_pipeline_migration.py](../../../tests/test_pipeline_migration.py)
+- [tests/test_video_repository_retry_state.py](../../../backend/tests/test_video_repository_retry_state.py)
+- [tests/test_pipeline_migration.py](../../../backend/tests/test_pipeline_migration.py)
 
 ## Import and validation
 

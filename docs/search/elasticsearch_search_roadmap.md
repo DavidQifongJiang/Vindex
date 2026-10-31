@@ -48,7 +48,7 @@ recommendations, OCR, Kubernetes and C++ are outside this release.
 - Historical 100-query, within-video results: dense Hit@1/Hit@5 65%/90%, Python
   BM25 74%/98%, Elasticsearch BM25 74%/99%. These are not library-wide results,
   held-out improvements, or concurrent API performance measurements. See
-  [retrieval experiments](../../benchmarks/retrieval_experiments.md).
+  [retrieval experiments](../../backend/benchmarks/retrieval_experiments.md).
 - Existing durable pipeline, attempt fencing and operational monitoring remain
   the foundation. See [recovery design](reliability_and_recovery.md).
 - Local edits were started before the design discussion: `lexical_index.py`,
@@ -268,8 +268,8 @@ secondary. Report p50/p95 latency and request errors separately; measure correct
 and incorrect abstention only with verified query-level answerability labels.
 Source-lecture matches are diagnostic, not answer accuracy. Unknown passage
 judgments must not be treated as irrelevant, and human-verified labels must stay
-distinct from AI drafts. See the [metric protocol](../benchmarks/library_queries_500/metrics_protocol_v1.json)
-and [current scorecard](../benchmarks/library_queries_500/primary_metrics_scorecard.md).
+distinct from AI drafts. See the [metric protocol](../../backend/benchmarks/library_queries_500/metrics_protocol_v1.json)
+and [current scorecard](../../backend/benchmarks/library_queries_500/primary_metrics_scorecard.md).
 This clarification was approved after retrieval execution, not preregistered.
 
 Purpose: establish whether Elasticsearch delivers the intended benefit.

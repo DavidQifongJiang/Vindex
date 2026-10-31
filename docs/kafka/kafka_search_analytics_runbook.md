@@ -8,7 +8,7 @@ See `kafka_search_analytics_plan.md` for acceptance gates and
 
 ## Start an isolated test environment
 
-Install the application dependencies and `requirements-analytics.txt` in Python3.11.
+Install the application dependencies and `backend/requirements-analytics.txt` in Python3.11 (from `backend/`).
 Start `docker compose -p vindex-analytics -f ops/compose/docker-compose.analytics.yml up -d --wait`.
 The volume initialization service sets ownership of the Kafka data directory.
 Postgres is available only on localhost15434, Kafka on localhost19092.
