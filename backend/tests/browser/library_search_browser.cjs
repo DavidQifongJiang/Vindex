@@ -92,7 +92,7 @@ const assert = require('node:assert/strict');
     }
     await page.getByPlaceholder('Search inside this video').fill('heap');
     await page.locator('.search-panel').getByRole('button', { name: 'Search', exact: true }).click();
-    await page.getByText('Within-video match', { exact: true }).waitFor();
+    await page.locator('.moments-row').getByText('Within-video match', { exact: true }).waitFor();
     await page.getByRole('button', { name: 'Library', exact: true }).click();
     await page.getByRole('button', { name: 'Public explore', exact: true }).click();
     assert.equal(await page.locator('.library-search').count(), 0);

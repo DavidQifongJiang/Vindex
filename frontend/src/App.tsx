@@ -1,20 +1,21 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { ArrowLeft, CircleAlert, LoaderCircle, PanelRight, Play, RefreshCw, Trash2, UploadCloud, Video } from "lucide-react";
+import { AppSidebar } from "@/components/AppSidebar";
+import { DeleteVideoDialog } from "@/components/DeleteVideoDialog";
+import { DetailsSheet } from "@/components/DetailsSheet";
+import { MomentsRow } from "@/components/MomentsRow";
+import { StatusBadge } from "@/components/StatusBadge";
+import { TranscriptPanel } from "@/components/TranscriptPanel";
+import { UploadDialog } from "@/components/UploadDialog";
+import { VideoCard } from "@/components/VideoCard";
+import { VideoPlayer } from "@/components/VideoPlayer";
+import { VisibilityIcon } from "@/components/VisibilityIcon";
+import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
+import { displayVideoTitle, filenameToTitle, formatDate, readableStatus, videoGradient } from "@/lib/format";
+import { highlightPattern } from "@/lib/highlight";
+import { cn } from "@/lib/utils";
 import { LibrarySearch } from "./LibrarySearch";
-import {
-  Activity,
-  ArrowLeft,
-  CheckCircle2,
-  CircleAlert,
-  Clock3,
-  FileText,
-  LoaderCircle,
-  Play,
-  RefreshCw,
-  Search,
-  Trash2,
-  UploadCloud,
-  Video
-} from "lucide-react";
 import {
   deleteVideo,
   getMe,
@@ -22,7 +23,6 @@ import {
   getTranscript,
   getVideoFileUrl,
   getVideoMetrics,
-  getVideoThumbnailUrl,
   getVideoStatus,
   listPublicVideos,
   listVideos,
@@ -33,9 +33,7 @@ import {
 import {
   AUTH_ENABLED,
   type AuthSession,
-  handleAuthCallback,
-  signIn,
-  signOut
+  handleAuthCallback
 } from "./auth";
 import type {
   SearchAlgorithm,
@@ -52,204 +50,13 @@ type ViewMode = "library" | "watch";
 type FeedMode = "library" | "public";
 type VideoVisibility = "private" | "public";
 
-function formatTime(seconds: number) {
-  const totalSeconds = Math.floor(seconds);
-  const minutes = Math.floor(totalSeconds / 60);
-  const remainingSeconds = totalSeconds % 60;
-  return `${minutes}:${remainingSeconds.toString().padStart(2, "0")}`;
-}
-
-function formatDuration(seconds?: number | null) {
-  if (seconds === undefined || seconds === null) return "--";
-  if (seconds < 1) return `${Math.round(seconds * 1000)} ms`;
-  return `${seconds.toFixed(seconds >= 10 ? 1 : 2)} s`;
-}
-
-function formatNumber(value?: number | null, digits = 3) {
-  if (value === undefined || value === null) return "--";
-  return value.toFixed(digits);
-}
-
-function formatInteger(value?: number | null) {
-  if (value === undefined || value === null) return "--";
-  return new Intl.NumberFormat().format(value);
-}
-
-function formatBytes(value?: number | null) {
-  if (value === undefined || value === null) return "--";
-  const units = ["B", "KB", "MB", "GB"];
-  let nextValue = value;
-  let unitIndex = 0;
-
-  while (nextValue >= 1024 && unitIndex < units.length - 1) {
-    nextValue /= 1024;
-    unitIndex += 1;
-  }
-
-  return `${nextValue.toFixed(unitIndex === 0 ? 0 : 1)} ${units[unitIndex]}`;
-}
-
-function formatDate(value?: string) {
-  if (!value) return "--";
-  return new Intl.DateTimeFormat(undefined, {
-    dateStyle: "medium",
-    timeStyle: "short"
-  }).format(new Date(value));
-}
-
-function statusTone(value?: string | null) {
-  if (!value || value === "not_started") return "idle";
-  if (["completed", "extracted", "processed"].includes(value)) return "good";
-  if (["processing", "uploaded"].includes(value)) return "active";
-  if (value === "failed") return "bad";
-  return "idle";
-}
-
-function readableStatus(value?: string | null) {
-  if (!value) return "waiting";
-  return value.replaceAll("_", " ");
-}
-
-function filenameToTitle(filename?: string | null) {
-  return (filename || "Untitled video").replace(/\.[^/.]+$/, "").replace(/[-_]+/g, " ");
-}
-
-function displayVideoTitle(video: VideoStatus, index: number) {
-  const title = video.title?.trim();
-  if (title) return title;
-
-  const withoutExtension = (video.filename || "").replace(/\.[^/.]+$/, "");
-
-  if (!withoutExtension || withoutExtension === video.video_id) {
-    return `Video ${index + 1}`;
-  }
-
-  if (withoutExtension.includes(video.video_id)) {
-    return `Video ${index + 1}`;
-  }
-
-  return withoutExtension.replace(/[-_]+/g, " ");
-}
-
-function initials(profile?: UserProfile | null) {
-  const source = profile?.name || profile?.email || "V";
-  return source
-    .split(/\s|@/)
-    .filter(Boolean)
-    .slice(0, 2)
-    .map((part) => part[0]?.toUpperCase())
-    .join("") || "V";
-}
-
-function StatusPill({ label, value }: { label: string; value?: string | null }) {
-  const tone = statusTone(value);
-  const Icon = tone === "good" ? CheckCircle2 : tone === "bad" ? CircleAlert : Clock3;
-
-  return (
-    <div className={`status-pill ${tone}`}>
-      <Icon size={16} aria-hidden="true" />
-      <span>{label}</span>
-      <strong>{readableStatus(value)}</strong>
-    </div>
-  );
-}
-
-function MetricRow({ label, value }: { label: string; value: string }) {
-  return (
-    <div className="metric-row">
-      <span>{label}</span>
-      <strong>{value}</strong>
-    </div>
-  );
-}
-
-function VideoCard({
-  canDelete,
-  index,
-  isDeleting,
-  isSelected,
-  onDelete,
-  onOpen,
-  video
-}: {
-  canDelete: boolean;
-  index: number;
-  isDeleting: boolean;
-  isSelected: boolean;
-  onDelete: () => void;
-  onOpen: () => void;
-  video: VideoStatus;
-}) {
-  const [thumbnailFailed, setThumbnailFailed] = useState(false);
-  const [thumbnailUrl, setThumbnailUrl] = useState("");
-  const canShowThumbnail = Boolean(thumbnailUrl) && !thumbnailFailed;
-
-  useEffect(() => {
-    let active = true;
-    setThumbnailFailed(false);
-    setThumbnailUrl("");
-
-    if (video.status !== "processed" && !video.processed_path) return;
-
-    void getVideoThumbnailUrl(video.video_id)
-      .then((response) => {
-        if (active) setThumbnailUrl(response.url);
-      })
-      .catch(() => {
-        if (active) setThumbnailFailed(true);
-      });
-
-    return () => {
-      active = false;
-    };
-  }, [video.status, video.video_id]);
-
-  return (
-    <article className={`video-card ${isSelected ? "selected" : ""}`}>
-      <button className="video-card-open" onClick={onOpen}>
-        <div className="thumbnail-frame">
-          <div className="thumbnail-fallback">
-            <Play size={34} aria-hidden="true" />
-          </div>
-          {canShowThumbnail && (
-            <img
-              alt=""
-              src={thumbnailUrl}
-              onError={() => setThumbnailFailed(true)}
-            />
-          )}
-          <span className={`thumbnail-status ${statusTone(video.status)}`}>
-            {readableStatus(video.status)}
-          </span>
-        </div>
-        <div className="video-card-body">
-          <h3>{displayVideoTitle(video, index)}</h3>
-          <div className="video-card-meta">
-            <p>{formatDate(video.created_at)}</p>
-            <span className={`visibility-badge ${video.visibility ?? "private"}`}>
-              {video.visibility ?? "private"}
-            </span>
-          </div>
-        </div>
-      </button>
-      {canDelete && (
-        <button
-          className="card-delete-button"
-          disabled={isDeleting}
-          title="Delete video"
-          onClick={onDelete}
-        >
-          {isDeleting ? <LoaderCircle className="spin" size={17} /> : <Trash2 size={17} />}
-        </button>
-      )}
-    </article>
-  );
-}
-
 export function App() {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const pendingSeek = useRef<{ videoId: string; seconds: number } | null>(null);
   const selectedVideoIdRef = useRef("");
+  const momentStopTime = useRef<number | null>(null);
+  const videoListRequest = useRef(0);
+  const videoSearchRequest = useRef(0);
   const [authSession, setAuthSession] = useState<AuthSession | null>(null);
   const [currentUser, setCurrentUser] = useState<UserProfile | null>(null);
   const [isAuthLoading, setIsAuthLoading] = useState(true);
@@ -259,6 +66,7 @@ export function App() {
   const [videoTitle, setVideoTitle] = useState("");
   const [videoVisibility, setVideoVisibility] = useState<VideoVisibility>("private");
   const [videos, setVideos] = useState<VideoStatus[]>([]);
+  const [videosLoaded, setVideosLoaded] = useState(false);
   const [videoId, setVideoId] = useState("");
   const [status, setStatus] = useState<VideoStatus | null>(null);
   const [playerUrl, setPlayerUrl] = useState("");
@@ -268,11 +76,18 @@ export function App() {
   const [query, setQuery] = useState("");
   const [algorithm, setAlgorithm] = useState<SearchAlgorithm>("qdrant_embedding");
   const [results, setResults] = useState<SearchResult[]>([]);
+  const [searched, setSearched] = useState<{ query: string; algorithm: SearchAlgorithm } | null>(null);
+  const [selectedMoment, setSelectedMoment] = useState<number | null>(null);
+  const [isMomentFinished, setIsMomentFinished] = useState(false);
+  const [activeSegmentStart, setActiveSegmentStart] = useState<number | null>(null);
   const [message, setMessage] = useState("");
+  const [isUploadOpen, setIsUploadOpen] = useState(false);
+  const [isDetailsOpen, setIsDetailsOpen] = useState(false);
+  const [deleteTarget, setDeleteTarget] = useState<{ video: VideoStatus; index: number } | null>(null);
+  const [libraryResultsActive, setLibraryResultsActive] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [isSearching, setIsSearching] = useState(false);
-  const [isLoadingMetrics, setIsLoadingMetrics] = useState(false);
   const [isLoadingVideos, setIsLoadingVideos] = useState(false);
   const [deletingVideoId, setDeletingVideoId] = useState("");
 
@@ -293,6 +108,11 @@ export function App() {
   const selectedVideoIsOwned = Boolean(
     currentUser?.user_id && status?.owner_user_id === currentUser.user_id
   );
+  const libraryFeedActive = feedMode === "library";
+  const showLibrarySearch = libraryFeedActive && isSignedIn && import.meta.env.VITE_LIBRARY_SEARCH_ENABLED === "true";
+
+  const moments = useMemo(() => [...results].sort((a, b) => a.start - b.start), [results]);
+  const activeMoment = selectedMoment === null ? null : moments[selectedMoment] ?? null;
 
   const pipeline = useMemo(
     () => [
@@ -305,121 +125,16 @@ export function App() {
     [status]
   );
 
-  const metricRows = useMemo(
-    () => [
-      {
-        label: "Upload response",
-        value: formatDuration(metrics?.upload?.upload_response_latency_seconds)
-      },
-      {
-        label: "Raw upload",
-        value: formatDuration(metrics?.upload?.s3_raw_upload_seconds)
-      },
-      {
-        label: "Uploaded size",
-        value: formatBytes(metrics?.upload?.uploaded_bytes)
-      },
-      {
-        label: "Celery enqueue",
-        value: formatDuration(metrics?.upload?.celery_enqueue_seconds)
-      },
-      {
-        label: "Queue wait",
-        value: formatDuration(metrics?.processing?.queue_wait_seconds)
-      },
-      {
-        label: "Time searchable",
-        value: formatDuration(metrics?.processing?.time_to_searchable_seconds)
-      },
-      {
-        label: "Total processing",
-        value: formatDuration(metrics?.processing?.total_processing_seconds)
-      },
-      {
-        label: "FFmpeg preset",
-        value: metrics?.processing?.ffmpeg_preset ?? "-"
-      },
-      {
-        label: "Raw download",
-        value: formatDuration(metrics?.processing?.s3_raw_download_seconds)
-      },
-      {
-        label: "Video transcode",
-        value: formatDuration(metrics?.processing?.video_transcode_seconds)
-      },
-      {
-        label: "Audio extract",
-        value: formatDuration(metrics?.processing?.audio_extraction_seconds)
-      },
-      {
-        label: "Whisper model",
-        value: formatDuration(metrics?.processing?.whisper_model_load_or_get_seconds)
-      },
-      {
-        label: "Whisper",
-        value: formatDuration(metrics?.processing?.whisper_transcription_seconds)
-      },
-      {
-        label: "Embedding model",
-        value: formatDuration(metrics?.processing?.embedding_model_load_or_get_seconds)
-      },
-      {
-        label: "Embeddings",
-        value: formatDuration(metrics?.processing?.embedding_generation_seconds)
-      },
-      {
-        label: "S3 artifacts",
-        value: formatDuration(metrics?.processing?.s3_artifact_write_seconds)
-      },
-      {
-        label: "Thumbnail",
-        value: formatDuration(metrics?.processing?.thumbnail_generation_seconds)
-      },
-      {
-        label: "Qdrant upsert",
-        value: formatDuration(metrics?.processing?.qdrant_upsert_seconds)
-      },
-      {
-        label: "Segments",
-        value: formatInteger(metrics?.processing?.segment_count)
-      },
-      {
-        label: "Search latency",
-        value: formatDuration(metrics?.search?.search_latency_seconds)
-      },
-      {
-        label: "Query embed",
-        value: formatDuration(metrics?.search?.query_embedding_seconds)
-      },
-      {
-        label: "Qdrant search",
-        value: formatDuration(metrics?.search?.qdrant_search_seconds)
-      },
-      {
-        label: "Results",
-        value: formatInteger(metrics?.search?.result_count)
-      },
-      {
-        label: "Top score",
-        value: formatNumber(metrics?.search?.top_score)
-      }
-    ],
-    [metrics]
-  );
-
   const refreshMetrics = useCallback(
-    async (targetVideoId = videoId, showSpinner = false) => {
+    async (targetVideoId = videoId) => {
       if (!targetVideoId.trim()) return;
 
       try {
-        if (showSpinner) setIsLoadingMetrics(true);
         const nextMetrics = await getVideoMetrics(targetVideoId.trim());
         if (selectedVideoIdRef.current !== targetVideoId.trim()) return;
         setMetrics(nextMetrics);
       } catch {
         setMetrics(null);
-      } finally {
-        if (showSpinner) setIsLoadingMetrics(false);
       }
     },
     [videoId]
@@ -427,6 +142,7 @@ export function App() {
 
   const refreshVideos = useCallback(
     async (showSpinner = false) => {
+      const requestId = ++videoListRequest.current;
       try {
         if (showSpinner) setIsLoadingVideos(true);
         if (feedMode === "library" && !isSignedIn) {
@@ -434,11 +150,16 @@ export function App() {
           return;
         }
         const response = feedMode === "public" ? await listPublicVideos() : await listVideos();
+        if (videoListRequest.current !== requestId) return;
         setVideos(response.videos);
       } catch (error) {
+        if (videoListRequest.current !== requestId) return;
         setMessage(error instanceof Error ? error.message : "Could not load videos");
       } finally {
-        if (showSpinner) setIsLoadingVideos(false);
+        if (videoListRequest.current === requestId) {
+          setVideosLoaded(true);
+          setIsLoadingVideos(false);
+        }
       }
     },
     [feedMode, isSignedIn]
@@ -453,7 +174,7 @@ export function App() {
         const nextStatus = await getVideoStatus(targetVideoId.trim());
         if (selectedVideoIdRef.current !== targetVideoId.trim()) return;
         setStatus(nextStatus);
-        void refreshMetrics(targetVideoId.trim(), false);
+        void refreshMetrics(targetVideoId.trim());
         setMessage("");
       } catch (error) {
         setMessage(error instanceof Error ? error.message : "Could not load status");
@@ -480,6 +201,21 @@ export function App() {
     }
   }, [searchable, videoId]);
 
+  const resetMoment = useCallback(() => {
+    momentStopTime.current = null;
+    setSelectedMoment(null);
+    setIsMomentFinished(false);
+  }, []);
+
+  const clearVideoSearch = useCallback(() => {
+    videoSearchRequest.current += 1;
+    setIsSearching(false);
+    setQuery("");
+    setResults([]);
+    setSearched(null);
+    resetMoment();
+  }, [resetMoment]);
+
   const loadVideoById = useCallback(
     async (targetVideoId: string, nextView: ViewMode = "watch", seconds?: number) => {
       if (!targetVideoId.trim()) return;
@@ -494,11 +230,12 @@ export function App() {
       localStorage.setItem(SAVED_VIDEO_ID_KEY, nextVideoId);
       setTranscript("");
       setSegments([]);
-      setResults([]);
+      clearVideoSearch();
+      setActiveSegmentStart(null);
       await refreshStatus(nextVideoId);
-      await refreshMetrics(nextVideoId, true);
+      await refreshMetrics(nextVideoId);
     },
-    [refreshMetrics, refreshStatus]
+    [refreshMetrics, refreshStatus, clearVideoSearch]
   );
 
   useEffect(() => {
@@ -604,14 +341,16 @@ export function App() {
 
     try {
       setIsUploading(true);
+      setMessage("");
+
+      const cleanTitle = videoTitle.trim() || filenameToTitle(selectedFile.name);
+      const uploaded = await uploadVideo(selectedFile, cleanTitle, videoVisibility);
       setStatus(null);
       setMetrics(null);
       setTranscript("");
       setSegments([]);
-      setResults([]);
-
-      const cleanTitle = videoTitle.trim() || filenameToTitle(selectedFile.name);
-      const uploaded = await uploadVideo(selectedFile, cleanTitle, videoVisibility);
+      clearVideoSearch();
+      setActiveSegmentStart(null);
       setViewMode("watch");
       setVideoId(uploaded.video_id);
       selectedVideoIdRef.current = uploaded.video_id;
@@ -619,11 +358,12 @@ export function App() {
       setVideoTitle("");
       setVideoVisibility("private");
       setSelectedFile(null);
+      setIsUploadOpen(false);
       localStorage.setItem(SAVED_VIDEO_ID_KEY, uploaded.video_id);
       setMessage("Upload accepted. Processing has started.");
       await refreshVideos(false);
       await refreshStatus(uploaded.video_id, false);
-      await refreshMetrics(uploaded.video_id, false);
+      await refreshMetrics(uploaded.video_id);
     } catch (error) {
       setMessage(error instanceof Error ? error.message : "Upload failed");
     } finally {
@@ -632,34 +372,40 @@ export function App() {
   }
 
   async function handleSearch() {
-    if (!videoId || !query.trim()) return;
+    if (!videoId) return;
+
+    const cleanQuery = query.trim();
+    if (!cleanQuery) {
+      clearVideoSearch();
+      return;
+    }
 
     if (!searchable) {
       setMessage("Search is not ready yet.");
       return;
     }
 
+    const requestId = ++videoSearchRequest.current;
     try {
       setIsSearching(true);
-      const response = await searchVideo(videoId, query.trim(), algorithm);
-      if (selectedVideoIdRef.current !== videoId) return;
+      const response = await searchVideo(videoId, cleanQuery, algorithm);
+      if (selectedVideoIdRef.current !== videoId || videoSearchRequest.current !== requestId) return;
       setResults(response.results);
-      await refreshMetrics(videoId, false);
+      setSearched({ query: cleanQuery, algorithm });
+      resetMoment();
+      await refreshMetrics(videoId);
+      if (selectedVideoIdRef.current !== videoId || videoSearchRequest.current !== requestId) return;
       setMessage("");
     } catch (error) {
+      if (selectedVideoIdRef.current !== videoId || videoSearchRequest.current !== requestId) return;
       setMessage(error instanceof Error ? error.message : "Search failed");
     } finally {
-      setIsSearching(false);
+      if (videoSearchRequest.current === requestId) setIsSearching(false);
     }
   }
 
   async function handleDeleteVideo(targetVideo: VideoStatus, index: number) {
     const targetTitle = displayVideoTitle(targetVideo, index);
-    const confirmed = window.confirm(
-      `Delete "${targetTitle}"? This removes the database row, stored files, metrics, transcript, and search vectors.`
-    );
-
-    if (!confirmed) return;
 
     try {
       setDeletingVideoId(targetVideo.video_id);
@@ -678,7 +424,7 @@ export function App() {
         setMetrics(null);
         setTranscript("");
         setSegments([]);
-        setResults([]);
+        clearVideoSearch();
         setPlayerUrl("");
       }
 
@@ -692,350 +438,313 @@ export function App() {
   }
 
   function jumpTo(seconds: number) {
+    resetMoment();
     if (!videoRef.current) return;
     videoRef.current.currentTime = seconds;
     void videoRef.current.play().catch(() => { /* Playback may require another user gesture. */ });
   }
 
-  function renderUploadCard() {
-    return (
-      <section className="panel upload-panel">
-        <div className="panel-heading">
-          <UploadCloud size={20} aria-hidden="true" />
-          <h2>Upload</h2>
-        </div>
+  // Plays one matched range, then pauses at its end unless the viewer takes over.
+  function playMoment(index: number) {
+    const moment = moments[index];
+    if (!moment) return;
+    setSelectedMoment(index);
+    setIsMomentFinished(false);
+    momentStopTime.current = moment.end > moment.start ? moment.end : null;
+    if (!videoRef.current) return;
+    videoRef.current.currentTime = moment.start;
+    void videoRef.current.play().catch(() => { /* Playback may require another user gesture. */ });
+  }
 
-        <label className="drop-zone">
-          <input
-            type="file"
-            accept="video/*"
-            onChange={(event) => {
-              const nextFile = event.target.files?.[0] ?? null;
-              setSelectedFile(nextFile);
-              if (nextFile && !videoTitle.trim()) {
-                setVideoTitle(filenameToTitle(nextFile.name));
-              }
-            }}
-          />
-          <span>{selectedFile ? selectedFile.name : "Choose video file"}</span>
-        </label>
+  function cancelMomentStop() {
+    momentStopTime.current = null;
+    setIsMomentFinished(false);
+  }
 
-        <div className="upload-fields">
-          <label className="form-field">
-            <span>Title</span>
-            <input
-              value={videoTitle}
-              onChange={(event) => setVideoTitle(event.target.value)}
-              placeholder="Name this video"
-            />
-          </label>
-
-          <label className="form-field">
-            <span>Visibility</span>
-            <select
-              value={videoVisibility}
-              onChange={(event) => setVideoVisibility(event.target.value as VideoVisibility)}
-            >
-              <option value="private">Private</option>
-              <option value="public">Public</option>
-            </select>
-          </label>
-        </div>
-
-        <button className="primary-button" disabled={isUploading || !isSignedIn} onClick={handleUpload}>
-          {isUploading ? <LoaderCircle className="spin" size={18} /> : <UploadCloud size={18} />}
-          {isUploading ? "Uploading" : "Upload video"}
-        </button>
-
-        {message && <p className="message">{message}</p>}
-      </section>
-    );
+  function handleTimeUpdate(time: number) {
+    if (momentStopTime.current !== null && time >= momentStopTime.current) {
+      momentStopTime.current = null;
+      videoRef.current?.pause();
+      setIsMomentFinished(true);
+    }
+    let nextStart: number | null = null;
+    for (const segment of segments) {
+      if (segment.start <= time) nextStart = segment.start;
+    }
+    setActiveSegmentStart(nextStart);
   }
 
   function renderLibrary() {
+    const showSkeleton = isLoadingVideos || isAuthLoading || !videosLoaded;
+    const hideGrid = showLibrarySearch && libraryResultsActive;
+
     return (
-      <section className="library-view">
-        <div className="library-header">
-          <div>
-            <p className="eyebrow">{feedMode === "public" ? "Explore" : "Library"}</p>
-            <h2>{feedMode === "public" ? "Public videos" : "My videos"}</h2>
+      <div className="mx-auto grid max-w-[1400px] gap-5">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <div className="min-w-0">
+            <h1 className="text-xl leading-tight font-semibold tracking-tight md:text-2xl">
+              {libraryFeedActive ? "My videos" : "Public videos"}
+            </h1>
+            <p className="text-xs text-muted-foreground">
+              {libraryFeedActive
+                ? `${videos.length} ${videos.length === 1 ? "video" : "videos"} in your library`
+                : "Videos that people have shared publicly"}
+            </p>
           </div>
-          <div className="library-actions">
-            <div className="feed-tabs" aria-label="Video feed">
-              <button
-                className={feedMode === "library" ? "active" : ""}
-                onClick={() => setFeedMode("library")}
-              >
-                My library
-              </button>
-              <button
-                className={feedMode === "public" ? "active" : ""}
-                onClick={() => setFeedMode("public")}
-              >
-                Public explore
-              </button>
-            </div>
-            <button
-              className="secondary-button"
-              disabled={isLoadingVideos}
-              onClick={() => void refreshVideos(true)}
-            >
-              <RefreshCw size={17} className={isLoadingVideos ? "spin" : ""} />
-              Refresh
-            </button>
-          </div>
+          <Button disabled={isLoadingVideos} variant="outline" onClick={() => void refreshVideos(true)}>
+            <RefreshCw className={cn(isLoadingVideos && "animate-spin")} aria-hidden="true" />
+            Refresh
+          </Button>
         </div>
 
-        {feedMode === "library" && isSignedIn && import.meta.env.VITE_LIBRARY_SEARCH_ENABLED === "true" &&
-          <LibrarySearch key={currentUser?.user_id || "local"} onOpen={(hit) => void loadVideoById(hit.video_id, "watch", hit.start_seconds)} />}
+        {showLibrarySearch && (
+          <LibrarySearch
+            key={currentUser?.user_id || "local"}
+            onActiveChange={setLibraryResultsActive}
+            onOpen={(hit) => void loadVideoById(hit.video_id, "watch", hit.start_seconds)}
+          />
+        )}
 
-        <div className="library-layout">
-          {renderUploadCard()}
-
-          <div className="video-grid">
-            {videos.length === 0 ? (
-              <div className="empty-library">
-                <Video size={36} aria-hidden="true" />
-                <h3>{feedMode === "public" ? "No public videos yet" : "No videos yet"}</h3>
-                <p>
-                  {feedMode === "public"
-                    ? "Public uploads will appear here when someone marks a video public."
-                    : "Upload a video and Vindex will create a searchable transcript."}
-                </p>
+        {!hideGrid && (showSkeleton ? (
+          <div className="grid grid-cols-[repeat(auto-fill,minmax(min(100%,250px),1fr))] gap-4" aria-busy="true" aria-label="Loading videos">
+            {[0, 1, 2, 3].map((item) => (
+              <div className="overflow-hidden rounded-[10px] border bg-card" key={item}>
+                <Skeleton className="aspect-video rounded-none" />
+                <div className="grid gap-2 p-3">
+                  <Skeleton className="h-3 w-4/5" />
+                  <Skeleton className="h-3 w-1/2" />
+                </div>
               </div>
-            ) : (
-              videos.map((video, index) => (
-                <VideoCard
-                  canDelete={Boolean(currentUser?.user_id && video.owner_user_id === currentUser.user_id)}
-                  index={index}
-                  isDeleting={deletingVideoId === video.video_id}
-                  isSelected={video.video_id === videoId}
-                  key={video.video_id}
-                  video={video}
-                  onDelete={() => void handleDeleteVideo(video, index)}
-                  onOpen={() => void loadVideoById(video.video_id)}
-                />
-              ))
+            ))}
+          </div>
+        ) : videos.length === 0 ? (
+          <div className="grid justify-items-center gap-2 rounded-[10px] border border-dashed border-input px-5 py-12 text-center">
+            <Video className="size-7 text-muted-foreground" aria-hidden="true" />
+            <h3 className="text-[15px] font-semibold">
+              {!libraryFeedActive ? "No public videos yet" : isSignedIn ? "No videos yet" : "Sign in to see your videos"}
+            </h3>
+            <p className="max-w-[42ch] text-muted-foreground">
+              {!libraryFeedActive
+                ? "Public uploads will appear here when someone marks a video public."
+                : isSignedIn
+                  ? "Upload a video and Vindex will create a searchable transcript."
+                  : "You can still watch public videos in Public explore."}
+            </p>
+            {libraryFeedActive && isSignedIn && (
+              <Button className="mt-1" onClick={() => setIsUploadOpen(true)}>
+                <UploadCloud aria-hidden="true" />
+                Upload video
+              </Button>
             )}
           </div>
-        </div>
-      </section>
+        ) : (
+          <div className="grid grid-cols-[repeat(auto-fill,minmax(min(100%,250px),1fr))] gap-4">
+            {videos.map((video, index) => (
+              <VideoCard
+                canDelete={Boolean(currentUser?.user_id && video.owner_user_id === currentUser.user_id)}
+                index={index}
+                isDeleting={deletingVideoId === video.video_id}
+                isSelected={video.video_id === videoId}
+                key={video.video_id}
+                video={video}
+                onDelete={() => setDeleteTarget({ video, index })}
+                onOpen={() => void loadVideoById(video.video_id)}
+              />
+            ))}
+          </div>
+        ))}
+      </div>
     );
   }
 
   function renderWatchView() {
     return (
-      <section className="watch-view">
-        <div className="watch-top">
-          <button className="secondary-button" onClick={() => setViewMode("library")}>
-            <ArrowLeft size={17} />
-            Library
-          </button>
-          <div>
-            <p className="eyebrow">Now watching</p>
-            <h2>{selectedTitle}</h2>
+      <div className="mx-auto grid max-w-[1400px] gap-5">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <div className="flex min-w-0 flex-[1_1_300px] items-center gap-2">
+            <Button aria-label="Library" size="icon" title="Back to library" variant="outline" onClick={() => setViewMode("library")}>
+              <ArrowLeft aria-hidden="true" />
+            </Button>
+            <div className="min-w-0 flex-1">
+              <h1 className="text-xl leading-tight font-semibold tracking-tight [overflow-wrap:anywhere] md:text-2xl">{selectedTitle}</h1>
+              {status && (
+                <div className="mt-1 flex flex-wrap items-center gap-1.5 text-xs text-muted-foreground">
+                  {!processed && <StatusBadge value={status.status} />}
+                  <span>{formatDate(status.created_at)}</span>
+                  <VisibilityIcon visibility={status.visibility} />
+                </div>
+              )}
+            </div>
           </div>
-          <div className="watch-actions">
+          <div className="flex flex-wrap items-center gap-2">
+            <Button disabled={!status} variant="outline" onClick={() => setIsDetailsOpen(true)}>
+              <PanelRight aria-hidden="true" />
+              Details
+            </Button>
             {status && selectedVideoIsOwned && (
-              <button
-                className="danger-button"
+              <Button
                 disabled={deletingVideoId === status.video_id}
-                onClick={() => void handleDeleteVideo(status, selectedVideoIndex >= 0 ? selectedVideoIndex : 0)}
+                variant="outline"
+                onClick={() => setDeleteTarget({ video: status, index: selectedVideoIndex >= 0 ? selectedVideoIndex : 0 })}
               >
-                {deletingVideoId === status.video_id ? (
-                  <LoaderCircle className="spin" size={17} />
-                ) : (
-                  <Trash2 size={17} />
-                )}
+                {deletingVideoId === status.video_id ? <LoaderCircle className="animate-spin" aria-hidden="true" /> : <Trash2 aria-hidden="true" />}
                 Delete
-              </button>
+              </Button>
             )}
-            <button
-              className="secondary-button"
-              disabled={!videoId || isRefreshing}
-              onClick={() => void refreshStatus(videoId, true)}
-            >
-              <RefreshCw size={17} className={isRefreshing ? "spin" : ""} />
-              Status
-            </button>
           </div>
         </div>
 
-        <section className="workspace">
-          <div className="left-column">
-            {renderUploadCard()}
-
-            <section className="panel">
-              <div className="panel-heading">
-                <Clock3 size={20} aria-hidden="true" />
-                <h2>Pipeline</h2>
-              </div>
-              <div className="status-grid">
-                {pipeline.map((item) => (
-                  <StatusPill key={item.label} label={item.label} value={item.value} />
-                ))}
-              </div>
-              {status?.error_message && <p className="error-message">{status.error_message}</p>}
-            </section>
-
-            <section className="panel metrics-panel">
-              <div className="panel-heading split-heading">
-                <div>
-                  <Activity size={20} aria-hidden="true" />
-                  <h2>Metrics</h2>
-                </div>
-                <button
-                  className="mini-icon-button"
-                  title="Refresh metrics"
-                  disabled={!videoId || isLoadingMetrics}
-                  onClick={() => void refreshMetrics(videoId, true)}
-                >
-                  <RefreshCw size={16} className={isLoadingMetrics ? "spin" : ""} />
-                </button>
-              </div>
-              <div className="metrics-grid">
-                {metricRows.map((item) => (
-                  <MetricRow key={item.label} label={item.label} value={item.value} />
-                ))}
-              </div>
-            </section>
-          </div>
-
-          <div className="center-column">
-            <section className="player-surface">
-              {playerUrl ? (
-                <video key={playerUrl} ref={videoRef} src={playerUrl} controls onLoadedMetadata={() => {
+        <div className="grid items-start gap-7 lg:grid-cols-[minmax(0,1fr)_minmax(320px,420px)]">
+          <div className="grid min-w-0 gap-3">
+            {playerUrl ? (
+              <VideoPlayer
+                key={playerUrl}
+                marks={moments}
+                selectedRange={activeMoment}
+                src={playerUrl}
+                videoRef={videoRef}
+                onLoadedMetadata={() => {
                   const target = pendingSeek.current;
                   if (target?.videoId === videoId && videoRef.current) {
                     videoRef.current.currentTime = target.seconds;
                     pendingSeek.current = null;
                   }
-                }} />
-              ) : (
-                <div className="empty-player">
-                  <Play size={42} aria-hidden="true" />
-                  <span>{status ? `Current status: ${readableStatus(status.status)}` : "No video loaded"}</span>
+                }}
+                onMarkSelect={playMoment}
+                onTimeUpdate={handleTimeUpdate}
+                onUserControl={cancelMomentStop}
+              />
+            ) : (
+              <section className="overflow-hidden rounded-[10px] bg-[#0b1215] text-white" aria-label="Video player">
+                <div className="grid aspect-video place-items-center p-4 text-center" style={{ background: videoGradient(videoId) }}>
+                  <div className="grid justify-items-center gap-2">
+                    {failed ? <CircleAlert className="size-9" aria-hidden="true" /> : status && !playable ? <LoaderCircle className="size-9 animate-spin" aria-hidden="true" /> : <Play className="size-9" aria-hidden="true" />}
+                    <span>{status ? `Current status: ${readableStatus(status.status)}` : "No video loaded"}</span>
+                  </div>
                 </div>
-              )}
-            </section>
+              </section>
+            )}
 
-            <section className="panel search-panel">
-              <div className="search-row">
-                <Search size={20} aria-hidden="true" />
-                <input
-                  value={query}
-                  onChange={(event) => setQuery(event.target.value)}
-                  onKeyDown={(event) => {
-                    if (event.key === "Enter") void handleSearch();
-                  }}
-                  placeholder="Search inside this video"
-                />
-                <select
-                  value={algorithm}
-                  onChange={(event) => setAlgorithm(event.target.value as SearchAlgorithm)}
-                >
-                  <option value="qdrant_embedding">Semantic</option>
-                  {status?.keyword_search_enabled && <option value="elasticsearch_bm25">Keyword</option>}
-                  {status?.keyword_search_enabled && <option value="elasticsearch_hybrid">Semantic + keyword</option>}
-                  <option value="bm25">BM25</option>
-                  <option value="hybrid">Hybrid (semantic + BM25)</option>
-                  <option value="exact">Exact</option>
-                  <option value="overlap">Overlap</option>
-                  <option value="stopword_overlap">Stopword overlap</option>
-                </select>
-                <button className="primary-button compact" disabled={isSearching || !searchable} onClick={handleSearch}>
-                  {isSearching ? <LoaderCircle className="spin" size={18} /> : <Search size={18} />}
-                  Search
-                </button>
-              </div>
+            {searched && moments.length > 0 && (
+              <MomentsRow
+                isFinished={isMomentFinished}
+                moments={moments}
+                pattern={highlightPattern(searched.query, searched.algorithm)}
+                query={searched.query}
+                selectedIndex={selectedMoment}
+                videoId={videoId}
+                onKeepWatching={() => {
+                  cancelMomentStop();
+                  void videoRef.current?.play().catch(() => { /* Playback may require another user gesture. */ });
+                }}
+                onSelect={playMoment}
+              />
+            )}
 
-              <div className="results-list">
-                {results.map((result) => (
-                  <button
-                    className="result-item"
-                    key={`${result.start}-${result.end}-${result.text}`}
-                    onClick={() => jumpTo(result.start)}
-                  >
-                    <span className="result-time">{formatTime(result.start)}</span>
-                    <span className="result-text">{result.text}</span>
-                    <span className="result-score">{result.score.toFixed(3)}</span>
-                  </button>
-                ))}
+            {status && !searchable && (
+              <div className="flex flex-wrap gap-1.5">
+                {pipeline.map((item) => <StatusBadge key={item.label} label={item.label} value={item.value} />)}
               </div>
-            </section>
+            )}
+            {status?.error_message && (
+              <p className="flex gap-2.5 rounded-lg bg-bad px-3 py-2.5 text-bad-foreground">
+                <CircleAlert className="mt-0.5 size-4 shrink-0" aria-hidden="true" />
+                {status.error_message}
+              </p>
+            )}
           </div>
 
-          <aside className="right-column">
-            <section className="panel transcript-panel">
-              <div className="panel-heading">
-                <FileText size={20} aria-hidden="true" />
-                <h2>Transcript</h2>
-              </div>
-              <p>{transcript || "Transcript will appear after processing."}</p>
-            </section>
-
-            <section className="panel segments-panel">
-              <div className="panel-heading">
-                <FileText size={20} aria-hidden="true" />
-                <h2>Segments</h2>
-              </div>
-              <div className="segment-list">
-                {segments.map((segment) => (
-                  <button
-                    className="segment-item"
-                    key={`${segment.start}-${segment.end}`}
-                    onClick={() => jumpTo(segment.start)}
-                  >
-                    <strong>{formatTime(segment.start)}</strong>
-                    <span>{segment.text}</span>
-                  </button>
-                ))}
-              </div>
-            </section>
-          </aside>
-        </section>
-      </section>
+          <TranscriptPanel
+            activeSegmentStart={activeSegmentStart}
+            algorithm={algorithm}
+            isFailed={failed}
+            isSearching={isSearching}
+            keywordSearchEnabled={Boolean(status?.keyword_search_enabled)}
+            query={query}
+            results={results}
+            searchable={searchable}
+            searched={searched}
+            segments={segments}
+            selectedMomentStart={activeMoment?.start ?? null}
+            transcript={transcript}
+            onAlgorithmChange={setAlgorithm}
+            onClear={clearVideoSearch}
+            onJump={jumpTo}
+            onQueryChange={setQuery}
+            onSearch={() => void handleSearch()}
+            onSelectMoment={(start) => {
+              const index = moments.findIndex((moment) => Math.abs(moment.start - start) < 0.01);
+              if (index >= 0) playMoment(index);
+            }}
+          />
+        </div>
+      </div>
     );
   }
 
   return (
-    <main className="app-shell">
-      <header className="topbar">
-        <div>
-          <p className="eyebrow">Vindex</p>
-          <h1>Video Semantic Search</h1>
-        </div>
-        <div className="topbar-actions">
-          <div className="profile-pill">
-            {currentUser?.picture_url ? (
-              <img alt="" src={currentUser.picture_url} />
-            ) : (
-              <span className="profile-initials">{initials(currentUser)}</span>
-            )}
-            <div>
-              <strong>{currentUser?.name || currentUser?.email || "Guest"}</strong>
-              <small>{AUTH_ENABLED ? "Cognito profile" : "Local dev profile"}</small>
-            </div>
-          </div>
-          {AUTH_ENABLED && (
-            authSession ? (
-              <button className="secondary-button" onClick={signOut}>
-                Sign out
-              </button>
-            ) : (
-              <button className="secondary-button" disabled={isAuthLoading} onClick={() => void signIn()}>
-                Sign in
-              </button>
-            )
-          )}
-          <div className="environment-pill">
-            <span />
-            AWS-ready pipeline
-          </div>
-        </div>
-      </header>
+    <div className="grid min-h-screen grid-cols-[minmax(0,1fr)] md:grid-cols-[252px_minmax(0,1fr)]">
+      <AppSidebar
+        activeFeed={viewMode === "library" ? feedMode : null}
+        currentUser={currentUser}
+        hasSession={Boolean(authSession)}
+        isAuthLoading={isAuthLoading}
+        isSignedIn={isSignedIn}
+        onSelectFeed={(feed) => {
+          if (feed !== feedMode) {
+            videoListRequest.current += 1;
+            setVideos([]);
+            setVideosLoaded(false);
+            setIsLoadingVideos(false);
+          }
+          setFeedMode(feed);
+          setViewMode("library");
+        }}
+        onUpload={() => {
+          setMessage("");
+          setIsUploadOpen(true);
+        }}
+      />
 
-      {viewMode === "library" ? renderLibrary() : renderWatchView()}
-    </main>
+      <main className="min-w-0 px-4 pt-4 pb-10 md:px-6 md:pt-6 md:pb-12">
+        {message && !isUploadOpen && (
+          <p className="mx-auto mb-4 max-w-[1400px] rounded-lg border bg-card px-3 py-2.5 [overflow-wrap:anywhere]" role="status">{message}</p>
+        )}
+        {/* Kept mounted so library search results are still there when coming back from a video. */}
+        <div hidden={viewMode !== "library"}>{renderLibrary()}</div>
+        {viewMode === "watch" && renderWatchView()}
+      </main>
+
+      <UploadDialog
+        file={selectedFile}
+        isUploading={isUploading}
+        message={message}
+        open={isUploadOpen}
+        title={videoTitle}
+        visibility={videoVisibility}
+        onFileChange={setSelectedFile}
+        onOpenChange={setIsUploadOpen}
+        onTitleChange={setVideoTitle}
+        onUpload={() => void handleUpload()}
+        onVisibilityChange={setVideoVisibility}
+      />
+      <DetailsSheet
+        errorMessage={status?.error_message}
+        isRefreshing={isRefreshing}
+        metrics={metrics}
+        open={isDetailsOpen && viewMode === "watch"}
+        pipeline={pipeline}
+        onOpenChange={setIsDetailsOpen}
+        onRefresh={() => void refreshStatus(videoId, true)}
+      />
+      <DeleteVideoDialog
+        title={deleteTarget ? displayVideoTitle(deleteTarget.video, deleteTarget.index) : null}
+        onCancel={() => setDeleteTarget(null)}
+        onConfirm={() => {
+          if (deleteTarget) void handleDeleteVideo(deleteTarget.video, deleteTarget.index);
+          setDeleteTarget(null);
+        }}
+      />
+    </div>
   );
 }
