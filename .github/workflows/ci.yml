@@ -149,7 +149,7 @@ jobs:
         working-directory: backend
         env:
           VINDEX_TEST_DATABASE_URL: postgresql+psycopg2://analytics:local_analytics_only@127.0.0.1:15434/analytics
-          VINDEX_TEST_KAFKA_BOOTSTRAP: 127.0.0.1:19092
+          VINDEX_TEST_KAFKA_BOOTSTRAP: 127.0.0.1:19999
         run: python -m tests.run_ci --job kafka --output ../ci-results/kafka.json
       - name: Capture service logs
         if: failure()
