@@ -2,8 +2,9 @@
 const { chromium } = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
+const { launchOptions, recordPass, captureFailure } = require('./harness.cjs');
 (async () => {
-  const browser = await chromium.launch({ channel: 'msedge', headless: true });
+  const browser = await chromium.launch(launchOptions());
   try {
     const page = await browser.newPage({ viewport: { width: 1280, height: 1000 } });
     const interactions = [], searches = [], errors = [];
@@ -97,5 +98,9 @@ const fs = require('node:fs');
     assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
     assert.deepEqual(errors, []);
     console.log('PASS semantic default, keyword mode, opt-in, stable feedback retry, withdrawal, stale withdrawal isolation, bulk withdrawal, dashboard, mobile layout');
+    recordPass('search-analytics');
+  } catch (error) {
+    await captureFailure(browser);
+    throw error;
   } finally { await browser.close(); }
 })().catch(error => { console.error(error); process.exitCode = 1; });

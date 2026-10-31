@@ -4,6 +4,7 @@ const { chromium } = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
+const { launchOptions } = require('./harness.cjs');
 
 const output = process.env.VINDEX_VERIFY_OUTPUT || '.review-cache/frontend-verification/browser';
 const ui = process.env.VINDEX_UI_URL || 'http://127.0.0.1:5185';
@@ -86,7 +87,7 @@ async function fixture(browser, options = {}) {
 }
 
 (async () => {
-  const browser = await chromium.launch({ channel: 'msedge', headless: true });
+  const browser = await chromium.launch(launchOptions());
   const results = [];
   async function check(name, fn, options) {
     const f = await fixture(browser, options);
@@ -143,6 +144,7 @@ async function fixture(browser, options = {}) {
       await player.getByRole('button', { name: 'Fullscreen', exact: true }).click();
       await page.waitForFunction(() => !!document.fullscreenElement);
       await player.getByRole('button', { name: 'Exit fullscreen', exact: true }).click();
+      await page.waitForFunction(() => !document.fullscreenElement);
       const panel = page.locator('.search-panel');
       await panel.getByRole('searchbox').fill('heap'); await panel.getByRole('searchbox').press('Enter');
       await page.locator('.moments-row').getByRole('button', { name: /Fibonacci heap/ }).click();

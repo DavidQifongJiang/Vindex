@@ -2,9 +2,10 @@
 // All API and media responses are fixtures; no real user data is modified.
 const { chromium } = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
 const assert = require('node:assert/strict');
+const { launchOptions, recordPass, captureFailure } = require('./harness.cjs');
 
 (async () => {
-  const browser = await chromium.launch({ channel: 'msedge', headless: true });
+  const browser = await chromium.launch(launchOptions());
   try {
     const page = await browser.newPage({ viewport: { width: 1280, height: 900 } });
     const errors = [];
@@ -62,6 +63,7 @@ const assert = require('node:assert/strict');
       await page.getByRole('heading', { name: 'My videos' }).waitFor();
       assert.equal(await page.locator('.library-search').count(), 0);
       console.log('PASS: library search hidden in default build');
+      recordPass('library-search-hidden-by-default');
       return;
     }
     const panel = page.locator('.library-search');
@@ -98,5 +100,9 @@ const assert = require('node:assert/strict');
     assert.equal(await page.locator('.library-search').count(), 0);
     assert.deepEqual(errors, []);
     console.log('PASS: search, partial/indexing/failure/empty/error states, safe snippets, mobile layout, timestamp playback, within-video search, public-feed exclusion');
+    recordPass('library-search');
+  } catch (error) {
+    await captureFailure(browser);
+    throw error;
   } finally { await browser.close(); }
 })().catch(error => { console.error(error); process.exitCode = 1; });
