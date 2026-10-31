@@ -108,7 +108,7 @@ class SearchEventIntegrationTests(unittest.TestCase):
 
     def test_publisher_crash_ack_and_republication(self):
         e = self.capture()
-        result = subprocess.run([sys.executable, "-m", "tests.search_events_crash", "publisher"], timeout=30,
+        result = subprocess.run([sys.executable, "-m", "tests.smoke.search_events_crash", "publisher"], timeout=30,
             capture_output=True, creationflags=subprocess.CREATE_NO_WINDOW if os.name == "nt" else 0)
         self.assertEqual(result.returncode, 71, result.stderr.decode(errors="replace"))
         with self.factory.begin() as db:
@@ -128,7 +128,7 @@ class SearchEventIntegrationTests(unittest.TestCase):
     def test_consumer_crash_before_offset_commit(self):
         self.capture()
         worker.publish_once(worker.producer())
-        crashed = subprocess.run([sys.executable, "-m", "tests.search_events_crash", "consumer"], timeout=40,
+        crashed = subprocess.run([sys.executable, "-m", "tests.smoke.search_events_crash", "consumer"], timeout=40,
             capture_output=True, creationflags=subprocess.CREATE_NO_WINDOW if os.name == "nt" else 0)
         self.assertEqual(crashed.returncode, 72, crashed.stderr.decode(errors="replace"))
         with self.factory() as db:

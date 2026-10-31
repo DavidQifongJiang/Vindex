@@ -1,0 +1,11 @@
+{
+  "owners": [
+    {"test": "tests.test_search_events_integration.SearchEventIntegrationTests", "job": "kafka", "skip_reason": "isolated Kafka/Postgres required"},
+    {"test": "tests.test_search_events_rebalance.SearchEventRebalanceTests", "job": "kafka", "skip_reason": "isolated Kafka/Postgres required"},
+    {"test": "tests.test_search_event_worker.BatchWorkerTests", "job": "kafka", "skip_reason": "optional Kafka client required"},
+    {"test": "tests.test_hybrid_search.RealElasticsearchTest", "job": "elasticsearch", "skip_reason": "Requires a dedicated Elasticsearch test instance"},
+    {"test": "tests.test_lexical_index.RealLexicalIndexTest", "job": "elasticsearch", "skip_reason": "Requires Elasticsearch test URL"},
+    {"test": "tests.test_search_indexing.RealProjectionBackendTest", "job": "elasticsearch", "skip_reason": "Requires Elasticsearch test URL"},
+    {"test": "tests.test_library_search.BackendFilterTest.test_real_lexical_retrieval_uses_only_published_tuple", "job": "elasticsearch", "skip_reason": "Requires real Elasticsearch"}
+  ]
+}
