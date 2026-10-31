@@ -55,3 +55,23 @@ To accept a finding, add it to `ops/ci/audit_exceptions.json` after review. An e
 - CI makes no AI calls. The code reviewer remains an explicit step (`tools/code_review/README.md`).
 
 Failures are not retried automatically, so an intermittent failure stays visible.
+
+## Validation evidence
+
+On 2026-10-31, each deliberate failure below turned `ci-required` red on a throwaway draft PR. Run numbers are GitHub Actions run IDs.
+
+| Deliberate failure | Job that failed | Run |
+| --- | --- | --- |
+| Broken TypeScript | `frontend`, `container` | 41169335643 |
+| Failing backend assertion | `backend` | 41169767423 |
+| Elasticsearch URL unset | `elasticsearch` | 41170029921 |
+| Kafka unreachable | `kafka` | 41212676566 |
+| Skip with no owner | `backend` | 41213234205 |
+| Browser suite not run | `frontend` | 41213520791 |
+| Zero tests discovered | `backend` | 41213817497 |
+| Vulnerable dependency added | `dependency-audit` | 41214135380 |
+| Run cancelled by a newer push | Several cancelled, none failed | 41169303128 |
+
+The cancellation row comes from a real superseded run, because the scripted attempt (41214469641) finished before its newer push arrived.
+
+Five consecutive clean runs passed: 41214712012, 41215020823, 41215353779, 41215681758, and 41215992370. Five runs give some confidence against flaky tests, but cannot rule them out.
