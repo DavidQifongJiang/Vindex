@@ -19,6 +19,8 @@ Use Python 3.11 and Node.js 22, matching CI. From `backend/`, install backend de
 - `cd frontend && npm run dev`: start Vite on port 5173; the backend must run separately.
 - `cd frontend && npm run build`: type-check TypeScript and build production assets.
 - `cd backend && python -m unittest discover -s tests`: run backend tests.
+- `cd backend && python -m tests.run_ci --job backend`: run backend tests the way CI does, failing on unowned skips. See `docs/operations/ci.md`.
+- `bash ops/ci/run_browser_suites.sh` (repo root): build the frontend configurations and run every browser suite.
 - `cd backend && python -m compileall app alembic`: check Python compilation.
 - `cd backend && alembic upgrade head`: apply database migrations.
 

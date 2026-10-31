@@ -7,38 +7,22 @@ on:
   pull_request:
     branches:
       - main
+  workflow_dispatch:
+  schedule:
+    - cron: '17 6 * * 1'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.head_ref || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
-  kafka-integration:
-    name: Optional Kafka integration
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-      - name: Install test dependencies
-        working-directory: backend
-        run: |
-          python -m pip install --index-url https://download.pytorch.org/whl/cpu torch==2.12.0
-          python -m pip install -r requirements.txt -r requirements-analytics.txt
-      - name: Start isolated analytics services
-        run: docker compose -p vindex-analytics -f ops/compose/docker-compose.analytics.yml up -d --wait
-      - name: Test real commit, crash and replay paths
-        working-directory: backend
-        env:
-          VINDEX_TEST_DATABASE_URL: postgresql+psycopg2://analytics:local_analytics_only@127.0.0.1:15434/analytics
-          VINDEX_TEST_KAFKA_BOOTSTRAP: 127.0.0.1:19092
-        run: python -m unittest tests.test_search_events tests.test_search_event_worker tests.test_search_events_integration tests.test_search_events_rebalance -v
-      - name: Capture service logs
-        if: failure()
-        run: docker compose -p vindex-analytics -f ops/compose/docker-compose.analytics.yml logs --no-color
-      - name: Stop isolated services
-        if: always()
-        run: docker compose -p vindex-analytics -f ops/compose/docker-compose.analytics.yml down -v
-  smoke:
-    name: Smoke checks
-    runs-on: ubuntu-latest
+  backend:
+    name: Backend and database
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
     services:
       postgres:
         image: postgres:16-alpine
@@ -53,60 +37,231 @@ jobs:
     env:
       VINDEX_TEST_DATABASE_URL: postgresql+psycopg2://postgres:test@localhost:5432/vindex_test
       VINDEX_TEST_REDIS_URL: redis://localhost:6379/0
-
+      DATABASE_URL: postgresql+psycopg2://postgres:test@localhost:5432/vindex_test
     steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
-
-      - name: Install backend dependencies
-        working-directory: backend
-        run: |
-          python -m pip install --index-url https://download.pytorch.org/whl/cpu torch==2.12.0
-          python -m pip install -r requirements.txt
-
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup-backend
       - name: Compile backend
         working-directory: backend
-        run: python -m compileall app alembic
-
-      - name: Run backend unit tests
+        run: python -m compileall -q app alembic
+      - name: Run backend tests
         working-directory: backend
-        run: python -m unittest discover -s tests
-
+        run: python -m tests.run_ci --job backend --output ../ci-results/backend.json
       - name: Apply database migrations
         working-directory: backend
-        env:
-          DATABASE_URL: ${{ env.VINDEX_TEST_DATABASE_URL }}
         run: python -m alembic upgrade head
-
       - name: Verify real backup and restore with mocked S3
-        env:
-          DATABASE_URL: ${{ env.VINDEX_TEST_DATABASE_URL }}
         run: |
+          head="$(cd backend && python -m alembic heads | awk '{print $1}')"
           docker build -f ops/Dockerfile.backup -t vindex-backup-test .
-          docker run --rm --network host -e PGHOST=127.0.0.1 -e PGDATABASE=vindex_test -e PGUSER=postgres -e PGPASSWORD=test --mount "type=bind,source=$PWD,target=/workspace,readonly" --entrypoint python3 vindex-backup-test /workspace/backend/tests/smoke/backup_restore_smoke.py
-
-      - name: Set up Node
-        uses: actions/setup-node@v4
+          docker run --rm --network host -e PGHOST=127.0.0.1 -e PGDATABASE=vindex_test -e PGUSER=postgres -e PGPASSWORD=test \
+            -e EXPECTED_ALEMBIC_HEAD="$head" --mount "type=bind,source=$PWD,target=/workspace,readonly" \
+            --entrypoint python3 vindex-backup-test /workspace/backend/tests/smoke/backup_restore_smoke.py
+      - uses: actions/upload-artifact@v4
+        if: always()
         with:
-          node-version: "22"
+          name: backend-results
+          path: ci-results/
+          retention-days: 7
+
+  frontend:
+    name: Frontend and browser suites
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
           cache: npm
           cache-dependency-path: frontend/package-lock.json
-
       - name: Install frontend dependencies
         working-directory: frontend
         run: npm ci
-
-      - name: Build frontend
+      - name: Type-check and build
         working-directory: frontend
         run: npm run build
+      - name: Install Chromium
+        working-directory: frontend
+        run: npx playwright install --with-deps chromium
+      - name: Run browser suites
+        env:
+          VINDEX_BROWSER_OUTPUT: ${{ github.workspace }}/browser-results
+        run: bash ops/ci/run_browser_suites.sh
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: browser-results
+          path: browser-results/
+          retention-days: 7
 
-      - name: Prepare Compose environment
-        run: cp .env.example .env
-
+  container:
+    name: Application container
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_PASSWORD: test
+          POSTGRES_DB: vindex_test
+        ports: ['5432:5432']
+        options: --health-cmd pg_isready --health-interval 5s --health-timeout 5s --health-retries 10
+      redis:
+        image: redis:7-alpine
+        ports: ['6379:6379']
+    steps:
+      - uses: actions/checkout@v4
       - name: Validate Docker Compose config
         run: docker compose --env-file .env.example config --quiet
+      - name: Build application image
+        run: docker build -t vindex-ci-app .
+      - name: Start application against disposable services
+        run: |
+          docker run -d --name vindex-ci-app --network host \
+            -e DATABASE_URL=postgresql+psycopg2://postgres:test@127.0.0.1:5432/vindex_test \
+            -e REDIS_URL=redis://127.0.0.1:6379/0 \
+            -e CELERY_BROKER_URL=redis://127.0.0.1:6379/0 \
+            -e CELERY_RESULT_BACKEND=redis://127.0.0.1:6379/1 \
+            -e AWS_REGION=us-east-1 -e S3_BUCKET_NAME=vindex-ci-no-such-bucket \
+            vindex-ci-app
+      - name: Verify migrations, frontend, and database-backed API
+        run: python3 ops/ci/container_smoke.py --container vindex-ci-app --url http://127.0.0.1:8000
+      - name: Capture application logs
+        if: failure()
+        run: docker logs vindex-ci-app
+
+  kafka:
+    name: Kafka integration
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup-backend
+        with:
+          analytics: 'true'
+      - name: Start isolated analytics services
+        run: docker compose -p vindex-analytics -f ops/compose/docker-compose.analytics.yml up -d --wait
+      - name: Test real commit, crash, replay, and rebalance paths
+        working-directory: backend
+        env:
+          VINDEX_TEST_DATABASE_URL: postgresql+psycopg2://analytics:local_analytics_only@127.0.0.1:15434/analytics
+          VINDEX_TEST_KAFKA_BOOTSTRAP: 127.0.0.1:19092
+        run: python -m tests.run_ci --job kafka --output ../ci-results/kafka.json
+      - name: Capture service logs
+        if: failure()
+        run: docker compose -p vindex-analytics -f ops/compose/docker-compose.analytics.yml logs --no-color
+      - name: Stop isolated services
+        if: always()
+        run: docker compose -p vindex-analytics -f ops/compose/docker-compose.analytics.yml down -v
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: kafka-results
+          path: ci-results/
+          retention-days: 7
+
+  elasticsearch:
+    name: Elasticsearch integration
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    # One Elasticsearch test lives in a class that also requires Postgres.
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_PASSWORD: test
+          POSTGRES_DB: vindex_test
+        ports: ['5432:5432']
+        options: --health-cmd pg_isready --health-interval 5s --health-timeout 5s --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup-backend
+      - name: Start isolated Elasticsearch
+        run: docker compose -p vindex-search -f ops/compose/docker-compose.search.yml up -d --wait
+      - name: Test real indexing, retrieval, isolation, replay, and deletion
+        working-directory: backend
+        env:
+          VINDEX_TEST_DATABASE_URL: postgresql+psycopg2://postgres:test@localhost:5432/vindex_test
+          VINDEX_TEST_ELASTICSEARCH_URL: http://127.0.0.1:9200
+        run: python -m tests.run_ci --job elasticsearch --output ../ci-results/elasticsearch.json
+      - name: Capture service logs
+        if: failure()
+        run: docker compose -p vindex-search -f ops/compose/docker-compose.search.yml logs --no-color
+      - name: Stop isolated services
+        if: always()
+        run: docker compose -p vindex-search -f ops/compose/docker-compose.search.yml down -v
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: elasticsearch-results
+          path: ci-results/
+          retention-days: 7
+
+  review-tooling:
+    name: Review tooling (offline)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+          cache-dependency-path: tools/code_review/requirements.lock
+      - name: Install locked reviewer dependencies
+        run: python -m pip install --require-hashes -r tools/code_review/requirements.lock
+      - name: Run reviewer tests
+        # Python 3.11's unittest exits 0 when it finds no tests, so require a non-zero count.
+        run: |
+          python -m unittest discover -s tools/code_review/tests -v 2>&1 | tee reviewer-tests.log
+          test "${PIPESTATUS[0]}" -eq 0
+          grep -Eq '^Ran [1-9][0-9]* tests? in' reviewer-tests.log
+
+  dependency-audit:
+    name: Dependency audit
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install pip-audit
+        run: python -m pip install pip-audit==2.10.0
+      - name: Audit dependencies
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+        # Advisories appear without any commit, so an unrelated PR must not turn red because
+        # of one. PRs block only on manifests they change; the weekly run blocks on all.
+        run: |
+          args=()
+          case "$EVENT_NAME" in
+            schedule) args+=(--block-all) ;;
+            pull_request)
+              for manifest in backend/requirements.txt backend/requirements-analytics.txt \
+                tools/code_review/requirements.lock frontend/package-lock.json; do
+                if ! git diff --quiet HEAD^1 HEAD -- "$manifest"; then args+=(--block-on "$manifest"); fi
+              done ;;
+          esac
+          python ops/ci/run_audit.py "${args[@]}"
+
+  ci-required:
+    name: ci-required
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    # always(): a job skipped by a condition reports success, so a skipped gate could look green.
+    if: always()
+    needs: [backend, frontend, container, kafka, elasticsearch, review-tooling, dependency-audit]
+    steps:
+      - name: Require every job to have succeeded
+        env:
+          NEEDS: ${{ toJSON(needs) }}
+        run: |
+          echo "$NEEDS" | jq -r 'to_entries[] | "\(.key): \(.value.result)"'
+          echo "$NEEDS" | jq -e 'all(.[]; .result == "success")' > /dev/null

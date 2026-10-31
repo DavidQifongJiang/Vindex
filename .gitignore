@@ -22,3 +22,6 @@ backend/benchmarks/library_queries_500/
 backend/benchmarks/results/
 tmp/
 vindex_benchmark_videos/
+frontend/dist-ci-*/
+browser-results/
+ci-results/
