@@ -1,4 +1,6 @@
 .git
+.review-cache
+tools/code_review/.venv
 .venv
 __pycache__
 *.pyc

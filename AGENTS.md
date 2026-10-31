@@ -47,3 +47,11 @@ Postgres owns durable job state; Redis transports Celery messages. Preserve leas
 - Stay quiet on unchanged, non-actionable checks. Notify the user on completion, failure, a meaningful change, or required user action. Stop the run's monitor when the run finishes or fails; inspect failures rather than polling an exited process indefinitely.
 - If no background benchmark is running, say so explicitly. Do not create a polling monitor for nonexistent work or describe planned work as running. Continue separately authorized implementation work as appropriate.
 - Keep tests isolated from production and preserve failed benchmark evidence. Do not lower acceptance gates merely to obtain passing results.
+
+## Local AI Code Review
+
+- `ops/review.ps1` runs the independent local reviewer; setup and the six course practices are documented in `tools/code_review/README.md`.
+- Supply task intent and acceptance criteria with `--task` or `--task-file`. Use `--path` for bounded reviews; never interpret a partial or incomplete review as approval.
+- The reviewer uses local embeddings/Chroma and ChatGPT-authenticated Codex. Do not add API-key fallback or automatic credit purchases. Account-level credit settings still apply.
+- Preserve source/line evidence and risk prioritization. Developer feedback can propose reusable rules, but only reviewed changes to `tools/code_review/rules.json` activate them.
+- Reviewer tests run with `tools/code_review/.venv/Scripts/python.exe -m unittest discover -s tools/code_review/tests -v`; they do not access application services or call models.
