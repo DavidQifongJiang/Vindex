@@ -1,0 +1,15 @@
+# Copy to terraform.tfvars (git-ignored) and fill in.
+
+region  = "us-east-1"
+project = "vindex"
+
+# Existing Cognito user pool and app client. Leave empty only for a private
+# test: with auth off, every visitor acts as the same dev user.
+cognito_user_pool_id  = ""
+cognito_app_client_id = ""
+
+# Where alarm emails go (confirm the subscription email AWS sends you).
+alarm_email = ""
+
+# Allow uploads from the local Vite dev server against the deployed bucket.
+# extra_upload_origins = ["http://localhost:5173"]

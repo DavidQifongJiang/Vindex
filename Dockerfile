@@ -19,6 +19,15 @@ RUN apt-get update && apt-get install -y ffmpeg && rm -rf /var/lib/apt/lists/*
 COPY backend/requirements.txt .
 RUN pip install --no-cache-dir --index-url https://download.pytorch.org/whl/cpu torch==2.12.0 \
     && pip install --no-cache-dir -r requirements.txt
+# Bake the models into the image so tasks scaled up from zero start without
+# downloading them. Set PRELOAD_MODELS=false for faster local rebuilds.
+ARG PRELOAD_MODELS=true
+ARG WHISPER_MODEL=tiny
+ARG EMBEDDING_MODEL=all-MiniLM-L6-v2
+RUN if [ "$PRELOAD_MODELS" = "true" ]; then \
+      python -c "import whisper; whisper.load_model('$WHISPER_MODEL')" \
+      && python -c "from sentence_transformers import SentenceTransformer; SentenceTransformer('$EMBEDDING_MODEL')"; \
+    fi
 COPY backend/app ./app
 COPY backend/alembic ./alembic
 COPY backend/alembic.ini .
