@@ -1,21 +1,16 @@
 export type VideoStatus = {
   keyword_search_enabled?: boolean;
   video_id: string;
-  owner_user_id: string | null;
   title: string | null;
   visibility: "private" | "public" | string | null;
   filename: string;
   status: "uploaded" | "processing" | "processed" | "failed" | string;
-  raw_path: string | null;
-  processed_path: string | null;
-  audio_path: string | null;
-  transcript_path: string | null;
-  segments_path: string | null;
-  embedding_path: string | null;
   audio_status: string;
   transcript_status: string;
   segments_status: string;
   embedding_status: string;
+  playable: boolean;
+  is_owner: boolean;
   error_message: string | null;
   created_at: string;
   updated_at: string;

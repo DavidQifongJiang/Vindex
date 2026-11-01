@@ -33,7 +33,7 @@ export function VideoCard({
     setThumbnailFailed(false);
     setThumbnailUrl("");
 
-    if (video.status !== "processed" && !video.processed_path) return;
+    if (video.status !== "processed" && !video.playable) return;
 
     void getVideoThumbnailUrl(video.video_id)
       .then((response) => {
@@ -46,7 +46,7 @@ export function VideoCard({
     return () => {
       active = false;
     };
-  }, [video.status, video.video_id, video.processed_path]);
+  }, [video.status, video.video_id, video.playable]);
 
   return (
     <article

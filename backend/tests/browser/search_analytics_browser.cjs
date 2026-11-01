@@ -13,7 +13,7 @@ const { launchOptions, recordPass, captureFailure } = require('./harness.cjs');
     let withdrawalStartedResolve;
     const withdrawalStarted = new Promise(resolve => { withdrawalStartedResolve = resolve; });
     page.on('pageerror', e => errors.push(e.message));
-    const video = { video_id: 'video-1', title: 'Algorithms lecture', status: 'processed', visibility: 'private', owner_user_id: 'owner', keyword_search_enabled: true };
+    const video = { video_id: 'video-1', title: 'Algorithms lecture', status: 'processed', visibility: 'private', is_owner: true, keyword_search_enabled: true };
     const hit = { video_id: 'video-1', revision_id: 'r', passage_id: 'p', title: 'Algorithms lecture', start_seconds: 12, end_seconds: 40, text: 'A heap supports a priority queue.', matched_by: ['semantic'] };
     await page.route('**/*', async route => {
       const path = new URL(route.request().url()).pathname;

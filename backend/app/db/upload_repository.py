@@ -29,9 +29,30 @@ def upload_fingerprint(fileobj, *, filename, title, visibility, max_bytes):
     return hashlib.sha256(metadata.encode()).hexdigest()
 
 
-def reserve_upload(db, owner, key, fingerprint, suffix):
-    if not re.fullmatch(r"[A-Za-z0-9._:-]{1,128}", key):
+def upload_intent_fingerprint(*, filename, title, visibility, size_bytes, content_type):
+    """Fingerprint a direct-to-S3 upload from what the client declares.
+
+    The API never sees the bytes in this flow, so the declared size is part of
+    the identity and S3 enforces it exactly through the presigned POST policy.
+    """
+    metadata = json.dumps(["direct", filename, title, visibility, int(size_bytes), content_type],
+                          separators=(",", ":"))
+    return hashlib.sha256(metadata.encode()).hexdigest()
+
+
+def validate_idempotency_key(key):
+    if not re.fullmatch(r"[A-Za-z0-9._:-]{1,128}", key or ""):
         raise HTTPException(400, "Invalid Idempotency-Key")
+
+
+def reserve_upload(db, owner, key, fingerprint, suffix, *, resume_inflight=False, pending_response=None):
+    """Reserve an upload attempt for (owner, key).
+
+    With ``resume_inflight`` an unexpired attempt for the same content is
+    returned unchanged, so a client that lost the presigned URL can ask again
+    and keep uploading to the same attempt-specific key.
+    """
+    validate_idempotency_key(key)
     identity = (owner, key)
     if db.get(UploadRequest, identity) is None:
         try:
@@ -55,6 +76,10 @@ def reserve_upload(db, owner, key, fingerprint, suffix):
         db.commit()
         return None, response
     if row.expires_at and row.expires_at > now:
+        if resume_inflight and row.status == "uploading":
+            db.commit()
+            db.refresh(row)
+            return row, None
         db.rollback()
         raise HTTPException(409, "This upload is already in progress; retry with the same key", headers={"Retry-After": "5"})
     row.processing_token = str(uuid4())
@@ -62,8 +87,35 @@ def reserve_upload(db, owner, key, fingerprint, suffix):
     row.expires_at = now + timedelta(seconds=int(os.getenv("UPLOAD_DEADLINE_SECONDS", "1800")))
     row.status = "uploading"
     row.updated_at = now
+    if pending_response is not None:
+        row.response = dict(pending_response, video_id=row.video_id)
     db.commit()
     db.refresh(row)
+    return row, None
+
+
+def find_direct_upload(db, owner, key, video_id):
+    """Return ``(row, replay)`` for completing a direct upload.
+
+    ``replay`` is the stored response when the upload already completed;
+    otherwise ``row`` is the live, unexpired reservation (detached copy).
+    """
+    validate_idempotency_key(key)
+    row = db.query(UploadRequest).filter_by(owner_user_id=owner, idempotency_key=key).populate_existing().first()
+    if row is None or row.video_id != video_id:
+        db.rollback()
+        raise HTTPException(404, "Upload not found")
+    if row.status == "completed":
+        video = db.get(Video, row.video_id)
+        db.rollback()
+        if video is None or video.status == "deleting":
+            raise HTTPException(410, "This upload was deleted; use a new Idempotency-Key")
+        return None, dict(row.response)
+    if row.status != "uploading" or not row.expires_at or row.expires_at <= datetime.utcnow():
+        db.rollback()
+        raise HTTPException(409, "Upload attempt expired; request a new upload URL with the same key")
+    db.expunge(row)
+    db.rollback()
     return row, None
 
 

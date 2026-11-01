@@ -92,7 +92,7 @@ export function App() {
   const [deletingVideoId, setDeletingVideoId] = useState("");
 
   const processed = status?.status === "processed";
-  const playable = Boolean(status?.processed_path);
+  const playable = Boolean(status?.playable);
   const searchable = Boolean(
     status?.embedding_status === "completed" &&
     status?.segments_status === "completed" &&
@@ -105,9 +105,7 @@ export function App() {
   const selectedTitle = status
     ? displayVideoTitle(status, selectedVideoIndex >= 0 ? selectedVideoIndex : 0)
     : "Video";
-  const selectedVideoIsOwned = Boolean(
-    currentUser?.user_id && status?.owner_user_id === currentUser.user_id
-  );
+  const selectedVideoIsOwned = Boolean(status?.is_owner);
   const libraryFeedActive = feedMode === "library";
   const showLibrarySearch = libraryFeedActive && isSignedIn && import.meta.env.VITE_LIBRARY_SEARCH_ENABLED === "true";
 
@@ -541,7 +539,7 @@ export function App() {
           <div className="grid grid-cols-[repeat(auto-fill,minmax(min(100%,250px),1fr))] gap-4">
             {videos.map((video, index) => (
               <VideoCard
-                canDelete={Boolean(currentUser?.user_id && video.owner_user_id === currentUser.user_id)}
+                canDelete={video.is_owner}
                 index={index}
                 isDeleting={deletingVideoId === video.video_id}
                 isSelected={video.video_id === videoId}

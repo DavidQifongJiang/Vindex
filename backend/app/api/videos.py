@@ -1,6 +1,8 @@
 
+from datetime import datetime
 import os
 from pathlib import Path
+import re
 from typing import Annotated, Literal
 from uuid import uuid4
 
@@ -14,7 +16,14 @@ from app.services.lexical_index import LexicalIndex as ElasticsearchSearch
 import requests
 from app.db.models import PipelineJob
 from app.db.pipeline_repository import has_active_work
-from app.db.upload_repository import upload_fingerprint, reserve_upload, commit_upload, abandon_upload
+from app.db.upload_repository import (
+    abandon_upload, commit_upload, find_direct_upload, reserve_upload, upload_fingerprint,
+    upload_intent_fingerprint,
+)
+from app.api.schemas import (
+    CreateUploadRequest, CreateUploadResponse, UploadAccepted, VideoListResponse,
+    VideoStatusResponse, video_summary,
+)
 
 from app.db.session import get_db
 from app.db.video_repository import (
@@ -65,7 +74,7 @@ class SearchRequest(BaseModel):
 ] = "qdrant_embedding"
 
 
-@router.get("/videos")
+@router.get("/videos", response_model=VideoListResponse)
 def get_videos(
     current_user: AuthUser = Depends(get_current_user),
     db: Session = Depends(get_db),
@@ -73,14 +82,17 @@ def get_videos(
     upsert_user(db, current_user)
 
     return {
-        "videos": list_videos(db, current_user.user_id)
+        "videos": [video_summary(video, current_user) for video in list_videos(db, current_user.user_id)]
     }
 
 
-@router.get("/public/videos")
-def get_public_videos(db: Session = Depends(get_db)):
+@router.get("/public/videos", response_model=VideoListResponse)
+def get_public_videos(
+    current_user: AuthUser | None = Depends(get_optional_user),
+    db: Session = Depends(get_db),
+):
     return {
-        "videos": list_public_videos(db)
+        "videos": [video_summary(video, current_user) for video in list_public_videos(db)]
     }
 
 
@@ -511,7 +523,7 @@ def get_video_thumbnail_url(
     }
 
 
-@router.get("/videos/{video_id}/status")
+@router.get("/videos/{video_id}/status", response_model=VideoStatusResponse)
 def get_video_status(
     video_id: str,
     current_user: AuthUser | None = Depends(get_optional_user),
@@ -524,8 +536,8 @@ def get_video_status(
 
     require_video_access(video, current_user)
 
-    return {column.name: getattr(video, column.name) for column in video.__table__.columns} | {
-        "keyword_search_enabled": bool(os.getenv("ELASTICSEARCH_URL"))}
+    return video_summary(video, current_user, VideoStatusResponse,
+                         keyword_search_enabled=bool(os.getenv("ELASTICSEARCH_URL")))
 
 
 @router.post("/videos/upload")
@@ -568,25 +580,8 @@ def upload_videos(
     enqueue_start = perf_counter()
     response = {"video_id": video_id, "title": video_title, "visibility": video_visibility,
                 "filename": saved_file, "status": "uploaded", "idempotency_key": idempotency_key}
-    commit_upload(db, current_user.user_id, idempotency_key, token, response, {
-        "video_id": video_id,
-        "owner_user_id": current_user.user_id,
-        "title": video_title,
-        "visibility": video_visibility,
-        "filename": saved_file,
-        "status": "uploaded",
-        "raw_path": raw_key,
-        "processed_path": None,
-        "audio_path": None,
-        "transcript_path": None,
-        "segments_path": None,
-        "embedding_path": None,
-        "audio_status": "not_started",
-        "transcript_status": "not_started",
-        "segments_status": "not_started",
-        "embedding_status": "not_started",
-        "error_message": None,
-    })
+    commit_upload(db, current_user.user_id, idempotency_key, token, response,
+                  new_video_record(response, current_user.user_id, raw_key))
     celery_enqueue_seconds = seconds_since(enqueue_start)
 
     upload_response_latency_seconds = seconds_since(request_start)
@@ -604,6 +599,134 @@ def upload_videos(
         "enqueue_backend": "postgres_outbox",
     })
 
+    return response
+
+
+def new_video_record(response, owner_user_id, raw_key):
+    return {
+        "video_id": response["video_id"],
+        "owner_user_id": owner_user_id,
+        "title": response["title"],
+        "visibility": response["visibility"],
+        "filename": response["filename"],
+        "status": "uploaded",
+        "raw_path": raw_key,
+        "processed_path": None,
+        "audio_path": None,
+        "transcript_path": None,
+        "segments_path": None,
+        "embedding_path": None,
+        "audio_status": "not_started",
+        "transcript_status": "not_started",
+        "segments_status": "not_started",
+        "embedding_status": "not_started",
+        "error_message": None,
+    }
+
+
+UPLOAD_SUFFIX_PATTERN = r"\.[A-Za-z0-9]{1,10}"
+
+
+def upload_url_seconds(expires_at):
+    """Presigned URLs never outlive the reservation that protects the raw key."""
+    remaining = int((expires_at - datetime.utcnow()).total_seconds()) if expires_at else 0
+    return max(1, min(int(os.getenv("UPLOAD_URL_SECONDS", "900")), remaining))
+
+
+@router.post("/videos/uploads", response_model=CreateUploadResponse)
+def create_direct_upload(
+    request: CreateUploadRequest,
+    current_user: AuthUser = Depends(get_current_user),
+    db: Session = Depends(get_db),
+    idempotency_key: Annotated[str | None, Header(alias="Idempotency-Key")] = None,
+):
+    """Start a browser-to-S3 upload. The file never passes through the API.
+
+    Call again with the same Idempotency-Key to get a fresh URL for the same
+    attempt; after completion the stored result is replayed instead.
+    """
+    if request.size_bytes > MAX_UPLOAD_BYTES:
+        raise HTTPException(413, "Uploaded video is too large")
+    content_type = request.content_type.strip().lower()
+    if not re.fullmatch(r"video/[a-z0-9.+-]{1,60}", content_type):
+        raise HTTPException(415, "Only video files can be uploaded")
+    suffix = Path(request.filename).suffix
+    if suffix and not re.fullmatch(UPLOAD_SUFFIX_PATTERN, suffix):
+        raise HTTPException(400, "Unsupported file extension")
+    video_title = normalize_title(request.title, request.filename)
+    video_visibility = normalize_visibility(request.visibility)
+    upsert_user(db, current_user)
+    idempotency_key = idempotency_key or str(uuid4())
+    fingerprint = upload_intent_fingerprint(filename=request.filename, title=video_title,
+        visibility=video_visibility, size_bytes=request.size_bytes, content_type=content_type)
+    reservation, replay = reserve_upload(
+        db, current_user.user_id, idempotency_key, fingerprint, suffix, resume_inflight=True,
+        pending_response={"title": video_title, "visibility": video_visibility, "status": "uploaded",
+                          "idempotency_key": idempotency_key, "content_type": content_type,
+                          "size_bytes": request.size_bytes})
+    if replay is not None:
+        return {"video_id": replay["video_id"], "idempotency_key": idempotency_key,
+                "upload": None, "completed": UploadAccepted(**replay)}
+
+    video_id, raw_key = reservation.video_id, reservation.raw_path
+    seconds = upload_url_seconds(reservation.expires_at)
+    pending = dict(reservation.response or {})
+    db.rollback()
+    post = storage.presigned_upload(raw_key, content_type=pending.get("content_type", content_type),
+                                    size_bytes=pending.get("size_bytes", request.size_bytes), seconds=seconds)
+    safe_update_metrics(storage, video_id, "upload", {"accepted_at_epoch": now_epoch(),
+                                                      "upload_mode": "direct_s3"})
+    return {"video_id": video_id, "idempotency_key": idempotency_key,
+            "upload": {"url": post["url"], "fields": post["fields"]}, "expires_in_seconds": seconds}
+
+
+@router.post("/videos/uploads/{video_id}/complete", response_model=UploadAccepted)
+def complete_direct_upload(
+    video_id: str,
+    current_user: AuthUser = Depends(get_current_user),
+    db: Session = Depends(get_db),
+    idempotency_key: Annotated[str | None, Header(alias="Idempotency-Key")] = None,
+):
+    """Confirm the object reached S3, then create the video and queue processing."""
+    if not idempotency_key:
+        raise HTTPException(400, "Idempotency-Key is required")
+    request_start = perf_counter()
+    reservation, replay = find_direct_upload(db, current_user.user_id, idempotency_key, video_id)
+    if replay is not None:
+        return replay
+
+    pending = dict(reservation.response or {})
+    if "size_bytes" not in pending:
+        raise HTTPException(409, "This Idempotency-Key belongs to a different upload method")
+    size = storage.object_size(reservation.raw_path)
+    if size is None:
+        raise HTTPException(409, "The file has not reached storage yet; finish the upload and retry")
+    if size != pending.get("size_bytes") or size > MAX_UPLOAD_BYTES:
+        # S3 enforces the declared size, so a mismatch means a stale or foreign object.
+        storage.delete_many([reservation.raw_path])
+        abandon_upload(db, current_user.user_id, idempotency_key, reservation.processing_token)
+        raise HTTPException(422, "Uploaded file size does not match the upload request")
+
+    suffix = Path(reservation.raw_path).suffix
+    response = {"video_id": video_id, "title": pending["title"], "visibility": pending["visibility"],
+                "filename": f"{video_id}{suffix}", "status": "uploaded", "idempotency_key": idempotency_key}
+    try:
+        commit_upload(db, current_user.user_id, idempotency_key, reservation.processing_token, response,
+                      new_video_record(response, current_user.user_id, reservation.raw_path))
+    except HTTPException as exc:
+        # A concurrent completion may have won; replay its result rather than failing.
+        if exc.status_code != 409:
+            raise
+        _, replay = find_direct_upload(db, current_user.user_id, idempotency_key, video_id)
+        if replay is None:
+            raise
+        return replay
+    safe_update_metrics(storage, video_id, "upload", {
+        "uploaded_bytes": size,
+        "enqueued_at_epoch": now_epoch(),
+        "upload_response_latency_seconds": seconds_since(request_start),
+        "enqueue_backend": "postgres_outbox",
+    })
     return response
 # @router.post("/videos/upload")
 # def upload_videos(file: UploadFile = File(...), db: Session = Depends(get_db)):

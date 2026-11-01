@@ -10,10 +10,10 @@ const output = process.env.VINDEX_VERIFY_OUTPUT || '.review-cache/frontend-verif
 const ui = process.env.VINDEX_UI_URL || 'http://127.0.0.1:5185';
 const authUi = process.env.VINDEX_AUTH_UI_URL || 'http://127.0.0.1:5186';
 fs.mkdirSync(output, { recursive: true });
-const video = { video_id: 'video-1', title: 'Algorithms lecture', owner_user_id: 'owner', filename: 'lecture.mp4',
-  status: 'processed', processed_path: 'video.mp4', embedding_status: 'completed', audio_status: 'completed',
+const video = { video_id: 'video-1', title: 'Algorithms lecture', is_owner: true, filename: 'lecture.mp4',
+  status: 'processed', playable: true, embedding_status: 'completed', audio_status: 'completed',
   transcript_status: 'completed', segments_status: 'completed', visibility: 'private', created_at: '2026-10-30T12:00:00Z' };
-const publicVideo = { ...video, video_id: 'public-1', title: 'Public lecture', owner_user_id: 'another-owner', visibility: 'public' };
+const publicVideo = { ...video, video_id: 'public-1', title: 'Public lecture', is_owner: false, visibility: 'public' };
 const wav = Buffer.alloc(44 + 8000 * 2 * 30);
 wav.write('RIFF'); wav.writeUInt32LE(wav.length - 8, 4); wav.write('WAVEfmt ', 8);
 wav.writeUInt32LE(16, 16); wav.writeUInt16LE(1, 20); wav.writeUInt16LE(1, 22);
@@ -39,7 +39,7 @@ async function fixture(browser, options = {}) {
     else if (pathname === '/videos/upload') {
       state.uploads.push({ key: request.headers()['idempotency-key'], body: request.postDataBuffer().toString() });
       if (state.uploadFailures-- > 0) return route.fulfill({ status: 503, json: { detail: 'Upload unavailable; retry.' } });
-      const uploaded = { ...video, video_id: 'uploaded-1', title: 'Fixture upload', status: 'queued', processed_path: null,
+      const uploaded = { ...video, video_id: 'uploaded-1', title: 'Fixture upload', status: 'queued', playable: false,
         transcript_status: 'pending', segments_status: 'pending', embedding_status: 'pending' };
       state.videos.push(uploaded); data = uploaded;
     } else if (pathname === '/videos') {
@@ -204,7 +204,7 @@ async function fixture(browser, options = {}) {
     });
     await check('list-error-recovery-and-processing-failure', async ({ page, state }) => {
       await page.getByRole('status').filter({ hasText: 'Library temporarily unavailable' }).waitFor();
-      state.videos = [{ ...video, status: 'failed', processed_path: null, embedding_status: 'failed', error_message: 'Fixture processing failure' }];
+      state.videos = [{ ...video, status: 'failed', playable: false, embedding_status: 'failed', error_message: 'Fixture processing failure' }];
       await page.getByRole('button', { name: 'Refresh', exact: true }).click();
       await page.getByRole('button', { name: /Algorithms lecture/ }).first().click();
       await page.getByText('Fixture processing failure', { exact: true }).waitFor();
@@ -223,14 +223,14 @@ async function fixture(browser, options = {}) {
     await check('thumbnail-follows-playback-readiness', async ({ page, state }) => {
       await page.getByRole('heading', { name: 'Algorithms lecture', exact: true }).waitFor();
       assert.equal(state.thumbnails.length, 0);
-      state.videos[0].processed_path = 'ready-playback.mp4';
+      state.videos[0].playable = true;
       // Background polling keeps cards mounted, so this exercises the effect dependencies.
       await page.getByRole('button', { name: /Algorithms lecture/ }).first().click();
       await page.waitForFunction(() => !!document.querySelector('video'));
       await page.waitForResponse(r => new URL(r.url()).pathname === '/videos', { timeout: 6000 });
       await settle(page);
       assert.equal(state.thumbnails.length, 1, 'A newly available playback artifact should trigger the thumbnail request');
-    }, { videos: [{ ...video, status: 'processing', processed_path: null, embedding_status: 'pending' }] });
+    }, { videos: [{ ...video, status: 'processing', playable: false, embedding_status: 'pending' }] });
     await check('auth-guest-and-public-access', async ({ page }) => {
       await page.getByRole('heading', { name: 'Sign in to see your videos', exact: true }).waitFor();
       assert.equal(await page.getByRole('button', { name: 'Upload video', exact: true }).first().isDisabled(), true);

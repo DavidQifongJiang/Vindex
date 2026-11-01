@@ -90,6 +90,52 @@ export type SearchAnalytics = {
 
 export function getSearchAnalytics(cursor?: string) { return request<SearchAnalytics>("/search-analytics" + (cursor ? `?cursor=${encodeURIComponent(cursor)}` : "")); }
 
+type UploadAccepted = {
+  video_id: string;
+  title: string;
+  visibility: "private" | "public";
+  filename: string;
+  status: string;
+};
+
+type CreateUploadResponse = {
+  video_id: string;
+  idempotency_key: string;
+  upload: { method: "POST"; url: string; fields: Record<string, string> } | null;
+  completed: UploadAccepted | null;
+};
+
+// "direct" sends the file from the browser straight to S3 (requires bucket CORS);
+// "api" streams it through the API, which only suits local development.
+const UPLOAD_MODE = import.meta.env.VITE_UPLOAD_MODE === "direct" ? "direct" : "api";
+
+async function uploadDirect(file: File, title: string, visibility: "private" | "public", key: string) {
+  const created = await request<CreateUploadResponse>("/videos/uploads", {
+    method: "POST",
+    headers: { "Content-Type": "application/json", "Idempotency-Key": key },
+    body: JSON.stringify({
+      filename: file.name,
+      title,
+      visibility,
+      size_bytes: file.size,
+      content_type: file.type || "video/mp4"
+    })
+  });
+  if (created.completed) return created.completed;
+  if (!created.upload) throw new Error("Upload could not be started");
+
+  const form = new FormData();
+  for (const [name, value] of Object.entries(created.upload.fields)) form.append(name, value);
+  form.append("file", file); // S3 requires the file to be the last form field.
+  const stored = await fetch(created.upload.url, { method: "POST", body: form });
+  if (!stored.ok) throw new ApiError(stored.status, null, "The file could not be uploaded to storage");
+
+  return request<UploadAccepted>(`/videos/uploads/${encodeURIComponent(created.video_id)}/complete`, {
+    method: "POST",
+    headers: { "Idempotency-Key": key }
+  });
+}
+
 export async function uploadVideo(file: File, title: string, visibility: "private" | "public") {
   let keys = uploadKeys.get(file);
   if (!keys) {
@@ -99,18 +145,13 @@ export async function uploadVideo(file: File, title: string, visibility: "privat
   const metadata = JSON.stringify([title, visibility]);
   const key = keys.get(metadata) ?? crypto.randomUUID();
   keys.set(metadata, key);
+  if (UPLOAD_MODE === "direct") return uploadDirect(file, title, visibility, key);
   const formData = new FormData();
   formData.append("file", file);
   formData.append("title", title);
   formData.append("visibility", visibility);
 
-  return request<{
-    video_id: string;
-    title: string;
-    visibility: "private" | "public";
-    filename: string;
-    status: string;
-  }>("/videos/upload", {
+  return request<UploadAccepted>("/videos/upload", {
     method: "POST",
     headers: { "Idempotency-Key": key },
     body: formData

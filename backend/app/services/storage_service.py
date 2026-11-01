@@ -18,6 +18,43 @@ class S3Storage:
                           retries={"mode": "standard", "total_max_attempts": 3}),
         )
 
+        self._browser_client = None
+
+    def _upload_client(self):
+        """Client whose presigned URLs a browser can POST to without an S3 redirect.
+
+        The default global endpoint answers cross-region POSTs with a redirect,
+        which browsers refuse to follow for CORS uploads. Signing against the
+        bucket's regional virtual-hosted endpoint avoids that.
+        """
+        if self._browser_client is None:
+            region = os.getenv("AWS_REGION")
+            endpoint = os.getenv("S3_ENDPOINT_URL") or (f"https://s3.{region}.amazonaws.com" if region else None)
+            self._browser_client = boto3.client(
+                "s3", region_name=region, endpoint_url=endpoint,
+                config=Config(signature_version="s3v4",
+                              s3={"addressing_style": "path" if os.getenv("S3_ENDPOINT_URL") else "virtual"}),
+            )
+        return self._browser_client
+
+    def presigned_upload(self, key: str, *, content_type: str, size_bytes: int, seconds: int):
+        """Presigned POST that only accepts this exact key, content type and byte count."""
+        return self._upload_client().generate_presigned_post(
+            Bucket=self.bucket,
+            Key=key,
+            Fields={"Content-Type": content_type},
+            Conditions=[{"Content-Type": content_type}, ["content-length-range", size_bytes, size_bytes]],
+            ExpiresIn=seconds,
+        )
+
+    def object_size(self, key: str) -> int | None:
+        try:
+            return self.client.head_object(Bucket=self.bucket, Key=key)["ContentLength"]
+        except ClientError as exc:
+            if exc.response.get("ResponseMetadata", {}).get("HTTPStatusCode") == 404:
+                return None
+            raise
+
     def upload_fileobj(self, fileobj, key: str):
         self.client.upload_fileobj(fileobj, self.bucket, key)
 
