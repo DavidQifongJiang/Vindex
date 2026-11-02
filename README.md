@@ -9,14 +9,19 @@ A student searches a two-hour lecture for *"when do we use memoization?"*. Vinde
 
 **Live demo:** [d3tj3ho29p8iwn.cloudfront.net](https://d3tj3ho29p8iwn.cloudfront.net/). Sign in to upload. The demo may be switched off between sessions to save cost.
 
-<a href="docs/media/vindex-explainer.mp4"><img alt="Watch the 75-second Vindex overview: the problem, a live search, the processing pipeline, the AWS architecture and measured results" src="docs/images/explainer-poster.jpg" width="720"></a>
+<a href="docs/media/vindex-explainer.mp4"><img alt="Animated preview: a semantic search for when do we use memoization returns timestamped moments in a 75-minute lecture. Click for the full 75-second overview." src="docs/images/explainer-preview.gif" width="800"></a>
 
-*[▶ Watch the 75-second overview](docs/media/vindex-explainer.mp4) · the problem, a search demo, the pipeline, the AWS architecture and measured results.*
+*[▶ Watch the full 75-second overview](docs/media/vindex-explainer.mp4): the problem, a search demo, the pipeline, the AWS architecture and measured results.*
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/images/search-dark.png">
-  <img alt="Watching a lecture in Vindex: a semantic search for 'when do we use memoization' returns five timestamped moments, highlighted in the transcript and marked on the video timeline" src="docs/images/search-light.png">
-</picture>
+## Where it's useful
+
+Vindex searches what is **said** in a video, so it fits anywhere the answer is in the dialogue:
+
+- **Lecture recordings:** a student finds the minute a concept was explained in a two-hour class, without scrubbing.
+- **Film and TV clipping:** an editor making clips from a long movie or a season of a drama searches for a line or what a scene is about ("the argument about the inheritance") and gets the timestamps to cut, instead of rewatching hours of footage.
+- **Talks, podcasts and meetings:** jump to where a topic came up.
+
+It matches meaning, not exact words, so paraphrases work. Scenes with no dialogue, or moments defined only by what's on screen ("the car chase"), aren't searchable yet; that needs visual embeddings of frames, which is on the roadmap.
 
 ## Highlights
 
@@ -122,8 +127,13 @@ The `t3.medium` result is why workers now run as separate Fargate tasks: paralle
 Top-5 retrieval is reliable; ranking within the top 5 and timestamp precision are the clearest areas to improve. Details: [`backend/benchmarks/expanded_15min_search_quality_report.md`](backend/benchmarks/expanded_15min_search_quality_report.md).
 
 <details>
-<summary><b>Library view</b></summary>
+<summary><b>Screenshots</b></summary>
 <br>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/images/search-dark.png">
+  <img alt="Watching a lecture in Vindex: a semantic search for 'when do we use memoization' returns five timestamped moments, highlighted in the transcript and marked on the video timeline" src="docs/images/search-light.png">
+</picture>
+<br><br>
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/images/library-dark.png">
   <img alt="Vindex library: lecture videos with slide thumbnails, one still processing" src="docs/images/library-light.png">
@@ -214,4 +224,5 @@ Responses use explicit Pydantic models: storage keys, processing tokens and owne
 - Measure time-to-searchable for a two-hour lecture on the deployed stack, and record the 0 → N → 0 scaling run.
 - Course-level search across every lecture in a class, plus keyword + semantic hybrid search (implemented, needs Elasticsearch in the deployment).
 - Larger Whisper models for technical vocabulary.
+- Visual search over video frames (e.g. CLIP embeddings), so scenes without dialogue become searchable, plus one-click clip export.
 - Multipart uploads for files over 5 GB, and a custom domain.
