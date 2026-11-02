@@ -12,7 +12,7 @@ output "ecr_repository_url" {
 }
 
 output "media_bucket" {
-  value = aws_s3_bucket.media.bucket
+  value = local.media_bucket_name
 }
 
 output "frontend_bucket" {

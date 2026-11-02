@@ -1,0 +1,105 @@
+name: Deploy
+
+# Deploys main to AWS after CI passes, or on demand from the Actions tab.
+# AWS access is a short-lived OIDC session for the vindex-github-deploy role,
+# which only main-branch workflows of this repository can assume; no AWS keys
+# are stored in GitHub. One-time setup: infra/bootstrap/github-deploy.sh.
+
+on:
+  workflow_run:
+    workflows: [CI]
+    types: [completed]
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      apply_only:
+        description: "Only run terraform apply (skip image, state host, ECS and frontend)"
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+  id-token: write
+
+# Never run two deploys or two terraform applies at once.
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+env:
+  AWS_REGION: us-east-1
+  TF_IN_AUTOMATION: "true"
+  TF_INPUT: "false"
+
+jobs:
+  deploy:
+    # Scheduled CI runs also complete on main; only deploy successful push/manual CI runs.
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event != 'schedule')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # Deploy exactly the commit CI tested.
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::585572506964:role/vindex-github-deploy
+          aws-region: ${{ env.AWS_REGION }}
+          role-session-name: vindex-deploy-${{ github.run_id }}
+          role-duration-seconds: 7200
+
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.13.4
+          # The wrapper rewrites stdout, which breaks `output -raw` in scripts.
+          terraform_wrapper: false
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Terraform format and validate
+        working-directory: infra/terraform
+        run: |
+          terraform fmt -check -recursive -diff || echo "::warning::Terraform files need 'terraform fmt'"
+          terraform init -backend-config=backend.hcl
+          terraform validate
+
+      - name: Terraform apply
+        working-directory: infra/terraform
+        env:
+          TF_VAR_alarm_email: ${{ vars.ALARM_EMAIL }}
+        run: |
+          terraform plan -out tfplan
+          terraform apply tfplan
+
+      - name: Free disk space for the image build
+        if: ${{ !inputs.apply_only }}
+        run: |
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache/CodeQL
+          df -h /
+
+      - name: Deploy application
+        if: ${{ !inputs.apply_only }}
+        run: |
+          cp infra/frontend.production.env infra/frontend.env
+          infra/scripts/deploy.sh "${GITHUB_SHA::12}"
+        env:
+          GITHUB_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
+
+      - name: Summary
+        if: always()
+        working-directory: infra/terraform
+        run: |
+          {
+            echo "### Vindex deploy"
+            echo "- App: $(terraform output -raw app_url 2>/dev/null || echo 'not created')"
+            echo "- Dashboard: $(terraform output -raw dashboard_url 2>/dev/null || echo 'not created')"
+          } >> "$GITHUB_STEP_SUMMARY"
