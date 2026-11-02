@@ -47,6 +47,12 @@ class S3Storage:
             ExpiresIn=seconds,
         )
 
+    def copy_object(self, source_key: str, target_key: str):
+        """Server-side copy (no download); a snapshot of the source at copy time."""
+        self.client.copy_object(Bucket=self.bucket, Key=target_key,
+                                CopySource={"Bucket": self.bucket, "Key": source_key},
+                                MetadataDirective="COPY")
+
     def object_size(self, key: str) -> int | None:
         try:
             return self.client.head_object(Bucket=self.bucket, Key=key)["ContentLength"]

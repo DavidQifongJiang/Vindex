@@ -1,5 +1,6 @@
 
 from datetime import datetime
+import logging
 import os
 from pathlib import Path
 import re
@@ -52,6 +53,7 @@ from app.services.metrics_service import metrics_key, now_epoch, seconds_since, 
 
 
 storage = S3Storage()
+logger = logging.getLogger(__name__)
 
 router = APIRouter()
 MAX_UPLOAD_BYTES = int(os.getenv("MAX_UPLOAD_MB", "500")) * 1024 * 1024
@@ -698,22 +700,31 @@ def complete_direct_upload(
     pending = dict(reservation.response or {})
     if "size_bytes" not in pending:
         raise HTTPException(409, "This Idempotency-Key belongs to a different upload method")
-    size = storage.object_size(reservation.raw_path)
-    if size is None:
+    upload_key = reservation.raw_path
+    if storage.object_size(upload_key) is None:
         raise HTTPException(409, "The file has not reached storage yet; finish the upload and retry")
+
+    # The presigned POST stays usable until it expires, so the client could
+    # still overwrite upload_key. Processing reads a server-only snapshot
+    # instead; each completion attempt gets its own key, so a losing
+    # concurrent attempt can never overwrite the input the winner published.
+    suffix = Path(upload_key).suffix
+    frozen_key = f"raw_videos/{video_id}/{uuid4()}/{video_id}{suffix}"
+    storage.copy_object(upload_key, frozen_key)
+    size = storage.object_size(frozen_key)
     if size != pending.get("size_bytes") or size > MAX_UPLOAD_BYTES:
         # S3 enforces the declared size, so a mismatch means a stale or foreign object.
-        storage.delete_many([reservation.raw_path])
+        storage.delete_many([upload_key, frozen_key])
         abandon_upload(db, current_user.user_id, idempotency_key, reservation.processing_token)
         raise HTTPException(422, "Uploaded file size does not match the upload request")
 
-    suffix = Path(reservation.raw_path).suffix
     response = {"video_id": video_id, "title": pending["title"], "visibility": pending["visibility"],
                 "filename": f"{video_id}{suffix}", "status": "uploaded", "idempotency_key": idempotency_key}
     try:
         commit_upload(db, current_user.user_id, idempotency_key, reservation.processing_token, response,
-                      new_video_record(response, current_user.user_id, reservation.raw_path))
+                      new_video_record(response, current_user.user_id, frozen_key))
     except HTTPException as exc:
+        storage.delete_many([frozen_key])
         # A concurrent completion may have won; replay its result rather than failing.
         if exc.status_code != 409:
             raise
@@ -721,6 +732,15 @@ def complete_direct_upload(
         if replay is None:
             raise
         return replay
+    except Exception:
+        storage.delete_many([frozen_key])
+        raise
+    # Best effort: anything written to the upload key later is an orphan that
+    # maintenance garbage-collects, since only frozen_key is a protected raw_path.
+    try:
+        storage.delete_many([upload_key])
+    except Exception:
+        logger.warning("Could not delete upload key %s; garbage collection will remove it", upload_key)
     safe_update_metrics(storage, video_id, "upload", {
         "uploaded_bytes": size,
         "enqueued_at_epoch": now_epoch(),

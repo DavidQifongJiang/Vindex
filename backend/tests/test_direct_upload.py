@@ -23,6 +23,9 @@ class UploadStorage(durable.MemoryStorage):
     def object_size(self, key):
         return len(self.objects[key]) if key in self.objects else None
 
+    def copy_object(self, source_key, target_key):
+        self.objects[target_key] = self.objects[source_key]
+
 
 class DirectUploadTest(unittest.TestCase):
     database_url = "sqlite:///:memory:"
@@ -70,7 +73,11 @@ class DirectUploadTest(unittest.TestCase):
         accepted = self.complete(created["video_id"])
         self.assertEqual(accepted["status"], "uploaded")
         video = self.db.get(Video, created["video_id"])
-        self.assertEqual((video.raw_path, video.owner_user_id, video.title), (key, "owner", "Lecture"))
+        self.assertEqual((video.owner_user_id, video.title), ("owner", "Lecture"))
+        self.assertTrue(video.raw_path.startswith(f"raw_videos/{video.video_id}/"))
+        self.assertNotEqual(video.raw_path, key)
+        self.assertEqual(self.storage.objects[video.raw_path], b"raw media")
+        self.assertNotIn(key, self.storage.objects)
         self.assertEqual(self.db.query(PipelineJob).filter_by(video_id=video.video_id).count(), 2)
 
         self.assertEqual(self.complete(created["video_id"]), accepted)
@@ -79,6 +86,30 @@ class DirectUploadTest(unittest.TestCase):
         self.assertEqual(replay["completed"].video_id, created["video_id"])
         self.assertEqual(self.db.query(Video).filter_by(owner_user_id="owner").count(), 1)
         self.assertEqual(self.db.query(PipelineJob).filter_by(video_id=video.video_id).count(), 2)
+
+    def test_reusing_the_upload_url_after_completion_cannot_change_processing_input(self):
+        created = self.create()
+        upload_key = created["upload"]["fields"]["key"]
+        self.put_object(created)
+        self.complete(created["video_id"])
+        raw_path = self.db.get(Video, created["video_id"]).raw_path
+        # The presigned POST is still valid: same size and type, different bytes.
+        self.storage.objects[upload_key] = b"evil data"
+        self.assertEqual(self.storage.objects[raw_path], b"raw media")
+        self.assertEqual(self.db.get(Video, created["video_id"]).raw_path, raw_path)
+        from app.services.maintenance_service import object_identity
+        self.assertEqual(object_identity(raw_path)[0], created["video_id"])
+
+    def test_failed_commit_leaves_no_snapshot_and_can_retry(self):
+        created = self.create()
+        self.put_object(created)
+        with patch.object(self.api, "commit_upload", side_effect=RuntimeError("database down")):
+            with self.assertRaises(RuntimeError):
+                self.complete(created["video_id"])
+        upload_key = created["upload"]["fields"]["key"]
+        self.assertEqual([k for k in self.storage.objects if k.startswith("raw_videos/")], [upload_key])
+        accepted = self.complete(created["video_id"])
+        self.assertEqual(accepted["video_id"], created["video_id"])
 
     def test_retrying_create_resumes_the_same_attempt(self):
         first = self.create()
@@ -98,7 +129,7 @@ class DirectUploadTest(unittest.TestCase):
         with self.assertRaises(HTTPException) as raised:
             self.complete(created["video_id"])
         self.assertEqual(raised.exception.status_code, 422)
-        self.assertNotIn(created["upload"]["fields"]["key"], self.storage.objects)
+        self.assertFalse([k for k in self.storage.objects if k.startswith("raw_videos/")])
         retry = self.create()
         self.assertEqual(retry["video_id"], created["video_id"])
         self.assertNotEqual(retry["upload"]["fields"]["key"], created["upload"]["fields"]["key"])
