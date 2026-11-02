@@ -29,38 +29,34 @@ The state host publishes backlog to CloudWatch (`Vindex/Pipeline`) every minute,
 
 Scale-in only happens at zero backlog, and backlog includes in-flight work, so a worker is never stopped mid-transcription by a partial scale-in. A first upload after idle waits about 1 minute for the alarm plus 1–2 minutes for a Fargate task to pull the image and start.
 
-## First deployment
+## Deploying (GitHub Actions)
 
-Prerequisites: AWS CLI v2 logged in to your account, Terraform ≥ 1.6, Docker, Node 22. On Windows, run the scripts from Git Bash or WSL.
+`.github/workflows/deploy.yml` deploys `main` after CI passes, or on demand from the Actions tab. It runs `terraform apply` (state in S3), then `infra/scripts/deploy.sh`: it builds and pushes the image, runs migrations and restarts the pipeline processes on the state host, rolls the ECS services, and publishes the frontend. AWS access is a short-lived OIDC session; no AWS keys are stored in GitHub.
 
-1. **Configure.**
-   ```bash
-   cd infra/terraform
-   cp terraform.tfvars.example terraform.tfvars   # Cognito IDs, alarm email
-   cp ../frontend.env.example ../frontend.env     # Cognito hosted UI settings for the build
-   ```
-2. **Create the infrastructure** (about 10 minutes; CloudFront is the slow part).
-   ```bash
-   terraform init
-   terraform plan -out tfplan
-   terraform apply tfplan
-   ```
-   ECS services start with no image yet, so the API service retries until step 3. The state host boots, formats its data volume and starts Postgres, Redis and Qdrant.
-3. **Ship the code.** From the repo root:
-   ```bash
-   infra/scripts/deploy.sh
-   ```
-   This builds and pushes the image (models baked in, about 3 GB the first time), runs migrations and starts the dispatcher, maintenance and metrics on the state host, rolls the ECS services, and publishes the frontend.
-4. **Cognito.** Add the `app_url` output (with a trailing `/`) to your app client's allowed callback and sign-out URLs.
-5. **Alarms.** Confirm the subscription email from AWS SNS if you set `alarm_email`.
+Deployment settings that aren't secret are committed: `terraform/vindex.auto.tfvars` (adopted media bucket, Cognito IDs), `terraform/backend.hcl` and `frontend.production.env`.
 
-Open `terraform output app_url` and upload a video. Watch it scale on the dashboard (`terraform output dashboard_url`).
+**One-time setup**
+
+1. **AWS bootstrap** (as an administrator): open AWS CloudShell, upload `infra/bootstrap/github-deploy.sh` and run `bash github-deploy.sh`. It creates the Terraform state bucket, the GitHub OIDC provider and the `vindex-github-deploy` role, which only the `production` environment of this repository can assume.
+2. **GitHub environment**: in the repo, go to Settings → Environments → New environment and create `production`. Under Deployment branches and tags, choose "Selected branches and tags" and add `main`. This is what keeps other branches from using the deploy role.
+3. Optional: under Settings → Secrets and variables → Actions → Variables, add `ALARM_EMAIL` to get alarm emails. Confirm the subscription email that SNS sends.
+4. Run the **Deploy** workflow from the Actions tab. The first run takes about 30 minutes: CloudFront, plus building the roughly 3 GB image.
+5. Add the `app_url` from the run summary, with a trailing `/`, to the Cognito app client's callback and sign-out URLs.
+
+**Running Terraform locally** (needs admin credentials):
+```bash
+cd infra/terraform
+terraform init -backend-config=backend.hcl
+terraform plan
+```
+Local runs share the same state and lock as CI. Don't apply locally while a Deploy run is in progress.
 
 ## Day to day
 
 | Task | Command |
 |---|---|
-| Deploy the current commit | `infra/scripts/deploy.sh` |
+| Deploy | merge to `main`, or run **Deploy** in the Actions tab |
+| Deploy from your machine | `infra/scripts/deploy.sh` (after `terraform init -backend-config=backend.hcl`) |
 | Backend only | `SKIP_FRONTEND=1 infra/scripts/deploy.sh` |
 | Switch off (storage cost only) | `infra/scripts/demo.sh off` |
 | Switch back on | `infra/scripts/demo.sh on` |
@@ -82,8 +78,8 @@ Container Insights (`container_insights = true`) adds a few dollars a month and 
 
 ## Notes and limits
 
-- **Terraform state** is local and contains the generated passwords. Keep it private; for shared use, add an S3 backend in `versions.tf`.
-- **Destroying.** `terraform destroy` deletes the data volume (snapshots remain until retention expires). Empty the media and frontend buckets and ECR repository first, or destroy fails on them.
+- **Terraform state** lives in `vindex-tfstate-<account>` (private, versioned) and contains the generated passwords.
+- **Destroying.** `terraform destroy` deletes the data volume (snapshots remain until retention expires). The adopted media bucket is never deleted; empty the frontend bucket and ECR repository first, or destroy fails on them.
 - **Search features.** Elasticsearch, library search and Kafka analytics stay disabled (their flags default off). They need more memory than the state host has.
 - **Direct API URL.** `api_gateway_url` is publicly reachable too; it has the same auth and is throttled (`api_throttle_rate`).
 - **Images** are x86. Graviton (`cpu_architecture = "ARM64"` plus an arm64 build) is about 20% cheaper on Fargate.

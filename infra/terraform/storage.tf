@@ -1,11 +1,27 @@
 # ---------- Media bucket: raw uploads, processed video, transcripts ----------
 
+# Either adopt an existing bucket (existing_media_bucket) or create one. An
+# adopted bucket is never deleted by Terraform; only its CORS and lifecycle
+# rules are managed here.
 resource "aws_s3_bucket" "media" {
+  count  = var.existing_media_bucket == "" ? 1 : 0
   bucket = "${local.name}-media-${local.account_id}"
 }
 
+data "aws_s3_bucket" "existing_media" {
+  count  = var.existing_media_bucket == "" ? 0 : 1
+  bucket = var.existing_media_bucket
+}
+
+locals {
+  media_bucket_name = var.existing_media_bucket == "" ? aws_s3_bucket.media[0].bucket : data.aws_s3_bucket.existing_media[0].bucket
+  media_bucket_arn  = var.existing_media_bucket == "" ? aws_s3_bucket.media[0].arn : data.aws_s3_bucket.existing_media[0].arn
+}
+
 resource "aws_s3_bucket_public_access_block" "media" {
-  bucket                  = aws_s3_bucket.media.id
+  # An adopted bucket keeps its own settings; destroy must not loosen them.
+  count  = var.existing_media_bucket == "" ? 1 : 0
+  bucket                  = local.media_bucket_name
   block_public_acls       = true
   block_public_policy     = true
   ignore_public_acls      = true
@@ -13,7 +29,9 @@ resource "aws_s3_bucket_public_access_block" "media" {
 }
 
 resource "aws_s3_bucket_ownership_controls" "media" {
-  bucket = aws_s3_bucket.media.id
+  # An adopted bucket keeps its own settings; destroy must not loosen them.
+  count  = var.existing_media_bucket == "" ? 1 : 0
+  bucket = local.media_bucket_name
   rule {
     object_ownership = "BucketOwnerEnforced"
   }
@@ -21,7 +39,7 @@ resource "aws_s3_bucket_ownership_controls" "media" {
 
 # Browsers POST uploads straight here using presigned policies from the API.
 resource "aws_s3_bucket_cors_configuration" "media" {
-  bucket = aws_s3_bucket.media.id
+  bucket = local.media_bucket_name
 
   cors_rule {
     allowed_methods = ["POST", "GET", "HEAD"]
@@ -33,7 +51,7 @@ resource "aws_s3_bucket_cors_configuration" "media" {
 }
 
 resource "aws_s3_bucket_lifecycle_configuration" "media" {
-  bucket = aws_s3_bucket.media.id
+  bucket = local.media_bucket_name
 
   rule {
     id     = "abort-incomplete-multipart"

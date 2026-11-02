@@ -10,6 +10,12 @@ variable "project" {
   default     = "vindex"
 }
 
+variable "existing_media_bucket" {
+  description = "Adopt this existing S3 bucket for media instead of creating one (Terraform never deletes it)."
+  type        = string
+  default     = ""
+}
+
 variable "image_tag" {
   description = "Tag of the app image in ECR used by ECS services and the state host."
   type        = string

@@ -6,7 +6,7 @@ locals {
   app_environment = [
     for name, value in {
       STORAGE_BACKEND           = "s3"
-      S3_BUCKET_NAME            = aws_s3_bucket.media.bucket
+      S3_BUCKET_NAME            = local.media_bucket_name
       AWS_REGION                = var.region
       QDRANT_URL                = "http://${local.state_host}:6333"
       MAX_UPLOAD_MB             = tostring(var.max_upload_mb)
@@ -105,12 +105,12 @@ resource "aws_iam_role" "task" {
 data "aws_iam_policy_document" "task" {
   statement {
     actions   = ["s3:GetObject", "s3:PutObject", "s3:DeleteObject"]
-    resources = ["${aws_s3_bucket.media.arn}/*"]
+    resources = ["${local.media_bucket_arn}/*"]
   }
 
   statement {
     actions   = ["s3:ListBucket"]
-    resources = [aws_s3_bucket.media.arn]
+    resources = [local.media_bucket_arn]
   }
 }
 

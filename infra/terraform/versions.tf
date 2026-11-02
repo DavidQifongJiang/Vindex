@@ -1,5 +1,5 @@
 terraform {
-  required_version = ">= 1.6"
+  required_version = ">= 1.10"
 
   required_providers {
     aws = {
@@ -12,8 +12,9 @@ terraform {
     }
   }
 
-  # State stays local by default. For anything beyond a solo demo, move it to
-  # S3 (see infra/README.md): it contains the generated database passwords.
+  # Remote state in S3 with native locking; settings in backend.hcl. State
+  # contains the generated database passwords, so the bucket is private.
+  backend "s3" {}
 }
 
 provider "aws" {

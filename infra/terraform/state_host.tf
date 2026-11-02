@@ -85,13 +85,13 @@ data "aws_iam_policy_document" "state_host" {
   statement {
     sid       = "MediaBucket"
     actions   = ["s3:GetObject", "s3:PutObject", "s3:DeleteObject"]
-    resources = ["${aws_s3_bucket.media.arn}/*"]
+    resources = ["${local.media_bucket_arn}/*"]
   }
 
   statement {
     sid       = "MediaBucketList"
     actions   = ["s3:ListBucket"]
-    resources = [aws_s3_bucket.media.arn]
+    resources = [local.media_bucket_arn]
   }
 }
 
@@ -120,7 +120,7 @@ locals {
     qdrant_image             = var.qdrant_image
     log_group                = aws_cloudwatch_log_group.state.name
     param_prefix             = local.param_prefix
-    media_bucket             = aws_s3_bucket.media.bucket
+    media_bucket             = local.media_bucket_name
     max_upload_mb            = var.max_upload_mb
     ecs_cluster              = aws_ecs_cluster.main.name
     search_worker_service    = local.search_worker_name
