@@ -164,12 +164,30 @@ resource "aws_volume_attachment" "state_data" {
   stop_instance_before_detaching = true
 }
 
-resource "aws_route53_record" "state" {
-  zone_id = aws_service_discovery_private_dns_namespace.main.hosted_zone
-  name    = local.state_host
-  type    = "A"
-  ttl     = 60
-  records = [aws_instance.state.private_ip]
+# The namespace's hosted zone only accepts records through Cloud Map, so the
+# state host registers as a Cloud Map instance: state.<namespace> -> private IP
+# (which survives stop/start).
+resource "aws_service_discovery_service" "state" {
+  name = "state"
+
+  dns_config {
+    namespace_id   = aws_service_discovery_private_dns_namespace.main.id
+    routing_policy = "MULTIVALUE"
+
+    dns_records {
+      type = "A"
+      ttl  = 60
+    }
+  }
+}
+
+resource "aws_service_discovery_instance" "state" {
+  instance_id = aws_instance.state.id
+  service_id  = aws_service_discovery_service.state.id
+
+  attributes = {
+    AWS_INSTANCE_IPV4 = aws_instance.state.private_ip
+  }
 }
 
 # Replace failed hardware automatically (the data volume reattaches).
