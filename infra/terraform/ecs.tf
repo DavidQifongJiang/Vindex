@@ -230,7 +230,10 @@ resource "aws_service_discovery_service" "api" {
     }
   }
 
-  health_check_custom_config {}
+  # No health_check_custom_config: AWS doesn't store an empty one, so Terraform
+  # saw a diff on every plan and tried to replace this service, which fails
+  # while API tasks are registered. ECS deregisters stopped tasks itself, and
+  # API Gateway only routes to registered (healthy) instances.
 }
 
 resource "aws_ecs_service" "api" {
