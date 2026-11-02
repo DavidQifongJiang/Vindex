@@ -1,303 +1,217 @@
 # Vindex
 
-Vindex is an AWS-deployed video semantic search platform for long-form video. Authenticated users upload videos, asynchronous workers build timestamped transcript embeddings, and users can search inside videos semantically and jump directly to matching moments.
+**Search inside long videos by meaning, and jump straight to the moment.**
 
-The project is designed as a job-hunting portfolio system: it demonstrates backend APIs, async workers, object storage, vector search, auth, metrics, Docker deployment, HTTPS hosting on AWS, and a measured pipeline redesign from a monolithic worker into a chunked DAG that scales with CPU workers.
+[![CI](https://github.com/DavidQifongJiang/Vindex/actions/workflows/ci.yml/badge.svg)](https://github.com/DavidQifongJiang/Vindex/actions/workflows/ci.yml)
+[![Deploy](https://github.com/DavidQifongJiang/Vindex/actions/workflows/deploy.yml/badge.svg)](https://github.com/DavidQifongJiang/Vindex/actions/workflows/deploy.yml)
 
-## What It Does
+A student searches a two-hour lecture for *"when do we use memoization?"*. Vindex finds the minute where the professor explained it, even if they said "store the answer the first time" and never used the word. Upload a video and Vindex transcribes it, embeds every passage, and serves timestamped semantic search. It runs on AWS, scaling its processing workers from zero when work arrives and back to zero when it's done.
 
-- Upload a video with a title and private/public visibility.
-- Store raw and processed media in S3.
-- Process videos asynchronously with Celery and Redis.
-- Compress video and extract audio with FFmpeg.
-- Transcribe audio with Whisper.
-- Generate transcript segments and sentence embeddings.
-- Store searchable vectors in Qdrant.
-- Search video content semantically or with text-based matching.
-- Split playback processing and search indexing into independent Celery DAG branches.
-- Split long videos into 5-minute search chunks, retry failed chunks independently, and mark videos searchable only after all chunks complete.
-- Track meaningful metrics such as upload latency, processing time, Whisper time, embedding time, Qdrant search latency, and S3 timing.
-- Manage database schema changes with Alembic migrations.
-- Serve a React frontend through FastAPI.
-- Authenticate users with AWS Cognito.
-- Host publicly with Caddy-managed HTTPS on EC2.
-- Delete videos with cleanup across Postgres, S3, Qdrant, and metrics.
+**Live demo:** [d3tj3ho29p8iwn.cloudfront.net](https://d3tj3ho29p8iwn.cloudfront.net/). Sign in to upload. The demo may be switched off between sessions to save cost.
 
-## Performance Benchmark Highlights
+<a href="docs/media/vindex-explainer.mp4"><img alt="Watch the 75-second Vindex overview: the problem, a live search, the processing pipeline, the AWS architecture and measured results" src="docs/images/explainer-poster.jpg" width="720"></a>
 
-### Pipeline Processing
+*[▶ Watch the 75-second overview](docs/media/vindex-explainer.mp4) · the problem, a search demo, the pipeline, the AWS architecture and measured results.*
 
-Primary benchmark video: `test_video.mp4`, 19.3 minutes, split into 4 search chunks.
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/images/search-dark.png">
+  <img alt="Watching a lecture in Vindex: a semantic search for 'when do we use memoization' returns five timestamped moments, highlighted in the transcript and marked on the video timeline" src="docs/images/search-light.png">
+</picture>
 
-| Experiment | Time-to-searchable | Result |
-| --- | ---: | --- |
-| Original online baseline on EC2 `t3.medium` | 226.74s | Baseline before DAG/chunking |
-| Chunked DAG on EC2 `t3.medium`, 1 search worker | 172.97s | 23.7% faster |
-| Chunked DAG on EC2 `t3.medium`, 2 search workers | 216.41s | Slower due to CPU contention |
-| Chunked DAG on EC2 `c7i.2xlarge`, 1 search worker | 101.79s | Larger CPU, no worker parallelism |
-| Chunked DAG on EC2 `c7i.2xlarge`, 2 search workers | 58.84s | Two chunks processed concurrently |
-| Chunked DAG on EC2 `c7i.2xlarge`, 4 search workers | 40.73s | Best tested point for a 4-chunk video |
+## Highlights
 
-The strongest measured result was:
+| | |
+|---|---|
+| **82% faster to searchable** | Redesigned a monolithic worker into a chunked Celery DAG: 226.7 s → 40.7 s for a 19-minute video ([benchmark](#pipeline-speed)). |
+| **90% Hit@5 on real lectures** | 100 hand-labelled queries over 10 MIT algorithms lectures; P95 search latency 72 ms ([benchmark](#search-quality)). |
+| **Scale to zero** | Workers run on Fargate Spot and scale 0 → N on pipeline backlog, then back to 0. Idle cost ≈ $5/month when switched off. |
+| **Safe under crashes and redelivery** | Postgres-owned job state, fenced leases, idempotent uploads and attempt-scoped artifacts keep results correct when workers crash, Spot tasks are reclaimed or messages are delivered twice. |
+| **Infrastructure as code + keyless CD** | About 90 AWS resources in Terraform. Every merge to `main` is tested, then deployed by GitHub Actions through OIDC, with no stored AWS keys. |
 
-```text
-226.74s original online baseline -> 40.73s chunked DAG with 4 search workers
+## How it works
+
+```mermaid
+flowchart TB
+    Browser(["Browser"])
+    CF["CloudFront<br/>site + API on one domain"]
+    APIGW["API Gateway<br/>VPC link + Cloud Map"]
+    API["FastAPI on ECS Fargate"]
+    S3M[("S3 media")]
+
+    subgraph State["State host · EC2 + EBS"]
+        direction LR
+        PG[("Postgres<br/>jobs + metadata")]
+        DISP["Outbox dispatcher"]
+        RD[("Redis<br/>Celery broker")]
+        QD[("Qdrant<br/>vectors")]
+        PG --> DISP --> RD
+    end
+
+    subgraph Workers["ECS Fargate Spot · scale 0 → N on backlog"]
+        direction LR
+        SW["Search workers<br/>Whisper + MiniLM"]
+        PW["Playback workers<br/>FFmpeg"]
+    end
+
+    Browser --> CF --> APIGW --> API
+    Browser -. "presigned upload" .-> S3M
+    API -- "video + jobs<br/>(one transaction)" --> PG
+    RD --> SW & PW
+    SW -- "transcripts, embeddings" --> QD
+    Workers <--> S3M
+    Workers -- "leases, results" --> PG
+    API -- "search" --> QD
 ```
 
-That is an 82.0% reduction in time-to-searchable. Full benchmark notes are in [`backend/benchmarks/pipeline_stats_summary.md`](backend/benchmarks/pipeline_stats_summary.md).
+Cognito handles sign-in, and CloudWatch receives the backlog metric that drives worker autoscaling.
 
-### Semantic Search Quality
+**The life of a video**
 
-Expanded benchmark set: 10 MIT algorithms lecture videos, clipped to the first 15 minutes per lecture, with 100 manually curated source-transcript search labels.
+1. **Upload, directly to S3.** The API issues a presigned POST locked to one key, content type and exact size; the browser uploads the file without it touching the API (API Gateway caps requests at 10 MB). On completion the API snapshots the object to a server-only key, so a reused upload URL can't change what gets processed.
+2. **Enqueue durably.** The video row and its pipeline jobs are written in one Postgres transaction (an outbox). A dispatcher publishes due work to Redis and republishes anything unclaimed, so a lost message delays work but never drops it.
+3. **Process as a DAG.** Two independent branches run:
+   - **Playback:** FFmpeg transcodes the video and makes a thumbnail.
+   - **Search:** the audio is split into 5-minute chunks; each chunk is transcribed (Whisper), embedded (MiniLM) and written to Qdrant in parallel, and a finalize step publishes the video as searchable once every chunk has finished.
+4. **Scale on backlog.** Every minute the state host publishes the number of pending and in-flight items per queue. Autoscaling starts a worker within a minute of work arriving, adds workers as backlog grows, and returns to zero after five idle minutes. Scale-in only happens at zero backlog, so a worker is never stopped mid-chunk.
+5. **Search.** The query is embedded and matched against that video's passages in Qdrant; results come back as timestamped moments that seek the player.
+
+## Engineering decisions
+
+| Decision | Why |
+|---|---|
+| **Postgres owns job state; Redis only carries messages** | Workers claim work with fenced leases (token + expiry), so a redelivered or zombie task can't overwrite a newer attempt. Crashed work is recovered by lease expiry instead of being lost in Redis. |
+| **Scale on a Postgres backlog metric, not Redis queue length** | The dispatcher republishes unclaimed work, so Redis length overcounts. Counting pending + processing items in Postgres also keeps scale-in from killing in-flight tasks. |
+| **Browser → S3 uploads, then a server-side snapshot** | Removes API Gateway's 10 MB / 30 s limits and keeps large files off the API. The snapshot closes a race where a still-valid presigned URL could replace the input mid-processing. |
+| **API Gateway + VPC link instead of an ALB; no NAT Gateway** | Together these save ~$55/month for a low-traffic demo. CloudFront fronts both the site and the API on one domain, so there's no CORS between them. |
+| **Fargate Spot workers** | About 70% cheaper; interruptions are just lease expiries the pipeline already retries. |
+| **One small state host instead of RDS/Aurora** | The dispatcher polls Postgres every 5 s, so Aurora Serverless could never pause. Postgres, Redis and Qdrant share a `t3.small` with an encrypted data volume, daily snapshots and auto-recovery. |
+| **Models baked into the image** | A worker scaled up from zero starts without downloading Whisper or MiniLM. |
+
+The full failure and recovery design is mapped in [`docs/diagrams/reliability-map`](docs/diagrams/reliability-map/README.md) and [`docs/operations/reliability_and_recovery.md`](docs/operations/reliability_and_recovery.md).
+
+## Benchmarks
+
+### Pipeline speed
+
+`test_video.mp4`: 19.3 minutes, 4 search chunks.
+
+| Setup | Time-to-searchable | |
+| --- | ---: | --- |
+| Original monolithic worker, EC2 `t3.medium` | 226.74 s | baseline |
+| Chunked DAG, `t3.medium`, 1 search worker | 172.97 s | 23.7% faster |
+| Chunked DAG, `t3.medium`, 2 search workers | 216.41 s | slower: CPU contention on 2 vCPUs |
+| Chunked DAG, `c7i.2xlarge`, 1 search worker | 101.79 s | bigger CPU, no parallelism |
+| Chunked DAG, `c7i.2xlarge`, 2 search workers | 58.84 s | two chunks at once |
+| Chunked DAG, `c7i.2xlarge`, 4 search workers | **40.73 s** | **82.0% faster than baseline** |
+
+The `t3.medium` result is why workers now run as separate Fargate tasks: parallel chunks only help when each worker has its own CPU. Details: [`backend/benchmarks/pipeline_stats_summary.md`](backend/benchmarks/pipeline_stats_summary.md).
+
+### Search quality
+
+10 MIT 6.006 lecture videos (first 15 minutes each), 100 manually curated queries. The lectures share one domain and many overlapping topics, which makes this harder than a single-video demo.
 
 | Metric | Result |
 | --- | ---: |
 | Hit@1 | 65.0% |
 | Hit@5 | 90.0% |
-| Precision@5 | 43.4% |
 | MRR | 0.746 |
-| Median timestamp error | 16.1s |
-| P95 timestamp error | 62.3s |
-| P95 API search latency | 71.7ms |
+| Precision@5 | 43.4% |
+| Median / P95 timestamp error | 16.1 s / 62.3 s |
+| P95 API search latency | 71.7 ms |
 
-This benchmark is intentionally harder than a single-video demo because the videos share one lecture-series domain and many overlapping algorithm topics. The result shows reliable top-5 retrieval for lecture semantic search while also exposing ranking and timestamp-localization gaps for future improvement. Full quality benchmark notes are in [`backend/benchmarks/expanded_15min_search_quality_report.md`](backend/benchmarks/expanded_15min_search_quality_report.md).
+Top-5 retrieval is reliable; ranking within the top 5 and timestamp precision are the clearest areas to improve. Details: [`backend/benchmarks/expanded_15min_search_quality_report.md`](backend/benchmarks/expanded_15min_search_quality_report.md).
 
-## Architecture
+<details>
+<summary><b>Library view</b></summary>
+<br>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/images/library-dark.png">
+  <img alt="Vindex library: lecture videos with slide thumbnails, one still processing" src="docs/images/library-light.png">
+</picture>
+</details>
 
-```mermaid
-flowchart LR
-    User["User Browser"] --> HTTPS["Caddy HTTPS Reverse Proxy"]
-    HTTPS --> API["FastAPI API + React Static Files"]
-    API --> Cognito["AWS Cognito Hosted Login"]
-    API --> Postgres["Postgres Metadata DB"]
-    API --> S3["S3 Media + Artifacts"]
-    API --> Redis["Redis Queue"]
-    Redis --> PlaybackWorker["Playback Worker"]
-    Redis --> SearchWorker["Search Worker"]
-    SearchWorker --> Chunks["5-Minute Search Chunks"]
-    Chunks --> Whisper["Whisper Transcription"]
-    Chunks --> Embeddings["Sentence Embeddings"]
-    PlaybackWorker --> S3
-    SearchWorker --> S3
-    SearchWorker --> Postgres
-    SearchWorker --> Qdrant["Qdrant Vector DB"]
-    API --> Qdrant
-```
+## Tech stack
 
-## AWS Deployment Shape
+| Layer | Tools |
+|---|---|
+| Frontend | React, TypeScript, Vite, Tailwind, shadcn/ui |
+| API | FastAPI, Pydantic, SQLAlchemy, Alembic |
+| Processing | Celery, FFmpeg, OpenAI Whisper (`tiny`), sentence-transformers (`all-MiniLM-L6-v2`) |
+| Data | Postgres, Redis, Qdrant, S3 |
+| AWS | CloudFront, API Gateway, ECS Fargate (+ Spot), EC2, Cloud Map, Cognito, CloudWatch, SSM |
+| Delivery | Terraform, GitHub Actions (CI + OIDC deploys), Docker |
+| Quality | 340+ backend tests (SQLite + Postgres), Playwright browser suites, Codex PR review |
 
-Current deployment:
+## Repository layout
 
 ```text
-Internet
--> https://vindex.32-193-233-124.sslip.io
--> Elastic IP
--> EC2 t3.medium
--> Caddy on ports 80/443
--> FastAPI container on internal port 8000
--> Celery worker / Redis / Postgres / Qdrant containers
--> S3 bucket for media artifacts
--> Cognito for auth
+backend/     FastAPI app, Celery workers, Alembic migrations, tests, benchmarks
+frontend/    React + TypeScript app
+infra/       Terraform, deploy and demo on/off scripts, AWS bootstrap
+docs/        Architecture, reliability map, search experiments, operations
+ops/         CI helpers, monitoring and backup configuration
+.github/     CI and Deploy workflows
 ```
 
-Port `8000` is not publicly exposed. Public traffic goes through HTTPS on Caddy.
+## Running locally
 
-## Core Services
+Needs Docker, plus an S3 bucket and AWS credentials for media storage.
 
-| Service | Role |
-| --- | --- |
-| FastAPI | API routes, auth checks, upload/search/status/delete endpoints |
-| React + Vite | Frontend app for upload, library, playback, search, metrics |
-| Celery | Background video processing |
-| Redis | Celery broker/result backend |
-| Postgres | Video/user metadata |
-| Alembic | Versioned Postgres schema migrations |
-| S3 | Raw video, processed video, audio, transcripts, segments, embeddings, thumbnails, metrics |
-| Qdrant | Segment vector search |
-| Cognito | User login and identity |
-| Caddy | HTTPS reverse proxy and certificate renewal |
+```bash
+cp .env.example .env            # set S3_BUCKET_NAME and AWS_REGION; auth is off by default
+docker compose up --build -d
+curl http://localhost:8000/health
+```
 
-## Important Endpoints
+Open <http://localhost:8000>. Uploads go through the API in local mode, so no bucket CORS is needed.
+
+Tests:
+
+```bash
+cd backend && python -m unittest discover -s tests     # set VINDEX_TEST_DATABASE_URL to include Postgres tests
+cd frontend && npm ci && npm run build
+```
+
+See [`AGENTS.md`](AGENTS.md) for the full command list and conventions.
+
+## Deploying
+
+Merging to `main` runs CI, then the Deploy workflow: `terraform apply`, image build and push, migrations and pipeline processes on the state host, ECS rollout, then the frontend upload. A deploy takes about 10 minutes.
+
+```bash
+infra/scripts/demo.sh off   # stop everything except storage (~$5/month)
+infra/scripts/demo.sh on    # bring the demo back (~2 minutes)
+```
+
+Setup, costs and operations: [`infra/README.md`](infra/README.md).
+
+<details>
+<summary><b>API reference</b></summary>
 
 | Endpoint | Purpose |
 | --- | --- |
 | `GET /health` | Service health |
-| `GET /me` | Current authenticated user |
-| `GET /videos` | Current user's videos |
-| `GET /public/videos` | Public video feed |
-| `POST /videos/upload` | Upload video |
-| `GET /videos/{video_id}/status` | Processing status |
-| `GET /videos/{video_id}/transcripts` | Transcript |
-| `GET /videos/{video_id}/segments` | Transcript segments |
-| `POST /videos/{video_id}/search` | Search inside a video |
-| `GET /videos/{video_id}/metrics` | Performance metrics |
-| `GET /videos/{video_id}/file-url` | Auth-checked temporary playback URL |
-| `GET /videos/{video_id}/thumbnail-url` | Auth-checked temporary thumbnail URL |
-| `DELETE /videos/{video_id}` | Delete video and cleanup artifacts |
+| `GET /me` | Current user |
+| `GET /videos` | Your videos |
+| `GET /public/videos` | Public feed |
+| `POST /videos/uploads` | Start a direct-to-S3 upload (presigned POST) |
+| `POST /videos/uploads/{id}/complete` | Verify the upload and queue processing |
+| `POST /videos/upload` | Multipart upload through the API (local development) |
+| `GET /videos/{id}/status` | Processing status |
+| `GET /videos/{id}/segments` | Timestamped transcript segments |
+| `GET /videos/{id}/transcripts` | Full transcript |
+| `POST /videos/{id}/search` | Search inside a video |
+| `GET /videos/{id}/file-url` | Temporary playback URL |
+| `GET /videos/{id}/thumbnail-url` | Temporary thumbnail URL |
+| `GET /videos/{id}/metrics` | Per-video performance metrics (owner only) |
+| `DELETE /videos/{id}` | Delete the video and every artifact (owner only) |
 
-## Local Development
-
-Create `.env` from `.env.example`, then fill in the AWS and Cognito values.
-
-```powershell
-docker compose up --build -d
-curl.exe http://localhost:8000/health
-```
-
-Open:
-
-```text
-http://localhost:8000/
-```
-
-For local Cognito testing, keep this callback in Cognito:
-
-```text
-http://localhost:8000/
-```
-
-## EC2 Deployment
-
-Start the EC2 instance:
-
-```powershell
-aws ec2 start-instances --instance-ids i-0c8b8004f6e34e2e9 --region us-east-1
-```
-
-SSH:
-
-```powershell
-ssh -i "$HOME\.ssh\vindex-ec2-key.pem" ubuntu@32.193.233.124
-```
-
-Deploy:
-
-```bash
-cd ~/Vindex
-git pull --ff-only origin main
-docker compose up --build -d
-docker compose ps
-curl http://localhost:8000/health
-```
-
-The API container runs `alembic upgrade head` before starting Uvicorn, so schema changes are applied during deployment.
-
-Public URL:
-
-```text
-https://vindex.32-193-233-124.sslip.io/
-```
-
-Stop the instance when done:
-
-```powershell
-aws ec2 stop-instances --instance-ids i-0c8b8004f6e34e2e9 --region us-east-1
-```
-
-## Cognito Setup
-
-The Cognito app client must include these callback/logout URLs:
-
-```text
-http://localhost:8000/
-https://vindex.32-193-233-124.sslip.io/
-```
-
-The frontend build uses `VITE_COGNITO_REDIRECT_URI`, so if the redirect changes, rebuild the Docker image:
-
-```bash
-docker compose up --build -d
-```
-
-## Delete Lifecycle
-
-Deleting a video removes:
-
-- Postgres video row.
-- S3 raw video.
-- S3 processed video.
-- S3 extracted audio.
-- S3 transcript.
-- S3 segment JSON.
-- S3 embedding JSON.
-- S3 thumbnail.
-- S3 metrics JSON.
-- Qdrant vectors for that video.
-
-Deletion is owner-only. Active videos in `uploaded` or `processing` state are blocked from deletion to avoid racing the Celery worker.
-
-## Database Migrations
-
-Vindex uses Alembic for versioned Postgres schema migrations.
-
-Useful commands (run from `backend/`):
-
-```bash
-alembic upgrade head
-alembic current
-alembic history
-```
-
-The first migration is intentionally idempotent because early versions of Vindex created tables at startup. This lets existing EC2 databases adopt Alembic without dropping existing data.
-
-## Metrics
-
-Vindex stores metrics per video in S3:
-
-- Upload response latency.
-- Raw S3 upload time.
-- Total processing time.
-- Time until searchable.
-- Whisper transcription time.
-- Embedding generation time.
-- Qdrant upsert time.
-- Thumbnail generation time.
-- Query embedding time.
-- Qdrant search latency.
-- Top search score.
-
-These metrics are meant to support performance tuning and interview discussion.
-
-## Production Monitoring
-
-Vindex's production alerting should focus first on user-facing outcomes: upload success, search latency, and time-to-searchable. Because video length and file size vary, the main processing alert should use a dynamic expected-time model instead of a single fixed timeout.
-
-The proposed monitoring plan covers:
-
-- Dynamic time-to-searchable alerts based on duration, chunk count, queue wait, and active workers.
-- Queue age, chunk failure, retry exhaustion, stuck processing, and worker health alerts.
-- Dependency alerts for S3, Redis, Postgres, Qdrant, FFmpeg, Whisper, and embedding generation.
-
-See [`docs/operations/production_monitoring.md`](docs/operations/production_monitoring.md) for the full alert design.
-
-## Design Tradeoffs
-
-Current MVP choices:
-
-- Docker Compose on one EC2 instance keeps cost and operational complexity low.
-- Redis/Celery demonstrates async processing without introducing managed queue cost.
-- Local Postgres/Qdrant containers make the system easy to recreate.
-- S3 is used for durable media/artifact storage.
-- Caddy provides HTTPS without an Application Load Balancer.
-
-Production evolution:
-
-- Move Postgres to RDS.
-- Move Redis to ElastiCache or replace Celery/Redis with SQS-backed workers.
-- Run API and workers on ECS.
-- Expand CI/CD beyond smoke checks into automated deployment.
-- Add rate limiting and stronger upload validation.
-- Add managed observability with CloudWatch dashboards/alarms.
-
-## Cost Controls
-
-- Stop EC2 when not demoing.
-- Remember the Elastic IP/public IPv4 address still has a small monthly cost while reserved.
-- Keep media test files small.
-- Delete unused videos through the app to clean S3 and Qdrant.
+Responses use explicit Pydantic models: storage keys, processing tokens and owner IDs never leave the API.
+</details>
 
 ## Roadmap
 
-- Model warmup and search latency optimization.
-- Better landing/demo page.
-- Custom domain replacing the temporary `sslip.io` hostname.
+- Measure time-to-searchable for a two-hour lecture on the deployed stack, and record the 0 → N → 0 scaling run.
+- Course-level search across every lecture in a class, plus keyword + semantic hybrid search (implemented, needs Elasticsearch in the deployment).
+- Larger Whisper models for technical vocabulary.
+- Multipart uploads for files over 5 GB, and a custom domain.

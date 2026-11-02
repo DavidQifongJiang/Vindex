@@ -32,3 +32,5 @@ infra/terraform/*.tfstate.*
 infra/terraform/terraform.tfvars
 infra/terraform/*.tfplan
 infra/frontend.env
+# Documentation media is intentionally tracked.
+!docs/media/*.mp4
