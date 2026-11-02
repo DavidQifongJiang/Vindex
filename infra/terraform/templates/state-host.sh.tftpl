@@ -1,0 +1,114 @@
+#!/bin/bash
+# First-boot setup for the Vindex state host (rendered by Terraform).
+# Bash variables avoid braces here because Terraform owns $${...} interpolation.
+set -euxo pipefail
+
+dnf install -y docker
+systemctl enable --now docker
+
+# ---------- Persistent data volume ----------
+DEV=/dev/disk/by-id/nvme-Amazon_Elastic_Block_Store_${replace(volume_id, "-", "")}
+for attempt in $(seq 1 60); do
+  [ -e "$DEV" ] && break
+  sleep 5
+done
+blkid "$DEV" || mkfs.xfs "$DEV"
+mkdir -p /data
+UUID=$(blkid -s UUID -o value "$DEV")
+grep -q "$UUID" /etc/fstab || echo "UUID=$UUID /data xfs defaults,nofail 0 2" >> /etc/fstab
+mount -a
+mkdir -p /data/postgres /data/redis /data/qdrant
+
+# Swap gives t3.small headroom for Postgres + Qdrant + three Python processes.
+if [ ! -f /data/swapfile ]; then
+  fallocate -l 2G /data/swapfile
+  chmod 600 /data/swapfile
+  mkswap /data/swapfile
+fi
+grep -q /data/swapfile /etc/fstab || echo "/data/swapfile none swap defaults,nofail 0 0" >> /etc/fstab
+swapon -a || true
+
+# ---------- deploy.sh: start or update containers (re-run after each image push) ----------
+mkdir -p /opt/vindex
+cat > /opt/vindex/deploy.sh <<'DEPLOY'
+#!/bin/bash
+# Usage: deploy.sh [image-tag]. Safe to re-run; databases are only created if missing.
+set -euo pipefail
+REGION="${region}"
+IMAGE="${image_repo}:$${1:-${image_tag}}"
+LOG_GROUP="${log_group}"
+
+param() {
+  aws ssm get-parameter --region "$REGION" --with-decryption --name "${param_prefix}/$1" \
+    --query Parameter.Value --output text
+}
+PG_PASSWORD=$(param postgres-password)
+REDIS_PASSWORD=$(param redis-password)
+QDRANT_KEY=$(param qdrant-api-key)
+
+docker network inspect vindex >/dev/null 2>&1 || docker network create vindex
+
+run() {
+  local name=$1
+  shift
+  docker rm -f "$name" >/dev/null 2>&1 || true
+  docker run -d --name "$name" --network vindex --restart unless-stopped \
+    --log-driver awslogs --log-opt awslogs-region="$REGION" \
+    --log-opt awslogs-group="$LOG_GROUP" --log-opt awslogs-stream="$name" "$@"
+}
+ensure() {
+  docker inspect "$1" >/dev/null 2>&1 || run "$@"
+}
+
+ensure postgres -p 5432:5432 --shm-size=256m \
+  -e POSTGRES_USER=vindex -e POSTGRES_PASSWORD="$PG_PASSWORD" -e POSTGRES_DB=vindex \
+  -v /data/postgres:/var/lib/postgresql/data postgres:16
+ensure redis -p 6379:6379 -v /data/redis:/data \
+  redis:7 redis-server --appendonly yes --requirepass "$REDIS_PASSWORD"
+ensure qdrant -p 6333:6333 -e QDRANT__SERVICE__API_KEY="$QDRANT_KEY" \
+  -v /data/qdrant:/qdrant/storage ${qdrant_image}
+
+until docker exec postgres pg_isready -U vindex -d vindex >/dev/null 2>&1; do sleep 2; done
+
+aws ecr get-login-password --region "$REGION" | docker login --username AWS --password-stdin "${registry}"
+if ! docker pull "$IMAGE"; then
+  echo "App image $IMAGE is not in ECR yet. Databases are up; push the image and re-run deploy.sh."
+  exit 0
+fi
+
+umask 077
+cat > /opt/vindex/app.env <<ENV
+DATABASE_URL=postgresql+psycopg2://vindex:$PG_PASSWORD@postgres:5432/vindex
+CELERY_BROKER_URL=redis://:$REDIS_PASSWORD@redis:6379/0
+CELERY_RESULT_BACKEND=redis://:$REDIS_PASSWORD@redis:6379/1
+REDIS_URL=redis://:$REDIS_PASSWORD@redis:6379/0
+QDRANT_URL=http://qdrant:6333
+QDRANT_API_KEY=$QDRANT_KEY
+STORAGE_BACKEND=s3
+S3_BUCKET_NAME=${media_bucket}
+AWS_REGION=$REGION
+AWS_DEFAULT_REGION=$REGION
+MAX_UPLOAD_MB=${max_upload_mb}
+RUN_MIGRATIONS_ON_STARTUP=false
+ECS_CLUSTER=${ecs_cluster}
+SEARCH_WORKER_SERVICE=${search_worker_service}
+PLAYBACK_WORKER_SERVICE=${playback_worker_service}
+PIPELINE_METRICS_NAMESPACE=${metrics_namespace}
+ENV
+
+APP="--env-file /opt/vindex/app.env"
+# Migrations run here, before the dispatcher starts, so every process sees the new schema.
+docker run --rm --network vindex $APP \
+  --log-driver awslogs --log-opt awslogs-region="$REGION" \
+  --log-opt awslogs-group="$LOG_GROUP" --log-opt awslogs-stream=migrate \
+  "$IMAGE" alembic upgrade head
+
+run dispatcher $APP "$IMAGE" python -m app.workers.pipeline_dispatcher
+run maintenance $APP -p 127.0.0.1:9101:9101 "$IMAGE" python -m app.workers.maintenance
+run pipeline-metrics $APP "$IMAGE" python -m app.workers.cloud_metrics
+docker image prune -af --filter "until=72h" >/dev/null || true
+echo "Deployed $IMAGE"
+DEPLOY
+chmod 700 /opt/vindex/deploy.sh
+
+/opt/vindex/deploy.sh

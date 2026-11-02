@@ -10,8 +10,8 @@ const { launchOptions, recordPass, captureFailure } = require('./harness.cjs');
     const page = await browser.newPage({ viewport: { width: 1280, height: 900 } });
     const errors = [];
     page.on('pageerror', e => errors.push(e.message));
-    const video = { video_id: 'video-1', title: 'Algorithms lecture', owner_user_id: 'owner', filename: 'lecture.mp4',
-      status: 'processed', processed_path: 'video.mp4', embedding_status: 'completed',
+    const video = { video_id: 'video-1', title: 'Algorithms lecture', is_owner: true, filename: 'lecture.mp4',
+      status: 'processed', playable: true, embedding_status: 'completed',
       transcript_status: 'completed', segments_status: 'completed', visibility: 'private' };
     const coverage = { complete: true, total_videos: 1, processing_videos: 0, indexing_failed_videos: 0,
       eligible_videos: { semantic: 1, lexical: 1, either: 1 } };

@@ -25,3 +25,10 @@ vindex_benchmark_videos/
 frontend/dist-ci-*/
 browser-results/
 ci-results/
+# Terraform: state holds generated database passwords; never commit it.
+infra/terraform/.terraform/
+infra/terraform/*.tfstate
+infra/terraform/*.tfstate.*
+infra/terraform/terraform.tfvars
+infra/terraform/*.tfplan
+infra/frontend.env
