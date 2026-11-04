@@ -5,7 +5,7 @@
 [![CI](https://github.com/DavidQifongJiang/Vindex/actions/workflows/ci.yml/badge.svg)](https://github.com/DavidQifongJiang/Vindex/actions/workflows/ci.yml)
 [![Deploy](https://github.com/DavidQifongJiang/Vindex/actions/workflows/deploy.yml/badge.svg)](https://github.com/DavidQifongJiang/Vindex/actions/workflows/deploy.yml)
 
-In the student era,you probably struggled to find the right material for fianl revision with tons of videos in the clous.
+In the student era,you probably struggled to find the right material for fianl revision with tons of videos in the cloud.
 
 Now with vindex, a student can searches a two-hour lecture for *"when do we use memoization?"*. Vindex finds the minute where the professor explained it, even if they said "store the answer the first time" and never used the word. Upload a video and Vindex transcribes it, embeds every passage, and serves timestamped semantic search. It runs on AWS, scaling its processing workers from zero when work arrives and back to zero when it's done.
 
