@@ -1,4 +1,8 @@
 {
+  ".gitattributes": {
+    "bytes": 127,
+    "sha256": "1f6193e0a71f36b117eb1fb930f43c285f644a8595371a7c888aaa970f6aa099"
+  },
   "analysis-runtime.json": {
     "bytes": 253,
     "sha256": "2d4573d0fd127027ff0751aaf8ca7909da3a010475750f4d8f52cef5eec9f833"
