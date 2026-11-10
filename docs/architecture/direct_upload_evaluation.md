@@ -109,7 +109,8 @@ Lock gates before collecting the comparison; do not lower them after a failure.
 | Gate | Proposed pass condition | Current status |
 | --- | --- | --- |
 | Local recovery and integrity | All targeted tests pass, including real PostgreSQL concurrency | Passed locally; see PR evidence |
-| Real AWS protocol | All correctness checks above pass in the actual staging configuration | Unverified |
+| Real AWS storage protocol | Signed POST, checksum/size/key enforcement, copy integrity and browser CORS | Passed on the shared media bucket; operator credentials, not the deployed task role |
+| Deployed application flow | Cognito ownership, API completion/replay, durable jobs and accepted input integrity | Unverified |
 | API file traffic | At least 99% reduction in media bytes traversing API/proxy | Unverified |
 | Temporary-file writes | At least 95% reduction per accepted GiB | Unverified |
 | Upload latency | Direct p95 no more than 10% above API within each matched cell | Unverified |
@@ -126,3 +127,29 @@ simultaneous client as an independent experimental run.
 
 Preserve failed run artifacts. Publish a measured resume claim only after these
 gates have completed; do not infer a latency or capacity improvement from topology.
+
+## Live storage evidence: November 9, 2026
+
+[Completed probe report](evidence/direct_upload_s3_2026-11-09.json): all nine storage
+checks passed against the configured bucket in us-east-1. A browser uploaded from
+a blank document at the application's allowed CloudFront origin. Invalid checksums
+returned `BadDigest`; incorrect sizes returned `EntityTooLarge`/`EntityTooSmall`;
+changing the signed key returned `AccessDenied`. The server-side copy retained both
+the verified checksum and original bytes. All temporary objects were deleted and
+the unique test prefix was confirmed empty.
+
+The probe used operator credentials and the application S3Storage methods from
+the proposed code. It did not log in to Cognito, invoke upload API endpoints, or
+create database jobs. It is correctness evidence, not a throughput or latency run.
+No compute resources were started. The existing state host and one API task were
+already running; both worker services had zero tasks when inspected. `/health`
+returned 200 through both CloudFront and API Gateway.
+
+To repeat, run `benchmarks/verify_direct_upload_s3.py` from backend/ with explicit
+`--account`, `--bucket`, `--region`, `--origin`, `--profile`, and a new `--output`
+file. Its browser helper requires frontend's Playwright installation and Node;
+`--node` may point to a specific Node executable. It refuses buckets with event
+notifications or versioning because those require different isolation/cleanup.
+It sends only tiny synthetic payloads, not playable test videos. The probe never
+prints signed policies or credentials, deletes only its exact generated keys,
+and preserves the report even on a failed check.
