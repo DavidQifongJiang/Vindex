@@ -47,3 +47,51 @@ the predeclared relative non-regression gate and report absolute measured times.
 
 References: [measurement protocol](pipeline_readiness_protocol.md),
 [AWS on-demand pricing](https://aws.amazon.com/ec2/pricing/on-demand/).
+
+## Primary campaign preregistration
+
+Locked before primary collection on November 10, 2026. The exact order and jitter
+are in `backend/benchmarks/pipeline_primary_2026-11-10.json` (SHA256
+`dd45f38db15cc3313a485743afc4ba315c38215f9cbf44efe60997891d9c83e4`).
+Pilot data are excluded from every primary estimate.
+
+| Cohort | Input | Concurrent clients | Paired waves | Uploads per mode |
+| --- | --- | ---: | ---: | ---: |
+| Process-cold workers | 20 seconds / 25,808,821 bytes | 1 | 100 | 100 |
+| Warm workers | Same 20-second file | 1 | 100 | 100 |
+| Warm workers, concurrent uploads | 80.139 seconds / 103,231,087 bytes | 5 | 20 | 100 |
+
+There are 600 measured uploads and six separately counted warm-up uploads.
+API/direct order alternates within each cohort. An independently seeded 0–5 second
+delay before each measured wave prevents accidental synchronization to the
+dispatcher's five-second polling interval. Empty queues and state are verified
+before every wave. Workers restart before each process-cold mode; this excludes
+service provisioning and uses already cached model files. Each warm cohort starts
+with a verified, excluded warm-up covering both processing branches.
+
+The gate is the previously proposed direct/API p95 upper paired-wave 95% bootstrap
+bound at most 1.10 for both search and playback in each cell, zero integrity or
+duplicate-publication failures, and observed full readiness at least 99%.
+Use 10,000 resamples, seed 20261110, nearest-rank quantiles, and keep clients in the
+same wave together. A cell with fewer than 100 observations per mode remains
+exploratory. The absolute product SLO remains unset and must be reported unverified;
+the 600-second safety timeout is not a product SLO. Repeated synthetic inputs and
+only 20 independent wave pairs in the concurrent cohort limit generalization.
+
+Pilot 001 failed during browser setup before creating any upload: a frontend URL
+without its trailing slash redirected HTTPS to HTTP behind the isolated proxy.
+The harness URLs now include the slash. The failed pilot and diagnostics are
+retained. Pilot 002 completed four measured uploads and one warm-up; pilot 003
+completed ten longer-video uploads. Both passed byte integrity, semantic search,
+decoded playback, durable-state/publication checks, and application cleanup.
+These are functional calibration results, not evidence of primary p95 performance.
+
+Primary collection has a nine-hour wall limit and stops on its first failed wave.
+The dedicated host's absolute expiry is extended to **2026-11-11 09:00 UTC** before
+collection, then stops campaign/browser/workers, captures evidence, and powers off.
+The maximum host lifetime from creation is about 9.94 hours: approximately $4.01
+compute, with an estimated $0.40 allowance for disk, IPv4, storage and requests,
+within the $5 round ceiling. This is a planning estimate, not a billing guarantee.
+The expected runtime from the pilots is about eight hours. No implicit extension,
+replacement pooling, outcome-dependent sample reduction, or automatic rerun is
+allowed. A stopped host retains its disk until verified preservation and teardown.

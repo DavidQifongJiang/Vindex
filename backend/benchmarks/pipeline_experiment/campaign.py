@@ -6,6 +6,7 @@ import json
 from pathlib import Path
 import ssl
 import subprocess
+import tarfile
 import time
 from urllib.request import Request, urlopen
 
@@ -73,9 +74,31 @@ def wait_workers():
         else: raise RuntimeError('Worker did not become ready')
 
 
-def archive():
+def archive(path=None):
     bucket = json.loads((ROOT/'run-settings.json').read_text())['bucket']
-    command(['aws','s3','sync',str(ROOT/'results'),f's3://{bucket}/evidence/','--region','us-east-1','--only-show-errors'],180)
+    path=path or ROOT/'results'
+    relative=path.relative_to(ROOT/'results').as_posix()
+    suffix='' if relative=='.' else relative
+    command(['aws','s3','sync' if path.is_dir() else 'cp',str(path),f's3://{bucket}/evidence/{suffix}',
+             '--region','us-east-1','--only-show-errors'],180)
+
+
+def seal_archive(label):
+    bucket=json.loads((ROOT/'run-settings.json').read_text())['bucket']
+    root=ROOT/'results'
+    files={p.relative_to(root).as_posix():{'bytes':p.stat().st_size,'sha256':hashlib.sha256(p.read_bytes()).hexdigest()}
+           for p in root.rglob('*') if p.is_file() and not p.name.startswith('archive-manifest-')}
+    manifest={'label':label,'bucket':bucket,'sealed_at':utc(),'files':files}
+    write(root/f'archive-manifest-{label}.json',manifest)
+    target=ROOT/(label+'-evidence.tar.gz')
+    with tarfile.open(target,'w:gz') as tar:
+        for name in files: tar.add(root/name,arcname=name)
+        tar.add(root/f'archive-manifest-{label}.json',arcname=f'archive-manifest-{label}.json')
+    key='evidence/'+label+'-evidence.tar.gz'
+    command(['aws','s3','cp',str(target),f's3://{bucket}/{key}','--region','us-east-1','--only-show-errors'],180)
+    marker={'key':key,'label':label,'bytes':target.stat().st_size,'sha256':hashlib.sha256(target.read_bytes()).hexdigest()}
+    write(ROOT/'latest-archive.json',marker)
+    command(['aws','s3','cp',str(ROOT/'latest-archive.json'),f's3://{bucket}/evidence/latest-archive.json','--region','us-east-1','--only-show-errors'],60)
 
 
 def snapshot(label):
@@ -89,7 +112,7 @@ def snapshot(label):
         with (destination/(name+'.log')).open('wb') as stream:
             subprocess.run(['docker','logs','--tail','2000',name],stdout=stream,stderr=subprocess.STDOUT,timeout=20)
     write(destination/'containers.json',container_state())
-    archive()
+    archive(destination)
 
 
 def run_wave(folder, spec, settings):
@@ -98,13 +121,14 @@ def run_wave(folder, spec, settings):
         assert inspect_state()['active'] == 0 and not any(queues_empty().values())
         command(['docker','restart','bench-search','bench-playback'],180)
         wait_workers()
+    time.sleep(spec.get('jitter_seconds',0))
     before = inspect_state()
     queues = queues_empty()
     assert not before['videos'] and before['active'] == 0 and not any(queues.values())
     identities = container_state()
     file = ROOT/'fixtures'/spec['fixture']
     fixture = {'bytes':file.stat().st_size, 'sha256':hashlib.sha256(file.read_bytes()).hexdigest()}
-    target = 'https://bench-proxy:8443/bench-'+spec['mode']
+    target = 'https://bench-proxy:8443/bench-'+spec['mode']+'/'
     preflight = {'isolated':True,'queue_empty':True,'observed_at':utc(),'commit':settings['commit'],
         'target':target,'worker_state':spec['worker_state'],'tls_mode':'self_signed_isolated',
         'media_bucket':settings['bucket'],'database':'bench-postgres/vindex_pipeline_bench','redis':'bench-redis/0 isolated host',
@@ -117,7 +141,7 @@ def run_wave(folder, spec, settings):
     write(folder/'before.json',{'containers':identities,'queues':queues,'state':before})
     write(folder/'spec.json',spec)
     manifest = {'environment':'staging','commit':settings['commit'],
-        'targets':{mode:'https://bench-proxy:8443/bench-'+mode for mode in ['api','direct']},
+        'targets':{mode:'https://bench-proxy:8443/bench-'+mode+'/' for mode in ['api','direct']},
         'files':['/bench/fixtures/'+spec['fixture']],'storage_state':'/bench/session.json','repetitions':1,
         'concurrency':spec['concurrency'],'timeout_seconds':600,
         'network':{'name':'20mbps-40ms','latency_ms':40,'upload_mbps':20,'download_mbps':100},
@@ -131,7 +155,7 @@ def run_wave(folder, spec, settings):
     with (folder/'console.log').open('w') as stream:
         result = subprocess.run(args,stdout=stream,stderr=subprocess.STDOUT,timeout=700)
     write(folder/'after-containers.json',container_state())
-    archive()  # Preserve browser failures before any cleanup.
+    archive(folder)  # Preserve browser failures before any cleanup.
     assert result.returncode == 0, 'Browser wave failed; no data deleted'
     rows = [json.loads(line) for line in (folder/'browser'/'attempts.jsonl').read_text().splitlines()]
     ids = [r['video_id'] for r in rows]
@@ -144,11 +168,11 @@ def run_wave(folder, spec, settings):
     write(folder/'verification.json',verification)
     for vid in ids:
         write(folder/(vid+'-metrics.json'),app_request('/videos/'+vid+'/metrics'))
-    archive()  # Verification and artifact pointers survive deletion.
+    archive(folder)  # Verification and artifact pointers survive deletion.
     deleted = [app_request('/videos/'+vid,'DELETE') for vid in ids]
     cleanup = inspect_state('cleanup-residuals',ids)
     write(folder/'cleanup.json',{'deleted':deleted,'remaining_objects':cleanup['remaining_objects'],'remaining_vectors':cleanup['remaining_vectors']})
-    archive()
+    archive(folder)
     return {'wave':spec['name'],'accepted':len(rows),'verified':len(verification['verified']),'completed_at':utc()}
 
 
@@ -158,13 +182,14 @@ def main():
     parser.add_argument('--inventory',action='store_true')
     parser.add_argument('--snapshot')
     args=parser.parse_args()
-    if args.snapshot: snapshot(args.snapshot); return
+    if args.snapshot: snapshot(args.snapshot); seal_archive(args.snapshot); return
     if args.inventory:
         write(ROOT/'results'/'host.json',{'containers':container_state(),'cpu':command(['lscpu']),'recorded_at':utc()})
         return
     plan=json.loads(args.plan.read_text()); settings=json.loads((ROOT/'run-settings.json').read_text())
     destination=ROOT/'results'/plan['name']; destination.mkdir()
     write(destination/'plan.json',plan)
+    archive(destination/'plan.json')
     started=time.monotonic()
     progress={'started_at':utc(),'plan':plan['name'],'completed':[],'finished':False}
     write(destination/'progress.json',progress)
@@ -177,7 +202,7 @@ def main():
         assert app_request('/bench/pipeline/warm-query','POST',120)['query_model_warmed']
         for spec in plan['waves']:
             if time.monotonic()-started+700 > plan['max_wall_seconds']: raise RuntimeError('Insufficient remaining campaign budget')
-            progress['active_wave']=spec['name']; write(destination/'progress.json',progress); archive()
+            progress['active_wave']=spec['name']; write(destination/'progress.json',progress); archive(destination/'progress.json')
             progress['completed'].append(run_wave(destination/spec['name'],spec,settings))
             write(destination/'progress.json',progress)
             print(json.dumps(progress['completed'][-1]),flush=True)
@@ -192,6 +217,7 @@ def main():
         write(destination/'progress.json',progress)
         snapshot(plan['name']+'-final')
         archive()
+        seal_archive(plan['name'])
 
 
 if __name__=='__main__': main()

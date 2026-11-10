@@ -2,8 +2,8 @@
   "environment": "staging",
   "commit": "replace-with-full-measured-application-commit",
   "targets": {
-    "api": "https://isolated.staging.example.invalid/bench-api",
-    "direct": "https://isolated.staging.example.invalid/bench-direct"
+    "api": "https://isolated.staging.example.invalid/bench-api/",
+    "direct": "https://isolated.staging.example.invalid/bench-direct/"
   },
   "files": ["C:/private/fixtures/speech-20s.mp4"],
   "storage_state": "C:/private/pipeline-session.json",

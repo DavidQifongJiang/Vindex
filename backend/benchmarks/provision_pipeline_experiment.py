@@ -6,11 +6,13 @@ import json
 from pathlib import Path
 import re
 import secrets
+import shutil
 import tarfile
 import time
 from uuid import uuid4
 
 import boto3
+from botocore.exceptions import ClientError
 
 ROOT=Path(__file__).resolve().parents[2]
 ACCOUNT='585572506964'
@@ -112,7 +114,7 @@ def main():
         s3.upload_file(str(folder/'bootstrap.tar.gz'),bucket,'bootstrap/bootstrap.tar.gz')
         user_data=f'''#!/bin/bash
 set -euo pipefail
-systemd-run --unit=pipeline-expiry --on-active=60m /bin/bash -c 'cd /opt/vindex-experiment; timeout 120 /usr/bin/python3.11 campaign.py --snapshot automatic-expiry; /usr/sbin/poweroff'
+systemd-run --unit=pipeline-expiry --on-active=60m /bin/bash -c 'systemctl stop pipeline-campaign.service; docker stop -t 5 bench-browser bench-dispatcher bench-search bench-playback >/dev/null 2>&1; cd /opt/vindex-experiment; timeout 120 /usr/bin/python3.11 campaign.py --snapshot automatic-expiry; /usr/sbin/poweroff'
 dnf install -y docker python3.11
 systemctl enable --now docker
 mkdir -p /opt/vindex-experiment
@@ -137,6 +139,31 @@ bash /opt/vindex-experiment/bootstrap.sh
     if args.action=='download':
         dest=folder/'evidence'; dest.mkdir(exist_ok=True)
         files={}
+        try:
+            marker=json.loads(s3.get_object(Bucket=state['bucket'],Key='evidence/latest-archive.json')['Body'].read())
+        except ClientError as exc:
+            if exc.response['Error']['Code']!='NoSuchKey': raise
+            marker=None
+        if marker:
+            assert re.fullmatch(r'evidence/[a-zA-Z0-9_-]+-evidence.tar.gz',marker['key'])
+            packed=folder/Path(marker['key']).name
+            s3.download_file(state['bucket'],marker['key'],str(packed))
+            assert packed.stat().st_size==marker['bytes'] and hashlib.sha256(packed.read_bytes()).hexdigest()==marker['sha256']
+            with tarfile.open(packed,'r:gz') as tar:
+                for member in tar.getmembers():
+                    target=(dest/member.name).resolve()
+                    if not target.is_relative_to(dest.resolve()) or not member.isfile(): raise ValueError('Unsafe archive member')
+                    target.parent.mkdir(parents=True,exist_ok=True)
+                    with tar.extractfile(member) as source, target.open('wb') as stream: shutil.copyfileobj(source,stream)
+            manifest=json.loads((dest/f'archive-manifest-{marker["label"]}.json').read_text())
+            assert manifest['bucket']==state['bucket']
+            for relative,item in manifest['files'].items():
+                target=(dest/relative).resolve()
+                assert target.is_relative_to(dest.resolve()) and target.stat().st_size==item['bytes']
+                assert hashlib.sha256(target.read_bytes()).hexdigest()==item['sha256']
+            (folder/'downloaded-evidence.json').write_text(json.dumps({'bucket':state['bucket'],'downloaded_at':datetime.now(timezone.utc).isoformat(),
+                'files':manifest['files'],'archive':marker},indent=2))
+            print(json.dumps({'downloaded_files':len(manifest['files']),'archive_verified':True})); return
         for page in s3.get_paginator('list_objects_v2').paginate(Bucket=state['bucket'],Prefix='evidence/'):
             for item in page.get('Contents',[]):
                 relative=Path(item['Key'].removeprefix('evidence/'))
