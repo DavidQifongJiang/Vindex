@@ -185,6 +185,12 @@ bash /opt/upload-bench/start.sh
         cleaned = state.setdefault('cleaned', [])
         if state.get('runner_instance') and 'bucket' not in cleaned:
             verify_preserved_evidence(state, output)
+        # Preserve a failed attempt's database and inputs before any host is
+        # terminated, not merely before the bucket is deleted.
+        if state.get('bucket') and 'bucket' not in cleaned:
+            for prefix in ['raw_videos/', 'metrics/']:
+                if s3.list_objects_v2(Bucket=state['bucket'], Prefix=prefix, MaxKeys=1, ExpectedBucketOwner=ACCOUNT).get('KeyCount'):
+                    raise SystemExit('Residual test inputs or metadata require preservation before any teardown')
         def mark(name):
             cleaned.append(name)
             persist()
@@ -212,9 +218,6 @@ bash /opt/upload-bench/start.sh
             tags = s3.get_bucket_tagging(Bucket=state['bucket'])['TagSet']
             if {t['Key']: t['Value'] for t in tags}.get('Project') != 'vindex-upload-benchmark':
                 raise SystemExit('Bucket ownership tags do not match')
-            for prefix in ['raw_videos/', 'metrics/']:
-                if s3.list_objects_v2(Bucket=state['bucket'], Prefix=prefix, MaxKeys=1, ExpectedBucketOwner=ACCOUNT).get('KeyCount'):
-                    raise SystemExit('Residual test inputs or metadata require preservation before bucket teardown')
             for page in s3.get_paginator('list_objects_v2').paginate(Bucket=state['bucket']):
                 keys = [{'Key': o['Key']} for o in page.get('Contents', [])]
                 if keys:

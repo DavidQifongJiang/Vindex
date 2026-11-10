@@ -4,10 +4,12 @@ import tempfile
 import hashlib
 import json
 from pathlib import Path
+from unittest.mock import Mock, patch
 
 from benchmarks.upload_bench_server import validate_environment
 from benchmarks.provision_upload_bench import validate_resource_journal, verify_preserved_evidence, ACCOUNT, IMAGE
 from benchmarks.download_upload_evidence import evidence_path, verify_manifest
+from benchmarks import provision_upload_bench
 
 
 class UploadBenchmarkIsolationTests(unittest.TestCase):
@@ -70,6 +72,29 @@ class UploadBenchmarkIsolationTests(unittest.TestCase):
             with self.assertRaises(ValueError):verify_preserved_evidence(state,root)
             marker.write_text(json.dumps(proof));path.write_bytes(b'corrupt!')
             with self.assertRaises(ValueError):verify_preserved_evidence(state,root)
+
+    def test_teardown_preserves_hosts_when_unarchived_inputs_remain(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            state = {'name': 'vindex-upload-bench-123456789a', 'account': ACCOUNT,
+                     'bucket': f'vindex-upload-bench-{ACCOUNT}-123456789a',
+                     'instance': 'test-api', 'runner_instance': 'test-runner',
+                     'archive_prefix': 'evidence/remote-001/'}
+            (root / 'resources.json').write_text(json.dumps(state))
+            clients = {name: Mock() for name in ['sts', 'ec2', 'iam', 's3']}
+            clients['sts'].get_caller_identity.return_value = {'Account': ACCOUNT}
+            clients['s3'].list_objects_v2.return_value = {'KeyCount': 1}
+            session = Mock()
+            session.client.side_effect = clients.__getitem__
+            arguments = ['provision_upload_bench.py', 'destroy', '--account', ACCOUNT,
+                         '--output', str(root)]
+            with patch('sys.argv', arguments), patch.object(provision_upload_bench.boto3, 'Session', return_value=session), \
+                    patch.object(provision_upload_bench, 'verify_preserved_evidence'):
+                with self.assertRaisesRegex(SystemExit, 'before any teardown'):
+                    provision_upload_bench.main()
+            clients['ec2'].terminate_instances.assert_not_called()
+            clients['s3'].delete_objects.assert_not_called()
+            clients['iam'].delete_role.assert_not_called()
 
 
 if __name__ == '__main__':
