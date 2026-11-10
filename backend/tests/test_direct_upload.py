@@ -1,5 +1,6 @@
 """Direct browser-to-S3 uploads and the public video response contract."""
 import os
+import hashlib
 from concurrent.futures import ThreadPoolExecutor
 from threading import Barrier
 from types import SimpleNamespace
@@ -18,8 +19,9 @@ PRIVATE_FIELDS = {"raw_path", "processed_path", "audio_path", "transcript_path",
 
 
 class UploadStorage(durable.MemoryStorage):
-    def presigned_upload(self, key, *, content_type, size_bytes, seconds):
-        self.last_policy = {"key": key, "content_type": content_type, "size_bytes": size_bytes, "seconds": seconds}
+    def presigned_upload(self, key, *, content_type, size_bytes, seconds, sha256=None):
+        self.last_policy = {"key": key, "content_type": content_type, "size_bytes": size_bytes,
+                            "seconds": seconds, "sha256": sha256}
         return {"url": "https://bucket.example.test/", "fields": {"key": key, "Content-Type": content_type}}
 
     def object_size(self, key):
@@ -27,6 +29,9 @@ class UploadStorage(durable.MemoryStorage):
 
     def copy_object(self, source_key, target_key):
         self.objects[target_key] = self.objects[source_key]
+
+    def object_sha256(self, key):
+        return hashlib.sha256(self.objects[key]).hexdigest()
 
 
 class DirectUploadTest(unittest.TestCase):
@@ -199,11 +204,70 @@ class DirectUploadTest(unittest.TestCase):
         self.assertEqual(first["video_id"], second["video_id"])
         self.assertEqual(first["upload"]["fields"]["key"], second["upload"]["fields"]["key"])
 
+    def test_refreshing_upload_url_does_not_reset_the_upload_clock(self):
+        with patch.object(self.api, "safe_update_metrics") as metrics:
+            self.create()
+            first = metrics.call_args.args[3]
+            with patch.object(self.api, "now_epoch", return_value=9999999999):
+                self.create()
+            second = metrics.call_args.args[3]
+        self.assertEqual(first["accepted_at_epoch"], second["accepted_at_epoch"])
+        self.assertEqual(first["intent_created_at_epoch"], second["intent_created_at_epoch"])
+        self.assertNotEqual(second["accepted_at_epoch"], 9999999999)
+
+    def test_older_reservations_without_a_timestamp_are_backfilled_once(self):
+        self.create()
+        self.db.query(UploadRequest).update({"created_at": None})
+        self.db.commit()
+        with patch.object(self.api, "safe_update_metrics") as metrics:
+            self.create()
+            first = metrics.call_args.args[3]["intent_created_at_epoch"]
+            self.create()
+            self.assertEqual(metrics.call_args.args[3]["intent_created_at_epoch"], first)
+        self.assertIsNotNone(self.db.get(UploadRequest, ("owner", "intent-1")).created_at)
+
     def test_same_key_with_different_file_is_rejected(self):
         self.create()
         with self.assertRaises(HTTPException) as raised:
             self.create(size_bytes=10)
         self.assertEqual(raised.exception.status_code, 409)
+
+    def test_verified_checksum_is_bound_to_the_upload_and_completion(self):
+        digest = hashlib.sha256(b"raw media").hexdigest()
+        created = self.create(sha256=digest)
+        self.assertEqual(self.storage.last_policy["sha256"], digest)
+        self.put_object(created)
+        accepted = self.complete(created["video_id"])
+        self.assertEqual(accepted["video_id"], created["video_id"])
+
+    def test_same_length_different_bytes_cannot_reuse_an_idempotency_key(self):
+        self.create(sha256=hashlib.sha256(b"raw media").hexdigest())
+        with self.assertRaises(HTTPException) as raised:
+            self.create(sha256=hashlib.sha256(b"evil data").hexdigest())
+        self.assertEqual(raised.exception.status_code, 409)
+
+    def test_wrong_or_missing_storage_checksum_cannot_publish_jobs(self):
+        digest = hashlib.sha256(b"raw media").hexdigest()
+        for index, stored_digest in enumerate((None, hashlib.sha256(b"evil data").hexdigest())):
+            key = f"checksum-{index}"
+            created = self.create(key=key, sha256=digest)
+            self.put_object(created)
+            with patch.object(self.storage, "object_sha256", return_value=stored_digest):
+                with self.assertRaises(HTTPException) as raised:
+                    self.complete(created["video_id"], key=key)
+            self.assertEqual(raised.exception.status_code, 422)
+            self.assertIsNone(self.db.get(Video, created["video_id"]))
+            self.assertEqual(self.db.query(PipelineJob).count(), 0)
+            self.assertIn(created["upload"]["fields"]["key"], self.storage.objects)
+
+    def test_strict_mode_rejects_new_unsigned_intents_but_completes_older_sessions(self):
+        created = self.create()
+        self.put_object(created)
+        with patch.dict(os.environ, {"DIRECT_UPLOAD_REQUIRE_CHECKSUM": "true"}):
+            with self.assertRaises(HTTPException) as raised:
+                self.create(key="new-unsigned")
+            self.assertEqual(raised.exception.status_code, 422)
+            self.assertEqual(self.complete(created["video_id"])["video_id"], created["video_id"])
 
     def test_size_mismatch_discards_object_and_releases_reservation(self):
         created = self.create()
@@ -344,6 +408,13 @@ class DirectUploadHttpTest(DirectUploadTest):
         status = self.client.get(f"/videos/{created.json()['video_id']}/status").json()
         self.assertFalse(PRIVATE_FIELDS & set(status))
         self.assertEqual(self.client.post(f"/videos/uploads/{created.json()['video_id']}/complete").status_code, 400)
+
+    def test_malformed_digest_is_rejected_before_reserving_an_upload(self):
+        for digest in ("z" * 64, "a" * 63, "a" * 65, "A" * 64):
+            body = self.request().model_dump() | {"sha256": digest}
+            response = self.client.post("/videos/uploads", json=body)
+            self.assertEqual(response.status_code, 422)
+        self.assertEqual(self.db.query(UploadRequest).count(), 0)
 
 
 if __name__ == "__main__":

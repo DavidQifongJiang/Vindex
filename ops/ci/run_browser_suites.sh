@@ -11,6 +11,7 @@ rm -rf "$output"
 mkdir -p "$output"
 servers=()
 trap 'for pid in "${servers[@]:-}"; do kill "$pid" 2>/dev/null; done' EXIT
+node --test backend/tests/browser/upload_measurement_test.cjs || exit 1
 
 build_and_serve() {
   local name="$1" port="$2"
@@ -39,6 +40,7 @@ build_and_serve default 5184
 build_and_serve search 5185 VITE_LIBRARY_SEARCH_ENABLED=true VITE_SEARCH_ANALYTICS_ENABLED=true
 build_and_serve auth 5186 VITE_AUTH_ENABLED=true VITE_COGNITO_DOMAIN=https://auth.invalid \
   VITE_COGNITO_CLIENT_ID=fixture-client VITE_COGNITO_REDIRECT_URI=http://127.0.0.1:5186/
+build_and_serve direct 5187 VITE_UPLOAD_MODE=direct
 
 run_suite library-default VINDEX_UI_URL=http://127.0.0.1:5184 VINDEX_EXPECT_SEARCH_DISABLED=true \
   node backend/tests/browser/library_search_browser.cjs
@@ -46,6 +48,7 @@ run_suite library VINDEX_UI_URL=http://127.0.0.1:5185 node backend/tests/browser
 run_suite analytics VINDEX_UI_URL=http://127.0.0.1:5185 node backend/tests/browser/search_analytics_browser.cjs
 run_suite frontend VINDEX_UI_URL=http://127.0.0.1:5185 VINDEX_AUTH_UI_URL=http://127.0.0.1:5186 \
   node backend/tests/browser/frontend_verification.cjs
+run_suite direct VINDEX_UI_URL=http://127.0.0.1:5187 node backend/tests/browser/direct_upload_browser.cjs
 
 node backend/tests/browser/check_results.cjs \
-  "$output/library-default" "$output/library" "$output/analytics" "$output/frontend"
+  "$output/library-default" "$output/library" "$output/analytics" "$output/frontend" "$output/direct"

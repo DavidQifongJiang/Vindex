@@ -63,6 +63,8 @@ class CreateUploadRequest(BaseModel):
     visibility: str = "private"
     size_bytes: int = Field(gt=0)
     content_type: str = Field(min_length=1, max_length=100)
+    # Optional during the rolling frontend upgrade; new clients always send it.
+    sha256: str | None = Field(default=None, pattern=r"^[0-9a-f]{64}$")
 
 
 class PresignedPost(BaseModel):
