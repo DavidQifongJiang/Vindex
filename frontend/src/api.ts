@@ -7,6 +7,7 @@ import type {
   VideoMetrics,
   VideoStatus
 } from "./types";
+import { sha256File } from "./lib/uploadHash";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? "";
 let authTokenProvider: () => string | null = () => null;
@@ -110,6 +111,7 @@ type CreateUploadResponse = {
 const UPLOAD_MODE = import.meta.env.VITE_UPLOAD_MODE === "direct" ? "direct" : "api";
 
 async function uploadDirect(file: File, title: string, visibility: "private" | "public", key: string) {
+  const sha256 = await sha256File(file);
   const created = await request<CreateUploadResponse>("/videos/uploads", {
     method: "POST",
     headers: { "Content-Type": "application/json", "Idempotency-Key": key },
@@ -118,7 +120,8 @@ async function uploadDirect(file: File, title: string, visibility: "private" | "
       title,
       visibility,
       size_bytes: file.size,
-      content_type: file.type || "video/mp4"
+      content_type: file.type || "video/mp4",
+      sha256
     })
   });
   if (created.completed) return created.completed;

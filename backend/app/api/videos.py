@@ -1,5 +1,5 @@
 
-from datetime import datetime
+from datetime import datetime, timezone
 import logging
 import os
 from pathlib import Path
@@ -649,6 +649,8 @@ def create_direct_upload(
     """
     if request.size_bytes > MAX_UPLOAD_BYTES:
         raise HTTPException(413, "Uploaded video is too large")
+    if os.getenv("DIRECT_UPLOAD_REQUIRE_CHECKSUM", "false").lower() == "true" and not request.sha256:
+        raise HTTPException(422, "A file checksum is required; refresh the page and retry")
     content_type = request.content_type.strip().lower()
     if not re.fullmatch(r"video/[a-z0-9.+-]{1,60}", content_type):
         raise HTTPException(415, "Only video files can be uploaded")
@@ -660,23 +662,29 @@ def create_direct_upload(
     upsert_user(db, current_user)
     idempotency_key = idempotency_key or str(uuid4())
     fingerprint = upload_intent_fingerprint(filename=request.filename, title=video_title,
-        visibility=video_visibility, size_bytes=request.size_bytes, content_type=content_type)
+        visibility=video_visibility, size_bytes=request.size_bytes, content_type=content_type,
+        sha256=request.sha256)
     reservation, replay = reserve_upload(
         db, current_user.user_id, idempotency_key, fingerprint, suffix, resume_inflight=True,
         pending_response={"title": video_title, "visibility": video_visibility, "status": "uploaded",
                           "idempotency_key": idempotency_key, "content_type": content_type,
-                          "size_bytes": request.size_bytes})
+                          "size_bytes": request.size_bytes, "sha256": request.sha256})
     if replay is not None:
         return {"video_id": replay["video_id"], "idempotency_key": idempotency_key,
                 "upload": None, "completed": UploadAccepted(**replay)}
 
     video_id, raw_key = reservation.video_id, reservation.raw_path
+    # Reservation creation is durable and stable across URL refreshes/retries.
+    created_at = reservation.created_at
+    intent_created_at_epoch = (created_at if created_at.tzinfo else created_at.replace(tzinfo=timezone.utc)).timestamp()
     seconds = upload_url_seconds(reservation.expires_at)
     pending = dict(reservation.response or {})
     db.rollback()
     post = storage.presigned_upload(raw_key, content_type=pending.get("content_type", content_type),
-                                    size_bytes=pending.get("size_bytes", request.size_bytes), seconds=seconds)
-    safe_update_metrics(storage, video_id, "upload", {"accepted_at_epoch": now_epoch(),
+                                    size_bytes=pending.get("size_bytes", request.size_bytes), seconds=seconds,
+                                    **({"sha256": pending["sha256"]} if pending.get("sha256") else {}))
+    safe_update_metrics(storage, video_id, "upload", {"accepted_at_epoch": intent_created_at_epoch,
+                                                      "intent_created_at_epoch": intent_created_at_epoch,
                                                       "upload_mode": "direct_s3"})
     return {"video_id": video_id, "idempotency_key": idempotency_key,
             "upload": {"url": post["url"], "fields": post["fields"]}, "expires_in_seconds": seconds}
@@ -701,39 +709,43 @@ def complete_direct_upload(
     if "size_bytes" not in pending:
         raise HTTPException(409, "This Idempotency-Key belongs to a different upload method")
     upload_key = reservation.raw_path
-    if storage.object_size(upload_key) is None:
-        raise HTTPException(409, "The file has not reached storage yet; finish the upload and retry")
-
     # The presigned POST stays usable until it expires, so the client could
     # still overwrite upload_key. Processing reads a server-only snapshot
     # instead; each completion attempt gets its own key, so a losing
     # concurrent attempt can never overwrite the input the winner published.
     suffix = Path(upload_key).suffix
     frozen_key = f"raw_videos/{video_id}/{uuid4()}/{video_id}{suffix}"
-    storage.copy_object(upload_key, frozen_key)
-    size = storage.object_size(frozen_key)
-    if size != pending.get("size_bytes") or size > MAX_UPLOAD_BYTES:
-        # S3 enforces the declared size, so a mismatch means a stale or foreign object.
-        storage.delete_many([upload_key, frozen_key])
-        abandon_upload(db, current_user.user_id, idempotency_key, reservation.processing_token)
-        raise HTTPException(422, "Uploaded file size does not match the upload request")
-
     response = {"video_id": video_id, "title": pending["title"], "visibility": pending["visibility"],
                 "filename": f"{video_id}{suffix}", "status": "uploaded", "idempotency_key": idempotency_key}
     try:
+        if storage.object_size(upload_key) is None:
+            raise HTTPException(409, "The file has not reached storage yet; finish the upload and retry")
+        storage.copy_object(upload_key, frozen_key)
+        size = storage.object_size(frozen_key)
+        if size != pending.get("size_bytes") or size > MAX_UPLOAD_BYTES:
+            # This private snapshot has not been submitted to a DB transaction.
+            # Leave the shared staging key alone: another completion may use it.
+            storage.delete_many([frozen_key])
+            abandon_upload(db, current_user.user_id, idempotency_key, reservation.processing_token)
+            raise HTTPException(422, "Uploaded file size does not match the upload request")
+        if pending.get("sha256") and storage.object_sha256(frozen_key) != pending["sha256"]:
+            storage.delete_many([frozen_key])
+            abandon_upload(db, current_user.user_id, idempotency_key, reservation.processing_token)
+            raise HTTPException(422, "Uploaded file checksum does not match the upload request")
         commit_upload(db, current_user.user_id, idempotency_key, reservation.processing_token, response,
-                      new_video_record(response, current_user.user_id, frozen_key))
-    except HTTPException as exc:
-        storage.delete_many([frozen_key])
-        # A concurrent completion may have won; replay its result rather than failing.
-        if exc.status_code != 409:
-            raise
-        _, replay = find_direct_upload(db, current_user.user_id, idempotency_key, video_id)
-        if replay is None:
-            raise
-        return replay
+                      new_video_record(response, current_user.user_id, frozen_key), release_on_error=False)
     except Exception:
-        storage.delete_many([frozen_key])
+        # A commit can succeed even when the connection/refresh fails afterward.
+        # Never delete a potentially published input on an ambiguous outcome.
+        # Reference-aware garbage collection will remove only unaccepted copies.
+        # Also covers a concurrent winner deleting staging while we HEAD/copy it.
+        try:
+            db.rollback()
+            _, replay = find_direct_upload(db, current_user.user_id, idempotency_key, video_id)
+        except Exception:
+            replay = None
+        if replay is not None:
+            return replay
         raise
     # Best effort: anything written to the upload key later is an orphan that
     # maintenance garbage-collects, since only frozen_key is a protected raw_path.
