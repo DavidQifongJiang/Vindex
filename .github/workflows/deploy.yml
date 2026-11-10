@@ -48,7 +48,7 @@ jobs:
     timeout-minutes: 90
     environment: production
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           # Deploy exactly the commit CI tested.
           ref: ${{ github.event.workflow_run.head_sha || github.sha }}
