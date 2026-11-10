@@ -1,0 +1,13 @@
+{
+  "mutation": "Flatten concurrent clients before bootstrap",
+  "expected_test_failure": true,
+  "test": "test_correlated_clients_keep_wave_level_uncertainty",
+  "observed_flattened_interval": [
+    8,
+    8
+  ],
+  "required_wave_interval": [
+    2,
+    8
+  ]
+}

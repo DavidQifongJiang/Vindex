@@ -1,0 +1,7 @@
+{
+  "python": "3.11.16",
+  "numpy": "2.4.5",
+  "matplotlib": "3.10.8",
+  "analyzer_sha256": "ca8ca4c6a4de328c8e9684592e21ebb1505c56f9281a186edddcac212b47cb80",
+  "method": "10000 paired-wave bootstrap resamples; nearest-rank quantiles; seed 20261109"
+}

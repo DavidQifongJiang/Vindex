@@ -1,0 +1,20 @@
+{
+  "checked_at": "2026-11-10T20:04:19.413110+00:00",
+  "source": "AWS Price List GetProducts, AmazonEC2, us-east-1, Linux/shared/NA/used",
+  "quotes": [
+    {
+      "instance_type": "t3.large",
+      "usd_per_hour": "0.0832000000",
+      "description": "$0.0832 per On Demand Linux t3.large Instance Hour",
+      "effective_date": "2026-11-01T00:00:00Z",
+      "sku": "HBVJM3Q9S8K6MNPJ"
+    },
+    {
+      "instance_type": "c7i.xlarge",
+      "usd_per_hour": "0.1785000000",
+      "description": "$0.1785 per On Demand Linux c7i.xlarge Instance Hour",
+      "effective_date": "2026-11-01T00:00:00Z",
+      "sku": "D8WVCVBE32N227KA"
+    }
+  ]
+}

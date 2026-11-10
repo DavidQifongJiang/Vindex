@@ -1,0 +1,8 @@
+{
+  "remote_archive_files_verified": 42,
+  "reproduced_cells": 3,
+  "cell_results_identical": true,
+  "global_unique_accepted_video_ids": 600,
+  "known_private_benchmark_values_absent": true,
+  "method": "Extract remote-raw.zip, verify its SHA256 manifest, rerun the analyzer and compare complete cell results; scan artifact bytes and ZIP members for private benchmark values."
+}

@@ -1,0 +1,14 @@
+[
+  {
+    "InstanceId": "i-081c864b2de17f6c1",
+    "Status": "Success",
+    "StandardOutputContent": "2026-11-10T18:29:08Z\nNEXT                        LEFT               LAST                        PASSED   UNIT                             ACTIVATES\nTue 2026-11-10 22:17:10 UTC 3h 48min left      -                           -        upload-bench-expiry.timer        upload-bench-expiry.service\nbench-api CPU=52.23% Memory=517.9MiB / 2GiB Network=4.02GB / 1.35GB\nbench-proxy CPU=23.31% Memory=25.83MiB / 128MiB Network=1.36GB / 1.37GB\nbench-postgres CPU=2.49% Memory=44.9MiB / 768MiB Network=2.62MB / 2.5MB\n9b23554b947df7861a7ff9bc3818e4a7b3619598c5c5943b2d7b9c416bead4ea  /opt/upload-bench/upload_bench_server.py\ncaddy:2 sha256:5813f7eb9b94fac4970f9f576695fe1ed1d53d41586fd3eaa350caf7c4627d9c\n585572506964.dkr.ecr.us-east-1.amazonaws.com/vindex@sha256:ee08240512c0f2b5b0101261ba74e4bd0aeccaba71519592c788647d9d50dcbc CPU=500000000 Memory=2147483648\n",
+    "StandardErrorContent": ""
+  },
+  {
+    "InstanceId": "i-03f1e511028bb90c8",
+    "Status": "Success",
+    "StandardOutputContent": "2026-11-10T18:29:08Z\nNEXT                        LEFT               LAST                        PASSED  UNIT                                ACTIVATES\nTue 2026-11-10 22:22:37 UTC 3h 53min left      -                           -       upload-client-expiry.timer          upload-client-expiry.service\nbench-runner CPU=226.41% Memory=390.9MiB / 6GiB Network=131MB / 2.71GB\nactive\nactive\napi video-25mib.mp4 wave 8: 5/5 accepted\napi video-25mib.mp4 wave 9: 5/5 accepted\ndirect video-25mib.mp4 wave 9: 5/5 accepted\ndirect video-25mib.mp4 wave 10: 5/5 accepted\n",
+    "StandardErrorContent": ""
+  }
+]

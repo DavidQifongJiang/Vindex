@@ -1,0 +1,112 @@
+{
+  "main_commit": "a458bc2e5b19335025eed8ec63599e2c02297330",
+  "deployment_url": "https://github.com/DavidQifongJiang/Vindex/actions/runs/42742139300",
+  "image_digest": "sha256:ee08240512c0f2b5b0101261ba74e4bd0aeccaba71519592c788647d9d50dcbc",
+  "started_at": "2026-11-10T02:36:39.604952+00:00",
+  "finished_at": "2026-11-10T02:40:19.028434+00:00",
+  "passed": true,
+  "checks": [
+    {
+      "name": "owner_cognito_login",
+      "passed": true
+    },
+    {
+      "name": "second_cognito_login",
+      "passed": true
+    },
+    {
+      "name": "create_intent",
+      "passed": true,
+      "status": 200
+    },
+    {
+      "name": "deployed_worker_hash",
+      "passed": true
+    },
+    {
+      "name": "signed_checksum_returned",
+      "passed": true
+    },
+    {
+      "name": "api_metadata_only",
+      "passed": true
+    },
+    {
+      "name": "browser_s3_and_api_completion",
+      "passed": true,
+      "status": 200
+    },
+    {
+      "name": "accepted_identity",
+      "passed": true
+    },
+    {
+      "name": "completion_replay",
+      "passed": true
+    },
+    {
+      "name": "intent_replay",
+      "passed": true
+    },
+    {
+      "name": "changed_content_conflicts",
+      "passed": true
+    },
+    {
+      "name": "other_user_cannot_complete",
+      "passed": true
+    },
+    {
+      "name": "other_user_cannot_read",
+      "passed": true
+    },
+    {
+      "name": "other_user_cannot_delete",
+      "passed": true
+    },
+    {
+      "name": "anonymous_upload_rejected",
+      "passed": true
+    },
+    {
+      "name": "one_logical_video",
+      "passed": true
+    },
+    {
+      "name": "processing_completed",
+      "passed": true
+    },
+    {
+      "name": "playback_ready",
+      "passed": true
+    },
+    {
+      "name": "search_ready",
+      "passed": true
+    },
+    {
+      "name": "transcript_available",
+      "passed": true
+    },
+    {
+      "name": "search_returns_results",
+      "passed": true
+    },
+    {
+      "name": "playback_bytes_available",
+      "passed": true
+    },
+    {
+      "name": "browser_decodes_and_plays_video",
+      "passed": true
+    }
+  ],
+  "cleanup": {
+    "all_test_media_prefixes_empty": true,
+    "login_deletion_verified": true,
+    "retained_audit": "Application upload idempotency and test user metadata may remain as audit records; media and login identities are cleaned separately."
+  },
+  "worker_scale_to_zero_verified": true,
+  "strict_checksum_enforcement": false,
+  "scope": "One authenticated deployed functional smoke; not a load or latency comparison."
+}

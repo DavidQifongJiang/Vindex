@@ -1,0 +1,102 @@
+[
+  {
+    "InstanceType": "t3.large",
+    "VCpuInfo": {
+      "DefaultVCpus": 2,
+      "DefaultCores": 1,
+      "DefaultThreadsPerCore": 2,
+      "ValidCores": [
+        1
+      ],
+      "ValidThreadsPerCore": [
+        1,
+        2
+      ]
+    },
+    "MemoryInfo": {
+      "SizeInMiB": 8192
+    },
+    "NetworkInfo": {
+      "NetworkPerformance": "Up to 5 Gigabit",
+      "MaximumNetworkInterfaces": 3,
+      "MaximumNetworkCards": 1,
+      "DefaultNetworkCardIndex": 0,
+      "NetworkCards": [
+        {
+          "NetworkCardIndex": 0,
+          "NetworkPerformance": "Up to 5 Gigabit",
+          "MaximumNetworkInterfaces": 3,
+          "BaselineBandwidthInGbps": 0.512,
+          "PeakBandwidthInGbps": 5.0,
+          "DefaultEnaQueueCountPerInterface": 2
+        }
+      ],
+      "Ipv4AddressesPerInterface": 12,
+      "Ipv6AddressesPerInterface": 12,
+      "Ipv6Supported": true,
+      "EnaSupport": "required",
+      "EfaSupported": false,
+      "EncryptionInTransitSupported": false,
+      "EnaSrdSupported": false,
+      "FlexibleEnaQueuesSupport": "unsupported",
+      "ConnectionTrackingConfiguration": {
+        "DefaultTcpEstablishedTimeout": 432000,
+        "DefaultUdpTimeout": 30,
+        "DefaultUdpStreamTimeout": 180
+      },
+      "SecondaryNetworkSupported": false
+    },
+    "BurstablePerformanceSupported": true
+  },
+  {
+    "InstanceType": "c7i.xlarge",
+    "VCpuInfo": {
+      "DefaultVCpus": 4,
+      "DefaultCores": 2,
+      "DefaultThreadsPerCore": 2,
+      "ValidCores": [
+        1,
+        2
+      ],
+      "ValidThreadsPerCore": [
+        1,
+        2
+      ]
+    },
+    "MemoryInfo": {
+      "SizeInMiB": 8192
+    },
+    "NetworkInfo": {
+      "NetworkPerformance": "Up to 12.5 Gigabit",
+      "MaximumNetworkInterfaces": 4,
+      "MaximumNetworkCards": 1,
+      "DefaultNetworkCardIndex": 0,
+      "NetworkCards": [
+        {
+          "NetworkCardIndex": 0,
+          "NetworkPerformance": "Up to 12.5 Gigabit",
+          "MaximumNetworkInterfaces": 4,
+          "BaselineBandwidthInGbps": 1.562,
+          "PeakBandwidthInGbps": 12.5,
+          "DefaultEnaQueueCountPerInterface": 4
+        }
+      ],
+      "Ipv4AddressesPerInterface": 15,
+      "Ipv6AddressesPerInterface": 15,
+      "Ipv6Supported": true,
+      "EnaSupport": "required",
+      "EfaSupported": false,
+      "EncryptionInTransitSupported": true,
+      "EnaSrdSupported": false,
+      "FlexibleEnaQueuesSupport": "unsupported",
+      "ConnectionTrackingConfiguration": {
+        "DefaultTcpEstablishedTimeout": 432000,
+        "DefaultUdpTimeout": 30,
+        "DefaultUdpStreamTimeout": 180
+      },
+      "SecondaryNetworkSupported": false,
+      "Ipv4AddressesPerSecondaryInterface": 0
+    },
+    "BurstablePerformanceSupported": false
+  }
+]

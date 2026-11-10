@@ -21,6 +21,19 @@ resource contention under concurrent uploads. Lower end-to-end latency is a
 hypothesis, not a guaranteed result: hashing, snapshot copy, extra round trips,
 client bandwidth, and cold worker startup all contribute to time users observe.
 
+The rollout in PRs 17–19 is deployed and its authenticated functional smoke
+passed 23 checks; see [deployment evidence](evidence/direct_upload_deployment_2026-11-10.json).
+The completed [600-upload comparison](upload_comparison_results_2026-11-10.md)
+found 16.9–18.4% lower p95 latency with five simultaneous uploads, a 3.0% p95
+increase for one uploader, and 84.6–95.0% less API CPU work per accepted GiB.
+Every upload passed input integrity and initial-job checks. All three cases
+passed the predeclared upload-only gates; production reliability and billing
+savings remain unverified.
+
+The controlled upload comparison follows the narrower, predeclared
+[November 9 protocol and November 10 recovery amendment](upload_comparison_protocol_2026-11-09.md).
+The broader load matrix below remains a roadmap, not a list of completed tests.
+
 ## Experiment sequence
 
 1. **Correctness gate:** real staging S3 POST/CORS, wrong checksum rejection,
@@ -87,7 +100,9 @@ sizes. An API Gateway rejection is not evidence that direct upload is faster.
 Use a test-account Playwright storage-state file if authentication is enabled;
 never commit that file. The runner rejects an unlabeled environment, checks the
 observed upload mode, caps concurrency at ten, and refuses to overwrite a run
-directory. It creates private videos but does not delete them automatically.
+directory. With ordinary staging targets it creates private videos but does not
+delete them automatically. The opt-in isolated wrapper verifies every accepted
+input and initial jobs, then removes the measured wave's objects and rows.
 
 `attempts.jsonl` preserves every outcome and created video ID. `waves.jsonl`
 records wave durations. `summary.json` groups by mode/file/size/concurrency/network,
@@ -95,14 +110,15 @@ and reports acceptance intervals and successful latency percentiles. `run.json`
 records settings without session contents, signed URLs, or credentials. The
 `completion.json` marker distinguishes a finished run from partial evidence; an
 absent marker or `finished_all_planned_waves=false` cannot pass acceptance. The
-runner currently measures upload acceptance only; integrated search/playback,
-server resource use, cleanup verification and cost remain separate required gates.
+runner measures upload acceptance only. The isolated wrapper adds API/proxy
+resource snapshots and per-wave integrity/cleanup records. Integrated
+search/playback performance and production billing remain separate evaluations.
 
 The automated browser fixture exercises the same measurement module with the
 production hash worker. Statistical tests ensure failures stay in the denominator
 and one successful attempt does not establish 99% reliability.
 
-## Proposed decision gates
+## Decision gates and current evidence
 
 Lock gates before collecting the comparison; do not lower them after a failure.
 
@@ -110,13 +126,13 @@ Lock gates before collecting the comparison; do not lower them after a failure.
 | --- | --- | --- |
 | Local recovery and integrity | All targeted tests pass, including real PostgreSQL concurrency | Passed locally; see PR evidence |
 | Real AWS storage protocol | Signed POST, checksum/size/key enforcement, copy integrity and browser CORS | Passed on the shared media bucket; operator credentials, not the deployed task role |
-| Deployed application flow | Cognito ownership, API completion/replay, durable jobs and accepted input integrity | Unverified |
-| API file traffic | At least 99% reduction in media bytes traversing API/proxy | Unverified |
-| Temporary-file writes | At least 95% reduction per accepted GiB | Unverified |
-| Upload latency | Direct p95 no more than 10% above API within each matched cell | Unverified |
-| Reliability | Observed acceptance at least 99%, with uncertainty reported; insufficient samples remain inconclusive | Unverified |
-| Processing | No functional regression; search/playback latency meets the agreed staging SLO under matched load | Unverified |
-| Cost and cleanup | Within an agreed test budget; no leaked test objects/jobs after cleanup | Unverified |
+| Deployed application flow | Cognito ownership, API completion/replay, durable jobs and accepted input integrity | Passed: 23 deployed smoke checks |
+| API upload bodies | At least 99% reduction in API request-body volume | Passed: over 99.999% in all three cases |
+| API process write accounting | At least 95% reduction per accepted GiB; distinct from physical-device writes | Passed: direct-mode write_bytes was zero in the measured waves |
+| Upload latency | Direct p95 no more than 10% above API within each matched cell | Passed in all three cases, including the paired-wave confidence interval |
+| Reliability | Observed acceptance at least 99%, with uncertainty reported; insufficient samples remain inconclusive | 600/600 accepted; population reliability lower bound remains unverified |
+| Processing | No functional regression; search/playback latency meets the agreed staging SLO under matched load | Functional smoke passed; matched-load latency unverified |
+| Cost and cleanup | Bounded test resources; no leaked test objects/jobs after cleanup | Temporary hosts, disks, bucket and permissions removed; replacement-run compute estimate $0.466; production billing savings unverified |
 
 Ten successful uploads are a smoke test, not a reliability estimate. A stringent
 99% lower confidence bound needs hundreds of independent attempts even with no

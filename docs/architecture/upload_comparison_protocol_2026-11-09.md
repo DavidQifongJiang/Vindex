@@ -120,3 +120,14 @@ Windows run or attribute cross-run differences solely to HTTPS termination: the
 client hardware/browser also changed. Primary conclusions compare upload modes
 within the completed remote dataset. A cloud client with emulated network limits
 does not reproduce arbitrary consumer networks or client hardware.
+
+### Failure-evidence operations
+
+S3 checkpoints preserve report files, and unfinished S3 inputs remain in the
+dedicated bucket until explicitly preserved/removed or its two-day lifecycle
+expires. PostgreSQL state resides on the temporary host. If a wave fails, export
+that database and download residual inputs before the host's expiry deadline;
+the automatic four-hour shutdown is a spending bound, not a database backup.
+Explicit teardown refuses residual inputs and re-verifies the local report
+archive before removing resources. Keep an active foreground watch until a
+completed run is downloaded and verified, then remove the isolated resources.

@@ -1,0 +1,14 @@
+[
+  {
+    "InstanceId": "i-081c864b2de17f6c1",
+    "Status": "Success",
+    "StandardOutputContent": "2026-11-10T20:04:19Z\nNEXT                        LEFT               LAST                        PASSED       UNIT                             ACTIVATES\nTue 2026-11-10 22:17:10 UTC 2h 12min left      -                           -            upload-bench-expiry.timer        upload-bench-expiry.service\nbench-api CPU=0.19% Memory=558.3MiB / 2GiB Network=49.4GB / 16.9GB\nbench-proxy CPU=0.00% Memory=18.68MiB / 128MiB Network=16.9GB / 17GB\nbench-postgres CPU=0.00% Memory=44.95MiB / 768MiB Network=16.7MB / 14.9MB\n9b23554b947df7861a7ff9bc3818e4a7b3619598c5c5943b2d7b9c416bead4ea  /opt/upload-bench/upload_bench_server.py\ncaddy:2 sha256:5813f7eb9b94fac4970f9f576695fe1ed1d53d41586fd3eaa350caf7c4627d9c\n585572506964.dkr.ecr.us-east-1.amazonaws.com/vindex@sha256:ee08240512c0f2b5b0101261ba74e4bd0aeccaba71519592c788647d9d50dcbc CPU=500000000 Memory=2147483648\n[\"caddy@sha256:ce773ec7a742ce15ee6bf2bb5f65882b9e2a4487b10733e6f1484f86e6b5d8bc\"]\n[\"postgres@sha256:f9a7b9ebf6f56201f949db745e47bc423c0f0f8294bafe991cc10bf74b029657\"]\npostgres (PostgreSQL) 16.15 (Debian 16.15-1.pgdg13+2)\n0|0|0\n",
+    "StandardErrorContent": ""
+  },
+  {
+    "InstanceId": "i-03f1e511028bb90c8",
+    "Status": "Success",
+    "StandardOutputContent": "2026-11-10T20:04:18Z\nNEXT                        LEFT               LAST                        PASSED       UNIT                                ACTIVATES\nTue 2026-11-10 22:22:37 UTC 2h 18min left      -                           -            upload-client-expiry.timer          upload-client-expiry.service\nbench-runner CPU=0.00% Memory=58.37MiB / 6GiB Network=699MB / 33GB\ninactive\ninactive\ndirect video-25mib.mp4 wave 99: 1/1 accepted\ndirect video-25mib.mp4 wave 100: 1/1 accepted\napi video-25mib.mp4 wave 100: 1/1 accepted\n{\"event\": \"campaign_complete\", \"cells\": 3}\n",
+    "StandardErrorContent": ""
+  }
+]

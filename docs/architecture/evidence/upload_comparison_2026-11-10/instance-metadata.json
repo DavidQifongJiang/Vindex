@@ -1,0 +1,46 @@
+[
+  {
+    "InstanceId": "i-03f1e511028bb90c8",
+    "InstanceType": "c7i.xlarge",
+    "State": {
+      "Code": 16,
+      "Name": "running"
+    },
+    "LaunchTime": "2026-11-10 18:21:12+00:00",
+    "CpuOptions": {
+      "CoreCount": 2,
+      "ThreadsPerCore": 2
+    },
+    "Placement": {
+      "AvailabilityZoneId": "use1-az2",
+      "GroupName": "",
+      "Tenancy": "default",
+      "AvailabilityZone": "us-east-1b"
+    },
+    "Monitoring": {
+      "State": "disabled"
+    }
+  },
+  {
+    "InstanceId": "i-081c864b2de17f6c1",
+    "InstanceType": "t3.large",
+    "State": {
+      "Code": 16,
+      "Name": "running"
+    },
+    "LaunchTime": "2026-11-10 18:15:04+00:00",
+    "CpuOptions": {
+      "CoreCount": 1,
+      "ThreadsPerCore": 2
+    },
+    "Placement": {
+      "AvailabilityZoneId": "use1-az2",
+      "GroupName": "",
+      "Tenancy": "default",
+      "AvailabilityZone": "us-east-1b"
+    },
+    "Monitoring": {
+      "State": "disabled"
+    }
+  }
+]

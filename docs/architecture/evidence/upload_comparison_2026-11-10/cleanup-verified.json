@@ -1,0 +1,82 @@
+{
+  "checked_at": "2026-11-10T20:07:13.776465+00:00",
+  "run": "vindex-upload-bench-f2094f801e",
+  "destroyed_at": "2026-11-10T20:06:09.886782+00:00",
+  "checks": [
+    {
+      "resource": "instance",
+      "id": "i-081c864b2de17f6c1",
+      "removed": true
+    },
+    {
+      "resource": "runner_instance",
+      "id": "i-03f1e511028bb90c8",
+      "removed": true
+    },
+    {
+      "resource": "vol-080a0293f7f0ccee3",
+      "removed": true
+    },
+    {
+      "resource": "vol-0c8833a9090859571",
+      "removed": true
+    },
+    {
+      "resource": "bucket",
+      "removed": true
+    },
+    {
+      "resource": "security_group",
+      "removed": true
+    },
+    {
+      "resource": "runner_security_group",
+      "removed": true
+    },
+    {
+      "resource": "instance_profile",
+      "removed": true
+    },
+    {
+      "resource": "role",
+      "removed": true
+    }
+  ],
+  "production_health": 200,
+  "production_services": [
+    {
+      "name": "vindex-api",
+      "desired": 1,
+      "running": 1,
+      "pending": 0
+    },
+    {
+      "name": "vindex-search-worker",
+      "desired": 0,
+      "running": 0,
+      "pending": 0
+    },
+    {
+      "name": "vindex-playback-worker",
+      "desired": 0,
+      "running": 0,
+      "pending": 0
+    }
+  ],
+  "compute_estimate": [
+    {
+      "type": "c7i.xlarge",
+      "hours_through_teardown_completion": 1.749412995,
+      "usd_list_price_per_hour": 0.1785,
+      "estimated_compute_usd_upper_bound": 0.31227021960749995
+    },
+    {
+      "type": "t3.large",
+      "hours_through_teardown_completion": 1.8516352172222221,
+      "usd_list_price_per_hour": 0.0832,
+      "estimated_compute_usd_upper_bound": 0.15405605007288886
+    }
+  ],
+  "cost_scope": "List-price compute estimate through teardown completion. Excludes EBS, public IPv4, S3 requests/storage/transfer, taxes/discounts and the interrupted earlier host. It is not an AWS bill or a production cost-saving measurement.",
+  "earlier_run_resources_destroyed_at": "2026-11-10T18:12:28.222825+00:00"
+}

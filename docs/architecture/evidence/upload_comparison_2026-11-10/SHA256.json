@@ -1,0 +1,70 @@
+{
+  "analysis-runtime.json": {
+    "bytes": 260,
+    "sha256": "8bd6b7845f09c851fc6bc880c1aeb29b6cd9fa70913bf0ae2eed855745f03eab"
+  },
+  "analysis.json": {
+    "bytes": 20578,
+    "sha256": "4d9df41bd3734fcf3877965013c98fff371f087eeec8d6f27789c27f17a2b536"
+  },
+  "cleanup-verified.json": {
+    "bytes": 2099,
+    "sha256": "cb7752395f69e0804f4a822a597dd92e417c3e323b9f7b0b293ae9069eaa3d72"
+  },
+  "comparison.png": {
+    "bytes": 136240,
+    "sha256": "6993cc1aff133d41f151bef0402ecd66515f8403fad37881f5f361ff56f8d92c"
+  },
+  "comparison.svg": {
+    "bytes": 98595,
+    "sha256": "ec17f59510112d2be8068f4136e225ec055a3f1d93e55cc5d195309ed3b8034d"
+  },
+  "fixtures.json": {
+    "bytes": 1152,
+    "sha256": "259d777c8bbffb2077c5f019e4efe16f56e600b7ab40ed6fd2ed03b8a89dfc78"
+  },
+  "host-inspection-final.json": {
+    "bytes": 1977,
+    "sha256": "05ff9f04f4ba0147573ac883623308438f302ebf6541da385a67047b9bfa169c"
+  },
+  "host-inspection.json": {
+    "bytes": 1714,
+    "sha256": "a34ff3c9dacff3988f36b784c23ee40f38c701deb5ea135975b564405b7af882"
+  },
+  "host-metrics.json": {
+    "bytes": 36911,
+    "sha256": "4689dd5521cf923de5faec19090ce5f817e7e04347f9c8afa5e86c5dfbc8578a"
+  },
+  "instance-capacity.json": {
+    "bytes": 2848,
+    "sha256": "653df3f82593dd868c27fc8bb71df8177ed86909d7cfc694fa92bf7787a05a66"
+  },
+  "instance-metadata.json": {
+    "bytes": 1001,
+    "sha256": "59d0f033f416a2cb26f0c2ad754f97ed44333d199e92fb360e4b6585a2ba59f2"
+  },
+  "interrupted-raw.zip": {
+    "bytes": 47839,
+    "sha256": "3475560680ec3f232a4cc8205d02e31cca2d66f46aac3b889c2d378ab726f078"
+  },
+  "measured-source.zip": {
+    "bytes": 10496,
+    "sha256": "20bc766ecd3c8d57e1bdc8dd625caf76444a0800822871a66f71e58e67d7296f"
+  },
+  "pricing.json": {
+    "bytes": 663,
+    "sha256": "2f9470f2b566c4a6e8f0160c8452b0ac470bafac77b6eaeef17e0d340aae3a9d"
+  },
+  "remote-raw.zip": {
+    "bytes": 104514,
+    "sha256": "4b8589b0ada965a64eabaedd72acebd4d62c1f58b5bdd91459591c1538650920"
+  },
+  "reproduction-check.json": {
+    "bytes": 388,
+    "sha256": "856d3a9bfb62b6da3da700c495c6ccec5817b369ecb64f6370ae123349d18a5b"
+  },
+  "statistics-mutation-check.json": {
+    "bytes": 274,
+    "sha256": "d822d0a9dec677d1f3a29067143b7c7178e853980b1ae648f645fe4a1a8f2f09"
+  }
+}
