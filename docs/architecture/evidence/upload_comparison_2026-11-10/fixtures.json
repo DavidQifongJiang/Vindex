@@ -1,0 +1,52 @@
+[
+  {
+    "name": "video-100mib.mp4",
+    "bytes": 108652341,
+    "sha256": "689ecebe84d9cbda39f1f73ce441ff8545cb9da793f488f1c32a9d1e676a4bf7",
+    "probe": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 1280,
+          "height": 720
+        },
+        {
+          "codec_name": "aac",
+          "codec_type": "audio"
+        }
+      ],
+      "format": {
+        "duration": "80.069727",
+        "size": "108652341"
+      }
+    }
+  },
+  {
+    "name": "video-25mib.mp4",
+    "bytes": 27164499,
+    "sha256": "d861c4a2f3b33fa1b3ebd9f81b5cc399878216ee59667e6dd9b6afa05ba38f05",
+    "probe": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 1280,
+          "height": 720
+        },
+        {
+          "codec_name": "aac",
+          "codec_type": "audio"
+        }
+      ],
+      "format": {
+        "duration": "20.000000",
+        "size": "27164499"
+      }
+    }
+  }
+]

@@ -1,0 +1,568 @@
+{
+  "generated_at": "2026-11-10T20:04:33.743172+00:00",
+  "method": "10,000 paired-wave bootstrap resamples; seed 20261109; nearest-rank quantiles",
+  "cells": [
+    {
+      "cell": "small-c5",
+      "file": {
+        "name": "video-25mib.mp4",
+        "bytes": 27164499
+      },
+      "concurrency": 5,
+      "paired_waves": 20,
+      "network": {
+        "name": "20mbps-40ms",
+        "latency_ms": 40,
+        "upload_mbps": 20,
+        "download_mbps": 100
+      },
+      "modes": {
+        "api": {
+          "attempted": 100,
+          "accepted": 100,
+          "failed": 0,
+          "acceptance_rate": 1.0,
+          "acceptance_95pct_wilson_descriptive": [
+            0.9630065017930143,
+            1
+          ],
+          "accepted_gib": 2.529891114681959,
+          "resource_totals": {
+            "cpu_seconds": 137.18203300000008,
+            "write_bytes": 5432999936,
+            "cancelled_write_bytes": 3295825920,
+            "write_syscall_bytes": 8156903728,
+            "network_rx_bytes": 2747736595,
+            "network_tx_bytes": 2749798513,
+            "api_request_body_bytes": 2716493350,
+            "api_response_body_bytes": 210649,
+            "throttled_seconds": 108.15109799999998,
+            "proxy_cpu_seconds": 40.03365799999998,
+            "combined_cpu_seconds": 177.21569100000005
+          },
+          "cpu_seconds_per_accepted_gib": 54.22448112643207,
+          "combined_cpu_seconds_per_accepted_gib": 70.04874240300197,
+          "median_wave_peak_rss_mib": 696.03125,
+          "median_wave_container_memory_increase_mib": 262.09375,
+          "mean_pre_request_seconds": 0.17507710050999659,
+          "failed_attempts": []
+        },
+        "direct": {
+          "attempted": 100,
+          "accepted": 100,
+          "failed": 0,
+          "acceptance_rate": 1.0,
+          "acceptance_95pct_wilson_descriptive": [
+            0.9630065017930143,
+            1
+          ],
+          "accepted_gib": 2.529891114681959,
+          "resource_totals": {
+            "cpu_seconds": 14.176151999999902,
+            "write_bytes": 0,
+            "cancelled_write_bytes": 0,
+            "write_syscall_bytes": 2566081,
+            "network_rx_bytes": 4381958,
+            "network_tx_bytes": 5960736,
+            "api_request_body_bytes": 24250,
+            "api_response_body_bytes": 691299,
+            "throttled_seconds": 6.6882979999999925,
+            "proxy_cpu_seconds": 0.6099069999999887,
+            "combined_cpu_seconds": 14.786058999999891
+          },
+          "cpu_seconds_per_accepted_gib": 5.603463294420097,
+          "combined_cpu_seconds_per_accepted_gib": 5.844543630431579,
+          "median_wave_peak_rss_mib": 695.181640625,
+          "median_wave_container_memory_increase_mib": 0.064453125,
+          "mean_pre_request_seconds": 0.838243885000001,
+          "failed_attempts": []
+        }
+      },
+      "gates": {
+        "accepted_input_and_initial_jobs": "passed",
+        "per_wave_cleanup": "passed",
+        "observed_acceptance_at_least_99_percent": "passed",
+        "population_reliability_99_percent": "unverified: descriptive intervals do not establish independent population reliability",
+        "p95_at_most_10_percent_regression": "passed",
+        "api_body_traffic_reduction_99_percent": "passed",
+        "storage_write_accounting_reduction_95_percent": "passed"
+      },
+      "server": {
+        "isolated": true,
+        "database": "vindex_upload_bench",
+        "bucket": "vindex-upload-bench-585572506964-f2094f801e",
+        "code_commit": "a458bc2e5b19335025eed8ec63599e2c02297330",
+        "api_cpu_limit": 0.5,
+        "api_memory_limit_bytes": 2147483648,
+        "processing_workers": 0,
+        "https_termination": "separate_proxy",
+        "measurement": "ASGI bodies; process CPU and /proc I/O; container network and memory; RSS/memory sampled at 50ms"
+      },
+      "latency": {
+        "p50": {
+          "api_seconds": 15.691741832999979,
+          "direct_seconds": 12.844227608999994,
+          "api_seconds_95pct_wave_bootstrap": [
+            15.610549894,
+            15.793456846000044
+          ],
+          "direct_seconds_95pct_wave_bootstrap": [
+            12.813308727000026,
+            12.879872669999953
+          ],
+          "direct_over_api": 0.8185342166405251,
+          "ratio_95pct_paired_wave_bootstrap": [
+            0.8129557455782426,
+            0.8237895956044474
+          ],
+          "difference_seconds_95pct_paired_wave_bootstrap": [
+            -2.9521185360000235,
+            -2.751900896000034
+          ]
+        },
+        "p95": {
+          "api_seconds": 16.057834978999978,
+          "direct_seconds": 13.345340380999959,
+          "api_seconds_95pct_wave_bootstrap": [
+            15.888855101000052,
+            16.174019681000033
+          ],
+          "direct_seconds_95pct_wave_bootstrap": [
+            12.988815440999998,
+            13.630115397999994
+          ],
+          "direct_over_api": 0.8310796815668271,
+          "ratio_95pct_paired_wave_bootstrap": [
+            0.8101059260865947,
+            0.8533759852156493
+          ],
+          "difference_seconds_95pct_paired_wave_bootstrap": [
+            -3.054103839000046,
+            -2.338749910000013
+          ]
+        }
+      },
+      "resource_ratios": {
+        "cpu_seconds": {
+          "direct_over_api": 0.10333825567375791,
+          "ratio_95pct_paired_wave_bootstrap": [
+            0.09978095103045237,
+            0.10877405384470196
+          ]
+        },
+        "write_bytes": {
+          "direct_over_api": 0.0,
+          "ratio_95pct_paired_wave_bootstrap": [
+            0.0,
+            0.0
+          ]
+        },
+        "network_rx_bytes": {
+          "direct_over_api": 0.0015947518433803878,
+          "ratio_95pct_paired_wave_bootstrap": [
+            0.0015846207052513525,
+            0.0016046360531493005
+          ]
+        },
+        "network_tx_bytes": {
+          "direct_over_api": 0.002167699186620369,
+          "ratio_95pct_paired_wave_bootstrap": [
+            0.002159041163638643,
+            0.0021768012372682223
+          ]
+        },
+        "api_request_body_bytes": {
+          "direct_over_api": 8.926949885594236e-06,
+          "ratio_95pct_paired_wave_bootstrap": [
+            8.919587518368764e-06,
+            8.934312252711295e-06
+          ]
+        },
+        "combined_cpu_seconds": {
+          "direct_over_api": 0.08343538270547322,
+          "ratio_95pct_paired_wave_bootstrap": [
+            0.08067968003941607,
+            0.08762233706221634
+          ]
+        }
+      }
+    },
+    {
+      "cell": "medium-c5",
+      "file": {
+        "name": "video-100mib.mp4",
+        "bytes": 108652341
+      },
+      "concurrency": 5,
+      "paired_waves": 20,
+      "network": {
+        "name": "20mbps-40ms",
+        "latency_ms": 40,
+        "upload_mbps": 20,
+        "download_mbps": 100
+      },
+      "modes": {
+        "api": {
+          "attempted": 100,
+          "accepted": 100,
+          "failed": 0,
+          "acceptance_rate": 1.0,
+          "acceptance_95pct_wilson_descriptive": [
+            0.9630065017930143,
+            1
+          ],
+          "accepted_gib": 10.119037795811892,
+          "resource_totals": {
+            "cpu_seconds": 531.888707,
+            "write_bytes": 21732982784,
+            "cancelled_write_bytes": 988819456,
+            "write_syscall_bytes": 32619362499,
+            "network_rx_bytes": 10977308571,
+            "network_tx_bytes": 10981890976,
+            "api_request_body_bytes": 10865277650,
+            "api_response_body_bytes": 172073,
+            "throttled_seconds": 402.06386400000014,
+            "proxy_cpu_seconds": 161.09404399999997,
+            "combined_cpu_seconds": 692.9827509999999
+          },
+          "cpu_seconds_per_accepted_gib": 52.56317030658194,
+          "combined_cpu_seconds_per_accepted_gib": 68.48306775638434,
+          "median_wave_peak_rss_mib": 725.576171875,
+          "median_wave_container_memory_increase_mib": 1001.10546875,
+          "mean_pre_request_seconds": 0.1785602648700085,
+          "failed_attempts": []
+        },
+        "direct": {
+          "attempted": 100,
+          "accepted": 100,
+          "failed": 0,
+          "acceptance_rate": 1.0,
+          "acceptance_95pct_wilson_descriptive": [
+            0.9630065017930143,
+            1
+          ],
+          "accepted_gib": 10.119037795811892,
+          "resource_totals": {
+            "cpu_seconds": 26.780470999999977,
+            "write_bytes": 0,
+            "cancelled_write_bytes": 0,
+            "write_syscall_bytes": 2647266,
+            "network_rx_bytes": 4667290,
+            "network_tx_bytes": 6088263,
+            "api_request_body_bytes": 24450,
+            "api_response_body_bytes": 658663,
+            "throttled_seconds": 4.565722999999792,
+            "proxy_cpu_seconds": 0.6726539999999588,
+            "combined_cpu_seconds": 27.453124999999936
+          },
+          "cpu_seconds_per_accepted_gib": 2.6465432327057803,
+          "combined_cpu_seconds_per_accepted_gib": 2.713017339589575,
+          "median_wave_peak_rss_mib": 723.5703125,
+          "median_wave_container_memory_increase_mib": 0.173828125,
+          "mean_pre_request_seconds": 2.6870082724000035,
+          "failed_attempts": []
+        }
+      },
+      "gates": {
+        "accepted_input_and_initial_jobs": "passed",
+        "per_wave_cleanup": "passed",
+        "observed_acceptance_at_least_99_percent": "passed",
+        "population_reliability_99_percent": "unverified: descriptive intervals do not establish independent population reliability",
+        "p95_at_most_10_percent_regression": "passed",
+        "api_body_traffic_reduction_99_percent": "passed",
+        "storage_write_accounting_reduction_95_percent": "passed"
+      },
+      "server": {
+        "isolated": true,
+        "database": "vindex_upload_bench",
+        "bucket": "vindex-upload-bench-585572506964-f2094f801e",
+        "code_commit": "a458bc2e5b19335025eed8ec63599e2c02297330",
+        "api_cpu_limit": 0.5,
+        "api_memory_limit_bytes": 2147483648,
+        "processing_workers": 0,
+        "https_termination": "separate_proxy",
+        "measurement": "ASGI bodies; process CPU and /proc I/O; container network and memory; RSS/memory sampled at 50ms"
+      },
+      "latency": {
+        "p50": {
+          "api_seconds": 59.82595671100007,
+          "direct_seconds": 48.80956148699997,
+          "api_seconds_95pct_wave_bootstrap": [
+            59.60951335299999,
+            60.14324552999996
+          ],
+          "direct_seconds_95pct_wave_bootstrap": [
+            48.75861330700002,
+            48.88537422399997
+          ],
+          "direct_over_api": 0.8158592719675716,
+          "ratio_95pct_paired_wave_bootstrap": [
+            0.8115551639569126,
+            0.8194614432763715
+          ],
+          "difference_seconds_95pct_paired_wave_bootstrap": [
+            -11.333684042999991,
+            -10.764065888000026
+          ]
+        },
+        "p95": {
+          "api_seconds": 61.14059388300008,
+          "direct_seconds": 49.880082837000025,
+          "api_seconds_95pct_wave_bootstrap": [
+            60.44732149800001,
+            62.55209177099995
+          ],
+          "direct_seconds_95pct_wave_bootstrap": [
+            49.19762702300004,
+            49.991705787000015
+          ],
+          "direct_over_api": 0.8158259458920467,
+          "ratio_95pct_paired_wave_bootstrap": [
+            0.7905332637481115,
+            0.8249173232717486
+          ],
+          "difference_seconds_95pct_paired_wave_bootstrap": [
+            -13.102582508999973,
+            -10.59385321300011
+          ]
+        }
+      },
+      "resource_ratios": {
+        "cpu_seconds": {
+          "direct_over_api": 0.05034976424118736,
+          "ratio_95pct_paired_wave_bootstrap": [
+            0.04950988348505816,
+            0.051182553143616506
+          ]
+        },
+        "write_bytes": {
+          "direct_over_api": 0.0,
+          "ratio_95pct_paired_wave_bootstrap": [
+            0.0,
+            0.0
+          ]
+        },
+        "network_rx_bytes": {
+          "direct_over_api": 0.0004251761686220709,
+          "ratio_95pct_paired_wave_bootstrap": [
+            0.00042057303440229393,
+            0.00042925209464963815
+          ]
+        },
+        "network_tx_bytes": {
+          "direct_over_api": 0.0005543911347604331,
+          "ratio_95pct_paired_wave_bootstrap": [
+            0.0005523844287665418,
+            0.000556351292549261
+          ]
+        },
+        "api_request_body_bytes": {
+          "direct_over_api": 2.2502876399113465e-06,
+          "ratio_95pct_paired_wave_bootstrap": [
+            2.2484469179643044e-06,
+            2.252128361851612e-06
+          ]
+        },
+        "combined_cpu_seconds": {
+          "direct_over_api": 0.03961588504242573,
+          "ratio_95pct_paired_wave_bootstrap": [
+            0.03896169579201668,
+            0.040263019860325155
+          ]
+        }
+      }
+    },
+    {
+      "cell": "small-c1",
+      "file": {
+        "name": "video-25mib.mp4",
+        "bytes": 27164499
+      },
+      "concurrency": 1,
+      "paired_waves": 100,
+      "network": {
+        "name": "20mbps-40ms",
+        "latency_ms": 40,
+        "upload_mbps": 20,
+        "download_mbps": 100
+      },
+      "modes": {
+        "api": {
+          "attempted": 100,
+          "accepted": 100,
+          "failed": 0,
+          "acceptance_rate": 1.0,
+          "acceptance_95pct_wilson_descriptive": [
+            0.9630065017930143,
+            1
+          ],
+          "accepted_gib": 2.529891114681959,
+          "resource_totals": {
+            "cpu_seconds": 198.68946199999937,
+            "write_bytes": 5432934400,
+            "cancelled_write_bytes": 5419925504,
+            "write_syscall_bytes": 8157022876,
+            "network_rx_bytes": 2748843296,
+            "network_tx_bytes": 2752934929,
+            "api_request_body_bytes": 2716493390,
+            "api_response_body_bytes": 43798,
+            "throttled_seconds": 48.29048499999976,
+            "proxy_cpu_seconds": 73.59889000000018,
+            "combined_cpu_seconds": 272.2883519999996
+          },
+          "cpu_seconds_per_accepted_gib": 78.53676422946656,
+          "combined_cpu_seconds_per_accepted_gib": 107.62848662529487,
+          "median_wave_peak_rss_mib": 732.16796875,
+          "median_wave_container_memory_increase_mib": 52.587890625,
+          "mean_pre_request_seconds": 0.24520760854999793,
+          "failed_attempts": []
+        },
+        "direct": {
+          "attempted": 100,
+          "accepted": 100,
+          "failed": 0,
+          "acceptance_rate": 1.0,
+          "acceptance_95pct_wilson_descriptive": [
+            0.9630065017930143,
+            1
+          ],
+          "accepted_gib": 2.529891114681959,
+          "resource_totals": {
+            "cpu_seconds": 30.597836000000598,
+            "write_bytes": 0,
+            "cancelled_write_bytes": 0,
+            "write_syscall_bytes": 2564410,
+            "network_rx_bytes": 4181515,
+            "network_tx_bytes": 5956997,
+            "api_request_body_bytes": 24290,
+            "api_response_body_bytes": 512770,
+            "throttled_seconds": 0,
+            "proxy_cpu_seconds": 0.8861560000002839,
+            "combined_cpu_seconds": 31.48399200000088
+          },
+          "cpu_seconds_per_accepted_gib": 12.094526844427907,
+          "combined_cpu_seconds_per_accepted_gib": 12.444801207959829,
+          "median_wave_peak_rss_mib": 732.013671875,
+          "median_wave_container_memory_increase_mib": 0.083984375,
+          "mean_pre_request_seconds": 0.6856927836299878,
+          "failed_attempts": []
+        }
+      },
+      "gates": {
+        "accepted_input_and_initial_jobs": "passed",
+        "per_wave_cleanup": "passed",
+        "observed_acceptance_at_least_99_percent": "passed",
+        "population_reliability_99_percent": "unverified: descriptive intervals do not establish independent population reliability",
+        "p95_at_most_10_percent_regression": "passed",
+        "api_body_traffic_reduction_99_percent": "passed",
+        "storage_write_accounting_reduction_95_percent": "passed"
+      },
+      "server": {
+        "isolated": true,
+        "database": "vindex_upload_bench",
+        "bucket": "vindex-upload-bench-585572506964-f2094f801e",
+        "code_commit": "a458bc2e5b19335025eed8ec63599e2c02297330",
+        "api_cpu_limit": 0.5,
+        "api_memory_limit_bytes": 2147483648,
+        "processing_workers": 0,
+        "https_termination": "separate_proxy",
+        "measurement": "ASGI bodies; process CPU and /proc I/O; container network and memory; RSS/memory sampled at 50ms"
+      },
+      "latency": {
+        "p50": {
+          "api_seconds": 12.38898734500003,
+          "direct_seconds": 12.73932252299998,
+          "api_seconds_95pct_wave_bootstrap": [
+            12.373647764999886,
+            12.415582994000054
+          ],
+          "direct_seconds_95pct_wave_bootstrap": [
+            12.705454992000014,
+            12.749910265999963
+          ],
+          "direct_over_api": 1.028277951074132,
+          "ratio_95pct_paired_wave_bootstrap": [
+            1.024575889669619,
+            1.0299837833577437
+          ],
+          "difference_seconds_95pct_paired_wave_bootstrap": [
+            0.30492923500024993,
+            0.37118466600007416
+          ]
+        },
+        "p95": {
+          "api_seconds": 12.582216132999864,
+          "direct_seconds": 12.960294001000001,
+          "api_seconds_95pct_wave_bootstrap": [
+            12.543728533999994,
+            12.596750040999847
+          ],
+          "direct_seconds_95pct_wave_bootstrap": [
+            12.900550695999991,
+            13.005199044000124
+          ],
+          "direct_over_api": 1.0300485911228736,
+          "ratio_95pct_paired_wave_bootstrap": [
+            1.0247911655743076,
+            1.0367416014727202
+          ],
+          "difference_seconds_95pct_paired_wave_bootstrap": [
+            0.3122486400000053,
+            0.4602606429999003
+          ]
+        }
+      },
+      "resource_ratios": {
+        "cpu_seconds": {
+          "direct_over_api": 0.15399828300909435,
+          "ratio_95pct_paired_wave_bootstrap": [
+            0.1527920982240871,
+            0.15521232147264885
+          ]
+        },
+        "write_bytes": {
+          "direct_over_api": 0.0,
+          "ratio_95pct_paired_wave_bootstrap": [
+            0.0,
+            0.0
+          ]
+        },
+        "network_rx_bytes": {
+          "direct_over_api": 0.0015211907517917675,
+          "ratio_95pct_paired_wave_bootstrap": [
+            0.0015123284870381557,
+            0.001530165695636207
+          ]
+        },
+        "network_tx_bytes": {
+          "direct_over_api": 0.0021638713422710183,
+          "ratio_95pct_paired_wave_bootstrap": [
+            0.0021556585237919074,
+            0.0021719111464495217
+          ]
+        },
+        "api_request_body_bytes": {
+          "direct_over_api": 8.941674619719946e-06,
+          "ratio_95pct_paired_wave_bootstrap": [
+            8.939465909628735e-06,
+            8.943515211455171e-06
+          ]
+        },
+        "combined_cpu_seconds": {
+          "direct_over_api": 0.11562739194954963,
+          "ratio_95pct_paired_wave_bootstrap": [
+            0.114733629024505,
+            0.11653853086287513
+          ]
+        }
+      }
+    }
+  ],
+  "limitations": [
+    "One temporary AWS host and browser client machine; configured network caps share one physical uplink.",
+    "API upload path and direct path use the same deployed commit; this is not a historical production A/B.",
+    "Processing, authentication-provider/edge overhead, broad internet conditions and monthly billing are not compared.",
+    "write_bytes includes cancelled dirty-page writes; it is not physical-device I/O or a billed storage amount.",
+    "Reliability intervals are descriptive; concurrent attempts and repeated files are not independent population trials."
+  ]
+}
