@@ -29,14 +29,16 @@ def upload_fingerprint(fileobj, *, filename, title, visibility, max_bytes):
     return hashlib.sha256(metadata.encode()).hexdigest()
 
 
-def upload_intent_fingerprint(*, filename, title, visibility, size_bytes, content_type):
+def upload_intent_fingerprint(*, filename, title, visibility, size_bytes, content_type, sha256=None):
     """Fingerprint a direct-to-S3 upload from what the client declares.
 
-    The API never sees the bytes in this flow, so the declared size is part of
-    the identity and S3 enforces it exactly through the presigned POST policy.
+    S3 verifies the signed checksum against the actual bytes. Keep the old
+    representation for sessions created by clients without checksum support.
     """
-    metadata = json.dumps(["direct", filename, title, visibility, int(size_bytes), content_type],
-                          separators=(",", ":"))
+    identity = ["direct", filename, title, visibility, int(size_bytes), content_type]
+    if sha256 is not None:
+        identity.append(sha256)
+    metadata = json.dumps(identity, separators=(",", ":"))
     return hashlib.sha256(metadata.encode()).hexdigest()
 
 

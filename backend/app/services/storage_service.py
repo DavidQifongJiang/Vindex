@@ -1,4 +1,5 @@
 import boto3
+import base64
 import json
 import os
 from pathlib import Path
@@ -37,15 +38,28 @@ class S3Storage:
             )
         return self._browser_client
 
-    def presigned_upload(self, key: str, *, content_type: str, size_bytes: int, seconds: int):
+    def presigned_upload(self, key: str, *, content_type: str, size_bytes: int, seconds: int, sha256=None):
         """Presigned POST that only accepts this exact key, content type and byte count."""
+        fields = {"Content-Type": content_type}
+        if sha256 is not None:
+            fields.update({"x-amz-checksum-algorithm": "SHA256",
+                           "x-amz-checksum-sha256": base64.b64encode(bytes.fromhex(sha256)).decode("ascii")})
         return self._upload_client().generate_presigned_post(
             Bucket=self.bucket,
             Key=key,
-            Fields={"Content-Type": content_type},
-            Conditions=[{"Content-Type": content_type}, ["content-length-range", size_bytes, size_bytes]],
+            Fields=fields,
+            Conditions=[{key: value} for key, value in fields.items()] +
+                       [["content-length-range", size_bytes, size_bytes]],
             ExpiresIn=seconds,
         )
+
+    def object_sha256(self, key: str) -> str | None:
+        """Read S3's verified checksum, not client-supplied custom metadata."""
+        response = self.client.head_object(Bucket=self.bucket, Key=key, ChecksumMode="ENABLED")
+        value = response.get("ChecksumSHA256")
+        if not value or response.get("ChecksumType") == "COMPOSITE":
+            return None
+        return base64.b64decode(value, validate=True).hex()
 
     def copy_object(self, source_key: str, target_key: str):
         """Server-side copy (no download); a snapshot of the source at copy time."""

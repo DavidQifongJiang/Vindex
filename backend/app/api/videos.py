@@ -649,6 +649,8 @@ def create_direct_upload(
     """
     if request.size_bytes > MAX_UPLOAD_BYTES:
         raise HTTPException(413, "Uploaded video is too large")
+    if os.getenv("DIRECT_UPLOAD_REQUIRE_CHECKSUM", "false").lower() == "true" and not request.sha256:
+        raise HTTPException(422, "A file checksum is required; refresh the page and retry")
     content_type = request.content_type.strip().lower()
     if not re.fullmatch(r"video/[a-z0-9.+-]{1,60}", content_type):
         raise HTTPException(415, "Only video files can be uploaded")
@@ -660,12 +662,13 @@ def create_direct_upload(
     upsert_user(db, current_user)
     idempotency_key = idempotency_key or str(uuid4())
     fingerprint = upload_intent_fingerprint(filename=request.filename, title=video_title,
-        visibility=video_visibility, size_bytes=request.size_bytes, content_type=content_type)
+        visibility=video_visibility, size_bytes=request.size_bytes, content_type=content_type,
+        sha256=request.sha256)
     reservation, replay = reserve_upload(
         db, current_user.user_id, idempotency_key, fingerprint, suffix, resume_inflight=True,
         pending_response={"title": video_title, "visibility": video_visibility, "status": "uploaded",
                           "idempotency_key": idempotency_key, "content_type": content_type,
-                          "size_bytes": request.size_bytes})
+                          "size_bytes": request.size_bytes, "sha256": request.sha256})
     if replay is not None:
         return {"video_id": replay["video_id"], "idempotency_key": idempotency_key,
                 "upload": None, "completed": UploadAccepted(**replay)}
@@ -675,7 +678,8 @@ def create_direct_upload(
     pending = dict(reservation.response or {})
     db.rollback()
     post = storage.presigned_upload(raw_key, content_type=pending.get("content_type", content_type),
-                                    size_bytes=pending.get("size_bytes", request.size_bytes), seconds=seconds)
+                                    size_bytes=pending.get("size_bytes", request.size_bytes), seconds=seconds,
+                                    **({"sha256": pending["sha256"]} if pending.get("sha256") else {}))
     safe_update_metrics(storage, video_id, "upload", {"accepted_at_epoch": now_epoch(),
                                                       "upload_mode": "direct_s3"})
     return {"video_id": video_id, "idempotency_key": idempotency_key,
@@ -720,6 +724,10 @@ def complete_direct_upload(
             storage.delete_many([frozen_key])
             abandon_upload(db, current_user.user_id, idempotency_key, reservation.processing_token)
             raise HTTPException(422, "Uploaded file size does not match the upload request")
+        if pending.get("sha256") and storage.object_sha256(frozen_key) != pending["sha256"]:
+            storage.delete_many([frozen_key])
+            abandon_upload(db, current_user.user_id, idempotency_key, reservation.processing_token)
+            raise HTTPException(422, "Uploaded file checksum does not match the upload request")
         commit_upload(db, current_user.user_id, idempotency_key, reservation.processing_token, response,
                       new_video_record(response, current_user.user_id, frozen_key), release_on_error=False)
     except Exception:
