@@ -35,7 +35,10 @@ def process_snapshot():
     rss = next(int(line.split()[1]) * 1024 for line in Path("/proc/self/status").read_text().splitlines() if line.startswith("VmRSS:"))
     net = [line.split(":", 1)[1].split() for line in Path("/proc/net/dev").read_text().splitlines()[2:] if not line.strip().startswith("lo:")]
     cpu = dict(line.split() for line in Path("/sys/fs/cgroup/cpu.stat").read_text().splitlines())
-    return {"cpu_seconds": usage.ru_utime + usage.ru_stime, "read_bytes": io["read_bytes"],
+    proxy_cpu = 0
+    if Path("/proxy-cgroup/cpu.stat").exists():
+        proxy_cpu = int(dict(line.split() for line in Path("/proxy-cgroup/cpu.stat").read_text().splitlines())["usage_usec"]) / 1e6
+    return {"cpu_seconds": usage.ru_utime + usage.ru_stime, "proxy_cpu_seconds": proxy_cpu, "read_bytes": io["read_bytes"],
             "write_bytes": io["write_bytes"], "cancelled_write_bytes": io["cancelled_write_bytes"],
             "write_syscall_bytes": io["wchar"],
             "network_rx_bytes": sum(int(n[0]) for n in net), "network_tx_bytes": sum(int(n[8]) for n in net),
@@ -75,7 +78,7 @@ class WaveMeter:
         self.thread.join(timeout=1)
         self.active = None
         return {"wave": name, "elapsed_seconds": end["wall"] - self.start["wall"],
-                **{k: end[k] - self.start[k] for k in ("cpu_seconds", "read_bytes", "write_bytes", "cancelled_write_bytes", "write_syscall_bytes", "network_rx_bytes", "network_tx_bytes", "throttled_seconds")},
+                **{k: end[k] - self.start[k] for k in ("cpu_seconds", "proxy_cpu_seconds", "read_bytes", "write_bytes", "cancelled_write_bytes", "write_syscall_bytes", "network_rx_bytes", "network_tx_bytes", "throttled_seconds")},
                 "rss_start_bytes": self.start["rss_bytes"], "rss_end_bytes": end["rss_bytes"],
                 "rss_peak_bytes": max(self.peak_rss, end["rss_bytes"]),
                 "container_memory_start_bytes": self.start["container_memory_bytes"],
@@ -100,6 +103,7 @@ def build_app():
         return {"isolated": True, "database": "vindex_upload_bench", "bucket": storage.bucket,
                 "code_commit": os.environ["VINDEX_BENCH_COMMIT"], "api_cpu_limit": 0.5,
                 "api_memory_limit_bytes": 2147483648, "processing_workers": 0,
+                "https_termination": "separate_proxy" if Path("/proxy-cgroup/cpu.stat").exists() else "api_process",
                 "measurement": "ASGI bodies; process CPU and /proc I/O; container network and memory; RSS/memory sampled at 50ms"}
 
     @app.post("/bench/control/start")

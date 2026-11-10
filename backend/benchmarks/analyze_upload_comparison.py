@@ -28,6 +28,8 @@ def paired_bootstrap(api, direct, *, iterations=10000, seed=20261109):
     for name, q in [('p50', .5), ('p95', .95)]:
         qa, qb = quantile(sampled_a, q, axis=1), quantile(sampled_b, q, axis=1)
         result[name] = {'api_seconds': float(quantile(a, q)), 'direct_seconds': float(quantile(b, q)),
+                        'api_seconds_95pct_wave_bootstrap': quantile(qa, [.025, .975]).tolist(),
+                        'direct_seconds_95pct_wave_bootstrap': quantile(qb, [.025, .975]).tolist(),
                         'direct_over_api': float(quantile(b, q) / quantile(a, q)),
                         'ratio_95pct_paired_wave_bootstrap': quantile(qb / qa, [.025, .975]).tolist(),
                         'difference_seconds_95pct_paired_wave_bootstrap': quantile(qb - qa, [.025, .975]).tolist()}
@@ -67,6 +69,7 @@ def analyze_cell(directory, *, iterations=10000):
         raise ValueError('Missing wave resources or verification')
     result = {'cell': directory.name, 'file': run['files'][0], 'concurrency': run['concurrency'],
               'paired_waves': run['repetitions'], 'network': run['network'], 'modes': {}, 'gates': {}}
+    result['server'] = json.loads((directory/'server.json').read_text())
     grouped, wave_resources = {}, {}
     for mode in ['api', 'direct']:
         selected = [r for r in rows if r['mode'] == mode]
@@ -90,10 +93,13 @@ def analyze_cell(directory, *, iterations=10000):
         accepted_gib = sum(r['bytes'] for r in accepted) / 2**30
         totals = {key: sum(w[key] for w in measured) for key in ['cpu_seconds', 'write_bytes', 'cancelled_write_bytes',
             'write_syscall_bytes', 'network_rx_bytes', 'network_tx_bytes', 'api_request_body_bytes', 'api_response_body_bytes', 'throttled_seconds']}
+        totals['proxy_cpu_seconds'] = sum(w.get('proxy_cpu_seconds', 0) for w in measured)
+        totals['combined_cpu_seconds'] = totals['cpu_seconds'] + totals['proxy_cpu_seconds']
         result['modes'][mode] = {'attempted': len(selected), 'accepted': len(accepted), 'failed': len(selected)-len(accepted),
             'acceptance_rate': len(accepted)/len(selected), 'acceptance_95pct_wilson_descriptive': wilson(len(accepted),len(selected)),
             'accepted_gib': accepted_gib, 'resource_totals': totals,
             'cpu_seconds_per_accepted_gib': totals['cpu_seconds']/accepted_gib if accepted_gib else None,
+            'combined_cpu_seconds_per_accepted_gib': totals['combined_cpu_seconds']/accepted_gib if accepted_gib else None,
             'median_wave_peak_rss_mib': float(np.median([w['rss_peak_bytes']/2**20 for w in measured])),
             'median_wave_container_memory_increase_mib': float(np.median([(w['container_memory_peak_bytes']-w['container_memory_start_bytes'])/2**20 for w in measured])),
             'mean_pre_request_seconds': float(np.mean([r['pre_request_seconds'] for r in accepted])) if accepted else None,
@@ -102,6 +108,7 @@ def analyze_cell(directory, *, iterations=10000):
         wave_resources[mode] = measured
     all_accepted = all(v['accepted'] == v['attempted'] for v in result['modes'].values())
     result['gates']['accepted_input_and_initial_jobs'] = 'passed' if all_accepted else 'failed'
+    result['gates']['per_wave_cleanup'] = 'passed'
     result['gates']['observed_acceptance_at_least_99_percent'] = 'passed' if all(v['acceptance_rate'] >= .99 for v in result['modes'].values()) else 'failed'
     result['gates']['population_reliability_99_percent'] = 'unverified: descriptive intervals do not establish independent population reliability'
     if all_accepted:
@@ -118,6 +125,9 @@ def analyze_cell(directory, *, iterations=10000):
         direct = [w[key] for w in wave_resources['direct']]
         if sum(api):
             result['resource_ratios'][key] = mean_ratio_interval(api,direct,iterations=iterations)
+    result['resource_ratios']['combined_cpu_seconds'] = mean_ratio_interval(
+        [w['cpu_seconds'] + w.get('proxy_cpu_seconds', 0) for w in wave_resources['api']],
+        [w['cpu_seconds'] + w.get('proxy_cpu_seconds', 0) for w in wave_resources['direct']], iterations=iterations)
     for key, threshold, name in [('api_request_body_bytes',.01,'api_body_traffic_reduction_99_percent'),('write_bytes',.05,'storage_write_accounting_reduction_95_percent')]:
         ratio = result['resource_ratios'].get(key)
         result['gates'][name] = 'passed' if ratio and ratio['ratio_95pct_paired_wave_bootstrap'][1] <= threshold else 'inconclusive'

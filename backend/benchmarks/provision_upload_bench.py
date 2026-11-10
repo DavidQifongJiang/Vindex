@@ -8,6 +8,7 @@ import argparse
 from datetime import datetime, timezone
 import ipaddress
 import json
+import re
 from pathlib import Path
 import secrets
 import subprocess
@@ -25,6 +26,17 @@ VPC = 'vpc-03c4326eb68a52837'
 SUBNET = 'subnet-045498468210035a9'
 ACCOUNT = '585572506964'
 REGION = 'us-east-1'
+
+
+def validate_resource_journal(state):
+    name = state.get('name', '')
+    if state.get('account') != ACCOUNT or not re.fullmatch(r'vindex-upload-bench-[0-9a-f]{10}', name):
+        raise ValueError('Invalid benchmark owner or name')
+    bucket = f'vindex-upload-bench-{ACCOUNT}-' + name.removeprefix('vindex-upload-bench-')
+    if state.get('bucket', bucket) != bucket or any(state.get(k, name) != name for k in ('role', 'profile')):
+        raise ValueError('Resource names differ from run identity')
+    if state.get('image', IMAGE) != IMAGE:
+        raise ValueError('Image differs from pinned comparison source')
 
 
 def main():
@@ -46,6 +58,9 @@ def main():
     if args.action == 'create':
         if state:
             raise SystemExit('Output already has a resource journal; use status/destroy or a new output')
+        for mode in ['api', 'direct']:
+            if not (ROOT / '.review-cache/upload-comparison' / f'frontend-{mode}/index.html').is_file():
+                raise SystemExit('Build both benchmark frontends before provisioning resources')
         suffix = uuid4().hex[:10]
         name = f'vindex-upload-bench-{suffix}'
         bucket = f'vindex-upload-bench-{ACCOUNT}-{suffix}'
@@ -149,8 +164,7 @@ bash /opt/upload-bench/start.sh
                 'AllowedMethods': ['POST', 'GET', 'HEAD'], 'AllowedHeaders': ['*'], 'ExposeHeaders': ['ETag'], 'MaxAgeSeconds': 300}]})
         print(json.dumps({'state': instance['State']['Name'], 'origin': state.get('origin'), 'instance': state['instance']}))
     if args.action == 'destroy':
-        if not state or state.get('account') != ACCOUNT or not state.get('name', '').startswith('vindex-upload-bench-'):
-            raise SystemExit('Invalid resource journal; refusing cleanup')
+        validate_resource_journal(state)
         expected_bucket = f'vindex-upload-bench-{ACCOUNT}-' + state['name'].removeprefix('vindex-upload-bench-')
         if state.get('bucket', expected_bucket) != expected_bucket or state.get('role', state['name']) != state['name'] or state.get('profile', state['name']) != state['name']:
             raise SystemExit('Resource names do not match benchmark journal')

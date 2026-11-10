@@ -41,9 +41,9 @@ not arbitrary payload padding. Exact bytes/digests are recorded in fixtures.json
 
 | Cell | File bytes | Clients | Paired waves | Attempts per mode | Network cap per browser |
 | --- | ---: | ---: | ---: | ---: | --- |
-| Primary A | 27,164,499 | 1 | 100 | 100 | 20 Mbps upload, 40 ms added latency |
-| Primary B | 27,164,499 | 5 | 20 | 100 | 20 Mbps upload, 40 ms added latency |
-| Primary C | 108,652,341 | 5 | 20 | 100 | 20 Mbps upload, 40 ms added latency |
+| Primary A | 27,164,499 | 1 | 100 | 100 | 20 Mbps upload, CDP latency setting 40 ms |
+| Primary B | 27,164,499 | 5 | 20 | 100 | 20 Mbps upload, CDP latency setting 40 ms |
+| Primary C | 108,652,341 | 5 | 20 | 100 | 20 Mbps upload, CDP latency setting 40 ms |
 
 Pilot: two paired single-client waves of the small file, excluded from primary
 statistics. Additional slower-network, ten-client or large-file cells are labeled
@@ -75,3 +75,25 @@ Report modeled request costs separately from the actual temporary test runtime.
 Integrated search/playback under matched load is outside this upload-only run.
 The completed deployment smoke demonstrates basic pipeline operation, not a
 processing latency or throughput improvement. Conclusions must preserve this scope.
+
+## Predeclared deployment-layout confirmation
+
+Added November 10 before any proxy-terminated measurements, after the first
+five-client/small-file cell completed. The initial server handles TLS in Uvicorn,
+whereas production terminates HTTPS upstream. This can change API CPU and the
+point at which its 0.5-vCPU limit affects latency.
+
+After the entire initial campaign completes, repeat all three cells with the
+same files, browser settings, source, database, API CPU/memory limits and gates.
+A separate Caddy container terminates HTTPS and streams requests to the API over
+the private Docker network. Its CPU is separately counted using its read-only
+cgroup statistics; the API remains limited to 0.5 vCPU and 2 GiB. Record the
+proxy image digest and wrapper revision. Never combine the two layouts into one
+distribution or choose the more favorable result. Production-oriented claims
+use the upstream-TLS confirmation; the first campaign is retained as sensitivity
+evidence. Neither layout reproduces the managed gateway's large-body rejection.
+
+I/O interpretation follows the [Linux kernel accounting documentation](https://docs.kernel.org/filesystems/proc.html#proc-pid-io-display-the-io-accounting-fields):
+write_bytes is counted when pages become dirty, and cancelled_write_bytes records
+writes avoided by truncation/deletion. Report both, rather than calling their
+unadjusted difference a measured device-level or billing improvement.
