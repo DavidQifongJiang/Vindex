@@ -1,0 +1,113 @@
+// Usage: node benchmarks/run_upload_comparison.cjs --manifest <staging.json> --output <new-dir>
+// Run from backend/. The manifest defines targets explicitly; this creates staging videos.
+const fs = require('node:fs');
+const path = require('node:path');
+const { performance } = require('node:perf_hooks');
+const { chromium } = require(process.env.PLAYWRIGHT_MODULE || '../../frontend/node_modules/playwright');
+const { measureUpload, summarize } = require('./upload_measurement.cjs');
+
+function options(argv) {
+  const flags = {};
+  for (let i = 0; i < argv.length; i += 2) flags[argv[i]] = argv[i + 1];
+  if (!flags['--manifest'] || !flags['--output']) throw new Error('Provide --manifest and a new --output directory');
+  const manifest = JSON.parse(fs.readFileSync(flags['--manifest'], 'utf8'));
+  if (manifest.environment !== 'staging') throw new Error('Manifest must identify an isolated staging environment');
+  for (const mode of ['api', 'direct']) {
+    const url = new URL(manifest.targets?.[mode]);
+    if (!['http:', 'https:'].includes(url.protocol) || url.username || url.password || url.search) throw new Error('Use a plain app origin without credentials or query strings');
+  }
+  if (!Array.isArray(manifest.files) || !manifest.files.length || !manifest.files.every(file => fs.statSync(file).isFile())) throw new Error('Provide existing video files');
+  if (new Set(manifest.files.map(file => path.basename(file))).size !== manifest.files.length) throw new Error('Use distinct fixture filenames so cohorts cannot be combined accidentally');
+  for (const name of ['repetitions', 'concurrency', 'timeout_seconds']) {
+    if (!Number.isInteger(manifest[name]) || manifest[name] < 1) throw new Error(`${name} must be a positive integer`);
+  }
+  if (manifest.concurrency > 10) throw new Error('This pilot runner is capped at 10 simultaneous uploads');
+  const network = manifest.network || { name: 'unshaped' };
+  if (!network.name) throw new Error('Name the network profile');
+  if (network.name !== 'unshaped' && ![network.latency_ms, network.upload_mbps, network.download_mbps].every(n => Number.isFinite(n) && n > 0)) throw new Error('Shaped networks require positive latency_ms, upload_mbps and download_mbps');
+  return { manifest, output: path.resolve(flags['--output']), network };
+}
+
+async function main() {
+  const { manifest, output, network } = options(process.argv.slice(2));
+  // Exclusive directory preserves all failed and completed run evidence.
+  fs.mkdirSync(output);
+  const runId = new Date().toISOString().replace(/[:.]/g, '-');
+  fs.writeFileSync(path.join(output, 'run.json'), JSON.stringify({ run_id: runId,
+    environment: 'staging', targets: manifest.targets, commit: manifest.commit || 'unrecorded',
+    files: manifest.files.map(file => ({ name: path.basename(file), bytes: fs.statSync(file).size })),
+    network, repetitions: manifest.repetitions, concurrency: manifest.concurrency,
+    timeout_seconds: manifest.timeout_seconds, readiness: 'not measured; upload acceptance only',
+    credentials: 'omitted', order: 'alternating AB/BA by repetition' }, null, 2));
+  const browser = await chromium.launch({ headless: true,
+    ...(process.env.VINDEX_BROWSER_CHANNEL ? { channel: process.env.VINDEX_BROWSER_CHANNEL } : {}) });
+  const rows = [];
+  let completed = false;
+  try {
+    for (const file of manifest.files) {
+      for (let repetition = 0; repetition < manifest.repetitions; repetition++) {
+        for (const mode of (repetition % 2 ? ['direct', 'api'] : ['api', 'direct'])) {
+          // Prepare every page before this wave starts so setup does not skew concurrency.
+          const clients = await Promise.all(Array.from({ length: manifest.concurrency }, async (_, client) => {
+            let context;
+            try {
+              context = await browser.newContext(manifest.storage_state ? { storageState: manifest.storage_state } : {});
+              const page = await context.newPage();
+              page.setDefaultTimeout(15000);
+              if (network.name !== 'unshaped') {
+                const cdp = await context.newCDPSession(page);
+                await cdp.send('Network.enable');
+                await cdp.send('Network.emulateNetworkConditions', { offline: false, latency: network.latency_ms,
+                  uploadThroughput: network.upload_mbps * 1000000 / 8, downloadThroughput: network.download_mbps * 1000000 / 8 });
+              }
+              await page.goto(manifest.targets[mode]);
+              await page.getByRole('button', { name: 'Upload video', exact: true }).first().click();
+              const dialog = page.getByRole('dialog');
+              await dialog.locator('input[type=file]').setInputFiles(file);
+              await dialog.getByLabel('Title', { exact: true }).fill(`Upload experiment ${runId} ${mode} ${repetition}-${client}`);
+              return { context, page, dialog, client };
+            } catch { return { context, client, setupFailed: true }; }
+          }));
+          const waveStart = performance.now();
+          const wave = await Promise.all(clients.map(async ({ context, page, dialog, client, setupFailed }) => {
+            try {
+              const result = setupFailed ? { outcome: 'failed', failure_stage: 'setup', upload_seconds: null } :
+                await measureUpload(page, { timeoutMs: manifest.timeout_seconds * 1000,
+                  start: () => dialog.getByRole('button', { name: 'Upload video', exact: true }).click() });
+              if (result.observed_mode && result.observed_mode !== mode) {
+                Object.assign(result, { outcome: 'failed', failure_stage: 'wrong_frontend_upload_mode', upload_seconds: null });
+              }
+              const row = { run_id: runId, mode, file: path.basename(file), bytes: fs.statSync(file).size,
+                repetition, client, concurrency: manifest.concurrency, network: network.name, ...result };
+              rows.push(row);
+              fs.appendFileSync(path.join(output, 'attempts.jsonl'), JSON.stringify(row) + '\n');
+              return row;
+            } finally { await context?.close(); }
+          }));
+          fs.appendFileSync(path.join(output, 'waves.jsonl'), JSON.stringify({ mode, file: path.basename(file), repetition,
+            elapsed_seconds: (performance.now() - waveStart) / 1000, ...summarize(wave) }) + '\n');
+          console.log(`${mode} ${path.basename(file)} wave ${repetition + 1}: ${wave.filter(r => r.outcome === 'accepted').length}/${wave.length} accepted`);
+        }
+      }
+    }
+    completed = true;
+  } finally {
+    await browser.close();
+    const summary = {};
+    for (const row of rows) {
+      const key = JSON.stringify([row.mode, row.file, row.bytes, row.concurrency, row.network]);
+      (summary[key] ||= []).push(row);
+    }
+    fs.writeFileSync(path.join(output, 'summary.json'), JSON.stringify(Object.fromEntries(
+      Object.entries(summary).map(([key, group]) => [key, summarize(group)])), null, 2));
+    fs.writeFileSync(path.join(output, 'completion.json'), JSON.stringify({
+      finished_all_planned_waves: completed, recorded_attempts: rows.length,
+      planned_attempts: manifest.files.length * manifest.repetitions * manifest.concurrency * 2,
+      all_attempts_accepted: completed && rows.length > 0 && rows.every(row => row.outcome === 'accepted')
+    }, null, 2));
+  }
+  if (rows.some(row => row.outcome !== 'accepted')) process.exitCode = 1;
+}
+
+if (require.main === module) main().catch(error => { console.error(error.message); process.exitCode = 1; });
+module.exports = { options };

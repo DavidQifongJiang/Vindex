@@ -1,0 +1,19 @@
+{
+  "environment": "staging",
+  "commit": "replace-with-tested-commit",
+  "targets": {
+    "api": "https://api-upload.staging.example.invalid",
+    "direct": "https://direct-upload.staging.example.invalid"
+  },
+  "files": ["C:/staging-fixtures/video-25mib.mp4"],
+  "storage_state": "C:/private/staging-browser-session.json",
+  "repetitions": 2,
+  "concurrency": 1,
+  "timeout_seconds": 600,
+  "network": {
+    "name": "20mbps-40ms",
+    "latency_ms": 40,
+    "upload_mbps": 20,
+    "download_mbps": 100
+  }
+}

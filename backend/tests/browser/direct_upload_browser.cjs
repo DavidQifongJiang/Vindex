@@ -3,6 +3,7 @@ const { chromium } = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
 const assert = require('node:assert/strict');
 const { createHash } = require('node:crypto');
 const { launchOptions, recordPass, captureFailure } = require('./harness.cjs');
+const { measureUpload } = require('../../benchmarks/upload_measurement.cjs');
 const ui = process.env.VINDEX_UI_URL || 'http://127.0.0.1:5187';
 const content = Buffer.alloc(2 * 1024 * 1024 + 17, 0x5a); // Crosses worker chunk boundaries.
 const digest = createHash('sha256').update(content).digest('hex');
@@ -63,10 +64,19 @@ const video = { video_id: 'upload-1', title: 'Checksum fixture', filename: 'fixt
     const dialog = page.getByRole('dialog');
     await dialog.locator('input[type=file]').setInputFiles({ name: 'fixture.mp4', mimeType: 'video/mp4', buffer: content });
     await dialog.getByLabel('Title', { exact: true }).fill(video.title);
-    await dialog.getByRole('button', { name: 'Upload video', exact: true }).click();
+    const failed = await measureUpload(page, { timeoutMs: 10000,
+      start: () => dialog.getByRole('button', { name: 'Upload video', exact: true }).click() });
+    assert.equal(failed.outcome, 'failed');
+    assert.equal(failed.failure_stage, 'storage');
     await dialog.getByRole('alert').filter({ hasText: 'could not be uploaded' }).waitFor();
     assert.equal(completeCalls, 0);
-    await dialog.getByRole('button', { name: 'Upload video', exact: true }).click();
+    const measured = await measureUpload(page, { timeoutMs: 10000,
+      start: () => dialog.getByRole('button', { name: 'Upload video', exact: true }).click() });
+    assert.equal(measured.outcome, 'accepted');
+    assert.equal(measured.observed_mode, 'direct');
+    assert.ok(measured.upload_seconds > 0);
+    assert.ok(measured.pre_request_seconds >= 0);
+    assert.ok(measured.storage_seconds >= 0);
     await page.getByRole('heading', { name: video.title, exact: true }).waitFor();
     assert.equal(intents.length, 2);
     assert.ok(intents[0].key);
