@@ -1,0 +1,5 @@
+# Preserve byte-level evidence checksums on Windows checkouts.
+*.json text eol=lf
+*.svg text eol=lf
+*.md text eol=lf
+.gitattributes text eol=lf
