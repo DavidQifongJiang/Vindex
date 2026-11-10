@@ -145,10 +145,15 @@ def abandon_upload(db, owner, key, token):
         logger.exception("Could not release upload reservation; expiry will recover it")
 
 
-def commit_upload(db, owner, key, token, response, metadata):
+def commit_upload(db, owner, key, token, response, metadata, *, release_on_error=True):
     try:
         finish_upload(db, owner, key, token, response)
         return create_video(db, metadata, enqueue_processing=True)
     except Exception:
-        abandon_upload(db, owner, key, token)
+        if release_on_error:
+            abandon_upload(db, owner, key, token)
+        else:
+            # Direct uploads already exist in S3. Preserve the reservation so a
+            # failed/ambiguous DB commit can be retried without retransferring.
+            db.rollback()
         raise

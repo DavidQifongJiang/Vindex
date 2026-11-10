@@ -1,5 +1,7 @@
 """Direct browser-to-S3 uploads and the public video response contract."""
 import os
+from concurrent.futures import ThreadPoolExecutor
+from threading import Barrier
 from types import SimpleNamespace
 import unittest
 from unittest.mock import patch
@@ -100,16 +102,96 @@ class DirectUploadTest(unittest.TestCase):
         from app.services.maintenance_service import object_identity
         self.assertEqual(object_identity(raw_path)[0], created["video_id"])
 
-    def test_failed_commit_leaves_no_snapshot_and_can_retry(self):
+    def test_failed_commit_preserves_snapshot_for_reference_aware_gc_and_can_retry(self):
         created = self.create()
         self.put_object(created)
         with patch.object(self.api, "commit_upload", side_effect=RuntimeError("database down")):
             with self.assertRaises(RuntimeError):
                 self.complete(created["video_id"])
         upload_key = created["upload"]["fields"]["key"]
-        self.assertEqual([k for k in self.storage.objects if k.startswith("raw_videos/")], [upload_key])
+        self.assertIn(upload_key, self.storage.objects)
+        self.assertEqual(len([k for k in self.storage.objects if k.startswith("raw_videos/")]), 2)
         accepted = self.complete(created["video_id"])
         self.assertEqual(accepted["video_id"], created["video_id"])
+
+    def test_commit_acknowledgement_loss_preserves_the_accepted_snapshot(self):
+        created = self.create()
+        self.put_object(created)
+        original_commit = self.api.commit_upload
+
+        def commit_then_disconnect(*args, **kwargs):
+            original_commit(*args, **kwargs)
+            raise ConnectionError("connection lost after commit")
+
+        with patch.object(self.api, "commit_upload", side_effect=commit_then_disconnect):
+            accepted = self.complete(created["video_id"])
+        video = self.db.get(Video, created["video_id"])
+        self.assertEqual(accepted["video_id"], video.video_id)
+        self.assertEqual(self.storage.objects[video.raw_path], b"raw media")
+        self.assertEqual(self.db.query(PipelineJob).filter_by(video_id=video.video_id).count(), 2)
+
+    def test_unverifiable_commit_outcome_does_not_delete_a_possibly_accepted_snapshot(self):
+        created = self.create()
+        self.put_object(created)
+        original_commit = self.api.commit_upload
+        original_find = self.api.find_direct_upload
+        committed = False
+
+        def commit_then_disconnect(*args, **kwargs):
+            nonlocal committed
+            original_commit(*args, **kwargs)
+            committed = True
+            raise ConnectionError("database unavailable after commit")
+
+        def find_while_available(*args, **kwargs):
+            if committed:
+                raise ConnectionError("database still unavailable")
+            return original_find(*args, **kwargs)
+
+        with patch.object(self.api, "commit_upload", side_effect=commit_then_disconnect), \
+             patch.object(self.api, "find_direct_upload", side_effect=find_while_available):
+            with self.assertRaises(ConnectionError):
+                self.complete(created["video_id"])
+        video = self.db.get(Video, created["video_id"])
+        self.assertEqual(self.storage.objects[video.raw_path], b"raw media")
+        self.assertEqual(self.complete(video.video_id)["video_id"], video.video_id)
+
+    def test_overlapping_completion_replays_winner_after_source_cleanup(self):
+        created = self.create()
+        self.put_object(created)
+        original_copy = self.storage.copy_object
+        winner = None
+
+        def finish_competitor_before_copy(source, target):
+            nonlocal winner
+            with patch.object(self.storage, "copy_object", side_effect=original_copy):
+                winner = self.complete(created["video_id"])
+            return original_copy(source, target)  # Winner already removed the staging object.
+
+        with patch.object(self.storage, "copy_object", side_effect=finish_competitor_before_copy):
+            self.assertEqual(self.complete(created["video_id"]), winner)
+        video = self.db.get(Video, created["video_id"])
+        self.assertEqual(self.storage.objects[video.raw_path], b"raw media")
+        self.assertEqual(self.db.query(PipelineJob).filter_by(video_id=video.video_id).count(), 2)
+
+    def test_real_transaction_failure_keeps_the_uploaded_attempt_retryable(self):
+        created = self.create()
+        self.put_object(created)
+        original_key = created["upload"]["fields"]["key"]
+        with patch("app.db.video_repository.add_job", side_effect=RuntimeError("database failure")):
+            with self.assertRaises(RuntimeError):
+                self.complete(created["video_id"])
+        resumed = self.create()
+        self.assertEqual(resumed["upload"]["fields"]["key"], original_key)
+        self.assertEqual(self.complete(created["video_id"])["video_id"], created["video_id"])
+
+    def test_post_commit_refresh_failure_replays_without_deleting_input(self):
+        created = self.create()
+        self.put_object(created)
+        with patch.object(self.db, "refresh", side_effect=ConnectionError("refresh failed")):
+            accepted = self.complete(created["video_id"])
+        video = self.db.get(Video, accepted["video_id"])
+        self.assertEqual(self.storage.objects[video.raw_path], b"raw media")
 
     def test_retrying_create_resumes_the_same_attempt(self):
         first = self.create()
@@ -129,7 +211,8 @@ class DirectUploadTest(unittest.TestCase):
         with self.assertRaises(HTTPException) as raised:
             self.complete(created["video_id"])
         self.assertEqual(raised.exception.status_code, 422)
-        self.assertFalse([k for k in self.storage.objects if k.startswith("raw_videos/")])
+        self.assertEqual([k for k in self.storage.objects if k.startswith("raw_videos/")],
+                         [created["upload"]["fields"]["key"]])
         retry = self.create()
         self.assertEqual(retry["video_id"], created["video_id"])
         self.assertNotEqual(retry["upload"]["fields"]["key"], created["upload"]["fields"]["key"])
@@ -160,6 +243,30 @@ class DirectUploadTest(unittest.TestCase):
 class PostgresDirectUploadTest(DirectUploadTest):
     """Row locks are no-ops on SQLite; run the reservation flow on real Postgres."""
     database_url = os.getenv("VINDEX_TEST_DATABASE_URL", "sqlite:///:memory:")
+
+    def test_simultaneous_completions_publish_one_snapshot_and_replay(self):
+        created = self.create()
+        self.put_object(created)
+        barrier = Barrier(2)
+        original_copy = self.storage.copy_object
+
+        def copy_together(source, target):
+            original_copy(source, target)
+            barrier.wait(timeout=10)
+
+        def complete(_):
+            with self.Session() as db:
+                return self.api.complete_direct_upload(created["video_id"], current_user=self.user,
+                                                       db=db, idempotency_key="intent-1")
+
+        with patch.object(self.storage, "copy_object", side_effect=copy_together), \
+             ThreadPoolExecutor(max_workers=2) as pool:
+            results = list(pool.map(complete, range(2)))
+        self.assertEqual(results[0], results[1])
+        self.db.expire_all()
+        video = self.db.get(Video, created["video_id"])
+        self.assertEqual(self.storage.objects[video.raw_path], b"raw media")
+        self.assertEqual(self.db.query(PipelineJob).filter_by(video_id=video.video_id).count(), 2)
 
 
 class VideoResponseContractTest(unittest.TestCase):
