@@ -84,7 +84,7 @@ async function main() {
             let context;
             try {
               context = await browser.newContext({ ...(manifest.storage_state ? { storageState: manifest.storage_state } : {}),
-                ...(control ? { ignoreHTTPSErrors: true } : {}) });
+                ...(control || pipeline?.tls_mode === 'self_signed_isolated' ? { ignoreHTTPSErrors: true } : {}) });
               if (benchCookie) await context.addCookies([benchCookie]);
               const page = await context.newPage();
               page.setDefaultTimeout(15000);
