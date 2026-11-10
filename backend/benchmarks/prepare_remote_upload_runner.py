@@ -57,7 +57,8 @@ def main():
     pilot={**manifest,'concurrency':1,'repetitions':2}
     (folder/'pilot.json').write_text(json.dumps(pilot,indent=2))
     (folder/'pilot-plan.json').write_text(json.dumps({'cells':[{'name':'pilot','manifest':'/opt/upload-client/pilot.json'}]}))
-    source_files=['run_upload_campaign.py','run_upload_comparison.cjs','upload_measurement.cjs']
+    source_files=['run_upload_campaign.py','run_upload_comparison.cjs','upload_measurement.cjs',
+                  'pipeline_measurement.cjs','pipeline_browser_probes.cjs']
     sources={f:hashlib.sha256(Path(__file__).with_name(f).read_bytes()).hexdigest() for f in source_files}
     (folder/'source-manifest.json').write_text(json.dumps({'sources':sources,'browser_image':BROWSER_IMAGE,
         'client_type':'c7i.xlarge','source_commit':COMMIT,'node_version':'22.23.4','api_https':'separate_proxy'},indent=2))

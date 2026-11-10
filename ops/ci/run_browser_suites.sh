@@ -11,7 +11,7 @@ rm -rf "$output"
 mkdir -p "$output"
 servers=()
 trap 'for pid in "${servers[@]:-}"; do kill "$pid" 2>/dev/null; done' EXIT
-node --test backend/tests/browser/upload_measurement_test.cjs || exit 1
+node --test backend/tests/browser/upload_measurement_test.cjs backend/tests/browser/pipeline_measurement_test.cjs || exit 1
 
 build_and_serve() {
   local name="$1" port="$2"
@@ -49,6 +49,8 @@ run_suite analytics VINDEX_UI_URL=http://127.0.0.1:5185 node backend/tests/brows
 run_suite frontend VINDEX_UI_URL=http://127.0.0.1:5185 VINDEX_AUTH_UI_URL=http://127.0.0.1:5186 \
   node backend/tests/browser/frontend_verification.cjs
 run_suite direct VINDEX_UI_URL=http://127.0.0.1:5187 node backend/tests/browser/direct_upload_browser.cjs
+run_suite pipeline node backend/tests/browser/pipeline_measurement_browser.cjs
+run_suite pipeline-runner node backend/tests/browser/pipeline_runner_browser.cjs
 
 node backend/tests/browser/check_results.cjs \
-  "$output/library-default" "$output/library" "$output/analytics" "$output/frontend" "$output/direct"
+  "$output/library-default" "$output/library" "$output/analytics" "$output/frontend" "$output/direct" "$output/pipeline" "$output/pipeline-runner"
