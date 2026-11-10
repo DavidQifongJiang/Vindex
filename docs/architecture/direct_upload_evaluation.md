@@ -110,7 +110,9 @@ and reports acceptance intervals and successful latency percentiles. `run.json`
 records settings without session contents, signed URLs, or credentials. The
 `completion.json` marker distinguishes a finished run from partial evidence; an
 absent marker or `finished_all_planned_waves=false` cannot pass acceptance. The
-runner measures upload acceptance only. The isolated wrapper adds API/proxy
+runner measures upload acceptance only by default. The opt-in single-wave
+[pipeline pilot](pipeline_readiness_protocol.md) adds observed search/playback
+readiness with independent browser probes and a common clock. The isolated wrapper adds API/proxy
 resource snapshots and per-wave integrity/cleanup records. Integrated
 search/playback performance and production billing remain separate evaluations.
 

@@ -1,0 +1,29 @@
+{
+  "environment": "staging",
+  "commit": "replace-with-full-measured-application-commit",
+  "targets": {
+    "api": "https://isolated.staging.example.invalid/bench-api",
+    "direct": "https://isolated.staging.example.invalid/bench-direct"
+  },
+  "files": ["C:/private/fixtures/speech-20s.mp4"],
+  "storage_state": "C:/private/pipeline-session.json",
+  "repetitions": 1,
+  "concurrency": 1,
+  "timeout_seconds": 120,
+  "network": { "name": "20mbps-40ms", "latency_ms": 40, "upload_mbps": 20, "download_mbps": 100 },
+  "pipeline": {
+    "mode": "direct",
+    "worker_state": "cold",
+    "deadline_seconds": 600,
+    "poll_interval_ms": 1000,
+    "probe_timeout_ms": 10000,
+    "preflight_file": "C:/private/pipeline-preflight.json",
+    "search": {
+      "query": "vector search",
+      "expected_text": "vector search",
+      "start_seconds": 2,
+      "end_seconds": 5,
+      "tolerance_seconds": 1
+    }
+  }
+}

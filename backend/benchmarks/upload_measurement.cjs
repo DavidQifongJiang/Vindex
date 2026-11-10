@@ -16,8 +16,7 @@ function summarize(rows) {
     tail_sample_warning: successes < 100 ? 'Fewer than 100 accepted attempts; p95 is exploratory' : null };
 }
 
-async function measureUpload(page, { timeoutMs, start, clock = () => performance.now() }) {
-  const began = clock();
+async function measureUpload(page, { timeoutMs, start, clock = () => performance.now(), began = clock() }) {
   let intentStart, completionStart, storageUrl, intentRead, settled = false, timer;
   const requestTimes = new WeakMap();
   const row = { outcome: 'failed', failure_stage: 'browser', upload_seconds: null };
