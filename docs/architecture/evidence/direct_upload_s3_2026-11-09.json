@@ -1,0 +1,62 @@
+{
+  "started_at": "2026-11-10T01:58:12.799444+00:00",
+  "account": "585572506964",
+  "bucket": "vindex-media-585572506964-us-east-1",
+  "region": "us-east-1",
+  "origin": "https://d3tj3ho29p8iwn.cloudfront.net",
+  "prefix": "upload-evaluation/aefd4ebaca4b43ebbd004e18518108f9/",
+  "checks": [
+    {
+      "name": "signed_post",
+      "passed": true,
+      "http_status": 204,
+      "error_code": null
+    },
+    {
+      "name": "stored_checksum",
+      "passed": true
+    },
+    {
+      "name": "copy_preserves_verified_checksum",
+      "passed": true
+    },
+    {
+      "name": "copy_preserves_bytes",
+      "passed": true
+    },
+    {
+      "name": "wrong_checksum_rejected",
+      "passed": true,
+      "http_status": 400,
+      "error_code": "BadDigest"
+    },
+    {
+      "name": "too-large_rejected",
+      "passed": true,
+      "http_status": 400,
+      "error_code": "EntityTooLarge"
+    },
+    {
+      "name": "too-small_rejected",
+      "passed": true,
+      "http_status": 400,
+      "error_code": "EntityTooSmall"
+    },
+    {
+      "name": "key_tampering_rejected",
+      "passed": true,
+      "http_status": 403,
+      "error_code": "AccessDenied"
+    },
+    {
+      "name": "browser_cors_post",
+      "passed": true,
+      "http_status": 204,
+      "error": null
+    }
+  ],
+  "cleanup": "passed",
+  "scope": "S3 contract with operator credentials; no application authentication or database jobs",
+  "finished_at": "2026-11-10T01:58:23.516230+00:00",
+  "passed": true
+}

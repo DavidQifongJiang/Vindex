@@ -1,5 +1,5 @@
 
-from datetime import datetime
+from datetime import datetime, timezone
 import logging
 import os
 from pathlib import Path
@@ -674,13 +674,17 @@ def create_direct_upload(
                 "upload": None, "completed": UploadAccepted(**replay)}
 
     video_id, raw_key = reservation.video_id, reservation.raw_path
+    # Reservation creation is durable and stable across URL refreshes/retries.
+    created_at = reservation.created_at
+    intent_created_at_epoch = (created_at if created_at.tzinfo else created_at.replace(tzinfo=timezone.utc)).timestamp()
     seconds = upload_url_seconds(reservation.expires_at)
     pending = dict(reservation.response or {})
     db.rollback()
     post = storage.presigned_upload(raw_key, content_type=pending.get("content_type", content_type),
                                     size_bytes=pending.get("size_bytes", request.size_bytes), seconds=seconds,
                                     **({"sha256": pending["sha256"]} if pending.get("sha256") else {}))
-    safe_update_metrics(storage, video_id, "upload", {"accepted_at_epoch": now_epoch(),
+    safe_update_metrics(storage, video_id, "upload", {"accepted_at_epoch": intent_created_at_epoch,
+                                                      "intent_created_at_epoch": intent_created_at_epoch,
                                                       "upload_mode": "direct_s3"})
     return {"video_id": video_id, "idempotency_key": idempotency_key,
             "upload": {"url": post["url"], "fields": post["fields"]}, "expires_in_seconds": seconds}

@@ -204,6 +204,28 @@ class DirectUploadTest(unittest.TestCase):
         self.assertEqual(first["video_id"], second["video_id"])
         self.assertEqual(first["upload"]["fields"]["key"], second["upload"]["fields"]["key"])
 
+    def test_refreshing_upload_url_does_not_reset_the_upload_clock(self):
+        with patch.object(self.api, "safe_update_metrics") as metrics:
+            self.create()
+            first = metrics.call_args.args[3]
+            with patch.object(self.api, "now_epoch", return_value=9999999999):
+                self.create()
+            second = metrics.call_args.args[3]
+        self.assertEqual(first["accepted_at_epoch"], second["accepted_at_epoch"])
+        self.assertEqual(first["intent_created_at_epoch"], second["intent_created_at_epoch"])
+        self.assertNotEqual(second["accepted_at_epoch"], 9999999999)
+
+    def test_older_reservations_without_a_timestamp_are_backfilled_once(self):
+        self.create()
+        self.db.query(UploadRequest).update({"created_at": None})
+        self.db.commit()
+        with patch.object(self.api, "safe_update_metrics") as metrics:
+            self.create()
+            first = metrics.call_args.args[3]["intent_created_at_epoch"]
+            self.create()
+            self.assertEqual(metrics.call_args.args[3]["intent_created_at_epoch"], first)
+        self.assertIsNotNone(self.db.get(UploadRequest, ("owner", "intent-1")).created_at)
+
     def test_same_key_with_different_file_is_rejected(self):
         self.create()
         with self.assertRaises(HTTPException) as raised:

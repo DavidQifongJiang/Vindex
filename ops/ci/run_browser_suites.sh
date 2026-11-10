@@ -11,6 +11,7 @@ rm -rf "$output"
 mkdir -p "$output"
 servers=()
 trap 'for pid in "${servers[@]:-}"; do kill "$pid" 2>/dev/null; done' EXIT
+node --test backend/tests/browser/upload_measurement_test.cjs || exit 1
 
 build_and_serve() {
   local name="$1" port="$2"
