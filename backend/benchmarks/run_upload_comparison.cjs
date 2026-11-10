@@ -2,6 +2,7 @@
 // Run from backend/. The manifest defines targets explicitly; this creates staging videos.
 const fs = require('node:fs');
 const path = require('node:path');
+const crypto = require('node:crypto');
 const { performance } = require('node:perf_hooks');
 const { chromium } = require(process.env.PLAYWRIGHT_MODULE || '../../frontend/node_modules/playwright');
 const { measureUpload, summarize } = require('./upload_measurement.cjs');
@@ -43,15 +44,41 @@ async function main() {
     ...(process.env.VINDEX_BROWSER_CHANNEL ? { channel: process.env.VINDEX_BROWSER_CHANNEL } : {}) });
   const rows = [];
   let completed = false;
+  let controlContext, controlInfo;
+  const control = manifest.benchmark_control;
+  async function controlRequest(action, data) {
+    const response = await controlContext.request.post(`${control.origin}/bench/control/${action}`, { data, timeout: 180000 });
+    if (!response.ok()) throw new Error(`Benchmark control ${action} returned HTTP ${response.status()}`);
+    return response.json();
+  }
   try {
+    let benchCookie;
+    if (control) {
+      if (['api', 'direct'].some(mode => new URL(manifest.targets[mode]).origin !== control.origin)) throw new Error('Control and app origins must match');
+      const secret = JSON.parse(fs.readFileSync(control.secret_file, 'utf8'));
+      if (typeof secret.token !== 'string' || secret.token.length < 32) throw new Error('Invalid isolated benchmark token');
+      benchCookie = { name: 'vindex_bench', value: secret.token, url: control.origin, secure: true, httpOnly: true, sameSite: 'Lax' };
+      controlContext = await browser.newContext({ ignoreHTTPSErrors: true });
+      await controlContext.addCookies([benchCookie]);
+      const info = await controlContext.request.get(`${control.origin}/bench/control/info`);
+      if (!info.ok()) throw new Error(`Isolated benchmark unavailable: HTTP ${info.status()}`);
+      controlInfo = await info.json();
+      if (!controlInfo.isolated || controlInfo.code_commit !== manifest.commit) throw new Error('Isolated server or source identity mismatch');
+      fs.writeFileSync(path.join(output, 'server.json'), JSON.stringify(controlInfo, null, 2));
+    }
     for (const file of manifest.files) {
+      const sha256 = crypto.createHash('sha256');
+      for await (const chunk of fs.createReadStream(file)) sha256.update(chunk);
+      const fileDigest = sha256.digest('hex');
       for (let repetition = 0; repetition < manifest.repetitions; repetition++) {
         for (const mode of (repetition % 2 ? ['direct', 'api'] : ['api', 'direct'])) {
           // Prepare every page before this wave starts so setup does not skew concurrency.
           const clients = await Promise.all(Array.from({ length: manifest.concurrency }, async (_, client) => {
             let context;
             try {
-              context = await browser.newContext(manifest.storage_state ? { storageState: manifest.storage_state } : {});
+              context = await browser.newContext({ ...(manifest.storage_state ? { storageState: manifest.storage_state } : {}),
+                ...(control ? { ignoreHTTPSErrors: true } : {}) });
+              if (benchCookie) await context.addCookies([benchCookie]);
               const page = await context.newPage();
               page.setDefaultTimeout(15000);
               if (network.name !== 'unshaped') {
@@ -68,6 +95,8 @@ async function main() {
               return { context, page, dialog, client };
             } catch { return { context, client, setupFailed: true }; }
           }));
+          const waveId = `${runId}-${path.basename(file)}-${repetition}-${mode}`;
+          if (control) await controlRequest('start', { wave: waveId });
           const waveStart = performance.now();
           const wave = await Promise.all(clients.map(async ({ context, page, dialog, client, setupFailed }) => {
             try {
@@ -86,12 +115,21 @@ async function main() {
           }));
           fs.appendFileSync(path.join(output, 'waves.jsonl'), JSON.stringify({ mode, file: path.basename(file), repetition,
             elapsed_seconds: (performance.now() - waveStart) / 1000, ...summarize(wave) }) + '\n');
+          if (control) {
+            const resources = await controlRequest('end', { wave: waveId });
+            fs.appendFileSync(path.join(output, 'resources.jsonl'), JSON.stringify({ mode, file: path.basename(file), repetition, ...resources }) + '\n');
+            const verification = await controlRequest('verify-cleanup', { videos: wave.filter(r => r.video_id).map(r => r.video_id),
+              bytes: fs.statSync(file).size, sha256: fileDigest });
+            fs.appendFileSync(path.join(output, 'verification.jsonl'), JSON.stringify({ mode, file: path.basename(file), repetition, ...verification }) + '\n');
+          }
           console.log(`${mode} ${path.basename(file)} wave ${repetition + 1}: ${wave.filter(r => r.outcome === 'accepted').length}/${wave.length} accepted`);
+          if (manifest.stop_after_failed_wave && wave.some(r => r.outcome !== 'accepted')) throw new Error('Stopping after failed wave; evidence retained');
         }
       }
     }
     completed = true;
   } finally {
+    await controlContext?.close();
     await browser.close();
     const summary = {};
     for (const row of rows) {
@@ -109,5 +147,6 @@ async function main() {
   if (rows.some(row => row.outcome !== 'accepted')) process.exitCode = 1;
 }
 
-if (require.main === module) main().catch(error => { console.error(error.message); process.exitCode = 1; });
+// Playwright error messages can contain cookies, headers and signed URLs.
+if (require.main === module) main().catch(error => { console.error(`Comparison stopped (${error.name}); retained artifacts identify the completed stage.`); process.exitCode = 1; });
 module.exports = { options };
