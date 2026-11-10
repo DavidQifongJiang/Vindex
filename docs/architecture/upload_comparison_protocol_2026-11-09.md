@@ -97,3 +97,26 @@ I/O interpretation follows the [Linux kernel accounting documentation](https://d
 write_bytes is counted when pages become dirty, and cancelled_write_bytes records
 writes avoided by truncation/deletion. Report both, rather than calling their
 unadjusted difference a measured device-level or billing improvement.
+
+## Runner recovery amendment, November 10
+
+The local Windows runner disappeared during the initial campaign. It recorded
+200 completed small/five-client attempts and 50 accepted/verified medium attempts;
+five additional in-flight direct-upload intents were found in residual metadata.
+The campaign has no complete marker and cannot support a full-run acceptance
+claim. All recorded rows and the five metadata objects are preserved. The old
+dedicated resources were removed after preservation; no production data was used.
+
+Before collecting any replacement data, move the generator to a dedicated
+`c7i.xlarge` (4 vCPU, 8 GiB) with pinned Playwright Chromium and Node 22.23.4.
+The API uses a fresh isolated host/database/bucket and upstream Caddy TLS as above.
+Repeat all three predeclared cells (600 attempts) with the same corpus, network
+settings, API limits, sample sizes, analysis and gates. The remote generator writes
+30-second S3 checkpoints and a final hash manifest; both temporary hosts expire
+after four hours. Source, runtime and browser versions are captured.
+
+The replacement run is a separate dataset. Do not pool it with the interrupted
+Windows run or attribute cross-run differences solely to HTTPS termination: the
+client hardware/browser also changed. Primary conclusions compare upload modes
+within the completed remote dataset. A cloud client with emulated network limits
+does not reproduce arbitrary consumer networks or client hardware.

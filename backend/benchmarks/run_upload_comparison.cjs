@@ -42,6 +42,9 @@ async function main() {
     credentials: 'omitted', order: 'alternating AB/BA by repetition' }, null, 2));
   const browser = await chromium.launch({ headless: true,
     ...(process.env.VINDEX_BROWSER_CHANNEL ? { channel: process.env.VINDEX_BROWSER_CHANNEL } : {}) });
+  const runPath = path.join(output, 'run.json');
+  fs.writeFileSync(runPath, JSON.stringify({ ...JSON.parse(fs.readFileSync(runPath, 'utf8')),
+    browser_version: browser.version(), node_version: process.version, platform: process.platform }, null, 2));
   const rows = [];
   let completed = false;
   let controlContext, controlInfo;

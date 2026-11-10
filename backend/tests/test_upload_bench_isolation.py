@@ -1,8 +1,13 @@
 """Safety gates for the opt-in benchmark wrapper (no cloud access)."""
 import unittest
+import tempfile
+import hashlib
+import json
+from pathlib import Path
 
 from benchmarks.upload_bench_server import validate_environment
-from benchmarks.provision_upload_bench import validate_resource_journal, ACCOUNT, IMAGE
+from benchmarks.provision_upload_bench import validate_resource_journal, verify_preserved_evidence, ACCOUNT, IMAGE
+from benchmarks.download_upload_evidence import evidence_path, verify_manifest
 
 
 class UploadBenchmarkIsolationTests(unittest.TestCase):
@@ -35,6 +40,36 @@ class UploadBenchmarkIsolationTests(unittest.TestCase):
                            ('profile', 'vindex-state-host'), ('image', 'unexpected; command')]:
             with self.subTest(key=key), self.assertRaises(ValueError):
                 validate_resource_journal({**state, key: value})
+
+    def test_evidence_paths_cannot_escape_or_overwrite_another_tree(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root=Path(directory)
+            for name in ['../outside.json','/absolute.json','primary/../../outside.json','primary\\outside.json']:
+                with self.subTest(name=name), self.assertRaises(ValueError):
+                    evidence_path(root,name)
+
+    def test_manifest_detects_truncation_and_changed_evidence(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root=Path(directory);path=root/'report.json';path.write_bytes(b'complete')
+            manifest={'files':{'report.json':{'bytes':8,'sha256':hashlib.sha256(b'complete').hexdigest()}}}
+            verify_manifest(root,manifest)
+            path.write_bytes(b'corrupt!')
+            with self.assertRaises(ValueError):verify_manifest(root,manifest)
+
+    def test_teardown_rechecks_run_identity_and_preserved_bytes(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root=Path(directory);path=root/'report.json';path.write_bytes(b'complete')
+            manifest={'files':{'report.json':{'bytes':8,'sha256':hashlib.sha256(b'complete').hexdigest()}}}
+            (root/'archive-complete.json').write_text(json.dumps(manifest))
+            state={'bucket':'test-run-bucket','archive_prefix':'evidence/remote-001/'}
+            proof={'bucket':state['bucket'],'prefix':state['archive_prefix'],
+                   'archive_hashes_verified':True,'local_directory':str(root)}
+            marker=root/'evidence-verified.json';marker.write_text(json.dumps(proof))
+            verify_preserved_evidence(state,root)
+            marker.write_text(json.dumps({**proof,'bucket':'different-run'}))
+            with self.assertRaises(ValueError):verify_preserved_evidence(state,root)
+            marker.write_text(json.dumps(proof));path.write_bytes(b'corrupt!')
+            with self.assertRaises(ValueError):verify_preserved_evidence(state,root)
 
 
 if __name__ == '__main__':

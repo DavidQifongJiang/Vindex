@@ -32,7 +32,8 @@ def main():
                    '--manifest', str(Path(cell['manifest']).resolve()), '--output', str(output / cell['name'])]
         with (output / (cell['name'] + '.log')).open('w', encoding='utf-8') as log:
             child = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True,
-                                     encoding='utf-8', env={**os.environ, 'VINDEX_BROWSER_CHANNEL': 'msedge'})
+                                     encoding='utf-8', env={**os.environ, 'VINDEX_BROWSER_CHANNEL': os.environ.get(
+                                         'VINDEX_BROWSER_CHANNEL', 'msedge' if os.name == 'nt' else '')})
             entry['pid'] = child.pid; persist()
             for line in child.stdout:
                 log.write(line); log.flush()

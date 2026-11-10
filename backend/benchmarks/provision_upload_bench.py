@@ -39,6 +39,20 @@ def validate_resource_journal(state):
         raise ValueError('Image differs from pinned comparison source')
 
 
+def verify_preserved_evidence(state, output):
+    """Recheck run identity and local hashes before deleting remote evidence."""
+    if __package__:
+        from .download_upload_evidence import verify_manifest
+    else:
+        from download_upload_evidence import verify_manifest
+    proof = json.loads((output / 'evidence-verified.json').read_text())
+    if (proof.get('bucket') != state['bucket'] or proof.get('prefix') != state['archive_prefix']
+            or proof.get('archive_hashes_verified') is not True):
+        raise ValueError('Evidence proof belongs to a different run or is unverified')
+    root = Path(proof['local_directory'])
+    verify_manifest(root, json.loads((root / 'archive-complete.json').read_text()))
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('action', choices=['create', 'status', 'destroy'])
@@ -169,20 +183,38 @@ bash /opt/upload-bench/start.sh
         if state.get('bucket', expected_bucket) != expected_bucket or state.get('role', state['name']) != state['name'] or state.get('profile', state['name']) != state['name']:
             raise SystemExit('Resource names do not match benchmark journal')
         cleaned = state.setdefault('cleaned', [])
+        if state.get('runner_instance') and 'bucket' not in cleaned:
+            verify_preserved_evidence(state, output)
         def mark(name):
             cleaned.append(name)
             persist()
+        if state.get('runner_instance') and 'runner_instance' not in cleaned:
+            if not (output/'evidence-verified.json').is_file():
+                raise SystemExit('Download and verify the remote evidence before destroying the runner')
+            reservations = ec2.describe_instances(InstanceIds=[state['runner_instance']])['Reservations']
+            if reservations:
+                runner = reservations[0]['Instances'][0]
+                if {t['Key']:t['Value'] for t in runner.get('Tags', [])}.get('Name') != state['name']+'-runner':
+                    raise SystemExit('Runner ownership tags do not match')
+                ec2.terminate_instances(InstanceIds=[state['runner_instance']])
+                ec2.get_waiter('instance_terminated').wait(InstanceIds=[state['runner_instance']], WaiterConfig={'Delay':5,'MaxAttempts':36})
+            mark('runner_instance')
         if state.get('instance') and 'instance' not in cleaned:
-            instance = ec2.describe_instances(InstanceIds=[state['instance']])['Reservations'][0]['Instances'][0]
-            if {t['Key']: t['Value'] for t in instance.get('Tags', [])}.get('Name') != state['name']:
-                raise SystemExit('Instance ownership tags do not match journal')
-            ec2.terminate_instances(InstanceIds=[state['instance']])
-            ec2.get_waiter('instance_terminated').wait(InstanceIds=[state['instance']], WaiterConfig={'Delay': 5, 'MaxAttempts': 36})
+            reservations = ec2.describe_instances(InstanceIds=[state['instance']])['Reservations']
+            if reservations:
+                instance = reservations[0]['Instances'][0]
+                if {t['Key']: t['Value'] for t in instance.get('Tags', [])}.get('Name') != state['name']:
+                    raise SystemExit('Instance ownership tags do not match journal')
+                ec2.terminate_instances(InstanceIds=[state['instance']])
+                ec2.get_waiter('instance_terminated').wait(InstanceIds=[state['instance']], WaiterConfig={'Delay': 5, 'MaxAttempts': 36})
             mark('instance')
         if state.get('bucket') and 'bucket' not in cleaned:
             tags = s3.get_bucket_tagging(Bucket=state['bucket'])['TagSet']
             if {t['Key']: t['Value'] for t in tags}.get('Project') != 'vindex-upload-benchmark':
                 raise SystemExit('Bucket ownership tags do not match')
+            for prefix in ['raw_videos/', 'metrics/']:
+                if s3.list_objects_v2(Bucket=state['bucket'], Prefix=prefix, MaxKeys=1, ExpectedBucketOwner=ACCOUNT).get('KeyCount'):
+                    raise SystemExit('Residual test inputs or metadata require preservation before bucket teardown')
             for page in s3.get_paginator('list_objects_v2').paginate(Bucket=state['bucket']):
                 keys = [{'Key': o['Key']} for o in page.get('Contents', [])]
                 if keys:
@@ -197,6 +229,12 @@ bash /opt/upload-bench/start.sh
                 raise SystemExit('Security group ownership does not match journal')
             ec2.delete_security_group(GroupId=state['security_group'])
             mark('security_group')
+        if state.get('runner_security_group') and 'runner_security_group' not in cleaned:
+            group = ec2.describe_security_groups(GroupIds=[state['runner_security_group']])['SecurityGroups'][0]
+            if group['GroupName'] != state['name']+'-runner' or group['VpcId'] != VPC:
+                raise SystemExit('Runner security group ownership mismatch')
+            ec2.delete_security_group(GroupId=state['runner_security_group'])
+            mark('runner_security_group')
         if state.get('profile') and 'profile' not in cleaned:
             iam.remove_role_from_instance_profile(InstanceProfileName=state['profile'], RoleName=state['role'])
             iam.delete_instance_profile(InstanceProfileName=state['profile'])
