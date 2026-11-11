@@ -35,6 +35,17 @@ def analyze(folder):
     query_ledger = ledger(queries, math.ceil(spec['search_rps']*(spec['baseline_seconds']+spec['duration_seconds']+spec['recovery_seconds'])-1e-9), 'success')
     upload_ledger = ledger(uploads, math.ceil(spec['uploads_per_minute']/60*spec['duration_seconds']-1e-9), 'accepted')
     accepted = [r for r in uploads if r['outcome'] == 'accepted']
+    integrity = False
+    if (folder/'verification.json').exists() and (folder/'reconciliation.json').exists():
+        verified = json.loads((folder/'verification.json').read_text())['verified']
+        reconciliation = json.loads((folder/'reconciliation.json').read_text())
+        ids = [r['video_id'] for r in accepted]
+        fixtures = {'speech-20s.mp4': (25808821, 'a588d05ac9e01ed988b53662020a6d122f62976230c33b0b901cb48369b4d58d'),
+                    'speech-80s.mp4': (103231087, '2613ce2f8172edda811d1aa43d3b82151effb9251ad7d1742926d4e45122e06a')}
+        expected_bytes, expected_digest = fixtures[Path(spec['file']).name]
+        integrity = len(ids) == len(set(ids)) == len(verified) and {r['video_id'] for r in verified} == set(ids)
+        integrity = integrity and set(reconciliation['logical_ids']) == set(ids) and not reconciliation['missing_commits'] and not reconciliation['unreturned_commits']
+        integrity = integrity and all(r['bytes'] == expected_bytes and r['sha256'] == expected_digest and r['job_count'] >= 2 for r in verified)
     baseline, load = phases['baseline'], phases['load']
     ratio = load['p95_seconds']/baseline['p95_seconds'] if load['p95_seconds'] and baseline['p95_seconds'] else None
     no_slots = sum(r.get('failure_stage') == 'pool_full' for r in uploads)
@@ -61,6 +72,7 @@ def analyze(folder):
     for name in ['bench-api', 'bench-proxy', 'bench-postgres', 'bench-redis', 'bench-qdrant']:
         observed = [r['containers'][name] for r in server_samples]
         infrastructure_valid = infrastructure_valid and len({r['id'] for r in observed}) == 1
+        infrastructure_valid = infrastructure_valid and len({r['started_at'] for r in observed}) == 1
         infrastructure_valid = infrastructure_valid and all(r['running'] and not r['oom_killed'] for r in observed)
     infrastructure_valid = infrastructure_valid and all(r['containers']['bench-api']['cpu_nano'] == 500000000 and
         r['containers']['bench-api']['memory_bytes'] == 2*1024**3 for r in server_samples)
@@ -69,6 +81,7 @@ def analyze(folder):
               'rate': spec['uploads_per_minute'], 'search_rps': spec['search_rps'], 'phases': phases, 'query_ledger': query_ledger,
               'uploads': {**upload_ledger, 'pool_full': no_slots, 'accepted_p95_seconds': quantile([r['upload_seconds'] for r in accepted], .95)},
               'client_headroom': headroom, 'infrastructure_valid': infrastructure_valid,
+              'integrity_pass': integrity,
               'search_p95_baseline_ratio': ratio, 'arrival_validation_pass': valid,
               'search_slo_pass': bool(valid and load['success_fraction'] >= .99 and load['p95_seconds'] <= 1 and ratio <= 1.2),
               'upload_success_pass': bool(valid and (upload_ledger['success_fraction'] is None or upload_ledger['success_fraction'] >= .99))}
