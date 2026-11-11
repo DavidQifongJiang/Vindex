@@ -40,6 +40,8 @@ Run two separately reported stages:
 
 Report per-trial values and paired estimates with uncertainty; do not pool all requests as independent experiment repetitions. A 99% observed pass is not a 99% reliability guarantee. Preserve baseline and failure latency distributions, not successful requests alone. Investigate server/proxy/client constraints before assigning a bottleneck to API CPU.
 
+The primary report will compare the arithmetic mean of per-trial p95 latencies, with a paired 10,000-resample percentile bootstrap (seed 20261111). Resample whole API/direct trial pairs, never individual requests. Report every repetition and its gate outcome; classify a tested rate as meeting the target only when every valid planned repetition passes all admission/search/integrity gates. Any invalid repetition prevents that classification. No interpolation between tested rates establishes an unmeasured capacity maximum. With only a few trial pairs, intervals describe this experiment and do not establish a population SLA.
+
 ## Cost, reversibility and evidence
 
 Estimated ceiling: $5 for this round; both machines automatically stop within five hours. Reserve time for evidence capture and cleanup. AWS Price List API verified compute rates: server $0.4032/hour, client $0.357/hour, combined $0.7602/hour. Estimates exclude small storage, request and IPv4 charges; they are not an AWS bill. Stop earlier if the forecast threatens the ceiling.

@@ -76,12 +76,22 @@ def analyze(folder):
     begin, end = go+spec['baseline_seconds'], go+spec['baseline_seconds']+spec['duration_seconds']
     report['uploads']['completed_during_load_per_minute'] = sum(begin <= r['completed_epoch'] < end for r in accepted)*60/spec['duration_seconds']
     report['uploads']['outstanding_at_load_end'] = sum(r.get('started_epoch', math.inf) < end and r.get('completed_epoch', math.inf) >= end for r in uploads if r['outcome'] != 'not_started')
+    midpoint = (begin+end)/2
+    report['uploads']['outstanding_at_midpoint'] = sum(r.get('started_epoch', math.inf) < midpoint and r.get('completed_epoch', math.inf) >= midpoint for r in uploads if r['outcome'] != 'not_started')
+    report['uploads']['completed_last_third_per_minute'] = sum(end-spec['duration_seconds']/3 <= r['completed_epoch'] < end for r in accepted)*180/spec['duration_seconds']
     samples = [r for r in server_samples if begin <= r['epoch'] <= end]
     if len(samples) >= 2:
         first, last = samples[0], samples[-1]
         elapsed = last['epoch']-first['epoch']
         cpu = lambda row: int(row['containers']['bench-api']['cpu']['usage_usec'])/1e6
         report['api_cpu_fraction_of_one_core'] = (cpu(last)-cpu(first))/elapsed
+        report['server_resources'] = {}
+        for name in ['bench-api', 'bench-proxy', 'bench-postgres', 'bench-qdrant']:
+            left, right = first['containers'][name], last['containers'][name]
+            used = (int(right['cpu']['usage_usec'])-int(left['cpu']['usage_usec']))/1e6
+            report['server_resources'][name] = {'cpu_seconds': used, 'sampled_seconds': elapsed,
+                'allocated_cpu_utilization': used/elapsed/(right['cpu_nano']/1e9),
+                'throttled_seconds': (int(right['cpu'].get('throttled_usec', 0))-int(left['cpu'].get('throttled_usec', 0)))/1e6}
         report['pipeline_start'] = first['pipeline']; report['pipeline_end'] = last['pipeline']
         report['pipeline_pending_growth'] = last['pipeline']['pending_videos']-first['pipeline']['pending_videos']
         report['searchable_completions_per_minute'] = (last['pipeline']['searchable']-first['pipeline']['searchable'])*60/elapsed

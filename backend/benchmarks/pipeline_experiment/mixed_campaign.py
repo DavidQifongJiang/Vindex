@@ -120,6 +120,8 @@ def main():
     destination = ROOT/'results'/plan['name']; destination.mkdir()
     write(destination/'plan.json', plan); archive(destination/'plan.json')
     seeds = json.loads((ROOT/'results/seeds.json').read_text())['ids']
+    if 'protected_seed_ids' in plan:
+        assert seeds == plan['protected_seed_ids'], 'Protected corpus changed after plan registration'
     progress = {'started_at': utc(), 'finished': False, 'completed': []}
     began = time.monotonic()
     try:

@@ -63,9 +63,28 @@ def main():
             finally:
                 body.close()
             assert size == args.bytes and digest.hexdigest() == args.sha256, 'Accepted bytes differ'
-            verified.append({'video_id': vid, 'bytes': size, 'sha256': digest.hexdigest(),
-                             'job_count': len(own_jobs), 'status': video.status,
-                             'embedding_status': video.embedding_status})
+            entry = {'video_id': vid, 'bytes': size, 'sha256': digest.hexdigest(),
+                     'job_count': len(own_jobs), 'status': video.status,
+                     'embedding_status': video.embedding_status}
+            if video.embedding_status == 'completed':
+                from app.services.qdrant_service import get_qdrant_client, COLLECTION_NAME
+                from qdrant_client.models import Filter, FieldCondition, MatchValue
+                import requests
+                own_chunks = [c for c in chunks if c.video_id == vid]
+                assert own_chunks and all(c.status == 'completed' and c.artifact_token for c in own_chunks)
+                points, offset = get_qdrant_client().scroll(COLLECTION_NAME,
+                    scroll_filter=Filter(must=[FieldCondition(key='video_id', match=MatchValue(value=vid))]),
+                    with_payload=True, with_vectors=False, limit=10000)
+                assert offset is None and len(points) == sum(c.segment_count for c in own_chunks)
+                assert points and all(p.payload.get('attempt_token') in {c.artifact_token for c in own_chunks} for p in points)
+                response = requests.post(f'http://127.0.0.1:8000/videos/{vid}/search',
+                    cookies={'vindex_bench': os.environ['VINDEX_BENCH_TOKEN']},
+                    json={'query': 'vector search', 'algorithm': 'qdrant_embedding'}, timeout=30)
+                assert response.status_code == 200 and response.json()['video_id'] == vid
+                assert any('vector search' in hit['text'].lower() and hit['start'] <= 5 and hit['end'] >= 0
+                           for hit in response.json()['results']), 'Completed search publication is unusable'
+                entry.update(vectors=len(points), semantic_probe_pass=True)
+            verified.append(entry)
         report['verified'] = verified
     elif args.action == 'retire':
         # Host checks stopped worker processes and archives the complete pre-retirement

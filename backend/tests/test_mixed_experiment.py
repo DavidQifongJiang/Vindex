@@ -1,11 +1,21 @@
 import importlib.util
 from pathlib import Path
+import sys
 import unittest
 
 
 SOURCE = Path(__file__).resolve().parents[1]/'benchmarks/analyze_mixed_experiment.py'
 spec = importlib.util.spec_from_file_location('mixed_analysis', SOURCE)
 analysis = importlib.util.module_from_spec(spec); spec.loader.exec_module(analysis)
+
+STATE_SOURCE = SOURCE.parent/'pipeline_experiment/mixed_state.py'
+state_spec = importlib.util.spec_from_file_location('mixed_state', STATE_SOURCE)
+state = importlib.util.module_from_spec(state_spec)
+sys.path.insert(0, str(STATE_SOURCE.parent))
+try:
+    state_spec.loader.exec_module(state)
+finally:
+    sys.path.pop(0)
 
 
 class MixedExperimentTests(unittest.TestCase):
@@ -25,6 +35,17 @@ class MixedExperimentTests(unittest.TestCase):
 
     def test_tail_keeps_deadline_failures(self):
         self.assertEqual(analysis.quantile([.1]*94+[5]*6, .95), 5)
+
+    def test_retirement_refuses_protected_corpus(self):
+        protected = '00000000-0000-0000-0000-000000000001'
+        with self.assertRaises(AssertionError): state.validate_ids([protected], [protected])
+
+    def test_retirement_requires_a_protected_corpus_and_bounded_ids(self):
+        target = '00000000-0000-0000-0000-000000000002'
+        protected = '00000000-0000-0000-0000-000000000001'
+        with self.assertRaises(AssertionError): state.validate_ids([target], [])
+        with self.assertRaises(AssertionError): state.validate_ids([target, target], [protected])
+        with self.assertRaises(ValueError): state.validate_ids(['not-a-video-id'], [protected])
 
 
 if __name__ == '__main__': unittest.main()

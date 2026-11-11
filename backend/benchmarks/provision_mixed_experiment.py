@@ -40,6 +40,7 @@ systemctl stop pipeline-expiry.timer || true
 remaining=$((17100 - ${SECONDS:-0} - $(cut -d. -f1 /proc/uptime)))
 test "$remaining" -gt 300
 systemd-run --unit=mixed-expiry --on-active="${remaining}s" /bin/bash -c 'systemctl stop mixed-campaign.service mixed-seed.service; docker stop -t 10 bench-browser bench-dispatcher bench-search bench-playback >/dev/null 2>&1; cd /opt/vindex-experiment; timeout 120 /usr/bin/python3.11 campaign.py --snapshot automatic-expiry; /usr/sbin/poweroff'
+systemd-run --unit=mixed-hard-stop --on-active="$((remaining + 300))s" /usr/sbin/poweroff
 '''
     bootstrap = prefix + original.removeprefix('#!/bin/bash\n')
     additions = {'bootstrap.sh': bootstrap.encode()}
@@ -123,7 +124,8 @@ def main():
         s3.upload_file(str(folder/'client-settings.json'), state['bucket'], 'bootstrap/client-settings.json')
         script = f'''#!/bin/bash
 set -euo pipefail
-systemd-run --unit=mixed-client-expiry --on-active=285m /bin/bash -c 'systemctl stop mixed-client.service; docker stop -t 10 mixed-uploads mixed-queries >/dev/null 2>&1; aws s3 sync /opt/vindex-experiment/results s3://{state["bucket"]}/client-expiry/ --only-show-errors; /usr/sbin/poweroff'
+systemd-run --unit=mixed-client-expiry --on-active=285m /bin/bash -c 'systemctl stop mixed-client.service; docker stop -t 10 mixed-uploads mixed-queries >/dev/null 2>&1; timeout 120 aws s3 sync /opt/vindex-experiment/results s3://{state["bucket"]}/client-expiry/ --only-show-errors; /usr/sbin/poweroff'
+systemd-run --unit=mixed-hard-stop --on-active=290m /usr/sbin/poweroff
 dnf install -y docker python3.11
 systemctl enable --now docker
 mkdir -p /opt/vindex-experiment/results
