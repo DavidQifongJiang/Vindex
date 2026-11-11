@@ -168,7 +168,7 @@ def dag():
     f.box(1450,640,250,95,'Searchable',['API queries Qdrant'],accent=TEAL,fill='#ECF9F7')
     f.box(1450,935,250,90,'Video: processed',['Both milestones complete'],accent=INK,fill='#F1F5F8',size=22)
     f.label(510,784,'Default: 300s chunks',16)
-    f.label(510,810,'5s context overlap',16)
+    f.label(510,810,'5s context per side',16)
     f.text(395,400,'Playback does not wait for transcription.',19,TEAL,weight=650)
     f.text(395,857,'Each chunk does ASR → embeddings → publication; chunks can run independently.',18,GRAY)
     f.text(55,962,'Two readiness milestones',22,INK,weight=650)

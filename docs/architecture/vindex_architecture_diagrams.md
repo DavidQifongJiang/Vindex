@@ -3,8 +3,9 @@
 Verified against application commit `a458bc2e5b19335025eed8ec63599e2c02297330`
 and the repository's AWS configuration on November 11, 2026. These figures show
 the implemented core upload, per-video search, and playback path. They do not
-claim that every service is currently running, that optional features are enabled,
-or that the ongoing benchmark has completed.
+claim that every service is currently running or that optional features are enabled.
+The separate [completed benchmark](pipeline_comparison_results_2026-11-11.md)
+compares upload routes through this architecture with fixed worker capacity.
 
 ## 1. System flow
 

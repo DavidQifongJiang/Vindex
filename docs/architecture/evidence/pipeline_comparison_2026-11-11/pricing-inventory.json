@@ -1,0 +1,139 @@
+{
+  "observed_at": "2026-11-10T22:50:53.085116+00:00",
+  "services": [
+    {
+      "serviceName": "vindex-api",
+      "desiredCount": 1,
+      "runningCount": 1,
+      "pendingCount": 0,
+      "taskDefinition": "arn:aws:ecs:us-east-1:585572506964:task-definition/vindex-api:1"
+    },
+    {
+      "serviceName": "vindex-search-worker",
+      "desiredCount": 0,
+      "runningCount": 0,
+      "pendingCount": 0,
+      "taskDefinition": "arn:aws:ecs:us-east-1:585572506964:task-definition/vindex-search-worker:1"
+    },
+    {
+      "serviceName": "vindex-playback-worker",
+      "desiredCount": 0,
+      "runningCount": 0,
+      "pendingCount": 0,
+      "taskDefinition": "arn:aws:ecs:us-east-1:585572506964:task-definition/vindex-playback-worker:1"
+    }
+  ],
+  "tasks": [
+    {
+      "family": "vindex-api",
+      "cpu": "512",
+      "memory": "2048",
+      "containers": [
+        {
+          "name": "api",
+          "image": "585572506964.dkr.ecr.us-east-1.amazonaws.com/vindex:latest",
+          "command": null,
+          "environment": {
+            "MAX_UPLOAD_MB": "500",
+            "AUTH_REQUIRED": "true",
+            "WHISPER_MODEL": "tiny",
+            "EMBEDDING_MODEL": "all-MiniLM-L6-v2",
+            "TRANSFORMERS_OFFLINE": "1",
+            "HF_HUB_OFFLINE": "1"
+          }
+        }
+      ]
+    },
+    {
+      "family": "vindex-search-worker",
+      "cpu": "2048",
+      "memory": "4096",
+      "containers": [
+        {
+          "name": "worker",
+          "image": "585572506964.dkr.ecr.us-east-1.amazonaws.com/vindex:latest",
+          "command": [
+            "celery",
+            "-A",
+            "app.workers.celery_app.celery_app",
+            "worker",
+            "--loglevel=info",
+            "--pool=prefork",
+            "--concurrency=1",
+            "-Q",
+            "search,celery",
+            "-n",
+            "search@%h"
+          ],
+          "environment": {
+            "NUMEXPR_NUM_THREADS": "2",
+            "OPENBLAS_NUM_THREADS": "2",
+            "MAX_UPLOAD_MB": "500",
+            "OMP_NUM_THREADS": "2",
+            "MKL_NUM_THREADS": "2",
+            "AUTH_REQUIRED": "true",
+            "WHISPER_MODEL": "tiny",
+            "EMBEDDING_MODEL": "all-MiniLM-L6-v2",
+            "TRANSFORMERS_OFFLINE": "1",
+            "HF_HUB_OFFLINE": "1"
+          }
+        }
+      ]
+    },
+    {
+      "family": "vindex-playback-worker",
+      "cpu": "1024",
+      "memory": "2048",
+      "containers": [
+        {
+          "name": "worker",
+          "image": "585572506964.dkr.ecr.us-east-1.amazonaws.com/vindex:latest",
+          "command": [
+            "celery",
+            "-A",
+            "app.workers.celery_app.celery_app",
+            "worker",
+            "--loglevel=info",
+            "--pool=prefork",
+            "--concurrency=1",
+            "-Q",
+            "playback",
+            "-n",
+            "playback@%h"
+          ],
+          "environment": {
+            "NUMEXPR_NUM_THREADS": "1",
+            "OPENBLAS_NUM_THREADS": "1",
+            "MAX_UPLOAD_MB": "500",
+            "OMP_NUM_THREADS": "1",
+            "MKL_NUM_THREADS": "1",
+            "AUTH_REQUIRED": "true",
+            "WHISPER_MODEL": "tiny",
+            "EMBEDDING_MODEL": "all-MiniLM-L6-v2",
+            "TRANSFORMERS_OFFLINE": "1",
+            "HF_HUB_OFFLINE": "1"
+          }
+        }
+      ]
+    }
+  ],
+  "instances": [
+    {
+      "id": "i-010d46b34dc600bc8",
+      "type": "t3.small",
+      "state": "running",
+      "name": "vindex-state"
+    }
+  ],
+  "hourly_compute_usd": {
+    "c7i.xlarge": [
+      0.1785
+    ],
+    "c7i.2xlarge": [
+      0.357
+    ],
+    "m7i.2xlarge": [
+      0.4032
+    ]
+  }
+}

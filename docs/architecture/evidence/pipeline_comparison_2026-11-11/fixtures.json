@@ -1,0 +1,69 @@
+{
+  "provenance": "Synthetic English speech generated with Windows System.Speech; synthetic H.264 test video. No user media.",
+  "speech_text": "Vector search helps us find a specific moment inside a video. The original video uploads directly to cloud storage. Independent workers prepare playback and transcribe the audio. We verify the expected search result and actual video playback before reporting success.",
+  "annotation": {
+    "query": "vector search",
+    "expected_text": "vector search",
+    "start_seconds": 0,
+    "end_seconds": 4,
+    "tolerance_seconds": 1
+  },
+  "generation": "20-second 1280x720/30 fps test pattern, H.264 10 Mbps CBR, padded mono AAC speech, faststart MP4; 80-second variant loops the 20-second file four times by stream copy.",
+  "ffmpeg": "ffmpeg version 8.1.1-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+  "inputs_preserved_locally": true,
+  "byte_identical_inputs_used_for_both_routes": true,
+  "files": [
+    {
+      "file": "speech-20s.mp4",
+      "bytes": 25808821,
+      "sha256": "a588d05ac9e01ed988b53662020a6d122f62976230c33b0b901cb48369b4d58d",
+      "streams": [
+        {
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 1280,
+          "height": 720,
+          "r_frame_rate": "30/1"
+        },
+        {
+          "codec_name": "aac",
+          "codec_type": "audio",
+          "sample_rate": "22050",
+          "channels": 1,
+          "r_frame_rate": "0/0"
+        }
+      ],
+      "format": {
+        "duration": "20.000000",
+        "size": "25808821",
+        "bit_rate": "10323528"
+      }
+    },
+    {
+      "file": "speech-80s.mp4",
+      "bytes": 103231087,
+      "sha256": "2613ce2f8172edda811d1aa43d3b82151effb9251ad7d1742926d4e45122e06a",
+      "streams": [
+        {
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 1280,
+          "height": 720,
+          "r_frame_rate": "30/1"
+        },
+        {
+          "codec_name": "aac",
+          "codec_type": "audio",
+          "sample_rate": "22050",
+          "channels": 1,
+          "r_frame_rate": "0/0"
+        }
+      ],
+      "format": {
+        "duration": "80.139002",
+        "size": "103231087",
+        "bit_rate": "10305203"
+      }
+    }
+  ]
+}

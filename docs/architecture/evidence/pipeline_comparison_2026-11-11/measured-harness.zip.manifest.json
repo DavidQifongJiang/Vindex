@@ -1,0 +1,54 @@
+{
+  "primary-source/bootstrap.sh": {
+    "bytes": 4020,
+    "sha256": "14c54ee7ee36541a601447dce50f6b12369f71c937e97022bf0e703728407a0d"
+  },
+  "primary-source/campaign.py": {
+    "bytes": 12243,
+    "sha256": "70f398f163feab111db314aabf04ea5fc8d3fe3b7fb8e08bbbe36b04ec09839b"
+  },
+  "primary-source/expire.sh": {
+    "bytes": 262,
+    "sha256": "06b18263cdf97bd197dc5d0951c35495e715ff7dc139f874e08b947d9732d033"
+  },
+  "primary-source/expiry-units.txt": {
+    "bytes": 580,
+    "sha256": "2fefa3d723a23ba443978d8909fc511373ec5a4c9ce735425994f862db795a85"
+  },
+  "primary-source/guard.py": {
+    "bytes": 758,
+    "sha256": "eb853a88302a23543da03a008111323ebcdc61dd2501fcefaff53cf76a5744a3"
+  },
+  "primary-source/inspect_state.py": {
+    "bytes": 5121,
+    "sha256": "2f68371d048899fdd6466b140342b38d95b68e2b465a22df7bc1ee0f8203b15b"
+  },
+  "primary-source/locked-plan.json": {
+    "bytes": 106879,
+    "sha256": "dd45f38db15cc3313a485743afc4ba315c38215f9cbf44efe60997891d9c83e4"
+  },
+  "primary-source/pipeline_browser_probes.cjs": {
+    "bytes": 4416,
+    "sha256": "7b33d5f3c1ef33ab874dfc4ce255c7838261dac327910a2678f7e9d71b5b7780"
+  },
+  "primary-source/pipeline_measurement.cjs": {
+    "bytes": 7241,
+    "sha256": "4c81dc3e62f682bea26b8f99321a0f284d45552952c26ab6f5ded05c85f0d24e"
+  },
+  "primary-source/run_upload_comparison.cjs": {
+    "bytes": 12418,
+    "sha256": "6f0fe2bec3f2bde841f19280e4838c460e7abb7aab73f765e0795b2f03da9e23"
+  },
+  "primary-source/server.py": {
+    "bytes": 1465,
+    "sha256": "7256dc423dcfae3461f873bc3b185bfb4af33f96beb3b8bb939751236bba6870"
+  },
+  "primary-source/SHA256.txt": {
+    "bytes": 1169,
+    "sha256": "3ce26691ee296da43f321c4fc997ddfc3f822edc9d0ad4cfa5ee13880c97f097"
+  },
+  "primary-source/upload_measurement.cjs": {
+    "bytes": 4880,
+    "sha256": "c34278549303c786cbef833eb8d21f399e338e611f3c66b60498b6c2121e55c5"
+  }
+}

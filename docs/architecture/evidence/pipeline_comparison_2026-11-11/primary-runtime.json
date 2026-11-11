@@ -1,0 +1,123 @@
+{
+  "campaign": "primary-001",
+  "runtime_audit": "passed",
+  "waves": 442,
+  "locked_plan_verified": true,
+  "image_ids": {
+    "bench-api": "sha256:847ccd3416458f28db57e6f9583c4c4195f3a3ea3d280ba5d90f4276c8dbf1df",
+    "bench-proxy": "sha256:5813f7eb9b94fac4970f9f576695fe1ed1d53d41586fd3eaa350caf7c4627d9c",
+    "bench-postgres": "sha256:74d436cb49d3398cf7b5d7b33635d43623d9e4da4b93c22db453f7d5d81181b1",
+    "bench-redis": "sha256:9823645c452a9a994f575ed238e1a4f67365acbf8e842db769060820fab06449",
+    "bench-qdrant": "sha256:8a80c5500151ab2b08eb5874698b81b6b8addbc53ef4fb0c47f516680cf413d2",
+    "bench-dispatcher": "sha256:847ccd3416458f28db57e6f9583c4c4195f3a3ea3d280ba5d90f4276c8dbf1df",
+    "bench-search": "sha256:847ccd3416458f28db57e6f9583c4c4195f3a3ea3d280ba5d90f4276c8dbf1df",
+    "bench-playback": "sha256:847ccd3416458f28db57e6f9583c4c4195f3a3ea3d280ba5d90f4276c8dbf1df",
+    "bench-browser": "sha256:a0d7b2b49ffa0e99787a00b7ec2af46eca58020082713f002ca9f0f1cfd1a017"
+  },
+  "cpu_accounting_note": "Container CPU deltas include browser setup and readiness polling; these are not upload-only CPU measurements.",
+  "cleanup_note": "Per-wave remaining_objects checks the raw_videos prefix. Full-bucket residual reconciliation is a separate final teardown check.",
+  "cpu_totals": [
+    {
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "seconds": {
+        "bench-api": 84.51752900000004,
+        "bench-proxy": 25.483706,
+        "bench-postgres": 8.142589,
+        "bench-redis": 6.885851000000001,
+        "bench-qdrant": 1.2036820000000008,
+        "bench-dispatcher": 3.6010289999999987,
+        "bench-search": 278.77178200000003,
+        "bench-playback": 669.7670460000003,
+        "bench-browser": 310.6459040000001
+      }
+    },
+    {
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "seconds": {
+        "bench-api": 26.705568000000007,
+        "bench-proxy": 3.247737,
+        "bench-postgres": 8.281712999999996,
+        "bench-redis": 7.128349999999996,
+        "bench-qdrant": 1.247479,
+        "bench-dispatcher": 3.688437,
+        "bench-search": 278.538164,
+        "bench-playback": 669.3825169999999,
+        "bench-browser": 348.51759399999986
+      }
+    },
+    {
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "seconds": {
+        "bench-api": 83.474468,
+        "bench-proxy": 24.723619000000003,
+        "bench-postgres": 6.691611000000002,
+        "bench-redis": 6.844773999999998,
+        "bench-qdrant": 1.281709,
+        "bench-dispatcher": 3.6162529999999995,
+        "bench-search": 201.437009,
+        "bench-playback": 654.43395,
+        "bench-browser": 307.74376699999993
+      }
+    },
+    {
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "seconds": {
+        "bench-api": 26.33104699999999,
+        "bench-proxy": 3.207755999999999,
+        "bench-postgres": 6.860120999999998,
+        "bench-redis": 7.055975999999999,
+        "bench-qdrant": 1.322926,
+        "bench-dispatcher": 3.6823639999999984,
+        "bench-search": 201.545039,
+        "bench-playback": 654.721817,
+        "bench-browser": 345.93215600000013
+      }
+    },
+    {
+      "worker_state": "warm",
+      "fixture": "speech-80s.mp4",
+      "concurrency": 5,
+      "mode": "api",
+      "seconds": {
+        "bench-api": 267.966076,
+        "bench-proxy": 61.745734,
+        "bench-postgres": 14.961084999999999,
+        "bench-redis": 10.037560000000001,
+        "bench-qdrant": 1.4890200000000002,
+        "bench-dispatcher": 4.679352000000001,
+        "bench-search": 628.1116930000001,
+        "bench-playback": 2595.0286390000006,
+        "bench-browser": 748.3850260000002
+      }
+    },
+    {
+      "worker_state": "warm",
+      "fixture": "speech-80s.mp4",
+      "concurrency": 5,
+      "mode": "direct",
+      "seconds": {
+        "bench-api": 75.504694,
+        "bench-proxy": 10.512133,
+        "bench-postgres": 15.096190999999997,
+        "bench-redis": 10.188031000000002,
+        "bench-qdrant": 1.612024,
+        "bench-dispatcher": 4.678144,
+        "bench-search": 613.824322,
+        "bench-playback": 2589.725623,
+        "bench-browser": 911.8968020000001
+      }
+    }
+  ]
+}

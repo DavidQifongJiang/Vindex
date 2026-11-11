@@ -1,7 +1,8 @@
 # Pipeline experiment execution record
 
-Prepared November 10, 2026. This document records execution choices; measured
-results will be added only from completed artifacts.
+Prepared November 10, 2026; primary collection completed November 11 (UTC).
+This document records execution choices and preregistration. See the completed
+[results, acceptance gates, and cleanup evidence](pipeline_comparison_results_2026-11-11.md).
 
 - Account/region: 585572506964 / us-east-1. The shared API and state host remain
   unchanged; its worker services were at zero during the read-only inventory.

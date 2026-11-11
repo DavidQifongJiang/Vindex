@@ -1,9 +1,12 @@
 # Upload-to-search and playback evaluation
 
-Status: instrumentation and protocol prepared; no integrated cloud campaign has
-been run with this harness. The completed [600-upload comparison](upload_comparison_results_2026-11-10.md)
-measured durable acceptance only. Its results do not establish processing speed.
-This phase keeps the current processing DAG unchanged and compares upload routes.
+Status: the preregistered [600-upload integrated comparison](pipeline_comparison_results_2026-11-11.md)
+has completed. Executed settings and the locked plan are recorded in the
+[execution record](pipeline_experiment_execution.md); the design below preserves
+the original measurement contract and proposed pilot. The earlier
+[600-upload comparison](upload_comparison_results_2026-11-10.md) measured durable
+acceptance only. Both phases compare upload routes through the same processing
+DAG; neither measures the historical serialized-to-parallel speedup.
 
 ## Measurement contract
 
