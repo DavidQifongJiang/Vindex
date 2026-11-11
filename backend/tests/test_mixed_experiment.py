@@ -17,6 +17,15 @@ try:
 finally:
     sys.path.pop(0)
 
+PROCESSING_SOURCE = SOURCE.with_name('summarize_mixed_processing.py')
+processing_spec = importlib.util.spec_from_file_location('mixed_processing', PROCESSING_SOURCE)
+processing = importlib.util.module_from_spec(processing_spec)
+sys.path.insert(0, str(SOURCE.parent))
+try:
+    processing_spec.loader.exec_module(processing)
+finally:
+    sys.path.pop(0)
+
 SUMMARY_SOURCE = SOURCE.with_name('summarize_mixed_comparison.py')
 summary_spec = importlib.util.spec_from_file_location('mixed_summary', SUMMARY_SOURCE)
 summary = importlib.util.module_from_spec(summary_spec)
@@ -64,6 +73,19 @@ class MixedExperimentTests(unittest.TestCase):
 
     def test_missing_comparator_trial_is_not_silently_discarded(self):
         with self.assertRaises(AssertionError): summary.paired_ratio([1, 2, 3], [1, 2])
+
+    def test_processing_rate_excludes_late_verification_and_uses_observed_time(self):
+        samples = [
+            {'epoch': 105, 'pipeline': {'searchable': 0, 'playable': 0, 'pending_videos': 1}},
+            {'epoch': 155, 'pipeline': {'searchable': 2, 'playable': 3, 'pending_videos': 5}},
+            {'epoch': 180, 'pipeline': {'searchable': 9, 'playable': 9, 'pending_videos': 0}}]
+        result = processing.pipeline_window(samples, 100, 160)
+        self.assertEqual(result['observed_seconds'], 50)
+        self.assertEqual(result['searchable_completions_per_minute'], 2.4)
+        self.assertEqual(result['pending_growth'], 4)
+
+    def test_processing_rate_requires_two_in_window_observations(self):
+        with self.assertRaises(AssertionError): processing.pipeline_window([], 100, 160)
 
 
 if __name__ == '__main__': unittest.main()
