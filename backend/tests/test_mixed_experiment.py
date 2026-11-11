@@ -17,6 +17,15 @@ try:
 finally:
     sys.path.pop(0)
 
+SUMMARY_SOURCE = SOURCE.with_name('summarize_mixed_comparison.py')
+summary_spec = importlib.util.spec_from_file_location('mixed_summary', SUMMARY_SOURCE)
+summary = importlib.util.module_from_spec(summary_spec)
+sys.path.insert(0, str(SOURCE.parent))
+try:
+    summary_spec.loader.exec_module(summary)
+finally:
+    sys.path.pop(0)
+
 
 class MixedExperimentTests(unittest.TestCase):
     def test_missing_arrivals_remain_failures(self):
@@ -46,6 +55,15 @@ class MixedExperimentTests(unittest.TestCase):
         with self.assertRaises(AssertionError): state.validate_ids([target], [])
         with self.assertRaises(AssertionError): state.validate_ids([target, target], [protected])
         with self.assertRaises(ValueError): state.validate_ids(['not-a-video-id'], [protected])
+
+    def test_bootstrap_preserves_whole_trial_pairing(self):
+        result = summary.paired_ratio([1, 10, 100], [2, 20, 200], draws=1000)
+        self.assertEqual(result['right_over_left'], 2)
+        self.assertEqual(result['paired_95pct_interval'], [2, 2])
+        self.assertEqual(result['independent_pairs'], 3)
+
+    def test_missing_comparator_trial_is_not_silently_discarded(self):
+        with self.assertRaises(AssertionError): summary.paired_ratio([1, 2, 3], [1, 2])
 
 
 if __name__ == '__main__': unittest.main()

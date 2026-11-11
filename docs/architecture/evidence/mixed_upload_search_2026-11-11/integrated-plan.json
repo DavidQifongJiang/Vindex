@@ -1,0 +1,174 @@
+{
+  "application_commit": "a458bc2e5b19335025eed8ec63599e2c02297330",
+  "application_image": "585572506964.dkr.ecr.us-east-1.amazonaws.com/vindex@sha256:ee08240512c0f2b5b0101261ba74e4bd0aeccaba71519592c788647d9d50dcbc",
+  "harness_commit": "89dc7d84f2444dd4b32387eef56f672fba56e818",
+  "protected_seed_ids": [
+    "3c74f36e-30a8-47a8-93f0-4baec49a85e5",
+    "425cfb7f-6597-4266-b838-d634ad3a4445",
+    "77de2f34-34f8-468c-bf63-33f59be912bd"
+  ],
+  "source_hashes": {
+    "mixed_state.py": "d2f2687651446e80df93eea365992aa4528199d1d868cd64587b9d3015f2e2b3",
+    "mixed_campaign.py": "52e28093e38b677a61080297fc9185dd97f98377d6e65fe9065fdb551403af24",
+    "mixed_client.py": "e6eb6822282fb7a71ae8d06e28217520871c6ab532796d35e29d3390b016fc26",
+    "server.py": "7256dc423dcfae3461f873bc3b185bfb4af33f96beb3b8bb939751236bba6870",
+    "guard.py": "eb853a88302a23543da03a008111323ebcdc61dd2501fcefaff53cf76a5744a3",
+    "backend/benchmarks/mixed_load_core.cjs": "67f5850d77c6c11beba81783f8e7f2cc7942899bf5b68939d9b339bfa8870f51",
+    "backend/benchmarks/run_mixed_uploads.cjs": "d7862b3c1d3c3445f6a43bc118bfeb024df1e13e59408472d36138a7798e3f62",
+    "backend/benchmarks/run_mixed_queries.cjs": "b7d61a5061a562943a30dc69dd61cd80c0743f854d763440ce4400b2404179e9",
+    "backend/benchmarks/upload_measurement.cjs": "c34278549303c786cbef833eb8d21f399e338e611f3c66b60498b6c2121e55c5"
+  },
+  "frontend_hashes": {
+    "api": {
+      "assets/index-CmDKqPaQ.css": "a5437d072e60851f8a9580218eff7552ea8a4852229975f0e51b616c81a94ca3",
+      "assets/index-Dk2ujEVi.js": "a2b7cdcaa4403e75750a254f9e45a1d2ada6e8da652a927b600355bf728f4301",
+      "assets/inter-cyrillic-ext-wght-normal-BOeWTOD4.woff2": "ca157063339ac4ad418f214f3abfed119b0798ab4d377386ce5c9e5a7a435ebd",
+      "assets/inter-cyrillic-wght-normal-DqGufNeO.woff2": "71d5ee93cc1e9f1d520a3a8b66456de18c7879d8df09d57fcd2eaff75fef0075",
+      "assets/inter-greek-ext-wght-normal-DlzME5K_.woff2": "6e9e020a25f9b56d418f2c085b1d3c09725a4da23fe693a5b463064606732190",
+      "assets/inter-greek-wght-normal-CkhJZR-_.woff2": "1be3448e292fbf05ffe176fe1e43f135013d50b1e7d324ad1a558f623d3bb6f6",
+      "assets/inter-latin-ext-wght-normal-DO1Apj_S.woff2": "34b9c504cab7a73e37b746343a449132e56cf7b5481af2cb81dc74dcff25c956",
+      "assets/inter-latin-wght-normal-Dx4kXJAl.woff2": "3100e775e8616cd2611beecfa23a4263d7037586789b43f035236a2e6fbd4c62",
+      "assets/inter-vietnamese-wght-normal-CBcvBZtf.woff2": "5c66f9e07e90c6d4ac4922cc68d60de26c17b1858e677fb5e603fce3952b3ff2",
+      "assets/uploadHash.worker-rkKxSqrA.js": "8f90b524a11194453203faa5802571a7520d93e5dadfe51e89c452087fa886b8",
+      "index.html": "e09994afedd9331dd2da1ae63e4c32bc5491eda83353eeed7bf2fd84ecef5f0e"
+    },
+    "direct": {
+      "assets/index-C0Z9YTcC.js": "7ba7acefec3f3a2086b64fd8180835dae8b312e9ebbda4eb0e2ef2fb73236e96",
+      "assets/index-sTUmN6_9.css": "aad460ddd1e2e2a0f72530ea5285fa664f5a00ddee5535d3c8439be7f600297f",
+      "assets/inter-cyrillic-ext-wght-normal-BOeWTOD4.woff2": "ca157063339ac4ad418f214f3abfed119b0798ab4d377386ce5c9e5a7a435ebd",
+      "assets/inter-cyrillic-wght-normal-DqGufNeO.woff2": "71d5ee93cc1e9f1d520a3a8b66456de18c7879d8df09d57fcd2eaff75fef0075",
+      "assets/inter-greek-ext-wght-normal-DlzME5K_.woff2": "6e9e020a25f9b56d418f2c085b1d3c09725a4da23fe693a5b463064606732190",
+      "assets/inter-greek-wght-normal-CkhJZR-_.woff2": "1be3448e292fbf05ffe176fe1e43f135013d50b1e7d324ad1a558f623d3bb6f6",
+      "assets/inter-latin-ext-wght-normal-DO1Apj_S.woff2": "34b9c504cab7a73e37b746343a449132e56cf7b5481af2cb81dc74dcff25c956",
+      "assets/inter-latin-wght-normal-Dx4kXJAl.woff2": "3100e775e8616cd2611beecfa23a4263d7037586789b43f035236a2e6fbd4c62",
+      "assets/inter-vietnamese-wght-normal-CBcvBZtf.woff2": "5c66f9e07e90c6d4ac4922cc68d60de26c17b1858e677fb5e603fce3952b3ff2",
+      "assets/uploadHash.worker-rkKxSqrA.js": "8f90b524a11194453203faa5802571a7520d93e5dadfe51e89c452087fa886b8",
+      "index.html": "72babc1922dda0255f7e07b1b4d45a3d0ae27fb00975fdfd23f568c64fcdfdbc"
+    }
+  },
+  "fixtures": {
+    "speech-20s.mp4": {
+      "bytes": 25808821,
+      "sha256": "a588d05ac9e01ed988b53662020a6d122f62976230c33b0b901cb48369b4d58d"
+    }
+  },
+  "api_vcpu": 0.5,
+  "api_memory_gib": 2,
+  "budget_ceiling_usd": 5,
+  "graceful_server_expiry_utc": "2026-11-11T22:07:32Z",
+  "hard_stop_utc": "2026-11-11T22:15:00Z",
+  "gates": {
+    "search_p95_seconds": 1,
+    "search_p95_baseline_ratio": 1.2,
+    "observed_search_success_fraction": 0.99,
+    "observed_upload_success_fraction": 0.99,
+    "scheduling_lag_p99_seconds": 0.1,
+    "client_peak_cpu_quota_fraction_below": 0.9,
+    "client_peak_memory_fraction_below": 0.9,
+    "require_complete_unique_ledgers": true,
+    "require_zero_pool_exhaustion": true,
+    "require_reconciled_original_bytes": true,
+    "require_no_server_restart": true
+  },
+  "name": "integrated-001",
+  "preregistered_at": "2026-11-11T18:14:10.025931+00:00",
+  "max_wall_seconds": 3600,
+  "purpose": "Exploratory worker-active confirmation. Measure existing-video search under real processing and distinguish admissions from actual completion/backlog. One paired repetition per rate is not a population capacity estimate.",
+  "selection_reason": "3 uploads/minute tests a plausible stable worker workload; 36/minute repeats the calibrated admission/search-interference load. Selected before primary outcomes.",
+  "worker_capacity": {
+    "search_vcpu": 2,
+    "search_memory_gib": 4,
+    "playback_vcpu": 1,
+    "playback_memory_gib": 2,
+    "concurrency_per_worker": 1
+  },
+  "worker_start": "Restart stopped worker containers for each trial; the query model stays warm. The confirmation includes lazy worker model startup.",
+  "planned_upload_arrivals": 390,
+  "planned_query_arrivals": 3360,
+  "trials": [
+    {
+      "name": "integrated-u003-api",
+      "repeat": 1,
+      "pair_id": "integrated-u003",
+      "mode": "api",
+      "uploads_per_minute": 3,
+      "search_rps": 2,
+      "pool_size": 24,
+      "baseline_seconds": 60,
+      "duration_seconds": 300,
+      "recovery_seconds": 60,
+      "upload_timeout_seconds": 180,
+      "processing": "active",
+      "file": "/bench/fixtures/speech-20s.mp4",
+      "queries": [
+        "vector search",
+        "find a specific moment in a video",
+        "semantic video search",
+        "search for a moment"
+      ]
+    },
+    {
+      "name": "integrated-u003-direct",
+      "repeat": 1,
+      "pair_id": "integrated-u003",
+      "mode": "direct",
+      "uploads_per_minute": 3,
+      "search_rps": 2,
+      "pool_size": 24,
+      "baseline_seconds": 60,
+      "duration_seconds": 300,
+      "recovery_seconds": 60,
+      "upload_timeout_seconds": 180,
+      "processing": "active",
+      "file": "/bench/fixtures/speech-20s.mp4",
+      "queries": [
+        "vector search",
+        "find a specific moment in a video",
+        "semantic video search",
+        "search for a moment"
+      ]
+    },
+    {
+      "name": "integrated-u036-direct",
+      "repeat": 1,
+      "pair_id": "integrated-u036",
+      "mode": "direct",
+      "uploads_per_minute": 36,
+      "search_rps": 2,
+      "pool_size": 24,
+      "baseline_seconds": 60,
+      "duration_seconds": 300,
+      "recovery_seconds": 60,
+      "upload_timeout_seconds": 180,
+      "processing": "active",
+      "file": "/bench/fixtures/speech-20s.mp4",
+      "queries": [
+        "vector search",
+        "find a specific moment in a video",
+        "semantic video search",
+        "search for a moment"
+      ]
+    },
+    {
+      "name": "integrated-u036-api",
+      "repeat": 1,
+      "pair_id": "integrated-u036",
+      "mode": "api",
+      "uploads_per_minute": 36,
+      "search_rps": 2,
+      "pool_size": 24,
+      "baseline_seconds": 60,
+      "duration_seconds": 300,
+      "recovery_seconds": 60,
+      "upload_timeout_seconds": 180,
+      "processing": "active",
+      "file": "/bench/fixtures/speech-20s.mp4",
+      "queries": [
+        "vector search",
+        "find a specific moment in a video",
+        "semantic video search",
+        "search for a moment"
+      ]
+    }
+  ]
+}

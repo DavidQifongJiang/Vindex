@@ -41,3 +41,7 @@ The [exact plan](evidence/mixed_upload_search_2026-11-11/primary-plan.json) cont
 Runtime sources were hash-verified between calibration and primary collection. The added verifier checks completed new search publications outside timed intervals; it does not change application behavior. Both hosts' clocks were within 30 microseconds of AWS time at the recorded preflight check. Separate hard-stop timers at 22:15 UTC back up the graceful expiry timers.
 
 Expected primary duration is about 2.5 hours, followed by worker-active confirmation and final evidence capture. The original $5 estimated ceiling and five-hour host lifetime remain unchanged.
+
+## Worker-active confirmation registration
+
+The [worker-active plan](evidence/mixed_upload_search_2026-11-11/integrated-plan.json) is registered before primary outcomes are available. It contains one paired repetition at 3 and 36 uploads/minute, with 300-second load intervals, the same 2 queries/second, and fixed search/playback workers. Planned totals: 390 uploads and 3,360 queries. It is an exploratory check of actual completion rates and backlog, not a second population capacity estimate. Completed search publications receive vector-token/cardinality and semantic-response checks outside the timed interval. Unfinished jobs are preserved and explicitly retired during isolated teardown.
