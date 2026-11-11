@@ -35,7 +35,7 @@ Run two separately reported stages:
 | Search availability/correctness | >=99% observed successful expected results; timeouts/errors remain failures |
 | Upload acceptance | >=99% of scheduled arrivals accepted; retain late/unreturned commits separately |
 | Integrity | Every accepted identity present exactly once; original bytes/hash and initial durable jobs verified |
-| Generator validity | Complete unique arrival ledger; no pool exhaustion; p99 scheduling lag <=100 ms; no client OOM/restart and demonstrable CPU/memory headroom |
+| Generator validity | Complete unique arrival ledger; no pool exhaustion; p99 scheduling lag <=100 ms; no client OOM/restart; peak observed client CPU quota and memory utilization each <90% |
 | Full-pipeline sustainability | Worker backlog count and oldest age do not continuously grow at the claimed rate; report actual completion rates separately |
 
 Report per-trial values and paired estimates with uncertainty; do not pool all requests as independent experiment repetitions. A 99% observed pass is not a 99% reliability guarantee. Preserve baseline and failure latency distributions, not successful requests alone. Investigate server/proxy/client constraints before assigning a bottleneck to API CPU.

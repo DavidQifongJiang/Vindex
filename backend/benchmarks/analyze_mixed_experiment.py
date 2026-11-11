@@ -39,12 +39,36 @@ def analyze(folder):
     ratio = load['p95_seconds']/baseline['p95_seconds'] if load['p95_seconds'] and baseline['p95_seconds'] else None
     no_slots = sum(r.get('failure_stage') == 'pool_full' for r in uploads)
     client_complete = all(json.loads((client/name).read_text()).get('finished') is True for name in ['client-result.json', 'query-completion.json', 'upload-completion.json'])
+    resources = read_rows(client/'resources.jsonl')
+    headroom = {}
+    for name in ['mixed-uploads', 'mixed-queries']:
+        observed = [r for r in resources if r['containers'][name].get('cpu')]
+        fractions = []
+        for left, right in zip(observed, observed[1:]):
+            a, b = left['containers'][name], right['containers'][name]
+            seconds = right['epoch']-left['epoch']
+            fractions.append((int(b['cpu']['usage_usec'])-int(a['cpu']['usage_usec']))/1e6/seconds/(b['cpu_nano']/1e9))
+        memory = [r['containers'][name]['memory_bytes']/r['containers'][name]['memory_limit'] for r in observed]
+        headroom[name] = {'peak_cpu_quota_fraction': max(fractions or [1]), 'peak_memory_fraction': max(memory or [1]),
+                          'oom': any(r['containers'][name]['oom'] for r in resources)}
+    headroom_pass = all(r['peak_cpu_quota_fraction'] < .9 and r['peak_memory_fraction'] < .9 and not r['oom'] for r in headroom.values())
     valid = client_complete and query_ledger['complete_unique_ledger'] and upload_ledger['complete_unique_ledger'] and no_slots == 0
+    valid = valid and headroom_pass
     valid = valid and all(p['lag_p99_seconds'] is not None and p['lag_p99_seconds'] <= .1 for p in phases.values())
     valid = valid and (not uploads or quantile([r['lag_seconds'] for r in uploads], .99) <= .1)
+    server_samples = read_rows(folder/'server-samples.jsonl')
+    infrastructure_valid = bool(server_samples)
+    for name in ['bench-api', 'bench-proxy', 'bench-postgres', 'bench-redis', 'bench-qdrant']:
+        observed = [r['containers'][name] for r in server_samples]
+        infrastructure_valid = infrastructure_valid and len({r['id'] for r in observed}) == 1
+        infrastructure_valid = infrastructure_valid and all(r['running'] and not r['oom_killed'] for r in observed)
+    infrastructure_valid = infrastructure_valid and all(r['containers']['bench-api']['cpu_nano'] == 500000000 and
+        r['containers']['bench-api']['memory_bytes'] == 2*1024**3 for r in server_samples)
+    valid = valid and infrastructure_valid
     report = {'name': spec['name'], 'mode': spec['mode'], 'processing': spec['processing'], 'file': Path(spec['file']).name,
               'rate': spec['uploads_per_minute'], 'search_rps': spec['search_rps'], 'phases': phases, 'query_ledger': query_ledger,
               'uploads': {**upload_ledger, 'pool_full': no_slots, 'accepted_p95_seconds': quantile([r['upload_seconds'] for r in accepted], .95)},
+              'client_headroom': headroom, 'infrastructure_valid': infrastructure_valid,
               'search_p95_baseline_ratio': ratio, 'arrival_validation_pass': valid,
               'search_slo_pass': bool(valid and load['success_fraction'] >= .99 and load['p95_seconds'] <= 1 and ratio <= 1.2),
               'upload_success_pass': bool(valid and (upload_ledger['success_fraction'] is None or upload_ledger['success_fraction'] >= .99))}
@@ -52,7 +76,7 @@ def analyze(folder):
     begin, end = go+spec['baseline_seconds'], go+spec['baseline_seconds']+spec['duration_seconds']
     report['uploads']['completed_during_load_per_minute'] = sum(begin <= r['completed_epoch'] < end for r in accepted)*60/spec['duration_seconds']
     report['uploads']['outstanding_at_load_end'] = sum(r.get('started_epoch', math.inf) < end and r.get('completed_epoch', math.inf) >= end for r in uploads if r['outcome'] != 'not_started')
-    samples = [r for r in read_rows(folder/'server-samples.jsonl') if begin <= r['epoch'] <= end]
+    samples = [r for r in server_samples if begin <= r['epoch'] <= end]
     if len(samples) >= 2:
         first, last = samples[0], samples[-1]
         elapsed = last['epoch']-first['epoch']

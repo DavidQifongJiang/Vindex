@@ -93,12 +93,28 @@ def main():
     state = json.loads((folder/'resources.json').read_text()); base.validate_state(state)
     assert state['experiment'] == 'mixed-upload-search'
     if args.action == 'create':
-        invoke('create', folder)
+        assert not state.get('client_instance'), 'Both hosts already exist'
+        if not state.get('instance'):
+            invoke('create', folder)
         state = json.loads((folder/'resources.json').read_text())
         group = state['security_group']
-        ec2.authorize_security_group_ingress(GroupId=group, IpPermissions=[{'IpProtocol': 'tcp', 'FromPort': 8443, 'ToPort': 8443,
-            'UserIdGroupPairs': [{'GroupId': group, 'Description': 'Only this isolated client and server'}]}])
-        server = ec2.describe_instances(InstanceIds=[state['instance']])['Reservations'][0]['Instances'][0]
+        observed_group = ec2.describe_security_groups(GroupIds=[group])['SecurityGroups'][0]
+        assert observed_group['GroupName'] == state['name'] and observed_group['VpcId'] == base.VPC
+        rule = {'IpProtocol': 'tcp', 'FromPort': 8443, 'ToPort': 8443,
+                'UserIdGroupPairs': [{'GroupId': group, 'Description': 'Only this isolated client and server'}]}
+        if not observed_group['IpPermissions']:
+            ec2.authorize_security_group_ingress(GroupId=group, IpPermissions=[rule])
+        else:
+            assert len(observed_group['IpPermissions']) == 1
+            existing = observed_group['IpPermissions'][0]
+            assert existing['FromPort'] == existing['ToPort'] == 8443 and not existing['IpRanges'] and not existing['Ipv6Ranges']
+            assert [item['GroupId'] for item in existing['UserIdGroupPairs']] == [group]
+        for _ in range(60):
+            server = ec2.describe_instances(InstanceIds=[state['instance']])['Reservations'][0]['Instances'][0]
+            assert {t['Key']: t['Value'] for t in server['Tags']}.get('Name') == state['name']
+            if server.get('PrivateIpAddress') and server.get('BlockDeviceMappings'): break
+            time.sleep(1)
+        else: raise RuntimeError('Server metadata did not become available; journal retained')
         state['server_ip'] = server['PrivateIpAddress']; state['volume'] = server['BlockDeviceMappings'][0]['Ebs']['VolumeId']
         save(folder/'resources.json', state)
         settings = json.loads((folder/'run-settings.json').read_text())
