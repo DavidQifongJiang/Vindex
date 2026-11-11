@@ -40,7 +40,9 @@ def main():
     fig.tight_layout(rect=(0, .08, 1, .87))
     args.output.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(args.output, facecolor='white')
-    fig.savefig(args.output.with_suffix('.svg'), facecolor='white')
+    svg_path = args.output.with_suffix('.svg')
+    fig.savefig(svg_path, facecolor='white')
+    svg_path.write_text('\n'.join(line.rstrip() for line in svg_path.read_text(encoding='utf-8').splitlines())+'\n', encoding='utf-8')
 
 
 if __name__ == '__main__': main()

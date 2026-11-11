@@ -1,0 +1,58 @@
+{
+  "at": "2026-11-11T21:36:11.161197+00:00",
+  "deleted": {
+    "server": true,
+    "client": true,
+    "server_volume": true,
+    "client_volume": true,
+    "bucket": true,
+    "security_group": true,
+    "iam_role": true,
+    "instance_profile": true
+  },
+  "compute_hours_to_stop_request": {
+    "server": 4.204787666111111,
+    "client": 4.188072179722222
+  },
+  "compute_estimate_usd": 3.190512155136833,
+  "cost_note": "Compute estimate, not a bill; excludes disk, IP, S3 requests/storage and shutdown time.",
+  "shared_verification": {
+    "state_host": "running",
+    "services": [
+      {
+        "name": "vindex-api",
+        "desired": 1,
+        "running": 1
+      },
+      {
+        "name": "vindex-search-worker",
+        "desired": 0,
+        "running": 0
+      },
+      {
+        "name": "vindex-playback-worker",
+        "desired": 0,
+        "running": 0
+      }
+    ],
+    "health": [
+      {
+        "url": "https://d3tj3ho29p8iwn.cloudfront.net/health",
+        "http_status": 200,
+        "body": {
+          "status": "ok",
+          "service": "vindex"
+        }
+      },
+      {
+        "url": "https://5g12nyfkgf.execute-api.us-east-1.amazonaws.com/health",
+        "http_status": 200,
+        "body": {
+          "status": "ok",
+          "service": "vindex"
+        }
+      }
+    ],
+    "capacity_unchanged": true
+  }
+}

@@ -1,6 +1,6 @@
 # Fixed-capacity upload and search comparison
 
-Status: calibration completed; [primary plan](evidence/mixed_upload_search_2026-11-11/primary-plan.json) registered before collection. No primary capacity result yet.
+Status: completed. The [results report](mixed_upload_search_results_2026-11-11.md) contains all registered trials, the worker-active confirmation, public raw evidence and cleanup verification. The [primary plan](evidence/mixed_upload_search_2026-11-11/primary-plan.json) was registered before collection; its counts and gates were unchanged.
 
 ## Question and scope
 

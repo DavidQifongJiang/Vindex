@@ -55,7 +55,7 @@ def summarize(root, registered):
         verified = verification['verified']
         report['failed_jobs_before_teardown'] = verification['failed_jobs']
         report['after_timing_search_publications_verified'] = sum(row.get('semantic_probe_pass') is True for row in verified)
-        report['after_timing_db_playable_count'] = sum(row['status'] == 'processed' for row in verified)
+        report['after_timing_db_processed_status_count'] = sum(row['status'] == 'processed' for row in verified)
         report['pipeline_samples'] = [{'seconds_from_load_start': row['epoch']-begin, **row['pipeline']} for row in samples
                                       if begin <= row['epoch'] <= begin+spec['duration_seconds']+spec['recovery_seconds']]
         trials.append(report)
