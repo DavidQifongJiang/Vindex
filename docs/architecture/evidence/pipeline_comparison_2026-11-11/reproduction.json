@@ -1,0 +1,9 @@
+{
+  "archive": "primary-raw.zip",
+  "archive_sha256": "1da21d0218aca1755b1a2a8c9bde11bbb2e7e6439f56d929b06ba1567f070bba",
+  "verified_entries": 6796,
+  "analysis_match": "all fields except generated_at",
+  "runtime_audit_match": "all fields",
+  "locked_plan_match": true,
+  "cloud_access_required": false
+}

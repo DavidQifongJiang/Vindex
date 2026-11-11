@@ -1,0 +1,55 @@
+{
+  "campaign": "pilot-003",
+  "runtime_audit": "passed",
+  "waves": 2,
+  "locked_plan_verified": false,
+  "image_ids": {
+    "bench-api": "sha256:847ccd3416458f28db57e6f9583c4c4195f3a3ea3d280ba5d90f4276c8dbf1df",
+    "bench-proxy": "sha256:5813f7eb9b94fac4970f9f576695fe1ed1d53d41586fd3eaa350caf7c4627d9c",
+    "bench-postgres": "sha256:74d436cb49d3398cf7b5d7b33635d43623d9e4da4b93c22db453f7d5d81181b1",
+    "bench-redis": "sha256:9823645c452a9a994f575ed238e1a4f67365acbf8e842db769060820fab06449",
+    "bench-qdrant": "sha256:8a80c5500151ab2b08eb5874698b81b6b8addbc53ef4fb0c47f516680cf413d2",
+    "bench-dispatcher": "sha256:847ccd3416458f28db57e6f9583c4c4195f3a3ea3d280ba5d90f4276c8dbf1df",
+    "bench-search": "sha256:847ccd3416458f28db57e6f9583c4c4195f3a3ea3d280ba5d90f4276c8dbf1df",
+    "bench-playback": "sha256:847ccd3416458f28db57e6f9583c4c4195f3a3ea3d280ba5d90f4276c8dbf1df",
+    "bench-browser": "sha256:a0d7b2b49ffa0e99787a00b7ec2af46eca58020082713f002ca9f0f1cfd1a017"
+  },
+  "cpu_accounting_note": "Container CPU deltas include browser setup and readiness polling; these are not upload-only CPU measurements.",
+  "cleanup_note": "Per-wave remaining_objects checks the raw_videos prefix. Full-bucket residual reconciliation is a separate final teardown check.",
+  "cpu_totals": [
+    {
+      "worker_state": "warm",
+      "fixture": "speech-80s.mp4",
+      "concurrency": 5,
+      "mode": "api",
+      "seconds": {
+        "bench-api": 13.026403,
+        "bench-proxy": 2.84931,
+        "bench-postgres": 0.736551,
+        "bench-redis": 0.478829,
+        "bench-qdrant": 0.070353,
+        "bench-dispatcher": 0.234694,
+        "bench-search": 30.05131,
+        "bench-playback": 126.796551,
+        "bench-browser": 34.308125
+      }
+    },
+    {
+      "worker_state": "warm",
+      "fixture": "speech-80s.mp4",
+      "concurrency": 5,
+      "mode": "direct",
+      "seconds": {
+        "bench-api": 3.59373,
+        "bench-proxy": 0.497941,
+        "bench-postgres": 0.704285,
+        "bench-redis": 0.474526,
+        "bench-qdrant": 0.075881,
+        "bench-dispatcher": 0.236765,
+        "bench-search": 29.582268,
+        "bench-playback": 126.961796,
+        "bench-browser": 42.809698
+      }
+    }
+  ]
+}

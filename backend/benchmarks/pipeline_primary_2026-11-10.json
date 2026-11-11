@@ -1,0 +1,4458 @@
+{
+  "name": "primary-001",
+  "preregistered_at": "2026-11-10T23:28:03.775618+00:00",
+  "max_wall_seconds": 32400,
+  "absolute_host_expiry_utc": "2026-11-11T09:00:00Z",
+  "budget_ceiling_usd": 5,
+  "measured_attempts": 600,
+  "excluded_warmup_attempts": 6,
+  "commit": "a458bc2e5b19335025eed8ec63599e2c02297330",
+  "fixtures": {
+    "speech-20s.mp4": {
+      "bytes": 25808821,
+      "sha256": "a588d05ac9e01ed988b53662020a6d122f62976230c33b0b901cb48369b4d58d"
+    },
+    "speech-80s.mp4": {
+      "bytes": 103231087,
+      "sha256": "2613ce2f8172edda811d1aa43d3b82151effb9251ad7d1742926d4e45122e06a"
+    }
+  },
+  "gates": {
+    "minimum_attempts_per_mode_per_cell": 100,
+    "p95_ratio_upper_95pct_bound": 1.1,
+    "observed_readiness_minimum": 0.99,
+    "integrity_failures_maximum": 0,
+    "absolute_staging_slo": "unset; report unverified"
+  },
+  "analysis": {
+    "bootstrap_resamples": 10000,
+    "seed": 20261110,
+    "unit": "paired wave; preserve concurrent clients",
+    "quantile": "nearest rank"
+  },
+  "order": "cold short, excluded warmup, warm short, excluded warmup, warm long; alternate API/direct then direct/API within each cohort",
+  "jitter": "Python random.Random(20261110), independent uniform [0,5] seconds before each measured wave; avoid dispatcher phase locking",
+  "failure_policy": "stop on first failed wave, preserve it, do not pool with a replacement campaign",
+  "waves": [
+    {
+      "name": "cold-short-000-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 0,
+      "role": "measured",
+      "jitter_seconds": 1.495842
+    },
+    {
+      "name": "cold-short-000-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 0,
+      "role": "measured",
+      "jitter_seconds": 0.870493
+    },
+    {
+      "name": "cold-short-001-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 1,
+      "role": "measured",
+      "jitter_seconds": 4.194853
+    },
+    {
+      "name": "cold-short-001-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 1,
+      "role": "measured",
+      "jitter_seconds": 3.620971
+    },
+    {
+      "name": "cold-short-002-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 2,
+      "role": "measured",
+      "jitter_seconds": 3.636913
+    },
+    {
+      "name": "cold-short-002-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 2,
+      "role": "measured",
+      "jitter_seconds": 1.865687
+    },
+    {
+      "name": "cold-short-003-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 3,
+      "role": "measured",
+      "jitter_seconds": 0.900085
+    },
+    {
+      "name": "cold-short-003-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 3,
+      "role": "measured",
+      "jitter_seconds": 1.635987
+    },
+    {
+      "name": "cold-short-004-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 4,
+      "role": "measured",
+      "jitter_seconds": 1.143376
+    },
+    {
+      "name": "cold-short-004-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 4,
+      "role": "measured",
+      "jitter_seconds": 1.639445
+    },
+    {
+      "name": "cold-short-005-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 5,
+      "role": "measured",
+      "jitter_seconds": 2.726791
+    },
+    {
+      "name": "cold-short-005-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 5,
+      "role": "measured",
+      "jitter_seconds": 2.66621
+    },
+    {
+      "name": "cold-short-006-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 6,
+      "role": "measured",
+      "jitter_seconds": 4.7348
+    },
+    {
+      "name": "cold-short-006-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 6,
+      "role": "measured",
+      "jitter_seconds": 1.759627
+    },
+    {
+      "name": "cold-short-007-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 7,
+      "role": "measured",
+      "jitter_seconds": 2.967028
+    },
+    {
+      "name": "cold-short-007-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 7,
+      "role": "measured",
+      "jitter_seconds": 3.649628
+    },
+    {
+      "name": "cold-short-008-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 8,
+      "role": "measured",
+      "jitter_seconds": 4.062629
+    },
+    {
+      "name": "cold-short-008-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 8,
+      "role": "measured",
+      "jitter_seconds": 1.11415
+    },
+    {
+      "name": "cold-short-009-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 9,
+      "role": "measured",
+      "jitter_seconds": 2.823563
+    },
+    {
+      "name": "cold-short-009-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 9,
+      "role": "measured",
+      "jitter_seconds": 2.484412
+    },
+    {
+      "name": "cold-short-010-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 10,
+      "role": "measured",
+      "jitter_seconds": 1.028642
+    },
+    {
+      "name": "cold-short-010-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 10,
+      "role": "measured",
+      "jitter_seconds": 4.750362
+    },
+    {
+      "name": "cold-short-011-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 11,
+      "role": "measured",
+      "jitter_seconds": 1.031682
+    },
+    {
+      "name": "cold-short-011-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 11,
+      "role": "measured",
+      "jitter_seconds": 3.707712
+    },
+    {
+      "name": "cold-short-012-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 12,
+      "role": "measured",
+      "jitter_seconds": 0.331136
+    },
+    {
+      "name": "cold-short-012-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 12,
+      "role": "measured",
+      "jitter_seconds": 4.982185
+    },
+    {
+      "name": "cold-short-013-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 13,
+      "role": "measured",
+      "jitter_seconds": 4.671498
+    },
+    {
+      "name": "cold-short-013-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 13,
+      "role": "measured",
+      "jitter_seconds": 0.255203
+    },
+    {
+      "name": "cold-short-014-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 14,
+      "role": "measured",
+      "jitter_seconds": 0.925536
+    },
+    {
+      "name": "cold-short-014-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 14,
+      "role": "measured",
+      "jitter_seconds": 3.763157
+    },
+    {
+      "name": "cold-short-015-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 15,
+      "role": "measured",
+      "jitter_seconds": 4.706714
+    },
+    {
+      "name": "cold-short-015-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 15,
+      "role": "measured",
+      "jitter_seconds": 3.262824
+    },
+    {
+      "name": "cold-short-016-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 16,
+      "role": "measured",
+      "jitter_seconds": 2.382256
+    },
+    {
+      "name": "cold-short-016-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 16,
+      "role": "measured",
+      "jitter_seconds": 4.504423
+    },
+    {
+      "name": "cold-short-017-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 17,
+      "role": "measured",
+      "jitter_seconds": 0.442196
+    },
+    {
+      "name": "cold-short-017-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 17,
+      "role": "measured",
+      "jitter_seconds": 2.730389
+    },
+    {
+      "name": "cold-short-018-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 18,
+      "role": "measured",
+      "jitter_seconds": 2.34215
+    },
+    {
+      "name": "cold-short-018-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 18,
+      "role": "measured",
+      "jitter_seconds": 0.419821
+    },
+    {
+      "name": "cold-short-019-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 19,
+      "role": "measured",
+      "jitter_seconds": 3.886147
+    },
+    {
+      "name": "cold-short-019-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 19,
+      "role": "measured",
+      "jitter_seconds": 4.013366
+    },
+    {
+      "name": "cold-short-020-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 20,
+      "role": "measured",
+      "jitter_seconds": 0.151
+    },
+    {
+      "name": "cold-short-020-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 20,
+      "role": "measured",
+      "jitter_seconds": 1.358269
+    },
+    {
+      "name": "cold-short-021-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 21,
+      "role": "measured",
+      "jitter_seconds": 0.727472
+    },
+    {
+      "name": "cold-short-021-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 21,
+      "role": "measured",
+      "jitter_seconds": 1.092579
+    },
+    {
+      "name": "cold-short-022-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 22,
+      "role": "measured",
+      "jitter_seconds": 4.030172
+    },
+    {
+      "name": "cold-short-022-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 22,
+      "role": "measured",
+      "jitter_seconds": 1.519268
+    },
+    {
+      "name": "cold-short-023-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 23,
+      "role": "measured",
+      "jitter_seconds": 0.357127
+    },
+    {
+      "name": "cold-short-023-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 23,
+      "role": "measured",
+      "jitter_seconds": 0.244804
+    },
+    {
+      "name": "cold-short-024-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 24,
+      "role": "measured",
+      "jitter_seconds": 4.458845
+    },
+    {
+      "name": "cold-short-024-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 24,
+      "role": "measured",
+      "jitter_seconds": 2.966452
+    },
+    {
+      "name": "cold-short-025-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 25,
+      "role": "measured",
+      "jitter_seconds": 4.151127
+    },
+    {
+      "name": "cold-short-025-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 25,
+      "role": "measured",
+      "jitter_seconds": 1.571479
+    },
+    {
+      "name": "cold-short-026-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 26,
+      "role": "measured",
+      "jitter_seconds": 4.390428
+    },
+    {
+      "name": "cold-short-026-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 26,
+      "role": "measured",
+      "jitter_seconds": 0.982684
+    },
+    {
+      "name": "cold-short-027-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 27,
+      "role": "measured",
+      "jitter_seconds": 1.244864
+    },
+    {
+      "name": "cold-short-027-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 27,
+      "role": "measured",
+      "jitter_seconds": 3.171386
+    },
+    {
+      "name": "cold-short-028-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 28,
+      "role": "measured",
+      "jitter_seconds": 1.924634
+    },
+    {
+      "name": "cold-short-028-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 28,
+      "role": "measured",
+      "jitter_seconds": 0.853574
+    },
+    {
+      "name": "cold-short-029-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 29,
+      "role": "measured",
+      "jitter_seconds": 3.467818
+    },
+    {
+      "name": "cold-short-029-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 29,
+      "role": "measured",
+      "jitter_seconds": 0.960523
+    },
+    {
+      "name": "cold-short-030-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 30,
+      "role": "measured",
+      "jitter_seconds": 0.077396
+    },
+    {
+      "name": "cold-short-030-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 30,
+      "role": "measured",
+      "jitter_seconds": 1.384621
+    },
+    {
+      "name": "cold-short-031-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 31,
+      "role": "measured",
+      "jitter_seconds": 3.991464
+    },
+    {
+      "name": "cold-short-031-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 31,
+      "role": "measured",
+      "jitter_seconds": 1.609828
+    },
+    {
+      "name": "cold-short-032-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 32,
+      "role": "measured",
+      "jitter_seconds": 0.926917
+    },
+    {
+      "name": "cold-short-032-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 32,
+      "role": "measured",
+      "jitter_seconds": 2.641642
+    },
+    {
+      "name": "cold-short-033-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 33,
+      "role": "measured",
+      "jitter_seconds": 3.20355
+    },
+    {
+      "name": "cold-short-033-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 33,
+      "role": "measured",
+      "jitter_seconds": 0.291439
+    },
+    {
+      "name": "cold-short-034-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 34,
+      "role": "measured",
+      "jitter_seconds": 0.051275
+    },
+    {
+      "name": "cold-short-034-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 34,
+      "role": "measured",
+      "jitter_seconds": 3.374389
+    },
+    {
+      "name": "cold-short-035-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 35,
+      "role": "measured",
+      "jitter_seconds": 4.840458
+    },
+    {
+      "name": "cold-short-035-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 35,
+      "role": "measured",
+      "jitter_seconds": 0.427276
+    },
+    {
+      "name": "cold-short-036-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 36,
+      "role": "measured",
+      "jitter_seconds": 0.315648
+    },
+    {
+      "name": "cold-short-036-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 36,
+      "role": "measured",
+      "jitter_seconds": 4.114171
+    },
+    {
+      "name": "cold-short-037-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 37,
+      "role": "measured",
+      "jitter_seconds": 0.094703
+    },
+    {
+      "name": "cold-short-037-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 37,
+      "role": "measured",
+      "jitter_seconds": 4.786595
+    },
+    {
+      "name": "cold-short-038-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 38,
+      "role": "measured",
+      "jitter_seconds": 2.615062
+    },
+    {
+      "name": "cold-short-038-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 38,
+      "role": "measured",
+      "jitter_seconds": 0.776816
+    },
+    {
+      "name": "cold-short-039-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 39,
+      "role": "measured",
+      "jitter_seconds": 2.830968
+    },
+    {
+      "name": "cold-short-039-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 39,
+      "role": "measured",
+      "jitter_seconds": 2.029188
+    },
+    {
+      "name": "cold-short-040-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 40,
+      "role": "measured",
+      "jitter_seconds": 0.168143
+    },
+    {
+      "name": "cold-short-040-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 40,
+      "role": "measured",
+      "jitter_seconds": 4.38966
+    },
+    {
+      "name": "cold-short-041-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 41,
+      "role": "measured",
+      "jitter_seconds": 2.793026
+    },
+    {
+      "name": "cold-short-041-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 41,
+      "role": "measured",
+      "jitter_seconds": 1.164623
+    },
+    {
+      "name": "cold-short-042-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 42,
+      "role": "measured",
+      "jitter_seconds": 1.138634
+    },
+    {
+      "name": "cold-short-042-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 42,
+      "role": "measured",
+      "jitter_seconds": 3.587956
+    },
+    {
+      "name": "cold-short-043-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 43,
+      "role": "measured",
+      "jitter_seconds": 4.084416
+    },
+    {
+      "name": "cold-short-043-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 43,
+      "role": "measured",
+      "jitter_seconds": 2.228167
+    },
+    {
+      "name": "cold-short-044-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 44,
+      "role": "measured",
+      "jitter_seconds": 0.162482
+    },
+    {
+      "name": "cold-short-044-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 44,
+      "role": "measured",
+      "jitter_seconds": 2.775106
+    },
+    {
+      "name": "cold-short-045-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 45,
+      "role": "measured",
+      "jitter_seconds": 3.950276
+    },
+    {
+      "name": "cold-short-045-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 45,
+      "role": "measured",
+      "jitter_seconds": 3.764929
+    },
+    {
+      "name": "cold-short-046-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 46,
+      "role": "measured",
+      "jitter_seconds": 1.109983
+    },
+    {
+      "name": "cold-short-046-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 46,
+      "role": "measured",
+      "jitter_seconds": 1.21412
+    },
+    {
+      "name": "cold-short-047-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 47,
+      "role": "measured",
+      "jitter_seconds": 1.608828
+    },
+    {
+      "name": "cold-short-047-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 47,
+      "role": "measured",
+      "jitter_seconds": 0.393136
+    },
+    {
+      "name": "cold-short-048-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 48,
+      "role": "measured",
+      "jitter_seconds": 2.984893
+    },
+    {
+      "name": "cold-short-048-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 48,
+      "role": "measured",
+      "jitter_seconds": 3.424147
+    },
+    {
+      "name": "cold-short-049-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 49,
+      "role": "measured",
+      "jitter_seconds": 2.117708
+    },
+    {
+      "name": "cold-short-049-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 49,
+      "role": "measured",
+      "jitter_seconds": 2.913986
+    },
+    {
+      "name": "cold-short-050-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 50,
+      "role": "measured",
+      "jitter_seconds": 4.053399
+    },
+    {
+      "name": "cold-short-050-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 50,
+      "role": "measured",
+      "jitter_seconds": 3.912826
+    },
+    {
+      "name": "cold-short-051-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 51,
+      "role": "measured",
+      "jitter_seconds": 4.78728
+    },
+    {
+      "name": "cold-short-051-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 51,
+      "role": "measured",
+      "jitter_seconds": 3.409746
+    },
+    {
+      "name": "cold-short-052-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 52,
+      "role": "measured",
+      "jitter_seconds": 4.609485
+    },
+    {
+      "name": "cold-short-052-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 52,
+      "role": "measured",
+      "jitter_seconds": 3.703886
+    },
+    {
+      "name": "cold-short-053-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 53,
+      "role": "measured",
+      "jitter_seconds": 3.040533
+    },
+    {
+      "name": "cold-short-053-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 53,
+      "role": "measured",
+      "jitter_seconds": 2.663342
+    },
+    {
+      "name": "cold-short-054-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 54,
+      "role": "measured",
+      "jitter_seconds": 2.850277
+    },
+    {
+      "name": "cold-short-054-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 54,
+      "role": "measured",
+      "jitter_seconds": 1.160117
+    },
+    {
+      "name": "cold-short-055-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 55,
+      "role": "measured",
+      "jitter_seconds": 2.161579
+    },
+    {
+      "name": "cold-short-055-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 55,
+      "role": "measured",
+      "jitter_seconds": 4.403834
+    },
+    {
+      "name": "cold-short-056-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 56,
+      "role": "measured",
+      "jitter_seconds": 0.934729
+    },
+    {
+      "name": "cold-short-056-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 56,
+      "role": "measured",
+      "jitter_seconds": 2.501962
+    },
+    {
+      "name": "cold-short-057-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 57,
+      "role": "measured",
+      "jitter_seconds": 1.167751
+    },
+    {
+      "name": "cold-short-057-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 57,
+      "role": "measured",
+      "jitter_seconds": 2.676403
+    },
+    {
+      "name": "cold-short-058-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 58,
+      "role": "measured",
+      "jitter_seconds": 0.376229
+    },
+    {
+      "name": "cold-short-058-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 58,
+      "role": "measured",
+      "jitter_seconds": 1.580679
+    },
+    {
+      "name": "cold-short-059-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 59,
+      "role": "measured",
+      "jitter_seconds": 3.437826
+    },
+    {
+      "name": "cold-short-059-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 59,
+      "role": "measured",
+      "jitter_seconds": 2.930823
+    },
+    {
+      "name": "cold-short-060-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 60,
+      "role": "measured",
+      "jitter_seconds": 4.71666
+    },
+    {
+      "name": "cold-short-060-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 60,
+      "role": "measured",
+      "jitter_seconds": 3.273079
+    },
+    {
+      "name": "cold-short-061-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 61,
+      "role": "measured",
+      "jitter_seconds": 3.895852
+    },
+    {
+      "name": "cold-short-061-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 61,
+      "role": "measured",
+      "jitter_seconds": 1.264261
+    },
+    {
+      "name": "cold-short-062-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 62,
+      "role": "measured",
+      "jitter_seconds": 2.623768
+    },
+    {
+      "name": "cold-short-062-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 62,
+      "role": "measured",
+      "jitter_seconds": 1.163859
+    },
+    {
+      "name": "cold-short-063-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 63,
+      "role": "measured",
+      "jitter_seconds": 4.060443
+    },
+    {
+      "name": "cold-short-063-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 63,
+      "role": "measured",
+      "jitter_seconds": 3.563442
+    },
+    {
+      "name": "cold-short-064-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 64,
+      "role": "measured",
+      "jitter_seconds": 1.110241
+    },
+    {
+      "name": "cold-short-064-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 64,
+      "role": "measured",
+      "jitter_seconds": 0.157394
+    },
+    {
+      "name": "cold-short-065-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 65,
+      "role": "measured",
+      "jitter_seconds": 1.559956
+    },
+    {
+      "name": "cold-short-065-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 65,
+      "role": "measured",
+      "jitter_seconds": 3.805449
+    },
+    {
+      "name": "cold-short-066-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 66,
+      "role": "measured",
+      "jitter_seconds": 3.459895
+    },
+    {
+      "name": "cold-short-066-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 66,
+      "role": "measured",
+      "jitter_seconds": 0.631515
+    },
+    {
+      "name": "cold-short-067-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 67,
+      "role": "measured",
+      "jitter_seconds": 3.342304
+    },
+    {
+      "name": "cold-short-067-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 67,
+      "role": "measured",
+      "jitter_seconds": 1.72907
+    },
+    {
+      "name": "cold-short-068-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 68,
+      "role": "measured",
+      "jitter_seconds": 1.197415
+    },
+    {
+      "name": "cold-short-068-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 68,
+      "role": "measured",
+      "jitter_seconds": 1.932629
+    },
+    {
+      "name": "cold-short-069-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 69,
+      "role": "measured",
+      "jitter_seconds": 2.556494
+    },
+    {
+      "name": "cold-short-069-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 69,
+      "role": "measured",
+      "jitter_seconds": 2.42397
+    },
+    {
+      "name": "cold-short-070-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 70,
+      "role": "measured",
+      "jitter_seconds": 3.718972
+    },
+    {
+      "name": "cold-short-070-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 70,
+      "role": "measured",
+      "jitter_seconds": 1.963883
+    },
+    {
+      "name": "cold-short-071-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 71,
+      "role": "measured",
+      "jitter_seconds": 2.507524
+    },
+    {
+      "name": "cold-short-071-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 71,
+      "role": "measured",
+      "jitter_seconds": 4.388141
+    },
+    {
+      "name": "cold-short-072-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 72,
+      "role": "measured",
+      "jitter_seconds": 2.290284
+    },
+    {
+      "name": "cold-short-072-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 72,
+      "role": "measured",
+      "jitter_seconds": 0.355186
+    },
+    {
+      "name": "cold-short-073-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 73,
+      "role": "measured",
+      "jitter_seconds": 0.005111
+    },
+    {
+      "name": "cold-short-073-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 73,
+      "role": "measured",
+      "jitter_seconds": 3.853918
+    },
+    {
+      "name": "cold-short-074-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 74,
+      "role": "measured",
+      "jitter_seconds": 3.731878
+    },
+    {
+      "name": "cold-short-074-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 74,
+      "role": "measured",
+      "jitter_seconds": 3.884117
+    },
+    {
+      "name": "cold-short-075-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 75,
+      "role": "measured",
+      "jitter_seconds": 3.804496
+    },
+    {
+      "name": "cold-short-075-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 75,
+      "role": "measured",
+      "jitter_seconds": 1.853038
+    },
+    {
+      "name": "cold-short-076-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 76,
+      "role": "measured",
+      "jitter_seconds": 3.662876
+    },
+    {
+      "name": "cold-short-076-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 76,
+      "role": "measured",
+      "jitter_seconds": 4.251688
+    },
+    {
+      "name": "cold-short-077-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 77,
+      "role": "measured",
+      "jitter_seconds": 3.713401
+    },
+    {
+      "name": "cold-short-077-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 77,
+      "role": "measured",
+      "jitter_seconds": 4.035682
+    },
+    {
+      "name": "cold-short-078-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 78,
+      "role": "measured",
+      "jitter_seconds": 4.035365
+    },
+    {
+      "name": "cold-short-078-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 78,
+      "role": "measured",
+      "jitter_seconds": 0.690709
+    },
+    {
+      "name": "cold-short-079-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 79,
+      "role": "measured",
+      "jitter_seconds": 3.061135
+    },
+    {
+      "name": "cold-short-079-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 79,
+      "role": "measured",
+      "jitter_seconds": 2.192699
+    },
+    {
+      "name": "cold-short-080-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 80,
+      "role": "measured",
+      "jitter_seconds": 0.978789
+    },
+    {
+      "name": "cold-short-080-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 80,
+      "role": "measured",
+      "jitter_seconds": 2.086657
+    },
+    {
+      "name": "cold-short-081-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 81,
+      "role": "measured",
+      "jitter_seconds": 2.698237
+    },
+    {
+      "name": "cold-short-081-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 81,
+      "role": "measured",
+      "jitter_seconds": 0.545609
+    },
+    {
+      "name": "cold-short-082-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 82,
+      "role": "measured",
+      "jitter_seconds": 0.647526
+    },
+    {
+      "name": "cold-short-082-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 82,
+      "role": "measured",
+      "jitter_seconds": 4.29001
+    },
+    {
+      "name": "cold-short-083-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 83,
+      "role": "measured",
+      "jitter_seconds": 2.179874
+    },
+    {
+      "name": "cold-short-083-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 83,
+      "role": "measured",
+      "jitter_seconds": 3.353867
+    },
+    {
+      "name": "cold-short-084-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 84,
+      "role": "measured",
+      "jitter_seconds": 3.77191
+    },
+    {
+      "name": "cold-short-084-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 84,
+      "role": "measured",
+      "jitter_seconds": 0.797504
+    },
+    {
+      "name": "cold-short-085-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 85,
+      "role": "measured",
+      "jitter_seconds": 4.68789
+    },
+    {
+      "name": "cold-short-085-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 85,
+      "role": "measured",
+      "jitter_seconds": 1.19837
+    },
+    {
+      "name": "cold-short-086-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 86,
+      "role": "measured",
+      "jitter_seconds": 3.027291
+    },
+    {
+      "name": "cold-short-086-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 86,
+      "role": "measured",
+      "jitter_seconds": 0.967167
+    },
+    {
+      "name": "cold-short-087-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 87,
+      "role": "measured",
+      "jitter_seconds": 4.779594
+    },
+    {
+      "name": "cold-short-087-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 87,
+      "role": "measured",
+      "jitter_seconds": 1.961066
+    },
+    {
+      "name": "cold-short-088-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 88,
+      "role": "measured",
+      "jitter_seconds": 4.189802
+    },
+    {
+      "name": "cold-short-088-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 88,
+      "role": "measured",
+      "jitter_seconds": 4.759322
+    },
+    {
+      "name": "cold-short-089-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 89,
+      "role": "measured",
+      "jitter_seconds": 0.60221
+    },
+    {
+      "name": "cold-short-089-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 89,
+      "role": "measured",
+      "jitter_seconds": 4.490898
+    },
+    {
+      "name": "cold-short-090-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 90,
+      "role": "measured",
+      "jitter_seconds": 3.739588
+    },
+    {
+      "name": "cold-short-090-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 90,
+      "role": "measured",
+      "jitter_seconds": 4.163989
+    },
+    {
+      "name": "cold-short-091-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 91,
+      "role": "measured",
+      "jitter_seconds": 0.580657
+    },
+    {
+      "name": "cold-short-091-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 91,
+      "role": "measured",
+      "jitter_seconds": 2.433347
+    },
+    {
+      "name": "cold-short-092-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 92,
+      "role": "measured",
+      "jitter_seconds": 4.083947
+    },
+    {
+      "name": "cold-short-092-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 92,
+      "role": "measured",
+      "jitter_seconds": 3.622724
+    },
+    {
+      "name": "cold-short-093-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 93,
+      "role": "measured",
+      "jitter_seconds": 1.406797
+    },
+    {
+      "name": "cold-short-093-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 93,
+      "role": "measured",
+      "jitter_seconds": 4.220398
+    },
+    {
+      "name": "cold-short-094-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 94,
+      "role": "measured",
+      "jitter_seconds": 0.986348
+    },
+    {
+      "name": "cold-short-094-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 94,
+      "role": "measured",
+      "jitter_seconds": 0.800209
+    },
+    {
+      "name": "cold-short-095-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 95,
+      "role": "measured",
+      "jitter_seconds": 4.276897
+    },
+    {
+      "name": "cold-short-095-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 95,
+      "role": "measured",
+      "jitter_seconds": 2.633647
+    },
+    {
+      "name": "cold-short-096-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 96,
+      "role": "measured",
+      "jitter_seconds": 0.447881
+    },
+    {
+      "name": "cold-short-096-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 96,
+      "role": "measured",
+      "jitter_seconds": 2.305557
+    },
+    {
+      "name": "cold-short-097-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 97,
+      "role": "measured",
+      "jitter_seconds": 3.627187
+    },
+    {
+      "name": "cold-short-097-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 97,
+      "role": "measured",
+      "jitter_seconds": 4.967183
+    },
+    {
+      "name": "cold-short-098-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 98,
+      "role": "measured",
+      "jitter_seconds": 0.149693
+    },
+    {
+      "name": "cold-short-098-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 98,
+      "role": "measured",
+      "jitter_seconds": 3.68868
+    },
+    {
+      "name": "cold-short-099-direct",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 99,
+      "role": "measured",
+      "jitter_seconds": 2.676882
+    },
+    {
+      "name": "cold-short-099-api",
+      "worker_state": "cold",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 99,
+      "role": "measured",
+      "jitter_seconds": 4.827584
+    },
+    {
+      "name": "warm-short-warmup",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": -1,
+      "role": "warmup",
+      "jitter_seconds": 0
+    },
+    {
+      "name": "warm-short-000-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 0,
+      "role": "measured",
+      "jitter_seconds": 1.604227
+    },
+    {
+      "name": "warm-short-000-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 0,
+      "role": "measured",
+      "jitter_seconds": 2.951448
+    },
+    {
+      "name": "warm-short-001-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 1,
+      "role": "measured",
+      "jitter_seconds": 4.685786
+    },
+    {
+      "name": "warm-short-001-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 1,
+      "role": "measured",
+      "jitter_seconds": 0.945124
+    },
+    {
+      "name": "warm-short-002-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 2,
+      "role": "measured",
+      "jitter_seconds": 3.775226
+    },
+    {
+      "name": "warm-short-002-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 2,
+      "role": "measured",
+      "jitter_seconds": 3.202674
+    },
+    {
+      "name": "warm-short-003-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 3,
+      "role": "measured",
+      "jitter_seconds": 3.188651
+    },
+    {
+      "name": "warm-short-003-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 3,
+      "role": "measured",
+      "jitter_seconds": 3.534665
+    },
+    {
+      "name": "warm-short-004-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 4,
+      "role": "measured",
+      "jitter_seconds": 2.861256
+    },
+    {
+      "name": "warm-short-004-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 4,
+      "role": "measured",
+      "jitter_seconds": 3.154358
+    },
+    {
+      "name": "warm-short-005-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 5,
+      "role": "measured",
+      "jitter_seconds": 2.132116
+    },
+    {
+      "name": "warm-short-005-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 5,
+      "role": "measured",
+      "jitter_seconds": 0.90321
+    },
+    {
+      "name": "warm-short-006-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 6,
+      "role": "measured",
+      "jitter_seconds": 2.666141
+    },
+    {
+      "name": "warm-short-006-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 6,
+      "role": "measured",
+      "jitter_seconds": 3.839064
+    },
+    {
+      "name": "warm-short-007-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 7,
+      "role": "measured",
+      "jitter_seconds": 2.821336
+    },
+    {
+      "name": "warm-short-007-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 7,
+      "role": "measured",
+      "jitter_seconds": 0.86604
+    },
+    {
+      "name": "warm-short-008-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 8,
+      "role": "measured",
+      "jitter_seconds": 1.719465
+    },
+    {
+      "name": "warm-short-008-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 8,
+      "role": "measured",
+      "jitter_seconds": 0.86588
+    },
+    {
+      "name": "warm-short-009-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 9,
+      "role": "measured",
+      "jitter_seconds": 4.555115
+    },
+    {
+      "name": "warm-short-009-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 9,
+      "role": "measured",
+      "jitter_seconds": 0.28125
+    },
+    {
+      "name": "warm-short-010-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 10,
+      "role": "measured",
+      "jitter_seconds": 4.981121
+    },
+    {
+      "name": "warm-short-010-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 10,
+      "role": "measured",
+      "jitter_seconds": 2.788816
+    },
+    {
+      "name": "warm-short-011-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 11,
+      "role": "measured",
+      "jitter_seconds": 2.61476
+    },
+    {
+      "name": "warm-short-011-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 11,
+      "role": "measured",
+      "jitter_seconds": 1.865953
+    },
+    {
+      "name": "warm-short-012-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 12,
+      "role": "measured",
+      "jitter_seconds": 2.77955
+    },
+    {
+      "name": "warm-short-012-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 12,
+      "role": "measured",
+      "jitter_seconds": 0.53842
+    },
+    {
+      "name": "warm-short-013-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 13,
+      "role": "measured",
+      "jitter_seconds": 4.02196
+    },
+    {
+      "name": "warm-short-013-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 13,
+      "role": "measured",
+      "jitter_seconds": 1.236221
+    },
+    {
+      "name": "warm-short-014-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 14,
+      "role": "measured",
+      "jitter_seconds": 4.620952
+    },
+    {
+      "name": "warm-short-014-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 14,
+      "role": "measured",
+      "jitter_seconds": 1.407959
+    },
+    {
+      "name": "warm-short-015-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 15,
+      "role": "measured",
+      "jitter_seconds": 1.764693
+    },
+    {
+      "name": "warm-short-015-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 15,
+      "role": "measured",
+      "jitter_seconds": 2.464218
+    },
+    {
+      "name": "warm-short-016-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 16,
+      "role": "measured",
+      "jitter_seconds": 0.046443
+    },
+    {
+      "name": "warm-short-016-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 16,
+      "role": "measured",
+      "jitter_seconds": 0.656324
+    },
+    {
+      "name": "warm-short-017-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 17,
+      "role": "measured",
+      "jitter_seconds": 3.320757
+    },
+    {
+      "name": "warm-short-017-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 17,
+      "role": "measured",
+      "jitter_seconds": 4.555304
+    },
+    {
+      "name": "warm-short-018-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 18,
+      "role": "measured",
+      "jitter_seconds": 1.955286
+    },
+    {
+      "name": "warm-short-018-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 18,
+      "role": "measured",
+      "jitter_seconds": 2.850179
+    },
+    {
+      "name": "warm-short-019-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 19,
+      "role": "measured",
+      "jitter_seconds": 2.734361
+    },
+    {
+      "name": "warm-short-019-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 19,
+      "role": "measured",
+      "jitter_seconds": 4.003363
+    },
+    {
+      "name": "warm-short-020-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 20,
+      "role": "measured",
+      "jitter_seconds": 4.698019
+    },
+    {
+      "name": "warm-short-020-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 20,
+      "role": "measured",
+      "jitter_seconds": 1.493131
+    },
+    {
+      "name": "warm-short-021-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 21,
+      "role": "measured",
+      "jitter_seconds": 0.857986
+    },
+    {
+      "name": "warm-short-021-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 21,
+      "role": "measured",
+      "jitter_seconds": 4.525654
+    },
+    {
+      "name": "warm-short-022-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 22,
+      "role": "measured",
+      "jitter_seconds": 1.692207
+    },
+    {
+      "name": "warm-short-022-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 22,
+      "role": "measured",
+      "jitter_seconds": 2.240115
+    },
+    {
+      "name": "warm-short-023-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 23,
+      "role": "measured",
+      "jitter_seconds": 1.347997
+    },
+    {
+      "name": "warm-short-023-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 23,
+      "role": "measured",
+      "jitter_seconds": 3.746529
+    },
+    {
+      "name": "warm-short-024-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 24,
+      "role": "measured",
+      "jitter_seconds": 3.477262
+    },
+    {
+      "name": "warm-short-024-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 24,
+      "role": "measured",
+      "jitter_seconds": 1.931403
+    },
+    {
+      "name": "warm-short-025-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 25,
+      "role": "measured",
+      "jitter_seconds": 4.041772
+    },
+    {
+      "name": "warm-short-025-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 25,
+      "role": "measured",
+      "jitter_seconds": 4.57445
+    },
+    {
+      "name": "warm-short-026-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 26,
+      "role": "measured",
+      "jitter_seconds": 2.440174
+    },
+    {
+      "name": "warm-short-026-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 26,
+      "role": "measured",
+      "jitter_seconds": 4.324788
+    },
+    {
+      "name": "warm-short-027-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 27,
+      "role": "measured",
+      "jitter_seconds": 0.067469
+    },
+    {
+      "name": "warm-short-027-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 27,
+      "role": "measured",
+      "jitter_seconds": 4.103843
+    },
+    {
+      "name": "warm-short-028-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 28,
+      "role": "measured",
+      "jitter_seconds": 0.007671
+    },
+    {
+      "name": "warm-short-028-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 28,
+      "role": "measured",
+      "jitter_seconds": 2.842196
+    },
+    {
+      "name": "warm-short-029-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 29,
+      "role": "measured",
+      "jitter_seconds": 0.451086
+    },
+    {
+      "name": "warm-short-029-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 29,
+      "role": "measured",
+      "jitter_seconds": 2.452618
+    },
+    {
+      "name": "warm-short-030-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 30,
+      "role": "measured",
+      "jitter_seconds": 0.891289
+    },
+    {
+      "name": "warm-short-030-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 30,
+      "role": "measured",
+      "jitter_seconds": 0.776084
+    },
+    {
+      "name": "warm-short-031-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 31,
+      "role": "measured",
+      "jitter_seconds": 4.5744
+    },
+    {
+      "name": "warm-short-031-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 31,
+      "role": "measured",
+      "jitter_seconds": 2.038183
+    },
+    {
+      "name": "warm-short-032-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 32,
+      "role": "measured",
+      "jitter_seconds": 2.929923
+    },
+    {
+      "name": "warm-short-032-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 32,
+      "role": "measured",
+      "jitter_seconds": 0.509677
+    },
+    {
+      "name": "warm-short-033-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 33,
+      "role": "measured",
+      "jitter_seconds": 3.00745
+    },
+    {
+      "name": "warm-short-033-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 33,
+      "role": "measured",
+      "jitter_seconds": 4.789806
+    },
+    {
+      "name": "warm-short-034-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 34,
+      "role": "measured",
+      "jitter_seconds": 1.778614
+    },
+    {
+      "name": "warm-short-034-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 34,
+      "role": "measured",
+      "jitter_seconds": 4.744639
+    },
+    {
+      "name": "warm-short-035-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 35,
+      "role": "measured",
+      "jitter_seconds": 1.701892
+    },
+    {
+      "name": "warm-short-035-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 35,
+      "role": "measured",
+      "jitter_seconds": 2.547434
+    },
+    {
+      "name": "warm-short-036-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 36,
+      "role": "measured",
+      "jitter_seconds": 4.372288
+    },
+    {
+      "name": "warm-short-036-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 36,
+      "role": "measured",
+      "jitter_seconds": 1.365508
+    },
+    {
+      "name": "warm-short-037-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 37,
+      "role": "measured",
+      "jitter_seconds": 1.651081
+    },
+    {
+      "name": "warm-short-037-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 37,
+      "role": "measured",
+      "jitter_seconds": 2.173861
+    },
+    {
+      "name": "warm-short-038-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 38,
+      "role": "measured",
+      "jitter_seconds": 0.474206
+    },
+    {
+      "name": "warm-short-038-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 38,
+      "role": "measured",
+      "jitter_seconds": 0.105009
+    },
+    {
+      "name": "warm-short-039-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 39,
+      "role": "measured",
+      "jitter_seconds": 4.481935
+    },
+    {
+      "name": "warm-short-039-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 39,
+      "role": "measured",
+      "jitter_seconds": 3.990327
+    },
+    {
+      "name": "warm-short-040-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 40,
+      "role": "measured",
+      "jitter_seconds": 2.469619
+    },
+    {
+      "name": "warm-short-040-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 40,
+      "role": "measured",
+      "jitter_seconds": 1.074692
+    },
+    {
+      "name": "warm-short-041-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 41,
+      "role": "measured",
+      "jitter_seconds": 3.749868
+    },
+    {
+      "name": "warm-short-041-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 41,
+      "role": "measured",
+      "jitter_seconds": 3.26085
+    },
+    {
+      "name": "warm-short-042-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 42,
+      "role": "measured",
+      "jitter_seconds": 0.173064
+    },
+    {
+      "name": "warm-short-042-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 42,
+      "role": "measured",
+      "jitter_seconds": 0.543234
+    },
+    {
+      "name": "warm-short-043-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 43,
+      "role": "measured",
+      "jitter_seconds": 2.942495
+    },
+    {
+      "name": "warm-short-043-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 43,
+      "role": "measured",
+      "jitter_seconds": 1.606937
+    },
+    {
+      "name": "warm-short-044-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 44,
+      "role": "measured",
+      "jitter_seconds": 2.175218
+    },
+    {
+      "name": "warm-short-044-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 44,
+      "role": "measured",
+      "jitter_seconds": 4.724791
+    },
+    {
+      "name": "warm-short-045-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 45,
+      "role": "measured",
+      "jitter_seconds": 2.975324
+    },
+    {
+      "name": "warm-short-045-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 45,
+      "role": "measured",
+      "jitter_seconds": 1.743409
+    },
+    {
+      "name": "warm-short-046-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 46,
+      "role": "measured",
+      "jitter_seconds": 1.671721
+    },
+    {
+      "name": "warm-short-046-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 46,
+      "role": "measured",
+      "jitter_seconds": 2.489021
+    },
+    {
+      "name": "warm-short-047-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 47,
+      "role": "measured",
+      "jitter_seconds": 4.242963
+    },
+    {
+      "name": "warm-short-047-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 47,
+      "role": "measured",
+      "jitter_seconds": 0.728334
+    },
+    {
+      "name": "warm-short-048-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 48,
+      "role": "measured",
+      "jitter_seconds": 2.8315
+    },
+    {
+      "name": "warm-short-048-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 48,
+      "role": "measured",
+      "jitter_seconds": 3.834166
+    },
+    {
+      "name": "warm-short-049-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 49,
+      "role": "measured",
+      "jitter_seconds": 3.697721
+    },
+    {
+      "name": "warm-short-049-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 49,
+      "role": "measured",
+      "jitter_seconds": 1.559832
+    },
+    {
+      "name": "warm-short-050-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 50,
+      "role": "measured",
+      "jitter_seconds": 1.769808
+    },
+    {
+      "name": "warm-short-050-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 50,
+      "role": "measured",
+      "jitter_seconds": 2.648474
+    },
+    {
+      "name": "warm-short-051-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 51,
+      "role": "measured",
+      "jitter_seconds": 0.823421
+    },
+    {
+      "name": "warm-short-051-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 51,
+      "role": "measured",
+      "jitter_seconds": 0.486265
+    },
+    {
+      "name": "warm-short-052-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 52,
+      "role": "measured",
+      "jitter_seconds": 4.488128
+    },
+    {
+      "name": "warm-short-052-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 52,
+      "role": "measured",
+      "jitter_seconds": 3.012876
+    },
+    {
+      "name": "warm-short-053-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 53,
+      "role": "measured",
+      "jitter_seconds": 0.701771
+    },
+    {
+      "name": "warm-short-053-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 53,
+      "role": "measured",
+      "jitter_seconds": 4.553801
+    },
+    {
+      "name": "warm-short-054-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 54,
+      "role": "measured",
+      "jitter_seconds": 2.681935
+    },
+    {
+      "name": "warm-short-054-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 54,
+      "role": "measured",
+      "jitter_seconds": 4.479504
+    },
+    {
+      "name": "warm-short-055-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 55,
+      "role": "measured",
+      "jitter_seconds": 2.432183
+    },
+    {
+      "name": "warm-short-055-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 55,
+      "role": "measured",
+      "jitter_seconds": 1.203847
+    },
+    {
+      "name": "warm-short-056-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 56,
+      "role": "measured",
+      "jitter_seconds": 2.973032
+    },
+    {
+      "name": "warm-short-056-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 56,
+      "role": "measured",
+      "jitter_seconds": 4.477205
+    },
+    {
+      "name": "warm-short-057-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 57,
+      "role": "measured",
+      "jitter_seconds": 2.322442
+    },
+    {
+      "name": "warm-short-057-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 57,
+      "role": "measured",
+      "jitter_seconds": 0.294929
+    },
+    {
+      "name": "warm-short-058-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 58,
+      "role": "measured",
+      "jitter_seconds": 4.125195
+    },
+    {
+      "name": "warm-short-058-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 58,
+      "role": "measured",
+      "jitter_seconds": 2.163374
+    },
+    {
+      "name": "warm-short-059-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 59,
+      "role": "measured",
+      "jitter_seconds": 1.849779
+    },
+    {
+      "name": "warm-short-059-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 59,
+      "role": "measured",
+      "jitter_seconds": 4.189948
+    },
+    {
+      "name": "warm-short-060-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 60,
+      "role": "measured",
+      "jitter_seconds": 0.760008
+    },
+    {
+      "name": "warm-short-060-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 60,
+      "role": "measured",
+      "jitter_seconds": 4.810796
+    },
+    {
+      "name": "warm-short-061-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 61,
+      "role": "measured",
+      "jitter_seconds": 3.217363
+    },
+    {
+      "name": "warm-short-061-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 61,
+      "role": "measured",
+      "jitter_seconds": 1.314017
+    },
+    {
+      "name": "warm-short-062-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 62,
+      "role": "measured",
+      "jitter_seconds": 1.071018
+    },
+    {
+      "name": "warm-short-062-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 62,
+      "role": "measured",
+      "jitter_seconds": 2.818715
+    },
+    {
+      "name": "warm-short-063-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 63,
+      "role": "measured",
+      "jitter_seconds": 3.144771
+    },
+    {
+      "name": "warm-short-063-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 63,
+      "role": "measured",
+      "jitter_seconds": 1.174686
+    },
+    {
+      "name": "warm-short-064-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 64,
+      "role": "measured",
+      "jitter_seconds": 2.177327
+    },
+    {
+      "name": "warm-short-064-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 64,
+      "role": "measured",
+      "jitter_seconds": 2.388584
+    },
+    {
+      "name": "warm-short-065-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 65,
+      "role": "measured",
+      "jitter_seconds": 2.98473
+    },
+    {
+      "name": "warm-short-065-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 65,
+      "role": "measured",
+      "jitter_seconds": 1.093599
+    },
+    {
+      "name": "warm-short-066-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 66,
+      "role": "measured",
+      "jitter_seconds": 0.674553
+    },
+    {
+      "name": "warm-short-066-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 66,
+      "role": "measured",
+      "jitter_seconds": 1.800259
+    },
+    {
+      "name": "warm-short-067-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 67,
+      "role": "measured",
+      "jitter_seconds": 3.770507
+    },
+    {
+      "name": "warm-short-067-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 67,
+      "role": "measured",
+      "jitter_seconds": 3.578725
+    },
+    {
+      "name": "warm-short-068-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 68,
+      "role": "measured",
+      "jitter_seconds": 3.773676
+    },
+    {
+      "name": "warm-short-068-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 68,
+      "role": "measured",
+      "jitter_seconds": 0.202446
+    },
+    {
+      "name": "warm-short-069-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 69,
+      "role": "measured",
+      "jitter_seconds": 0.618055
+    },
+    {
+      "name": "warm-short-069-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 69,
+      "role": "measured",
+      "jitter_seconds": 0.296903
+    },
+    {
+      "name": "warm-short-070-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 70,
+      "role": "measured",
+      "jitter_seconds": 3.877561
+    },
+    {
+      "name": "warm-short-070-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 70,
+      "role": "measured",
+      "jitter_seconds": 0.336089
+    },
+    {
+      "name": "warm-short-071-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 71,
+      "role": "measured",
+      "jitter_seconds": 1.653443
+    },
+    {
+      "name": "warm-short-071-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 71,
+      "role": "measured",
+      "jitter_seconds": 3.172744
+    },
+    {
+      "name": "warm-short-072-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 72,
+      "role": "measured",
+      "jitter_seconds": 4.751634
+    },
+    {
+      "name": "warm-short-072-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 72,
+      "role": "measured",
+      "jitter_seconds": 1.019345
+    },
+    {
+      "name": "warm-short-073-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 73,
+      "role": "measured",
+      "jitter_seconds": 0.803779
+    },
+    {
+      "name": "warm-short-073-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 73,
+      "role": "measured",
+      "jitter_seconds": 4.866643
+    },
+    {
+      "name": "warm-short-074-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 74,
+      "role": "measured",
+      "jitter_seconds": 4.403341
+    },
+    {
+      "name": "warm-short-074-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 74,
+      "role": "measured",
+      "jitter_seconds": 0.394293
+    },
+    {
+      "name": "warm-short-075-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 75,
+      "role": "measured",
+      "jitter_seconds": 0.084648
+    },
+    {
+      "name": "warm-short-075-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 75,
+      "role": "measured",
+      "jitter_seconds": 1.983683
+    },
+    {
+      "name": "warm-short-076-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 76,
+      "role": "measured",
+      "jitter_seconds": 4.139407
+    },
+    {
+      "name": "warm-short-076-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 76,
+      "role": "measured",
+      "jitter_seconds": 2.195135
+    },
+    {
+      "name": "warm-short-077-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 77,
+      "role": "measured",
+      "jitter_seconds": 3.525718
+    },
+    {
+      "name": "warm-short-077-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 77,
+      "role": "measured",
+      "jitter_seconds": 3.666845
+    },
+    {
+      "name": "warm-short-078-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 78,
+      "role": "measured",
+      "jitter_seconds": 2.352978
+    },
+    {
+      "name": "warm-short-078-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 78,
+      "role": "measured",
+      "jitter_seconds": 0.353378
+    },
+    {
+      "name": "warm-short-079-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 79,
+      "role": "measured",
+      "jitter_seconds": 2.734028
+    },
+    {
+      "name": "warm-short-079-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 79,
+      "role": "measured",
+      "jitter_seconds": 1.642429
+    },
+    {
+      "name": "warm-short-080-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 80,
+      "role": "measured",
+      "jitter_seconds": 2.237459
+    },
+    {
+      "name": "warm-short-080-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 80,
+      "role": "measured",
+      "jitter_seconds": 2.637708
+    },
+    {
+      "name": "warm-short-081-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 81,
+      "role": "measured",
+      "jitter_seconds": 0.429757
+    },
+    {
+      "name": "warm-short-081-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 81,
+      "role": "measured",
+      "jitter_seconds": 1.037131
+    },
+    {
+      "name": "warm-short-082-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 82,
+      "role": "measured",
+      "jitter_seconds": 0.77035
+    },
+    {
+      "name": "warm-short-082-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 82,
+      "role": "measured",
+      "jitter_seconds": 4.457293
+    },
+    {
+      "name": "warm-short-083-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 83,
+      "role": "measured",
+      "jitter_seconds": 3.252718
+    },
+    {
+      "name": "warm-short-083-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 83,
+      "role": "measured",
+      "jitter_seconds": 1.909488
+    },
+    {
+      "name": "warm-short-084-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 84,
+      "role": "measured",
+      "jitter_seconds": 2.483721
+    },
+    {
+      "name": "warm-short-084-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 84,
+      "role": "measured",
+      "jitter_seconds": 2.941167
+    },
+    {
+      "name": "warm-short-085-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 85,
+      "role": "measured",
+      "jitter_seconds": 4.390165
+    },
+    {
+      "name": "warm-short-085-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 85,
+      "role": "measured",
+      "jitter_seconds": 1.740925
+    },
+    {
+      "name": "warm-short-086-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 86,
+      "role": "measured",
+      "jitter_seconds": 0.941163
+    },
+    {
+      "name": "warm-short-086-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 86,
+      "role": "measured",
+      "jitter_seconds": 1.831825
+    },
+    {
+      "name": "warm-short-087-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 87,
+      "role": "measured",
+      "jitter_seconds": 4.585201
+    },
+    {
+      "name": "warm-short-087-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 87,
+      "role": "measured",
+      "jitter_seconds": 3.54888
+    },
+    {
+      "name": "warm-short-088-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 88,
+      "role": "measured",
+      "jitter_seconds": 3.211823
+    },
+    {
+      "name": "warm-short-088-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 88,
+      "role": "measured",
+      "jitter_seconds": 2.651484
+    },
+    {
+      "name": "warm-short-089-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 89,
+      "role": "measured",
+      "jitter_seconds": 2.218543
+    },
+    {
+      "name": "warm-short-089-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 89,
+      "role": "measured",
+      "jitter_seconds": 3.746666
+    },
+    {
+      "name": "warm-short-090-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 90,
+      "role": "measured",
+      "jitter_seconds": 3.904844
+    },
+    {
+      "name": "warm-short-090-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 90,
+      "role": "measured",
+      "jitter_seconds": 2.647521
+    },
+    {
+      "name": "warm-short-091-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 91,
+      "role": "measured",
+      "jitter_seconds": 0.606598
+    },
+    {
+      "name": "warm-short-091-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 91,
+      "role": "measured",
+      "jitter_seconds": 3.52671
+    },
+    {
+      "name": "warm-short-092-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 92,
+      "role": "measured",
+      "jitter_seconds": 0.406287
+    },
+    {
+      "name": "warm-short-092-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 92,
+      "role": "measured",
+      "jitter_seconds": 2.53381
+    },
+    {
+      "name": "warm-short-093-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 93,
+      "role": "measured",
+      "jitter_seconds": 1.863237
+    },
+    {
+      "name": "warm-short-093-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 93,
+      "role": "measured",
+      "jitter_seconds": 0.432203
+    },
+    {
+      "name": "warm-short-094-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 94,
+      "role": "measured",
+      "jitter_seconds": 3.438308
+    },
+    {
+      "name": "warm-short-094-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 94,
+      "role": "measured",
+      "jitter_seconds": 2.999329
+    },
+    {
+      "name": "warm-short-095-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 95,
+      "role": "measured",
+      "jitter_seconds": 3.886038
+    },
+    {
+      "name": "warm-short-095-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 95,
+      "role": "measured",
+      "jitter_seconds": 0.378424
+    },
+    {
+      "name": "warm-short-096-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 96,
+      "role": "measured",
+      "jitter_seconds": 3.282507
+    },
+    {
+      "name": "warm-short-096-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 96,
+      "role": "measured",
+      "jitter_seconds": 0.336287
+    },
+    {
+      "name": "warm-short-097-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 97,
+      "role": "measured",
+      "jitter_seconds": 0.987414
+    },
+    {
+      "name": "warm-short-097-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 97,
+      "role": "measured",
+      "jitter_seconds": 4.981625
+    },
+    {
+      "name": "warm-short-098-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 98,
+      "role": "measured",
+      "jitter_seconds": 4.813121
+    },
+    {
+      "name": "warm-short-098-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 98,
+      "role": "measured",
+      "jitter_seconds": 1.490496
+    },
+    {
+      "name": "warm-short-099-direct",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "direct",
+      "pair": 99,
+      "role": "measured",
+      "jitter_seconds": 4.388697
+    },
+    {
+      "name": "warm-short-099-api",
+      "worker_state": "warm",
+      "fixture": "speech-20s.mp4",
+      "concurrency": 1,
+      "mode": "api",
+      "pair": 99,
+      "role": "measured",
+      "jitter_seconds": 2.929826
+    },
+    {
+      "name": "warm-long-warmup",
+      "worker_state": "warm",
+      "fixture": "speech-80s.mp4",
+      "concurrency": 5,
+      "mode": "api",
+      "pair": -1,
+      "role": "warmup",
+      "jitter_seconds": 0
+    },
+    {
+      "name": "warm-long-000-api",
+      "worker_state": "warm",
+      "fixture": "speech-80s.mp4",
+      "concurrency": 5,
+      "mode": "api",
+      "pair": 0,
+      "role": "measured",
+      "jitter_seconds": 4.424226
+    },
+    {
+      "name": "warm-long-000-direct",
+      "worker_state": "warm",
+      "fixture": "speech-80s.mp4",
+      "concurrency": 5,
+      "mode": "direct",
+      "pair": 0,
+      "role": "measured",
+      "jitter_seconds": 4.540688
+    },
+    {
+      "name": "warm-long-001-direct",
+      "worker_state": "warm",
+      "fixture": "speech-80s.mp4",
+      "concurrency": 5,
+      "mode": "direct",
+      "pair": 1,
+      "role": "measured",
+      "jitter_seconds": 1.495394
+    },
+    {
+      "name": "warm-long-001-api",
+      "worker_state": "warm",
+      "fixture": "speech-80s.mp4",
+      "concurrency": 5,
+      "mode": "api",
+      "pair": 1,
+      "role": "measured",
+      "jitter_seconds": 1.513659
+    },
+    {
+      "name": "warm-long-002-api",
+      "worker_state": "warm",
+      "fixture": "speech-80s.mp4",
+      "concurrency": 5,
+      "mode": "api",
+      "pair": 2,
+      "role": "measured",
+      "jitter_seconds": 3.026782
+    },
+    {
+      "name": "warm-long-002-direct",
+      "worker_state": "warm",
+      "fixture": "speech-80s.mp4",
+      "concurrency": 5,
+      "mode": "direct",
+      "pair": 2,
+      "role": "measured",
+      "jitter_seconds": 0.640782
+    },
+    {
+      "name": "warm-long-003-direct",
+      "worker_state": "warm",
+      "fixture": "speech-80s.mp4",
+      "concurrency": 5,
+      "mode": "direct",
+      "pair": 3,
+      "role": "measured",
+      "jitter_seconds": 0.355363
+    },
+    {
+      "name": "warm-long-003-api",
+      "worker_state": "warm",
+      "fixture": "speech-80s.mp4",
+      "concurrency": 5,
+      "mode": "api",
+      "pair": 3,
+      "role": "measured",
+      "jitter_seconds": 1.414697
+    },
+    {
+      "name": "warm-long-004-api",
+      "worker_state": "warm",
+      "fixture": "speech-80s.mp4",
+      "concurrency": 5,
+      "mode": "api",
+      "pair": 4,
+      "role": "measured",
+      "jitter_seconds": 2.455973
+    },
+    {
+      "name": "warm-long-004-direct",
+      "worker_state": "warm",
+      "fixture": "speech-80s.mp4",
+      "concurrency": 5,
+      "mode": "direct",
+      "pair": 4,
+      "role": "measured",
+      "jitter_seconds": 2.007089
+    },
+    {
+      "name": "warm-long-005-direct",
+      "worker_state": "warm",
+      "fixture": "speech-80s.mp4",
+      "concurrency": 5,
+      "mode": "direct",
+      "pair": 5,
+      "role": "measured",
+      "jitter_seconds": 4.856795
+    },
+    {
+      "name": "warm-long-005-api",
+      "worker_state": "warm",
+      "fixture": "speech-80s.mp4",
+      "concurrency": 5,
+      "mode": "api",
+      "pair": 5,
+      "role": "measured",
+      "jitter_seconds": 4.327356
+    },
+    {
+      "name": "warm-long-006-api",
+      "worker_state": "warm",
+      "fixture": "speech-80s.mp4",
+      "concurrency": 5,
+      "mode": "api",
+      "pair": 6,
+      "role": "measured",
+      "jitter_seconds": 4.734039
+    },
+    {
+      "name": "warm-long-006-direct",
+      "worker_state": "warm",
+      "fixture": "speech-80s.mp4",
+      "concurrency": 5,
+      "mode": "direct",
+      "pair": 6,
+      "role": "measured",
+      "jitter_seconds": 3.517993
+    },
+    {
+      "name": "warm-long-007-direct",
+      "worker_state": "warm",
+      "fixture": "speech-80s.mp4",
+      "concurrency": 5,
+      "mode": "direct",
+      "pair": 7,
+      "role": "measured",
+      "jitter_seconds": 0.705473
+    },
+    {
+      "name": "warm-long-007-api",
+      "worker_state": "warm",
+      "fixture": "speech-80s.mp4",
+      "concurrency": 5,
+      "mode": "api",
+      "pair": 7,
+      "role": "measured",
+      "jitter_seconds": 1.46892
+    },
+    {
+      "name": "warm-long-008-api",
+      "worker_state": "warm",
+      "fixture": "speech-80s.mp4",
+      "concurrency": 5,
+      "mode": "api",
+      "pair": 8,
+      "role": "measured",
+      "jitter_seconds": 1.098886
+    },
+    {
+      "name": "warm-long-008-direct",
+      "worker_state": "warm",
+      "fixture": "speech-80s.mp4",
+      "concurrency": 5,
+      "mode": "direct",
+      "pair": 8,
+      "role": "measured",
+      "jitter_seconds": 0.287936
+    },
+    {
+      "name": "warm-long-009-direct",
+      "worker_state": "warm",
+      "fixture": "speech-80s.mp4",
+      "concurrency": 5,
+      "mode": "direct",
+      "pair": 9,
+      "role": "measured",
+      "jitter_seconds": 4.612374
+    },
+    {
+      "name": "warm-long-009-api",
+      "worker_state": "warm",
+      "fixture": "speech-80s.mp4",
+      "concurrency": 5,
+      "mode": "api",
+      "pair": 9,
+      "role": "measured",
+      "jitter_seconds": 4.936696
+    },
+    {
+      "name": "warm-long-010-api",
+      "worker_state": "warm",
+      "fixture": "speech-80s.mp4",
+      "concurrency": 5,
+      "mode": "api",
+      "pair": 10,
+      "role": "measured",
+      "jitter_seconds": 2.901167
+    },
+    {
+      "name": "warm-long-010-direct",
+      "worker_state": "warm",
+      "fixture": "speech-80s.mp4",
+      "concurrency": 5,
+      "mode": "direct",
+      "pair": 10,
+      "role": "measured",
+      "jitter_seconds": 4.132225
+    },
+    {
+      "name": "warm-long-011-direct",
+      "worker_state": "warm",
+      "fixture": "speech-80s.mp4",
+      "concurrency": 5,
+      "mode": "direct",
+      "pair": 11,
+      "role": "measured",
+      "jitter_seconds": 0.087234
+    },
+    {
+      "name": "warm-long-011-api",
+      "worker_state": "warm",
+      "fixture": "speech-80s.mp4",
+      "concurrency": 5,
+      "mode": "api",
+      "pair": 11,
+      "role": "measured",
+      "jitter_seconds": 0.031104
+    },
+    {
+      "name": "warm-long-012-api",
+      "worker_state": "warm",
+      "fixture": "speech-80s.mp4",
+      "concurrency": 5,
+      "mode": "api",
+      "pair": 12,
+      "role": "measured",
+      "jitter_seconds": 0.306322
+    },
+    {
+      "name": "warm-long-012-direct",
+      "worker_state": "warm",
+      "fixture": "speech-80s.mp4",
+      "concurrency": 5,
+      "mode": "direct",
+      "pair": 12,
+      "role": "measured",
+      "jitter_seconds": 3.040582
+    },
+    {
+      "name": "warm-long-013-direct",
+      "worker_state": "warm",
+      "fixture": "speech-80s.mp4",
+      "concurrency": 5,
+      "mode": "direct",
+      "pair": 13,
+      "role": "measured",
+      "jitter_seconds": 2.690265
+    },
+    {
+      "name": "warm-long-013-api",
+      "worker_state": "warm",
+      "fixture": "speech-80s.mp4",
+      "concurrency": 5,
+      "mode": "api",
+      "pair": 13,
+      "role": "measured",
+      "jitter_seconds": 2.971767
+    },
+    {
+      "name": "warm-long-014-api",
+      "worker_state": "warm",
+      "fixture": "speech-80s.mp4",
+      "concurrency": 5,
+      "mode": "api",
+      "pair": 14,
+      "role": "measured",
+      "jitter_seconds": 3.682586
+    },
+    {
+      "name": "warm-long-014-direct",
+      "worker_state": "warm",
+      "fixture": "speech-80s.mp4",
+      "concurrency": 5,
+      "mode": "direct",
+      "pair": 14,
+      "role": "measured",
+      "jitter_seconds": 4.243015
+    },
+    {
+      "name": "warm-long-015-direct",
+      "worker_state": "warm",
+      "fixture": "speech-80s.mp4",
+      "concurrency": 5,
+      "mode": "direct",
+      "pair": 15,
+      "role": "measured",
+      "jitter_seconds": 4.674522
+    },
+    {
+      "name": "warm-long-015-api",
+      "worker_state": "warm",
+      "fixture": "speech-80s.mp4",
+      "concurrency": 5,
+      "mode": "api",
+      "pair": 15,
+      "role": "measured",
+      "jitter_seconds": 0.506338
+    },
+    {
+      "name": "warm-long-016-api",
+      "worker_state": "warm",
+      "fixture": "speech-80s.mp4",
+      "concurrency": 5,
+      "mode": "api",
+      "pair": 16,
+      "role": "measured",
+      "jitter_seconds": 1.424858
+    },
+    {
+      "name": "warm-long-016-direct",
+      "worker_state": "warm",
+      "fixture": "speech-80s.mp4",
+      "concurrency": 5,
+      "mode": "direct",
+      "pair": 16,
+      "role": "measured",
+      "jitter_seconds": 3.334345
+    },
+    {
+      "name": "warm-long-017-direct",
+      "worker_state": "warm",
+      "fixture": "speech-80s.mp4",
+      "concurrency": 5,
+      "mode": "direct",
+      "pair": 17,
+      "role": "measured",
+      "jitter_seconds": 2.46062
+    },
+    {
+      "name": "warm-long-017-api",
+      "worker_state": "warm",
+      "fixture": "speech-80s.mp4",
+      "concurrency": 5,
+      "mode": "api",
+      "pair": 17,
+      "role": "measured",
+      "jitter_seconds": 3.944657
+    },
+    {
+      "name": "warm-long-018-api",
+      "worker_state": "warm",
+      "fixture": "speech-80s.mp4",
+      "concurrency": 5,
+      "mode": "api",
+      "pair": 18,
+      "role": "measured",
+      "jitter_seconds": 2.926911
+    },
+    {
+      "name": "warm-long-018-direct",
+      "worker_state": "warm",
+      "fixture": "speech-80s.mp4",
+      "concurrency": 5,
+      "mode": "direct",
+      "pair": 18,
+      "role": "measured",
+      "jitter_seconds": 2.258674
+    },
+    {
+      "name": "warm-long-019-direct",
+      "worker_state": "warm",
+      "fixture": "speech-80s.mp4",
+      "concurrency": 5,
+      "mode": "direct",
+      "pair": 19,
+      "role": "measured",
+      "jitter_seconds": 3.370674
+    },
+    {
+      "name": "warm-long-019-api",
+      "worker_state": "warm",
+      "fixture": "speech-80s.mp4",
+      "concurrency": 5,
+      "mode": "api",
+      "pair": 19,
+      "role": "measured",
+      "jitter_seconds": 1.674284
+    }
+  ]
+}

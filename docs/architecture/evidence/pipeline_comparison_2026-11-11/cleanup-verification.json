@@ -1,0 +1,74 @@
+{
+  "verified_at": "2026-11-11T07:37:50.377195+00:00",
+  "account": "585572506964",
+  "region": "us-east-1",
+  "experiment": "vindex-pipeline-bench-4af147646c",
+  "deleted_resources": {
+    "instance": true,
+    "volume": true,
+    "bucket": true,
+    "security_group": true,
+    "iam_role": true,
+    "instance_profile": true
+  },
+  "shared_state_host": {
+    "id": "i-010d46b34dc600bc8",
+    "state": "running"
+  },
+  "shared_services": [
+    {
+      "service": "vindex-api",
+      "desired": 1,
+      "running": 1,
+      "pending": 0
+    },
+    {
+      "service": "vindex-search-worker",
+      "desired": 0,
+      "running": 0,
+      "pending": 0
+    },
+    {
+      "service": "vindex-playback-worker",
+      "desired": 0,
+      "running": 0,
+      "pending": 0
+    }
+  ],
+  "shared_health": {
+    "frontend_edge": {
+      "http_status": 200,
+      "status": "ok"
+    },
+    "api_gateway": {
+      "http_status": 200,
+      "status": "ok"
+    }
+  },
+  "workers_stopped_before_final_capture": true,
+  "whole_bucket_prefix_counts_before_deletion": {
+    "bootstrap": 16,
+    "evidence": 7473,
+    "fixtures": 1
+  },
+  "preserved_residual_objects": {
+    "fixtures/speech-80s.mp4": {
+      "bytes": 103231087,
+      "etag": "\"e7a43509a7d368cf47be8cb4f38e1592-13\"",
+      "sha256": "2613ce2f8172edda811d1aa43d3b82151effb9251ad7d1742926d4e45122e06a"
+    }
+  },
+  "started_at": "2026-11-10T23:04:05.422002+00:00",
+  "stop_requested_at": "2026-11-11T07:36:15.300277+00:00",
+  "destroyed_at": "2026-11-11T07:37:29.611216+00:00",
+  "compute_hours_to_stop_request": 8.536077298611112,
+  "compute_estimate_usd": 3.4417463668000003,
+  "hourly_compute_usd": 0.4032,
+  "cost_note": "Estimated compute through stop request; excludes shutdown time, disk, IPv4, storage, requests and transfer. Not an AWS bill.",
+  "final_archive": {
+    "key": "evidence/preserved-final-evidence.tar.gz",
+    "label": "preserved-final",
+    "bytes": 4901243,
+    "sha256": "975865ea244c013656b4cf9e1f8bcddaf707226e84691c035edf4c82a04c6be7"
+  }
+}

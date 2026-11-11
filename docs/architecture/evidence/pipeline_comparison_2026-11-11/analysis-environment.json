@@ -1,0 +1,13 @@
+{
+  "recorded_at": "2026-11-11T07:42:43.038912+00:00",
+  "python": "3.11.16",
+  "numpy": "2.4.5",
+  "matplotlib": "3.10.8",
+  "source_hash_normalization": "UTF-8 with LF line endings",
+  "source_sha256": {
+    "backend/benchmarks/analyze_pipeline_experiment.py": "e7739d21d78b053098603e4dd6f72a8b5cbc9fc8dc6bd16a11abd9b9377fab6c",
+    "backend/benchmarks/audit_pipeline_experiment.py": "a15d1aa1cf67ef5569d154ad6a26f1da64eb53dd5376afd6a7a35c3a51133357",
+    "backend/benchmarks/analyze_upload_comparison.py": "ca8ca4c6a4de328c8e9684592e21ebb1505c56f9281a186edddcac212b47cb80",
+    "backend/benchmarks/plot_pipeline_comparison.py": "3421904f03395bd73eb6a2335c38dada1d7d9da72e3c4a67fc56c240fbbd4369"
+  }
+}

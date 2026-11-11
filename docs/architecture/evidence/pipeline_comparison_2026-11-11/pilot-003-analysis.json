@@ -1,0 +1,260 @@
+{
+  "generated_at": "2026-11-10T23:28:46.243056+00:00",
+  "campaign": "pilot-003",
+  "method": "10000 paired-wave bootstrap resamples, seed 20261110, nearest-rank quantiles; clients stay clustered",
+  "unique_video_ids_including_warmups": 10,
+  "excluded_warmups": 0,
+  "cells": [
+    {
+      "worker_state": "warm",
+      "fixture": "speech-80s.mp4",
+      "concurrency": 5,
+      "network": {
+        "download_mbps": 100,
+        "latency_ms": 40,
+        "name": "20mbps-40ms",
+        "upload_mbps": 20
+      },
+      "commit": "a458bc2e5b19335025eed8ec63599e2c02297330",
+      "paired_waves": 1,
+      "attempts_per_mode": 5,
+      "verified_per_mode": 5,
+      "observed_full_readiness_rate": 1.0,
+      "descriptive_wilson_95pct": [
+        0.5655175352168251,
+        1
+      ],
+      "metrics": {
+        "accepted": {
+          "p50": {
+            "api_seconds": 46.02950917100001,
+            "direct_seconds": 48.999261982,
+            "api_seconds_95pct_wave_bootstrap": [
+              46.02950917100001,
+              46.02950917100001
+            ],
+            "direct_seconds_95pct_wave_bootstrap": [
+              48.999261982,
+              48.999261982
+            ],
+            "direct_over_api": 1.0645184548887396,
+            "ratio_95pct_paired_wave_bootstrap": [
+              1.0645184548887396,
+              1.0645184548887396
+            ],
+            "difference_seconds_95pct_paired_wave_bootstrap": [
+              2.969752810999992,
+              2.969752810999992
+            ]
+          },
+          "p95": {
+            "api_seconds": 48.117402719,
+            "direct_seconds": 49.2346881,
+            "api_seconds_95pct_wave_bootstrap": [
+              48.117402719,
+              48.117402719
+            ],
+            "direct_seconds_95pct_wave_bootstrap": [
+              49.2346881,
+              49.2346881
+            ],
+            "direct_over_api": 1.0232199852416146,
+            "ratio_95pct_paired_wave_bootstrap": [
+              1.0232199852416146,
+              1.0232199852416146
+            ],
+            "difference_seconds_95pct_paired_wave_bootstrap": [
+              1.117285381000002,
+              1.117285381000002
+            ]
+          }
+        },
+        "searchable": {
+          "p50": {
+            "api_seconds": 71.302021271,
+            "direct_seconds": 72.18932505,
+            "api_seconds_95pct_wave_bootstrap": [
+              71.302021271,
+              71.302021271
+            ],
+            "direct_seconds_95pct_wave_bootstrap": [
+              72.18932505,
+              72.18932505
+            ],
+            "direct_over_api": 1.012444300500649,
+            "ratio_95pct_paired_wave_bootstrap": [
+              1.012444300500649,
+              1.012444300500649
+            ],
+            "difference_seconds_95pct_paired_wave_bootstrap": [
+              0.8873037789999927,
+              0.8873037789999927
+            ]
+          },
+          "p95": {
+            "api_seconds": 72.380193,
+            "direct_seconds": 74.640354081,
+            "api_seconds_95pct_wave_bootstrap": [
+              72.380193,
+              72.380193
+            ],
+            "direct_seconds_95pct_wave_bootstrap": [
+              74.640354081,
+              74.640354081
+            ],
+            "direct_over_api": 1.0312262372801353,
+            "ratio_95pct_paired_wave_bootstrap": [
+              1.0312262372801353,
+              1.0312262372801353
+            ],
+            "difference_seconds_95pct_paired_wave_bootstrap": [
+              2.2601610809999926,
+              2.2601610809999926
+            ]
+          }
+        },
+        "playable": {
+          "p50": {
+            "api_seconds": 129.47754061,
+            "direct_seconds": 127.817896292,
+            "api_seconds_95pct_wave_bootstrap": [
+              129.47754061,
+              129.47754061
+            ],
+            "direct_seconds_95pct_wave_bootstrap": [
+              127.817896292,
+              127.817896292
+            ],
+            "direct_over_api": 0.987181990712976,
+            "ratio_95pct_paired_wave_bootstrap": [
+              0.987181990712976,
+              0.987181990712976
+            ],
+            "difference_seconds_95pct_paired_wave_bootstrap": [
+              -1.6596443180000051,
+              -1.6596443180000051
+            ]
+          },
+          "p95": {
+            "api_seconds": 180.825236192,
+            "direct_seconds": 179.316033662,
+            "api_seconds_95pct_wave_bootstrap": [
+              180.825236192,
+              180.825236192
+            ],
+            "direct_seconds_95pct_wave_bootstrap": [
+              179.316033662,
+              179.316033662
+            ],
+            "direct_over_api": 0.9916538058415831,
+            "ratio_95pct_paired_wave_bootstrap": [
+              0.9916538058415831,
+              0.9916538058415831
+            ],
+            "difference_seconds_95pct_paired_wave_bootstrap": [
+              -1.5092025300000103,
+              -1.5092025300000103
+            ]
+          }
+        },
+        "search_after_acceptance": {
+          "p50": {
+            "api_seconds": 24.393523963000007,
+            "direct_seconds": 23.190063067999994,
+            "api_seconds_95pct_wave_bootstrap": [
+              24.393523963000007,
+              24.393523963000007
+            ],
+            "direct_seconds_95pct_wave_bootstrap": [
+              23.190063067999994,
+              23.190063067999994
+            ],
+            "direct_over_api": 0.9506647380335281,
+            "ratio_95pct_paired_wave_bootstrap": [
+              0.9506647380335281,
+              0.9506647380335281
+            ],
+            "difference_seconds_95pct_paired_wave_bootstrap": [
+              -1.2034608950000134,
+              -1.2034608950000134
+            ]
+          },
+          "p95": {
+            "api_seconds": 25.498301545999986,
+            "direct_seconds": 25.405665981,
+            "api_seconds_95pct_wave_bootstrap": [
+              25.498301545999986,
+              25.498301545999986
+            ],
+            "direct_seconds_95pct_wave_bootstrap": [
+              25.405665981,
+              25.405665981
+            ],
+            "direct_over_api": 0.9963669907647429,
+            "ratio_95pct_paired_wave_bootstrap": [
+              0.9963669907647429,
+              0.9963669907647429
+            ],
+            "difference_seconds_95pct_paired_wave_bootstrap": [
+              -0.09263556499998771,
+              -0.09263556499998771
+            ]
+          }
+        },
+        "playback_after_acceptance": {
+          "p50": {
+            "api_seconds": 83.448031439,
+            "direct_seconds": 78.81863431,
+            "api_seconds_95pct_wave_bootstrap": [
+              83.448031439,
+              83.448031439
+            ],
+            "direct_seconds_95pct_wave_bootstrap": [
+              78.81863431,
+              78.81863431
+            ],
+            "direct_over_api": 0.9445235909203673,
+            "ratio_95pct_paired_wave_bootstrap": [
+              0.9445235909203673,
+              0.9445235909203673
+            ],
+            "difference_seconds_95pct_paired_wave_bootstrap": [
+              -4.6293971290000115,
+              -4.6293971290000115
+            ]
+          },
+          "p95": {
+            "api_seconds": 132.707833473,
+            "direct_seconds": 130.081345562,
+            "api_seconds_95pct_wave_bootstrap": [
+              132.707833473,
+              132.707833473
+            ],
+            "direct_seconds_95pct_wave_bootstrap": [
+              130.081345562,
+              130.081345562
+            ],
+            "direct_over_api": 0.9802084937846991,
+            "ratio_95pct_paired_wave_bootstrap": [
+              0.9802084937846991,
+              0.9802084937846991
+            ],
+            "difference_seconds_95pct_paired_wave_bootstrap": [
+              -2.626487910999998,
+              -2.626487910999998
+            ]
+          }
+        }
+      },
+      "gates": {
+        "integrity_and_cleanup": "passed",
+        "observed_readiness_99_percent": "passed",
+        "population_reliability": "unverified: repeated fixtures and concurrent clients are not independent population trials",
+        "absolute_staging_slo": "unverified: no absolute product SLO set",
+        "searchable_p95_non_regression": "unverified: exploratory pilot sample",
+        "playable_p95_non_regression": "unverified: exploratory pilot sample"
+      },
+      "processing_retries": 0
+    }
+  ]
+}

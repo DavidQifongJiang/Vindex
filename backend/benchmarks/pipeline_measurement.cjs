@@ -12,6 +12,8 @@ function validatePipeline(manifest) {
     throw new Error('Integrated pilots run one fixture and one wave, with at most five clients');
   }
   if (!['api', 'direct'].includes(p.mode) || !['cold', 'warm'].includes(p.worker_state)) throw new Error('Declare pilot mode and worker state');
+  const tlsMode = p.tls_mode || 'verified';
+  if (!['verified', 'self_signed_isolated'].includes(tlsMode)) throw new Error('Invalid pilot TLS mode');
   if (!/^[a-f0-9]{40}$/.test(manifest.commit)) throw new Error('Pin the measured application commit');
   for (const [key, min, max] of [['deadline_seconds', 1, 900], ['poll_interval_ms', 100, 10000], ['probe_timeout_ms', 100, 30000]]) {
     if (!Number.isInteger(p[key]) || p[key] < min || p[key] > max) throw new Error(`Invalid pipeline ${key}`);
@@ -32,9 +34,10 @@ function validatePipeline(manifest) {
         typeof preflight[k] === 'string' && preflight[k].trim())) {
     throw new Error('Complete the isolated worker preflight record before running a pilot');
   }
+  if (tlsMode === 'self_signed_isolated' && preflight.tls_mode !== tlsMode) throw new Error('Self-signed TLS requires matching isolated preflight');
   const age = Date.now() - Date.parse(preflight.observed_at);
   if (!Number.isFinite(age) || age < 0 || age > 15 * 60 * 1000) throw new Error('Preflight must have been observed within 15 minutes');
-  return { mode: p.mode, worker_state: p.worker_state, deadline_seconds: p.deadline_seconds,
+  return { mode: p.mode, worker_state: p.worker_state, tls_mode: tlsMode, deadline_seconds: p.deadline_seconds,
     poll_interval_ms: p.poll_interval_ms, probe_timeout_ms: p.probe_timeout_ms,
     search: Object.fromEntries(['query', 'expected_text', 'start_seconds', 'end_seconds', 'tolerance_seconds'].map(k => [k, search[k]])),
     preflight_sha256: crypto.createHash('sha256').update(raw).digest('hex'),

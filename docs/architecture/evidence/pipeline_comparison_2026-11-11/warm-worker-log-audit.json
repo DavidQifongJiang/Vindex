@@ -1,0 +1,24 @@
+{
+  "coverage": "From the final cold-worker container start through the post-campaign shutdown; includes both warm cohorts.",
+  "logs": {
+    "bench-playback-full-warm.log": {
+      "bytes": 183061,
+      "sha256": "37c4f80adcc8ccecadfcd1d95c8a6f5a0e266a15e72e6676a70d7bb189abeab6",
+      "pool_worker_names": [
+        "ForkPoolWorker-1"
+      ],
+      "error_or_critical_lines": 0,
+      "worker_lost_mentions": 0
+    },
+    "bench-search-full-warm.log": {
+      "bytes": 1535677,
+      "sha256": "007005a27ac2e9e59bd6ba67f25181bc9624ddc287258598dd45d9b0c5a9a295",
+      "pool_worker_names": [
+        "ForkPoolWorker-1"
+      ],
+      "error_or_critical_lines": 0,
+      "worker_lost_mentions": 0
+    }
+  },
+  "note": "Logs remain in the private final archive. This diagnostic check supplements the recorded container/runtime audit."
+}

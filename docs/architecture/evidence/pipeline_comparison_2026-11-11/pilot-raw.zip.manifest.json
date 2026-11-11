@@ -1,0 +1,522 @@
+{
+  "pilot-001/cold-api/after-containers.json": {
+    "bytes": 5936,
+    "sha256": "35b45f8fbb0f89659efd845272051bf6672bbc1e24c0607f8e845d6c29343f1f"
+  },
+  "pilot-001/cold-api/before.json": {
+    "bytes": 6527,
+    "sha256": "bcd191ad83b79d6b22bdd68cb5c6e52c2c9278aba7f234b2cfb9efdf1c51bf06"
+  },
+  "pilot-001/cold-api/browser/attempts.jsonl": {
+    "bytes": 245,
+    "sha256": "9d09a512cceb9503b37ecd1d677210cbcb4ac0cd5ab7fe2f442ad94adba9ff67"
+  },
+  "pilot-001/cold-api/browser/completion.json": {
+    "bytes": 263,
+    "sha256": "80f7eee3b496b4b406e4683475f432ee7b1467d07022055444c9df95bebeecf1"
+  },
+  "pilot-001/cold-api/browser/fixtures.jsonl": {
+    "bytes": 102,
+    "sha256": "6767b47b4da98293ac91c80c5130334a2556681c0533b6d6e71cec7ccb1f8bc0"
+  },
+  "pilot-001/cold-api/browser/run.json": {
+    "bytes": 1249,
+    "sha256": "b9d214d10888116cba57eb6ec99a51a0c1969ea0fa48c71b7070258f84c50456"
+  },
+  "pilot-001/cold-api/browser/summary.json": {
+    "bytes": 956,
+    "sha256": "dc34545ec2261c1cbf0f1c07133c3b882b43cb16e244583b8db8291ef1376a7a"
+  },
+  "pilot-001/cold-api/browser/waves.jsonl": {
+    "bytes": 748,
+    "sha256": "ba1b0c1acc375aab3392a82e5fe3a36f2b72f5c81eb7b072a51bcd6ef237ce8a"
+  },
+  "pilot-001/cold-api/manifest.json": {
+    "bytes": 934,
+    "sha256": "4ce80b8b7e305cb63c9abd5c226d17e97dd10a08231220ec37ab5c3f808df92f"
+  },
+  "pilot-001/cold-api/preflight.json": {
+    "bytes": 6507,
+    "sha256": "9540a55911e0568e0354138a1478783d3e4a8cdbc67d3495144af0628abf12f0"
+  },
+  "pilot-001/cold-api/spec.json": {
+    "bytes": 153,
+    "sha256": "75e1d8c32f6602e7aa59a36d2e48c01ea4d60cd51b8cae4e9397b29a5d3fbbd2"
+  },
+  "pilot-001/plan.json": {
+    "bytes": 1034,
+    "sha256": "c421b08aaafed338ecf6eb86c0ac465fb4cc2f9939b2ff630dba25eab3a980e4"
+  },
+  "pilot-001/progress.json": {
+    "bytes": 322,
+    "sha256": "35d69089ac9a341a9951e6cf6b0c0d45bc37fc33173fe1ae39945ad6d1b0d6ec"
+  },
+  "pilot-002/cold-api/after-containers.json": {
+    "bytes": 5966,
+    "sha256": "db96211d066f2ec0ae2faf64dbb92d3b9aa7d41ad3f31b1d561c9536de399421"
+  },
+  "pilot-002/cold-api/before.json": {
+    "bytes": 6542,
+    "sha256": "08f2e24676d30cfff01f852605381c727d8eb8d3e34633f016de3b1347916a36"
+  },
+  "pilot-002/cold-api/browser/attempts.jsonl": {
+    "bytes": 941,
+    "sha256": "0b2d4ca2788809f8bd33493bdaaa47ff6538c628e7c87ee3f867bd9fff0c56a0"
+  },
+  "pilot-002/cold-api/browser/completion.json": {
+    "bytes": 261,
+    "sha256": "c33ba175fb6812ea646d6befbe7ad544624af395aa79becd18d06fdf85f55530"
+  },
+  "pilot-002/cold-api/browser/fixtures.jsonl": {
+    "bytes": 102,
+    "sha256": "6767b47b4da98293ac91c80c5130334a2556681c0533b6d6e71cec7ccb1f8bc0"
+  },
+  "pilot-002/cold-api/browser/milestones.jsonl": {
+    "bytes": 8514,
+    "sha256": "0d66a2e75b0b40d8e8bad921e62e1cb37c692dc31e5f6d9f349c1ffeff6ed609"
+  },
+  "pilot-002/cold-api/browser/run.json": {
+    "bytes": 1251,
+    "sha256": "bd769be169632f549877602de3028885b752f58aa9d04c0eedae907b89c4d379"
+  },
+  "pilot-002/cold-api/browser/summary.json": {
+    "bytes": 1017,
+    "sha256": "744be59d611176a7f148232f141179ce85720453281aa7f1fd9723644a3b3750"
+  },
+  "pilot-002/cold-api/browser/waves.jsonl": {
+    "bytes": 801,
+    "sha256": "b5e8b96ee36661001de63cff47431a874aaee2a29816efa32074a46e4024ee4a"
+  },
+  "pilot-002/cold-api/cleanup.json": {
+    "bytes": 262,
+    "sha256": "8bb65ea4f230d5b64377042453e9bbb1e4d85970ca6c3e880128a56b33e1220f"
+  },
+  "pilot-002/cold-api/f1360b12-f7dc-4a31-a762-bf46cc3aaa69-metrics.json": {
+    "bytes": 2445,
+    "sha256": "b93d19926fe98983f02826bb014a0534e9a8748c4d68cfa7b614e445e26fefdc"
+  },
+  "pilot-002/cold-api/manifest.json": {
+    "bytes": 936,
+    "sha256": "9baa0518fb202b85daa5b6523c1b36d52a701377319bb7e66ff476074865c1f8"
+  },
+  "pilot-002/cold-api/preflight.json": {
+    "bytes": 6523,
+    "sha256": "0dd7e6236110093e43d703ce01e8a60635b6e3b5bd83a306bf264432c2167617"
+  },
+  "pilot-002/cold-api/spec.json": {
+    "bytes": 153,
+    "sha256": "75e1d8c32f6602e7aa59a36d2e48c01ea4d60cd51b8cae4e9397b29a5d3fbbd2"
+  },
+  "pilot-002/cold-api/verification.json": {
+    "bytes": 6966,
+    "sha256": "922a41d51ba5f7cb6e45798a82179a6e373a9f0d3a4f9a210e6e260f758805f2"
+  },
+  "pilot-002/cold-direct/8223b07f-f5b8-4ca6-b6e4-385313b4a1af-metrics.json": {
+    "bytes": 2453,
+    "sha256": "137cf25abae3bcaf8bd3b6c977a5533d27177c78cd13ee7ae05c1afc9f973d84"
+  },
+  "pilot-002/cold-direct/after-containers.json": {
+    "bytes": 5967,
+    "sha256": "db38c9384628f720b9d3426aa80aa57246f089522ef20de16a839d48ad998cb4"
+  },
+  "pilot-002/cold-direct/before.json": {
+    "bytes": 6551,
+    "sha256": "b8753a83f9d1bca5ca35eddc731653554a192be336b3019327e766971d91b7ae"
+  },
+  "pilot-002/cold-direct/browser/attempts.jsonl": {
+    "bytes": 1074,
+    "sha256": "c2f3b5f5cf52d8c8adf47db883f9c1bf93cb0ea22ce8d41f2538d6b621a36c3d"
+  },
+  "pilot-002/cold-direct/browser/completion.json": {
+    "bytes": 261,
+    "sha256": "c33ba175fb6812ea646d6befbe7ad544624af395aa79becd18d06fdf85f55530"
+  },
+  "pilot-002/cold-direct/browser/fixtures.jsonl": {
+    "bytes": 102,
+    "sha256": "6767b47b4da98293ac91c80c5130334a2556681c0533b6d6e71cec7ccb1f8bc0"
+  },
+  "pilot-002/cold-direct/browser/milestones.jsonl": {
+    "bytes": 7917,
+    "sha256": "b759e6a21c2f61a6c10c9fa2adaf69e4578d3ddd66889bb9e250dab577bc5de5"
+  },
+  "pilot-002/cold-direct/browser/run.json": {
+    "bytes": 1254,
+    "sha256": "11ad2fd4c0b4e40616484dbcfacd2499d3e194bcb04a87a1a96b1425f13f8cef"
+  },
+  "pilot-002/cold-direct/browser/summary.json": {
+    "bytes": 1020,
+    "sha256": "a8e76a71bc331dbaee7beb27cd178e91683c86e3064932eaad25eb1d98e8f4a0"
+  },
+  "pilot-002/cold-direct/browser/waves.jsonl": {
+    "bytes": 804,
+    "sha256": "c16499fddef4df93460cf3487dd04036741d26f76a732503495e535a3a3edb96"
+  },
+  "pilot-002/cold-direct/cleanup.json": {
+    "bytes": 262,
+    "sha256": "f5a9de9fef958a3f19e8898785d6c8f115b080048be865626ddb65c5a391047d"
+  },
+  "pilot-002/cold-direct/manifest.json": {
+    "bytes": 942,
+    "sha256": "661b439c6d952ec95884c322bceaa22f039771393fe508b97d926e7890d2a87d"
+  },
+  "pilot-002/cold-direct/preflight.json": {
+    "bytes": 6535,
+    "sha256": "ff9ea30bf65d2ba61f6b92e9800072fb06089f49dc857a186f9704c52628edce"
+  },
+  "pilot-002/cold-direct/spec.json": {
+    "bytes": 159,
+    "sha256": "c384e82973fd708241b41495dd5cc834b09f89a8f2329d2edd700230fa5e0dce"
+  },
+  "pilot-002/cold-direct/verification.json": {
+    "bytes": 6967,
+    "sha256": "58d54a8ce8ac4aa914d82e7ab38f0ea09b416c7df1fbfd12a9d21b86297ddfb4"
+  },
+  "pilot-002/plan.json": {
+    "bytes": 1034,
+    "sha256": "eb8cdb6b8d49a8e053d7a2602c9817e104b6f8b7745688a50189b69d79f9ad6a"
+  },
+  "pilot-002/progress.json": {
+    "bytes": 935,
+    "sha256": "63e57fca67f2b193bf02ff292a3b4d3441c00b715b4ef6f7114ba7ed348d9476"
+  },
+  "pilot-002/warm-api/after-containers.json": {
+    "bytes": 5977,
+    "sha256": "f0ff5f2f93e9a5094d8647e56448c2544daf719c27c34426ee13f7dcc7db470a"
+  },
+  "pilot-002/warm-api/b9a8401d-3b1f-490e-b4e0-d6e50cafcefd-metrics.json": {
+    "bytes": 2435,
+    "sha256": "def4e17c5f2a29c7eda4b12c7d7c8c24216fb2d9b7f8f5859602df42e108614f"
+  },
+  "pilot-002/warm-api/before.json": {
+    "bytes": 6570,
+    "sha256": "20e2f0693e4ed6bf7b69c29a282eb15b745540daca23b8d9f36ed2b65ce41e01"
+  },
+  "pilot-002/warm-api/browser/attempts.jsonl": {
+    "bytes": 968,
+    "sha256": "31600c6dce66941ec35b689dfcab8b143e35cd0e1b2749b7d0c27af7af8e4d49"
+  },
+  "pilot-002/warm-api/browser/completion.json": {
+    "bytes": 261,
+    "sha256": "c33ba175fb6812ea646d6befbe7ad544624af395aa79becd18d06fdf85f55530"
+  },
+  "pilot-002/warm-api/browser/fixtures.jsonl": {
+    "bytes": 102,
+    "sha256": "6767b47b4da98293ac91c80c5130334a2556681c0533b6d6e71cec7ccb1f8bc0"
+  },
+  "pilot-002/warm-api/browser/milestones.jsonl": {
+    "bytes": 9707,
+    "sha256": "77322d9069eea43d26f5a2a3f419994a0bf13f7f59bbdec14a202c7c16de920d"
+  },
+  "pilot-002/warm-api/browser/run.json": {
+    "bytes": 1251,
+    "sha256": "cae064cc9ae4e6fa41cf2d357c9b90822b0f4c4df0ec88e58c243a412570a34d"
+  },
+  "pilot-002/warm-api/browser/summary.json": {
+    "bytes": 1029,
+    "sha256": "0b6c816edeb72a7dad4366834ed11cf1ae26723f0a9340ca3c8e1ff2d30b19b1"
+  },
+  "pilot-002/warm-api/browser/waves.jsonl": {
+    "bytes": 819,
+    "sha256": "c596ca47f1ecf5eb7749e728dd5d0272871412c92552d99543e1b8d362f967d1"
+  },
+  "pilot-002/warm-api/cleanup.json": {
+    "bytes": 262,
+    "sha256": "5e0f801d8aece98377874ff5b2e8e689b1476127dde951b50cefb6f3dc7b57df"
+  },
+  "pilot-002/warm-api/manifest.json": {
+    "bytes": 936,
+    "sha256": "1b68a3d5925dad46e06ac5ebda25a80dc8811c4b7b3a7c5aa96670abdfea803d"
+  },
+  "pilot-002/warm-api/preflight.json": {
+    "bytes": 6551,
+    "sha256": "b1636114bec3bceb2ba4333442a1f933ef79de61065ea00b05c83170f8f1ac2c"
+  },
+  "pilot-002/warm-api/spec.json": {
+    "bytes": 153,
+    "sha256": "bc1dd27020bb995b0903524e074bdb5316f7c5d75e7b1450a42eec0d9737eb54"
+  },
+  "pilot-002/warm-api/verification.json": {
+    "bytes": 6959,
+    "sha256": "567a228541c3cccefcf987c610396b06dcdc04d6c24e6d6ff9df2844a14b6554"
+  },
+  "pilot-002/warm-direct/7e522e9b-ab43-4291-9f47-d8a28c807f5a-metrics.json": {
+    "bytes": 2448,
+    "sha256": "6d9ca09e3c87c0e758ebe72a38bf409606be4bc0f76d8b375db8ec4532fb0769"
+  },
+  "pilot-002/warm-direct/after-containers.json": {
+    "bytes": 5976,
+    "sha256": "ce2928f8739ed96ae1425d829c37596470d43ec4ccffe45008097b97a33f757b"
+  },
+  "pilot-002/warm-direct/before.json": {
+    "bytes": 6564,
+    "sha256": "f2c824814a0b6d5cebe4900bb15bbb9cb023a9abdecb5922773502899e82e5f2"
+  },
+  "pilot-002/warm-direct/browser/attempts.jsonl": {
+    "bytes": 1099,
+    "sha256": "feeaef559458f1842e9615b68e02a247feec4c214afe0386aae18df4badf91ba"
+  },
+  "pilot-002/warm-direct/browser/completion.json": {
+    "bytes": 261,
+    "sha256": "c33ba175fb6812ea646d6befbe7ad544624af395aa79becd18d06fdf85f55530"
+  },
+  "pilot-002/warm-direct/browser/fixtures.jsonl": {
+    "bytes": 102,
+    "sha256": "6767b47b4da98293ac91c80c5130334a2556681c0533b6d6e71cec7ccb1f8bc0"
+  },
+  "pilot-002/warm-direct/browser/milestones.jsonl": {
+    "bytes": 9966,
+    "sha256": "912b84b8fed34c02181037de259ca7160512e50596e1ffb8047608f18a9fe68c"
+  },
+  "pilot-002/warm-direct/browser/run.json": {
+    "bytes": 1254,
+    "sha256": "c9c63173da63c785b8cb8db8417ff1340dfee187ff81c687b0e565a97fbc8837"
+  },
+  "pilot-002/warm-direct/browser/summary.json": {
+    "bytes": 1032,
+    "sha256": "e76d4b8662756fb3720c0ff0981cd5317da7193a5460b8fb8a9040ab9179a3e2"
+  },
+  "pilot-002/warm-direct/browser/waves.jsonl": {
+    "bytes": 816,
+    "sha256": "7278fc86615fdccafb3deb5c49f70991e81eba7d20e053d48b04fe2358d62eeb"
+  },
+  "pilot-002/warm-direct/cleanup.json": {
+    "bytes": 262,
+    "sha256": "93023c381ebbdd9fcfeb9869dec2bef059bb960f5dbe74623a05804b1bde20ee"
+  },
+  "pilot-002/warm-direct/manifest.json": {
+    "bytes": 942,
+    "sha256": "3e1dda1c6c5df7cccdb7dc693afd33eac4cc507e56a04237d1058308bc4c2435"
+  },
+  "pilot-002/warm-direct/preflight.json": {
+    "bytes": 6548,
+    "sha256": "6ac43b1254c9997f52f56419597b4814c7a8af0cff9ea58379a60814dca641aa"
+  },
+  "pilot-002/warm-direct/spec.json": {
+    "bytes": 159,
+    "sha256": "697490a55e4bee1f32a3d68ca4b136818dbd4b5eb8a5954014de26bd0c746096"
+  },
+  "pilot-002/warm-direct/verification.json": {
+    "bytes": 6961,
+    "sha256": "375be66271897e63e0ad4ae31967458ad5c47c0d885f9a11fbd5fbc6983da47a"
+  },
+  "pilot-002/warmup/20df25a3-b7a2-448a-85ab-a92591d5dc3b-metrics.json": {
+    "bytes": 2440,
+    "sha256": "9592b9af2779a5dfb90b380a647e6f11a6d7291d0f2d55b1e0ca861bb1747f5f"
+  },
+  "pilot-002/warmup/after-containers.json": {
+    "bytes": 5969,
+    "sha256": "26a8e1b96e1b690609fc20e9ac461c1fd7458acb656be923f2539c6b246c4038"
+  },
+  "pilot-002/warmup/before.json": {
+    "bytes": 6561,
+    "sha256": "2fcc04ce7cfc5981daf6428afd50fb45db26fe3cf4a4e14818a0a60e2b31be1a"
+  },
+  "pilot-002/warmup/browser/attempts.jsonl": {
+    "bytes": 980,
+    "sha256": "cef1e277634b46a661a094de26eb5cf9d689b640368ca1ba58984306a911e3b9"
+  },
+  "pilot-002/warmup/browser/completion.json": {
+    "bytes": 261,
+    "sha256": "c33ba175fb6812ea646d6befbe7ad544624af395aa79becd18d06fdf85f55530"
+  },
+  "pilot-002/warmup/browser/fixtures.jsonl": {
+    "bytes": 102,
+    "sha256": "6767b47b4da98293ac91c80c5130334a2556681c0533b6d6e71cec7ccb1f8bc0"
+  },
+  "pilot-002/warmup/browser/milestones.jsonl": {
+    "bytes": 10163,
+    "sha256": "1e4e25d28caf5784c4232838d3c34f01f88952aa22c9f6ad1d09defd1c09cdb8"
+  },
+  "pilot-002/warmup/browser/run.json": {
+    "bytes": 1251,
+    "sha256": "d1a9ae8054d048a8a09cbc6fefb667c8d8c1470ea9f2a36b8be5c8f5151c0233"
+  },
+  "pilot-002/warmup/browser/summary.json": {
+    "bytes": 1029,
+    "sha256": "652d25b7436c5593f8525e66807c142b36e9db47dab315f4f5f47ed36abebba6"
+  },
+  "pilot-002/warmup/browser/waves.jsonl": {
+    "bytes": 813,
+    "sha256": "54fc76d0b090b672f6c3fdf2539ac3e2a92c5d93268789dc0608308d8ade7b6d"
+  },
+  "pilot-002/warmup/cleanup.json": {
+    "bytes": 262,
+    "sha256": "1e365e20c8e1aa066f714a9108601f26dae9538ada925a7da579e77627c7e706"
+  },
+  "pilot-002/warmup/manifest.json": {
+    "bytes": 934,
+    "sha256": "271f0f590c2e21341031f6ed624583418ad446f17acc1406c0f34da13872de42"
+  },
+  "pilot-002/warmup/preflight.json": {
+    "bytes": 6542,
+    "sha256": "8473d21f59af565ca14d3d94eae0d9c7267864df24730f28a367403e5d896fa3"
+  },
+  "pilot-002/warmup/spec.json": {
+    "bytes": 150,
+    "sha256": "22e26130cc4f07678d78c997aba5c329c786633f1f2024dd5f768bb3bca744d4"
+  },
+  "pilot-002/warmup/verification.json": {
+    "bytes": 6960,
+    "sha256": "9700101ebe7396d6b9d612ec315c995834b70dd4157e1916fe65e4bc498c29ac"
+  },
+  "pilot-003/plan.json": {
+    "bytes": 468,
+    "sha256": "b6b6fc3979de1fda4d3169a0f0cf7081d0f882f658d95e47e04ce86579ecbf07"
+  },
+  "pilot-003/progress.json": {
+    "bytes": 537,
+    "sha256": "22ffe0d171c35228b89530e9da2c03f0701519c3e517dba90fb6f70fa107d64e"
+  },
+  "pilot-003/warm-long-api/3f75b09f-8b02-4425-906d-1d4e79327318-metrics.json": {
+    "bytes": 2452,
+    "sha256": "0695bc37a4388ec37d4060aaa1d0d6e3f720db652792b716e2cfdf080182e700"
+  },
+  "pilot-003/warm-long-api/66a6659c-4de2-42a9-92dd-c57938234974-metrics.json": {
+    "bytes": 2451,
+    "sha256": "16bd632d3f95e89006a6f2a113182d61429748612d4d0139bbeb3d0b594a1964"
+  },
+  "pilot-003/warm-long-api/8814a406-8f78-4c6f-aadf-4e4af6f53060-metrics.json": {
+    "bytes": 2448,
+    "sha256": "c3dfa7860b3e5651ce92f579417674e01652b6e6fcba172c9afbdb0a5af4beb0"
+  },
+  "pilot-003/warm-long-api/a58dc79f-1bf4-4060-b91f-1fee5387e6e4-metrics.json": {
+    "bytes": 2451,
+    "sha256": "7cd374d98d3c60208ef5f4f65db9c6a72301577dacf64e121c8874af8043dca3"
+  },
+  "pilot-003/warm-long-api/after-containers.json": {
+    "bytes": 5996,
+    "sha256": "10b0c0fb1d8a6235f4fa63b038aaac3e2d1d5977be8b9dc34fac6a6348b9bfcf"
+  },
+  "pilot-003/warm-long-api/before.json": {
+    "bytes": 6574,
+    "sha256": "57a15b038468e1251915228bb4c3906394d257e5f8275a3f04161ce67494fec8"
+  },
+  "pilot-003/warm-long-api/browser/attempts.jsonl": {
+    "bytes": 4789,
+    "sha256": "ae3063264d5952d9d5392944909f3a68dc67f91d45aa498d75c1ce724dc8d9b1"
+  },
+  "pilot-003/warm-long-api/browser/completion.json": {
+    "bytes": 261,
+    "sha256": "f1e583e7608bbecc28edc3c43a6b8b0d582ba94a032ddbab37855d37959e814a"
+  },
+  "pilot-003/warm-long-api/browser/fixtures.jsonl": {
+    "bytes": 102,
+    "sha256": "40c8251335f1cd544af557e500236db799c65af12fb035fad8084f4e5379a261"
+  },
+  "pilot-003/warm-long-api/browser/milestones.jsonl": {
+    "bytes": 201973,
+    "sha256": "572a7386288050d34474011b55db63fc2ef5174ec17024495742011589254b9a"
+  },
+  "pilot-003/warm-long-api/browser/run.json": {
+    "bytes": 1252,
+    "sha256": "42fcac21bfa60e189ae27ae23b7a6760eb86fe45ac5e8358c293e139d5624869"
+  },
+  "pilot-003/warm-long-api/browser/summary.json": {
+    "bytes": 1008,
+    "sha256": "c33dc96db2054854f71071fcf453ea875cd85ef57effed64d29edff40fff348e"
+  },
+  "pilot-003/warm-long-api/browser/waves.jsonl": {
+    "bytes": 797,
+    "sha256": "7d488871b3aec9375372f8dc00a0505599831b7624732e8ea1a84857c635efca"
+  },
+  "pilot-003/warm-long-api/cleanup.json": {
+    "bytes": 1018,
+    "sha256": "81b8a95d2661466da09e8531b97bf835dac5a22c3299caafac31c66c82b7b91c"
+  },
+  "pilot-003/warm-long-api/ed617a48-0b50-40e6-8c2d-3ad088c84328-metrics.json": {
+    "bytes": 2453,
+    "sha256": "65057ea6b170d064c3baab153b972f46de1bc4ead1dee31d1c0e6b887282b097"
+  },
+  "pilot-003/warm-long-api/manifest.json": {
+    "bytes": 941,
+    "sha256": "e668efd1a67f3a5226d7d025cfbaf532a35db15c7c476cdfc3d60258e73a30c4"
+  },
+  "pilot-003/warm-long-api/preflight.json": {
+    "bytes": 6555,
+    "sha256": "406c0c68d30c9947146ffcd403f1ba89ee5972a4dddf54abeafc2bfd0274119d"
+  },
+  "pilot-003/warm-long-api/spec.json": {
+    "bytes": 158,
+    "sha256": "bde7d216f06538034b07a937cc658a752de8718dd4f6b262a52ab03c6b2a985d"
+  },
+  "pilot-003/warm-long-api/verification.json": {
+    "bytes": 34405,
+    "sha256": "7922ea1d75f9574ac798e32c4b781e1b9d054c86f9a50a6fe410d127fda9ed7c"
+  },
+  "pilot-003/warm-long-direct/26ea3131-8401-45ce-96e2-10f1df6a55b6-metrics.json": {
+    "bytes": 2461,
+    "sha256": "a7b921ed1d8a2e177c7d72036a998ddc4d91297fe84a7bf545822dba5c655653"
+  },
+  "pilot-003/warm-long-direct/4402fe5c-ea2a-4dc7-8cf8-c84dcf3f2fa8-metrics.json": {
+    "bytes": 2451,
+    "sha256": "ed8d2249bd538d569ebc5d9bc880d7fe1393e561536bc5a4bb99198578bcb304"
+  },
+  "pilot-003/warm-long-direct/5a51c03f-2bd7-4517-8a89-60daad184b6e-metrics.json": {
+    "bytes": 2461,
+    "sha256": "be70ccd727d33ad01a4f3fbe2617946c3cae79e8383064c5c2ce6fa3cf362f1f"
+  },
+  "pilot-003/warm-long-direct/895e4449-551c-435b-86d0-f0c995826ab4-metrics.json": {
+    "bytes": 2452,
+    "sha256": "fe653298b5f2c1b8aea10aea6dcf5879b78daf42da021df89b4fc50972bad014"
+  },
+  "pilot-003/warm-long-direct/a37348ea-5c33-42f0-86db-736096189075-metrics.json": {
+    "bytes": 2457,
+    "sha256": "621af6e9ce510b419232b32022a1d62f9cf342d1c69c9010b324214bf7f5e605"
+  },
+  "pilot-003/warm-long-direct/after-containers.json": {
+    "bytes": 5998,
+    "sha256": "eb8d45a6963fe0d88fc0701ff59a7ae028206a667a75601f9d35b099191bde63"
+  },
+  "pilot-003/warm-long-direct/before.json": {
+    "bytes": 6590,
+    "sha256": "a46097b13c2dd9d9127f9f18979f87edcf8babbdfd084579e666c7949f2fd2a4"
+  },
+  "pilot-003/warm-long-direct/browser/attempts.jsonl": {
+    "bytes": 5366,
+    "sha256": "956d06465cfa4388d11197f1899882f25a106bb2865787bcd7eacd861647a3a1"
+  },
+  "pilot-003/warm-long-direct/browser/completion.json": {
+    "bytes": 261,
+    "sha256": "f1e583e7608bbecc28edc3c43a6b8b0d582ba94a032ddbab37855d37959e814a"
+  },
+  "pilot-003/warm-long-direct/browser/fixtures.jsonl": {
+    "bytes": 102,
+    "sha256": "40c8251335f1cd544af557e500236db799c65af12fb035fad8084f4e5379a261"
+  },
+  "pilot-003/warm-long-direct/browser/milestones.jsonl": {
+    "bytes": 195001,
+    "sha256": "371217e47e6b9f3a71453b6e5f868a6f6ef8fceb3ae5be804387e2147da29332"
+  },
+  "pilot-003/warm-long-direct/browser/run.json": {
+    "bytes": 1255,
+    "sha256": "81fa66d108d0a1308353a6e428e2412ad4e54aff83448f0c2fd75b180682bd68"
+  },
+  "pilot-003/warm-long-direct/browser/summary.json": {
+    "bytes": 1007,
+    "sha256": "3af1a6f5daeb863c3c9ff9657f64b3080acbaa297a6f3f48afd4a9013218ead2"
+  },
+  "pilot-003/warm-long-direct/browser/waves.jsonl": {
+    "bytes": 796,
+    "sha256": "d36eedb6678028d1c3ee92829aa6185a85b530527a5f5508f940763d84404b36"
+  },
+  "pilot-003/warm-long-direct/cleanup.json": {
+    "bytes": 1018,
+    "sha256": "a1c3ff384f157e82a54f0532ffe93ed18114ff5d4519a5b24ba87cb3a253b24b"
+  },
+  "pilot-003/warm-long-direct/manifest.json": {
+    "bytes": 947,
+    "sha256": "0e27d5464dae247f728b6b2e291cfc253473e31dd98701823c51eacfd4eabdc9"
+  },
+  "pilot-003/warm-long-direct/preflight.json": {
+    "bytes": 6574,
+    "sha256": "d8ce84ff48f4688da8d609db2b675afdd023748b879f626c360ff9d9e4848fee"
+  },
+  "pilot-003/warm-long-direct/spec.json": {
+    "bytes": 164,
+    "sha256": "39074f56ddd58dcc514def5c30c7ff9d9f7053709ee9523335f111147c096303"
+  },
+  "pilot-003/warm-long-direct/verification.json": {
+    "bytes": 34418,
+    "sha256": "73f4be68ef6638ab165ab301e13c9684a020be59dbb29a9f64a08c37f883d474"
+  }
+}
