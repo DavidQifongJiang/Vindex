@@ -1,0 +1,15 @@
+{
+  "python_version": "3.11.16",
+  "archive_sha256": "02aecf1381696f736210f043da19335bc981849fee4ef29abc0588dde77b169f",
+  "verified_public_files": 704,
+  "reports_semantically_equal": {
+    "primary-summary.json": true,
+    "processing-summary.json": true
+  },
+  "analysis_source_sha256_with_lf_newlines": {
+    "analyze_mixed_experiment.py": "51011b565eabef04d0a7159844427aeb061411b2f181e5d8af312f6dc2daaac3",
+    "summarize_mixed_comparison.py": "13de72a6a2280cdd7f3b80891b874015eca39a86248451b902889939d4409f11",
+    "summarize_mixed_processing.py": "340d7ac150e3fa5472d47c8a51693ed0aa63e9733308e7107fa0fc503462abb3"
+  },
+  "note": "Fresh extraction, per-file size/SHA verification, two complete offline analyses and JSON-object equality against the published results."
+}

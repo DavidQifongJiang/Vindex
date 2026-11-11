@@ -1,0 +1,2060 @@
+{
+  "registered_plan_sha256": "8fbfb86f3ee3497195ead152469e4a5c4ab7b78bcfec3034e834af6a18fca971",
+  "started_at": "2026-11-11T20:46:36.933162+00:00",
+  "finished_at": "2026-11-11T21:28:41.132847+00:00",
+  "trials": [
+    {
+      "name": "integrated-u003-api",
+      "mode": "api",
+      "processing": "active",
+      "file": "speech-20s.mp4",
+      "rate": 3,
+      "search_rps": 2,
+      "phases": {
+        "baseline": {
+          "planned": 120,
+          "recorded": 120,
+          "successes": 120,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.14296381499999916,
+          "p95_seconds": 0.17917799399999784,
+          "max_seconds": 0.20538959800000156,
+          "lag_p99_seconds": 0.0009113431944562933
+        },
+        "load": {
+          "planned": 600,
+          "recorded": 600,
+          "successes": 600,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.1438128410000354,
+          "p95_seconds": 0.17868224900000496,
+          "max_seconds": 0.5272481459999689,
+          "lag_p99_seconds": 0.000858118194457802
+        },
+        "recovery": {
+          "planned": 120,
+          "recorded": 120,
+          "successes": 120,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.1381732980000088,
+          "p95_seconds": 0.16241882099997018,
+          "max_seconds": 0.18809675700002118,
+          "lag_p99_seconds": 0.0008274771944911663
+        }
+      },
+      "query_ledger": {
+        "planned": 840,
+        "recorded": 840,
+        "successes": 840,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "uploads": {
+        "planned": 15,
+        "recorded": 15,
+        "successes": 15,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true,
+        "pool_full": 0,
+        "accepted_p95_seconds": 11.519783303999983,
+        "completed_during_load_per_minute": 3.0,
+        "outstanding_at_load_end": 0,
+        "outstanding_at_midpoint": 1,
+        "completed_last_third_per_minute": 3.0
+      },
+      "client_headroom": {
+        "mixed-uploads": {
+          "peak_cpu_quota_fraction": 0.04217420603271093,
+          "peak_memory_fraction": 0.13011474609375,
+          "oom": false
+        },
+        "mixed-queries": {
+          "peak_cpu_quota_fraction": 0.007578643533772681,
+          "peak_memory_fraction": 0.016490936279296875,
+          "oom": false
+        }
+      },
+      "infrastructure_valid": true,
+      "integrity_pass": true,
+      "search_p95_baseline_ratio": 0.9972332260847117,
+      "arrival_validation_pass": true,
+      "search_slo_pass": true,
+      "upload_success_pass": true,
+      "api_cpu_fraction_of_one_core": 0.08875506651529756,
+      "server_resources": {
+        "bench-api": {
+          "cpu_seconds": 25.347095,
+          "sampled_seconds": 285.5847671031952,
+          "allocated_cpu_utilization": 0.17751013303059615,
+          "throttled_seconds": 8.895558
+        },
+        "bench-proxy": {
+          "cpu_seconds": 4.000363,
+          "sampled_seconds": 285.5847671031952,
+          "allocated_cpu_utilization": 0.02801524073274175,
+          "throttled_seconds": 0.0
+        },
+        "bench-postgres": {
+          "cpu_seconds": 3.023324,
+          "sampled_seconds": 285.5847671031952,
+          "allocated_cpu_utilization": 0.021172865980681185,
+          "throttled_seconds": 0.0
+        },
+        "bench-qdrant": {
+          "cpu_seconds": 0.943707,
+          "sampled_seconds": 285.5847671031952,
+          "allocated_cpu_utilization": 0.006608944934790547,
+          "throttled_seconds": 0.0
+        }
+      },
+      "pipeline_start": {
+        "epoch": 1794430093.581419,
+        "videos": 0,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 0,
+        "oldest_pending_seconds": 0
+      },
+      "pipeline_end": {
+        "epoch": 1794430379.175787,
+        "videos": 15,
+        "searchable": 14,
+        "playable": 14,
+        "pending_videos": 1,
+        "oldest_pending_seconds": 4.233919
+      },
+      "pipeline_pending_growth": 1,
+      "searchable_completions_per_minute": 2.9413333509362865,
+      "playable_completions_per_minute": 2.9413333509362865,
+      "worker_capacity_and_stability": {
+        "bench-search": true,
+        "bench-playback": true
+      },
+      "processing_windows": {
+        "load": {
+          "observed_seconds": 285.5847671031952,
+          "first_offset_seconds": 9.656131505966187,
+          "last_offset_seconds": 295.2408986091614,
+          "first": {
+            "epoch": 1794430093.581419,
+            "videos": 0,
+            "searchable": 0,
+            "playable": 0,
+            "pending_videos": 0,
+            "oldest_pending_seconds": 0
+          },
+          "last": {
+            "epoch": 1794430379.175787,
+            "videos": 15,
+            "searchable": 14,
+            "playable": 14,
+            "pending_videos": 1,
+            "oldest_pending_seconds": 4.233919
+          },
+          "searchable_completions_per_minute": 2.9413333509362865,
+          "playable_completions_per_minute": 2.9413333509362865,
+          "pending_growth": 1
+        },
+        "last_half_load": {
+          "observed_seconds": 137.42325687408447,
+          "first_offset_seconds": 7.817641735076904,
+          "last_offset_seconds": 145.24089860916138,
+          "first": {
+            "epoch": 1794430241.751998,
+            "videos": 8,
+            "searchable": 7,
+            "playable": 7,
+            "pending_videos": 1,
+            "oldest_pending_seconds": 6.848624
+          },
+          "last": {
+            "epoch": 1794430379.175787,
+            "videos": 15,
+            "searchable": 14,
+            "playable": 14,
+            "pending_videos": 1,
+            "oldest_pending_seconds": 4.233919
+          },
+          "searchable_completions_per_minute": 3.0562512456303486,
+          "playable_completions_per_minute": 3.0562512456303486,
+          "pending_growth": 0
+        },
+        "recovery": {
+          "observed_seconds": 52.77241230010986,
+          "first_offset_seconds": 5.835070848464966,
+          "last_offset_seconds": 58.60748314857483,
+          "first": {
+            "epoch": 1794430389.762514,
+            "videos": 15,
+            "searchable": 15,
+            "playable": 15,
+            "pending_videos": 0,
+            "oldest_pending_seconds": 0
+          },
+          "last": {
+            "epoch": 1794430442.532569,
+            "videos": 15,
+            "searchable": 15,
+            "playable": 15,
+            "pending_videos": 0,
+            "oldest_pending_seconds": 0
+          },
+          "searchable_completions_per_minute": 0.0,
+          "playable_completions_per_minute": 0.0,
+          "pending_growth": 0
+        }
+      },
+      "failed_jobs_before_teardown": 0,
+      "after_timing_search_publications_verified": 15,
+      "after_timing_db_processed_status_count": 15,
+      "pipeline_samples": [
+        {
+          "seconds_from_load_start": 9.656131505966187,
+          "epoch": 1794430093.581419,
+          "videos": 0,
+          "searchable": 0,
+          "playable": 0,
+          "pending_videos": 0,
+          "oldest_pending_seconds": 0
+        },
+        {
+          "seconds_from_load_start": 20.210854291915894,
+          "epoch": 1794430104.139337,
+          "videos": 1,
+          "searchable": 0,
+          "playable": 0,
+          "pending_videos": 1,
+          "oldest_pending_seconds": 9.136199
+        },
+        {
+          "seconds_from_load_start": 30.799376249313354,
+          "epoch": 1794430114.730272,
+          "videos": 1,
+          "searchable": 1,
+          "playable": 1,
+          "pending_videos": 0,
+          "oldest_pending_seconds": 0
+        },
+        {
+          "seconds_from_load_start": 41.378724575042725,
+          "epoch": 1794430125.324442,
+          "videos": 2,
+          "searchable": 1,
+          "playable": 1,
+          "pending_videos": 1,
+          "oldest_pending_seconds": 10.381051
+        },
+        {
+          "seconds_from_load_start": 52.135096311569214,
+          "epoch": 1794430136.064226,
+          "videos": 3,
+          "searchable": 2,
+          "playable": 2,
+          "pending_videos": 1,
+          "oldest_pending_seconds": 1.169627
+        },
+        {
+          "seconds_from_load_start": 62.696760416030884,
+          "epoch": 1794430146.627693,
+          "videos": 3,
+          "searchable": 2,
+          "playable": 2,
+          "pending_videos": 1,
+          "oldest_pending_seconds": 11.733094
+        },
+        {
+          "seconds_from_load_start": 73.2905216217041,
+          "epoch": 1794430157.217737,
+          "videos": 4,
+          "searchable": 3,
+          "playable": 3,
+          "pending_videos": 1,
+          "oldest_pending_seconds": 2.357064
+        },
+        {
+          "seconds_from_load_start": 83.85989236831665,
+          "epoch": 1794430167.782924,
+          "videos": 4,
+          "searchable": 3,
+          "playable": 3,
+          "pending_videos": 1,
+          "oldest_pending_seconds": 12.922251
+        },
+        {
+          "seconds_from_load_start": 94.41206979751587,
+          "epoch": 1794430178.338694,
+          "videos": 5,
+          "searchable": 4,
+          "playable": 4,
+          "pending_videos": 1,
+          "oldest_pending_seconds": 3.404279
+        },
+        {
+          "seconds_from_load_start": 104.97125339508057,
+          "epoch": 1794430188.906593,
+          "videos": 5,
+          "searchable": 4,
+          "playable": 4,
+          "pending_videos": 1,
+          "oldest_pending_seconds": 13.972178
+        },
+        {
+          "seconds_from_load_start": 115.5469183921814,
+          "epoch": 1794430199.473556,
+          "videos": 6,
+          "searchable": 5,
+          "playable": 5,
+          "pending_videos": 1,
+          "oldest_pending_seconds": 4.501869
+        },
+        {
+          "seconds_from_load_start": 126.0972547531128,
+          "epoch": 1794430210.018961,
+          "videos": 6,
+          "searchable": 5,
+          "playable": 5,
+          "pending_videos": 1,
+          "oldest_pending_seconds": 15.047274
+        },
+        {
+          "seconds_from_load_start": 136.66681361198425,
+          "epoch": 1794430220.6002,
+          "videos": 7,
+          "searchable": 6,
+          "playable": 6,
+          "pending_videos": 1,
+          "oldest_pending_seconds": 5.659029
+        },
+        {
+          "seconds_from_load_start": 147.26057863235474,
+          "epoch": 1794430231.185979,
+          "videos": 7,
+          "searchable": 7,
+          "playable": 7,
+          "pending_videos": 0,
+          "oldest_pending_seconds": 0
+        },
+        {
+          "seconds_from_load_start": 157.8176417350769,
+          "epoch": 1794430241.751998,
+          "videos": 8,
+          "searchable": 7,
+          "playable": 7,
+          "pending_videos": 1,
+          "oldest_pending_seconds": 6.848624
+        },
+        {
+          "seconds_from_load_start": 168.40203285217285,
+          "epoch": 1794430252.331184,
+          "videos": 8,
+          "searchable": 8,
+          "playable": 8,
+          "pending_videos": 0,
+          "oldest_pending_seconds": 0
+        },
+        {
+          "seconds_from_load_start": 178.96519255638123,
+          "epoch": 1794430262.893705,
+          "videos": 9,
+          "searchable": 8,
+          "playable": 8,
+          "pending_videos": 1,
+          "oldest_pending_seconds": 7.92388
+        },
+        {
+          "seconds_from_load_start": 189.52597761154175,
+          "epoch": 1794430273.450527,
+          "videos": 9,
+          "searchable": 9,
+          "playable": 9,
+          "pending_videos": 0,
+          "oldest_pending_seconds": 0
+        },
+        {
+          "seconds_from_load_start": 200.08200883865356,
+          "epoch": 1794430284.008883,
+          "videos": 10,
+          "searchable": 9,
+          "playable": 9,
+          "pending_videos": 1,
+          "oldest_pending_seconds": 9.003332
+        },
+        {
+          "seconds_from_load_start": 210.64588713645935,
+          "epoch": 1794430294.578013,
+          "videos": 10,
+          "searchable": 10,
+          "playable": 10,
+          "pending_videos": 0,
+          "oldest_pending_seconds": 0
+        },
+        {
+          "seconds_from_load_start": 221.25004315376282,
+          "epoch": 1794430305.175849,
+          "videos": 11,
+          "searchable": 10,
+          "playable": 10,
+          "pending_videos": 1,
+          "oldest_pending_seconds": 10.197676
+        },
+        {
+          "seconds_from_load_start": 231.80578708648682,
+          "epoch": 1794430315.737753,
+          "videos": 12,
+          "searchable": 11,
+          "playable": 11,
+          "pending_videos": 1,
+          "oldest_pending_seconds": 0.790613
+        },
+        {
+          "seconds_from_load_start": 242.39781618118286,
+          "epoch": 1794430326.32166,
+          "videos": 12,
+          "searchable": 12,
+          "playable": 12,
+          "pending_videos": 0,
+          "oldest_pending_seconds": 0
+        },
+        {
+          "seconds_from_load_start": 252.9481167793274,
+          "epoch": 1794430336.886583,
+          "videos": 13,
+          "searchable": 12,
+          "playable": 12,
+          "pending_videos": 1,
+          "oldest_pending_seconds": 1.732946
+        },
+        {
+          "seconds_from_load_start": 263.5310745239258,
+          "epoch": 1794430347.456568,
+          "videos": 13,
+          "searchable": 13,
+          "playable": 13,
+          "pending_videos": 0,
+          "oldest_pending_seconds": 0
+        },
+        {
+          "seconds_from_load_start": 274.09246134757996,
+          "epoch": 1794430358.020937,
+          "videos": 14,
+          "searchable": 13,
+          "playable": 13,
+          "pending_videos": 1,
+          "oldest_pending_seconds": 3.100925
+        },
+        {
+          "seconds_from_load_start": 284.6722333431244,
+          "epoch": 1794430368.602963,
+          "videos": 14,
+          "searchable": 14,
+          "playable": 14,
+          "pending_videos": 0,
+          "oldest_pending_seconds": 0
+        },
+        {
+          "seconds_from_load_start": 295.2408986091614,
+          "epoch": 1794430379.175787,
+          "videos": 15,
+          "searchable": 14,
+          "playable": 14,
+          "pending_videos": 1,
+          "oldest_pending_seconds": 4.233919
+        },
+        {
+          "seconds_from_load_start": 305.83507084846497,
+          "epoch": 1794430389.762514,
+          "videos": 15,
+          "searchable": 15,
+          "playable": 15,
+          "pending_videos": 0,
+          "oldest_pending_seconds": 0
+        },
+        {
+          "seconds_from_load_start": 316.39225339889526,
+          "epoch": 1794430400.321471,
+          "videos": 15,
+          "searchable": 15,
+          "playable": 15,
+          "pending_videos": 0,
+          "oldest_pending_seconds": 0
+        },
+        {
+          "seconds_from_load_start": 326.9579973220825,
+          "epoch": 1794430410.887614,
+          "videos": 15,
+          "searchable": 15,
+          "playable": 15,
+          "pending_videos": 0,
+          "oldest_pending_seconds": 0
+        },
+        {
+          "seconds_from_load_start": 337.5177597999573,
+          "epoch": 1794430421.442693,
+          "videos": 15,
+          "searchable": 15,
+          "playable": 15,
+          "pending_videos": 0,
+          "oldest_pending_seconds": 0
+        },
+        {
+          "seconds_from_load_start": 348.0647599697113,
+          "epoch": 1794430431.990859,
+          "videos": 15,
+          "searchable": 15,
+          "playable": 15,
+          "pending_videos": 0,
+          "oldest_pending_seconds": 0
+        },
+        {
+          "seconds_from_load_start": 358.60748314857483,
+          "epoch": 1794430442.532569,
+          "videos": 15,
+          "searchable": 15,
+          "playable": 15,
+          "pending_videos": 0,
+          "oldest_pending_seconds": 0
+        }
+      ]
+    },
+    {
+      "name": "integrated-u003-direct",
+      "mode": "direct",
+      "processing": "active",
+      "file": "speech-20s.mp4",
+      "rate": 3,
+      "search_rps": 2,
+      "phases": {
+        "baseline": {
+          "planned": 120,
+          "recorded": 120,
+          "successes": 120,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.13874316100000034,
+          "p95_seconds": 0.16375910799999838,
+          "max_seconds": 0.1922903890000016,
+          "lag_p99_seconds": 0.0010491891807831166
+        },
+        "load": {
+          "planned": 600,
+          "recorded": 600,
+          "successes": 600,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.1417987500000163,
+          "p95_seconds": 0.16912442100001499,
+          "max_seconds": 0.44713382500002624,
+          "lag_p99_seconds": 0.0008176121807537129
+        },
+        "recovery": {
+          "planned": 120,
+          "recorded": 120,
+          "successes": 120,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.1428153099999763,
+          "p95_seconds": 0.18861909900000318,
+          "max_seconds": 0.35428381200000875,
+          "lag_p99_seconds": 0.0010874091807409059
+        }
+      },
+      "query_ledger": {
+        "planned": 840,
+        "recorded": 840,
+        "successes": 840,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "uploads": {
+        "planned": 15,
+        "recorded": 15,
+        "successes": 15,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true,
+        "pool_full": 0,
+        "accepted_p95_seconds": 12.330387367999997,
+        "completed_during_load_per_minute": 3.0,
+        "outstanding_at_load_end": 0,
+        "outstanding_at_midpoint": 1,
+        "completed_last_third_per_minute": 3.0
+      },
+      "client_headroom": {
+        "mixed-uploads": {
+          "peak_cpu_quota_fraction": 0.041622199131945425,
+          "peak_memory_fraction": 0.1307453155517578,
+          "oom": false
+        },
+        "mixed-queries": {
+          "peak_cpu_quota_fraction": 0.007667816520744147,
+          "peak_memory_fraction": 0.016326904296875,
+          "oom": false
+        }
+      },
+      "infrastructure_valid": true,
+      "integrity_pass": true,
+      "search_p95_baseline_ratio": 1.0327634478811198,
+      "arrival_validation_pass": true,
+      "search_slo_pass": true,
+      "upload_success_pass": true,
+      "api_cpu_fraction_of_one_core": 0.05858030959430088,
+      "server_resources": {
+        "bench-api": {
+          "cpu_seconds": 16.720282,
+          "sampled_seconds": 285.42495107650757,
+          "allocated_cpu_utilization": 0.1171606191886018,
+          "throttled_seconds": 8.238034
+        },
+        "bench-proxy": {
+          "cpu_seconds": 0.663788,
+          "sampled_seconds": 285.42495107650757,
+          "allocated_cpu_utilization": 0.004651226162929765,
+          "throttled_seconds": 0.0
+        },
+        "bench-postgres": {
+          "cpu_seconds": 2.990276,
+          "sampled_seconds": 285.42495107650757,
+          "allocated_cpu_utilization": 0.020953150652890627,
+          "throttled_seconds": 0.0
+        },
+        "bench-qdrant": {
+          "cpu_seconds": 0.954086,
+          "sampled_seconds": 285.42495107650757,
+          "allocated_cpu_utilization": 0.006685372083986163,
+          "throttled_seconds": 0.0
+        }
+      },
+      "pipeline_start": {
+        "epoch": 1794430645.338654,
+        "videos": 0,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 0,
+        "oldest_pending_seconds": 0
+      },
+      "pipeline_end": {
+        "epoch": 1794430930.761481,
+        "videos": 15,
+        "searchable": 14,
+        "playable": 14,
+        "pending_videos": 1,
+        "oldest_pending_seconds": 3.342027
+      },
+      "pipeline_pending_growth": 1,
+      "searchable_completions_per_minute": 2.9429802714579067,
+      "playable_completions_per_minute": 2.9429802714579067,
+      "worker_capacity_and_stability": {
+        "bench-search": true,
+        "bench-playback": true
+      },
+      "processing_windows": {
+        "load": {
+          "observed_seconds": 285.42495107650757,
+          "first_offset_seconds": 9.68533706665039,
+          "last_offset_seconds": 295.11028814315796,
+          "first": {
+            "epoch": 1794430645.338654,
+            "videos": 0,
+            "searchable": 0,
+            "playable": 0,
+            "pending_videos": 0,
+            "oldest_pending_seconds": 0
+          },
+          "last": {
+            "epoch": 1794430930.761481,
+            "videos": 15,
+            "searchable": 14,
+            "playable": 14,
+            "pending_videos": 1,
+            "oldest_pending_seconds": 3.342027
+          },
+          "searchable_completions_per_minute": 2.9429802714579067,
+          "playable_completions_per_minute": 2.9429802714579067,
+          "pending_growth": 1
+        },
+        "last_half_load": {
+          "observed_seconds": 137.48011684417725,
+          "first_offset_seconds": 7.630171298980713,
+          "last_offset_seconds": 145.11028814315796,
+          "first": {
+            "epoch": 1794430793.283783,
+            "videos": 8,
+            "searchable": 7,
+            "playable": 7,
+            "pending_videos": 1,
+            "oldest_pending_seconds": 6.002533
+          },
+          "last": {
+            "epoch": 1794430930.761481,
+            "videos": 15,
+            "searchable": 14,
+            "playable": 14,
+            "pending_videos": 1,
+            "oldest_pending_seconds": 3.342027
+          },
+          "searchable_completions_per_minute": 3.0549872202686337,
+          "playable_completions_per_minute": 3.0549872202686337,
+          "pending_growth": 0
+        },
+        "recovery": {
+          "observed_seconds": 52.80978441238403,
+          "first_offset_seconds": 5.69188380241394,
+          "last_offset_seconds": 58.501668214797974,
+          "first": {
+            "epoch": 1794430941.345345,
+            "videos": 15,
+            "searchable": 14,
+            "playable": 14,
+            "pending_videos": 1,
+            "oldest_pending_seconds": 13.925891
+          },
+          "last": {
+            "epoch": 1794430994.154075,
+            "videos": 15,
+            "searchable": 15,
+            "playable": 15,
+            "pending_videos": 0,
+            "oldest_pending_seconds": 0
+          },
+          "searchable_completions_per_minute": 1.1361530948785665,
+          "playable_completions_per_minute": 1.1361530948785665,
+          "pending_growth": -1
+        }
+      },
+      "failed_jobs_before_teardown": 0,
+      "after_timing_search_publications_verified": 15,
+      "after_timing_db_processed_status_count": 15,
+      "pipeline_samples": [
+        {
+          "seconds_from_load_start": 9.68533706665039,
+          "epoch": 1794430645.338654,
+          "videos": 0,
+          "searchable": 0,
+          "playable": 0,
+          "pending_videos": 0,
+          "oldest_pending_seconds": 0
+        },
+        {
+          "seconds_from_load_start": 20.231483459472656,
+          "epoch": 1794430655.891296,
+          "videos": 1,
+          "searchable": 0,
+          "playable": 0,
+          "pending_videos": 1,
+          "oldest_pending_seconds": 8.204572
+        },
+        {
+          "seconds_from_load_start": 30.846359729766846,
+          "epoch": 1794430666.499463,
+          "videos": 1,
+          "searchable": 1,
+          "playable": 1,
+          "pending_videos": 0,
+          "oldest_pending_seconds": 0
+        },
+        {
+          "seconds_from_load_start": 41.39890766143799,
+          "epoch": 1794430677.053589,
+          "videos": 2,
+          "searchable": 1,
+          "playable": 1,
+          "pending_videos": 1,
+          "oldest_pending_seconds": 9.74334
+        },
+        {
+          "seconds_from_load_start": 51.96659326553345,
+          "epoch": 1794430687.625578,
+          "videos": 3,
+          "searchable": 2,
+          "playable": 2,
+          "pending_videos": 1,
+          "oldest_pending_seconds": 0.236683
+        },
+        {
+          "seconds_from_load_start": 62.52207040786743,
+          "epoch": 1794430698.177219,
+          "videos": 3,
+          "searchable": 2,
+          "playable": 2,
+          "pending_videos": 1,
+          "oldest_pending_seconds": 10.788324
+        },
+        {
+          "seconds_from_load_start": 73.09036946296692,
+          "epoch": 1794430708.740514,
+          "videos": 4,
+          "searchable": 3,
+          "playable": 3,
+          "pending_videos": 1,
+          "oldest_pending_seconds": 1.283174
+        },
+        {
+          "seconds_from_load_start": 83.64022493362427,
+          "epoch": 1794430719.299506,
+          "videos": 4,
+          "searchable": 3,
+          "playable": 3,
+          "pending_videos": 1,
+          "oldest_pending_seconds": 11.842166
+        },
+        {
+          "seconds_from_load_start": 94.20376133918762,
+          "epoch": 1794430729.860908,
+          "videos": 5,
+          "searchable": 4,
+          "playable": 4,
+          "pending_videos": 1,
+          "oldest_pending_seconds": 2.481669
+        },
+        {
+          "seconds_from_load_start": 104.7677698135376,
+          "epoch": 1794430740.427512,
+          "videos": 5,
+          "searchable": 4,
+          "playable": 4,
+          "pending_videos": 1,
+          "oldest_pending_seconds": 13.048273
+        },
+        {
+          "seconds_from_load_start": 115.33808660507202,
+          "epoch": 1794430750.990447,
+          "videos": 6,
+          "searchable": 5,
+          "playable": 5,
+          "pending_videos": 1,
+          "oldest_pending_seconds": 3.653989
+        },
+        {
+          "seconds_from_load_start": 125.91331481933594,
+          "epoch": 1794430761.575679,
+          "videos": 6,
+          "searchable": 6,
+          "playable": 6,
+          "pending_videos": 0,
+          "oldest_pending_seconds": 0
+        },
+        {
+          "seconds_from_load_start": 136.49210381507874,
+          "epoch": 1794430772.150042,
+          "videos": 7,
+          "searchable": 6,
+          "playable": 6,
+          "pending_videos": 1,
+          "oldest_pending_seconds": 4.770928
+        },
+        {
+          "seconds_from_load_start": 147.0603950023651,
+          "epoch": 1794430782.713469,
+          "videos": 7,
+          "searchable": 7,
+          "playable": 7,
+          "pending_videos": 0,
+          "oldest_pending_seconds": 0
+        },
+        {
+          "seconds_from_load_start": 157.6301712989807,
+          "epoch": 1794430793.283783,
+          "videos": 8,
+          "searchable": 7,
+          "playable": 7,
+          "pending_videos": 1,
+          "oldest_pending_seconds": 6.002533
+        },
+        {
+          "seconds_from_load_start": 168.20900869369507,
+          "epoch": 1794430803.866878,
+          "videos": 8,
+          "searchable": 8,
+          "playable": 8,
+          "pending_videos": 0,
+          "oldest_pending_seconds": 0
+        },
+        {
+          "seconds_from_load_start": 178.77970361709595,
+          "epoch": 1794430814.445457,
+          "videos": 9,
+          "searchable": 8,
+          "playable": 8,
+          "pending_videos": 1,
+          "oldest_pending_seconds": 6.90662
+        },
+        {
+          "seconds_from_load_start": 189.36307954788208,
+          "epoch": 1794430825.016814,
+          "videos": 9,
+          "searchable": 9,
+          "playable": 9,
+          "pending_videos": 0,
+          "oldest_pending_seconds": 0
+        },
+        {
+          "seconds_from_load_start": 199.92020750045776,
+          "epoch": 1794430835.581978,
+          "videos": 10,
+          "searchable": 9,
+          "playable": 9,
+          "pending_videos": 1,
+          "oldest_pending_seconds": 8.158654
+        },
+        {
+          "seconds_from_load_start": 210.52321648597717,
+          "epoch": 1794430846.180942,
+          "videos": 10,
+          "searchable": 10,
+          "playable": 10,
+          "pending_videos": 0,
+          "oldest_pending_seconds": 0
+        },
+        {
+          "seconds_from_load_start": 221.0779504776001,
+          "epoch": 1794430856.769744,
+          "videos": 11,
+          "searchable": 10,
+          "playable": 10,
+          "pending_videos": 1,
+          "oldest_pending_seconds": 9.302276
+        },
+        {
+          "seconds_from_load_start": 231.72423481941223,
+          "epoch": 1794430867.379268,
+          "videos": 11,
+          "searchable": 11,
+          "playable": 11,
+          "pending_videos": 0,
+          "oldest_pending_seconds": 0
+        },
+        {
+          "seconds_from_load_start": 242.2956907749176,
+          "epoch": 1794430877.952346,
+          "videos": 12,
+          "searchable": 11,
+          "playable": 11,
+          "pending_videos": 1,
+          "oldest_pending_seconds": 10.289326
+        },
+        {
+          "seconds_from_load_start": 252.87326383590698,
+          "epoch": 1794430888.529974,
+          "videos": 13,
+          "searchable": 12,
+          "playable": 12,
+          "pending_videos": 1,
+          "oldest_pending_seconds": 1.121415
+        },
+        {
+          "seconds_from_load_start": 263.4270017147064,
+          "epoch": 1794430899.078781,
+          "videos": 13,
+          "searchable": 12,
+          "playable": 12,
+          "pending_videos": 1,
+          "oldest_pending_seconds": 11.670222
+        },
+        {
+          "seconds_from_load_start": 273.9769241809845,
+          "epoch": 1794430909.632561,
+          "videos": 14,
+          "searchable": 13,
+          "playable": 13,
+          "pending_videos": 1,
+          "oldest_pending_seconds": 2.187542
+        },
+        {
+          "seconds_from_load_start": 284.52449011802673,
+          "epoch": 1794430920.180487,
+          "videos": 14,
+          "searchable": 13,
+          "playable": 13,
+          "pending_videos": 1,
+          "oldest_pending_seconds": 12.735468
+        },
+        {
+          "seconds_from_load_start": 295.11028814315796,
+          "epoch": 1794430930.761481,
+          "videos": 15,
+          "searchable": 14,
+          "playable": 14,
+          "pending_videos": 1,
+          "oldest_pending_seconds": 3.342027
+        },
+        {
+          "seconds_from_load_start": 305.69188380241394,
+          "epoch": 1794430941.345345,
+          "videos": 15,
+          "searchable": 14,
+          "playable": 14,
+          "pending_videos": 1,
+          "oldest_pending_seconds": 13.925891
+        },
+        {
+          "seconds_from_load_start": 316.266152381897,
+          "epoch": 1794430951.922193,
+          "videos": 15,
+          "searchable": 15,
+          "playable": 15,
+          "pending_videos": 0,
+          "oldest_pending_seconds": 0
+        },
+        {
+          "seconds_from_load_start": 326.8177306652069,
+          "epoch": 1794430962.471956,
+          "videos": 15,
+          "searchable": 15,
+          "playable": 15,
+          "pending_videos": 0,
+          "oldest_pending_seconds": 0
+        },
+        {
+          "seconds_from_load_start": 337.386105298996,
+          "epoch": 1794430973.045579,
+          "videos": 15,
+          "searchable": 15,
+          "playable": 15,
+          "pending_videos": 0,
+          "oldest_pending_seconds": 0
+        },
+        {
+          "seconds_from_load_start": 347.94745349884033,
+          "epoch": 1794430983.605742,
+          "videos": 15,
+          "searchable": 15,
+          "playable": 15,
+          "pending_videos": 0,
+          "oldest_pending_seconds": 0
+        },
+        {
+          "seconds_from_load_start": 358.501668214798,
+          "epoch": 1794430994.154075,
+          "videos": 15,
+          "searchable": 15,
+          "playable": 15,
+          "pending_videos": 0,
+          "oldest_pending_seconds": 0
+        }
+      ]
+    },
+    {
+      "name": "integrated-u036-direct",
+      "mode": "direct",
+      "processing": "active",
+      "file": "speech-20s.mp4",
+      "rate": 36,
+      "search_rps": 2,
+      "phases": {
+        "baseline": {
+          "planned": 120,
+          "recorded": 120,
+          "successes": 120,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.14056666600000609,
+          "p95_seconds": 0.17254278300000078,
+          "max_seconds": 0.20794530600000144,
+          "lag_p99_seconds": 0.0008883430835027184
+        },
+        "load": {
+          "planned": 600,
+          "recorded": 600,
+          "successes": 600,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.14756856000001425,
+          "p95_seconds": 0.17888603799999692,
+          "max_seconds": 0.545210524999944,
+          "lag_p99_seconds": 0.0008407390835145634
+        },
+        "recovery": {
+          "planned": 120,
+          "recorded": 120,
+          "successes": 120,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.14745449999999255,
+          "p95_seconds": 0.18354928999999537,
+          "max_seconds": 0.21600414099998305,
+          "lag_p99_seconds": 0.000742929083457966
+        }
+      },
+      "query_ledger": {
+        "planned": 840,
+        "recorded": 840,
+        "successes": 840,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "uploads": {
+        "planned": 180,
+        "recorded": 180,
+        "successes": 180,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true,
+        "pool_full": 0,
+        "accepted_p95_seconds": 11.965882541999992,
+        "completed_during_load_per_minute": 34.8,
+        "outstanding_at_load_end": 6,
+        "outstanding_at_midpoint": 7,
+        "completed_last_third_per_minute": 36.6
+      },
+      "client_headroom": {
+        "mixed-uploads": {
+          "peak_cpu_quota_fraction": 0.3562195810232662,
+          "peak_memory_fraction": 0.15967979431152343,
+          "oom": false
+        },
+        "mixed-queries": {
+          "peak_cpu_quota_fraction": 0.007960964216423559,
+          "peak_memory_fraction": 0.016628265380859375,
+          "oom": false
+        }
+      },
+      "infrastructure_valid": true,
+      "integrity_pass": true,
+      "search_p95_baseline_ratio": 1.0367633747972878,
+      "arrival_validation_pass": true,
+      "search_slo_pass": true,
+      "upload_success_pass": true,
+      "api_cpu_fraction_of_one_core": 0.12244598502118646,
+      "server_resources": {
+        "bench-api": {
+          "cpu_seconds": 35.153805,
+          "sampled_seconds": 287.0964286327362,
+          "allocated_cpu_utilization": 0.2448919700423719,
+          "throttled_seconds": 0.497422
+        },
+        "bench-proxy": {
+          "cpu_seconds": 2.418022,
+          "sampled_seconds": 287.0964286327362,
+          "allocated_cpu_utilization": 0.016844667915345047,
+          "throttled_seconds": 0.0
+        },
+        "bench-postgres": {
+          "cpu_seconds": 7.548282,
+          "sampled_seconds": 287.0964286327362,
+          "allocated_cpu_utilization": 0.05258360081975124,
+          "throttled_seconds": 0.124889
+        },
+        "bench-qdrant": {
+          "cpu_seconds": 1.305379,
+          "sampled_seconds": 287.0964286327362,
+          "allocated_cpu_utilization": 0.009093662406158918,
+          "throttled_seconds": 0.0
+        }
+      },
+      "pipeline_start": {
+        "epoch": 1794431194.645712,
+        "videos": 0,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 0,
+        "oldest_pending_seconds": 0
+      },
+      "pipeline_end": {
+        "epoch": 1794431481.743178,
+        "videos": 172,
+        "searchable": 88,
+        "playable": 35,
+        "pending_videos": 137,
+        "oldest_pending_seconds": 227.248889
+      },
+      "pipeline_pending_growth": 137,
+      "searchable_completions_per_minute": 18.3910333721161,
+      "playable_completions_per_minute": 7.314615545727994,
+      "worker_capacity_and_stability": {
+        "bench-search": true,
+        "bench-playback": true
+      },
+      "processing_windows": {
+        "load": {
+          "observed_seconds": 287.0964286327362,
+          "first_offset_seconds": 9.827378988265991,
+          "last_offset_seconds": 296.9238076210022,
+          "first": {
+            "epoch": 1794431194.645712,
+            "videos": 0,
+            "searchable": 0,
+            "playable": 0,
+            "pending_videos": 0,
+            "oldest_pending_seconds": 0
+          },
+          "last": {
+            "epoch": 1794431481.743178,
+            "videos": 172,
+            "searchable": 88,
+            "playable": 35,
+            "pending_videos": 137,
+            "oldest_pending_seconds": 227.248889
+          },
+          "searchable_completions_per_minute": 18.3910333721161,
+          "playable_completions_per_minute": 7.314615545727994,
+          "pending_growth": 137
+        },
+        "last_half_load": {
+          "observed_seconds": 138.2706651687622,
+          "first_offset_seconds": 8.65314245223999,
+          "last_offset_seconds": 146.9238076210022,
+          "first": {
+            "epoch": 1794431343.477028,
+            "videos": 89,
+            "searchable": 44,
+            "playable": 18,
+            "pending_videos": 71,
+            "oldest_pending_seconds": 117.356657
+          },
+          "last": {
+            "epoch": 1794431481.743178,
+            "videos": 172,
+            "searchable": 88,
+            "playable": 35,
+            "pending_videos": 137,
+            "oldest_pending_seconds": 227.248889
+          },
+          "searchable_completions_per_minute": 19.092986909246623,
+          "playable_completions_per_minute": 7.376835851299832,
+          "pending_growth": 66
+        },
+        "recovery": {
+          "observed_seconds": 42.48462438583374,
+          "first_offset_seconds": 7.539678573608398,
+          "last_offset_seconds": 50.02430295944214,
+          "first": {
+            "epoch": 1794431492.396346,
+            "videos": 178,
+            "searchable": 91,
+            "playable": 36,
+            "pending_videos": 142,
+            "oldest_pending_seconds": 236.020379
+          },
+          "last": {
+            "epoch": 1794431534.840509,
+            "videos": 180,
+            "searchable": 106,
+            "playable": 42,
+            "pending_videos": 138,
+            "oldest_pending_seconds": 268.642311
+          },
+          "searchable_completions_per_minute": 21.184134566577455,
+          "playable_completions_per_minute": 8.473653826630981,
+          "pending_growth": -4
+        }
+      },
+      "failed_jobs_before_teardown": 0,
+      "after_timing_search_publications_verified": 113,
+      "after_timing_db_processed_status_count": 46,
+      "pipeline_samples": [
+        {
+          "seconds_from_load_start": 9.827378988265991,
+          "epoch": 1794431194.645712,
+          "videos": 0,
+          "searchable": 0,
+          "playable": 0,
+          "pending_videos": 0,
+          "oldest_pending_seconds": 0
+        },
+        {
+          "seconds_from_load_start": 20.391499042510986,
+          "epoch": 1794431205.214621,
+          "videos": 6,
+          "searchable": 0,
+          "playable": 0,
+          "pending_videos": 6,
+          "oldest_pending_seconds": 8.810941
+        },
+        {
+          "seconds_from_load_start": 31.02092432975769,
+          "epoch": 1794431215.854172,
+          "videos": 12,
+          "searchable": 2,
+          "playable": 1,
+          "pending_videos": 11,
+          "oldest_pending_seconds": 17.912244
+        },
+        {
+          "seconds_from_load_start": 41.604403018951416,
+          "epoch": 1794431226.423104,
+          "videos": 19,
+          "searchable": 5,
+          "playable": 3,
+          "pending_videos": 16,
+          "oldest_pending_seconds": 25.237538
+        },
+        {
+          "seconds_from_load_start": 52.2204225063324,
+          "epoch": 1794431237.037239,
+          "videos": 25,
+          "searchable": 9,
+          "playable": 4,
+          "pending_videos": 21,
+          "oldest_pending_seconds": 33.922391
+        },
+        {
+          "seconds_from_load_start": 62.831077575683594,
+          "epoch": 1794431247.657222,
+          "videos": 31,
+          "searchable": 11,
+          "playable": 6,
+          "pending_videos": 25,
+          "oldest_pending_seconds": 41.551578
+        },
+        {
+          "seconds_from_load_start": 73.44902896881104,
+          "epoch": 1794431258.278619,
+          "videos": 38,
+          "searchable": 15,
+          "playable": 7,
+          "pending_videos": 31,
+          "oldest_pending_seconds": 50.390155
+        },
+        {
+          "seconds_from_load_start": 84.06428480148315,
+          "epoch": 1794431268.913508,
+          "videos": 44,
+          "searchable": 18,
+          "playable": 8,
+          "pending_videos": 36,
+          "oldest_pending_seconds": 59.398365
+        },
+        {
+          "seconds_from_load_start": 94.73190236091614,
+          "epoch": 1794431279.576408,
+          "videos": 51,
+          "searchable": 23,
+          "playable": 10,
+          "pending_videos": 41,
+          "oldest_pending_seconds": 66.728213
+        },
+        {
+          "seconds_from_load_start": 105.36910033226013,
+          "epoch": 1794431290.259286,
+          "videos": 57,
+          "searchable": 27,
+          "playable": 11,
+          "pending_videos": 46,
+          "oldest_pending_seconds": 75.596099
+        },
+        {
+          "seconds_from_load_start": 116.0603837966919,
+          "epoch": 1794431300.885768,
+          "videos": 63,
+          "searchable": 28,
+          "playable": 12,
+          "pending_videos": 51,
+          "oldest_pending_seconds": 84.652169
+        },
+        {
+          "seconds_from_load_start": 126.7394027709961,
+          "epoch": 1794431311.571791,
+          "videos": 70,
+          "searchable": 33,
+          "playable": 14,
+          "pending_videos": 56,
+          "oldest_pending_seconds": 92.006593
+        },
+        {
+          "seconds_from_load_start": 137.34770131111145,
+          "epoch": 1794431322.192741,
+          "videos": 76,
+          "searchable": 36,
+          "playable": 15,
+          "pending_videos": 61,
+          "oldest_pending_seconds": 101.075009
+        },
+        {
+          "seconds_from_load_start": 147.99428868293762,
+          "epoch": 1794431332.839118,
+          "videos": 82,
+          "searchable": 41,
+          "playable": 16,
+          "pending_videos": 66,
+          "oldest_pending_seconds": 110.038326
+        },
+        {
+          "seconds_from_load_start": 158.65314245224,
+          "epoch": 1794431343.477028,
+          "videos": 89,
+          "searchable": 44,
+          "playable": 18,
+          "pending_videos": 71,
+          "oldest_pending_seconds": 117.356657
+        },
+        {
+          "seconds_from_load_start": 169.25008368492126,
+          "epoch": 1794431354.150868,
+          "videos": 95,
+          "searchable": 47,
+          "playable": 19,
+          "pending_videos": 76,
+          "oldest_pending_seconds": 126.322821
+        },
+        {
+          "seconds_from_load_start": 179.9520194530487,
+          "epoch": 1794431364.803132,
+          "videos": 102,
+          "searchable": 50,
+          "playable": 20,
+          "pending_videos": 82,
+          "oldest_pending_seconds": 135.262429
+        },
+        {
+          "seconds_from_load_start": 190.61239552497864,
+          "epoch": 1794431375.432117,
+          "videos": 108,
+          "searchable": 53,
+          "playable": 22,
+          "pending_videos": 86,
+          "oldest_pending_seconds": 142.330221
+        },
+        {
+          "seconds_from_load_start": 201.19344186782837,
+          "epoch": 1794431386.01789,
+          "videos": 114,
+          "searchable": 57,
+          "playable": 23,
+          "pending_videos": 91,
+          "oldest_pending_seconds": 151.46458
+        },
+        {
+          "seconds_from_load_start": 211.81275844573975,
+          "epoch": 1794431396.646843,
+          "videos": 121,
+          "searchable": 61,
+          "playable": 24,
+          "pending_videos": 97,
+          "oldest_pending_seconds": 160.333625
+        },
+        {
+          "seconds_from_load_start": 222.51570510864258,
+          "epoch": 1794431407.34669,
+          "videos": 127,
+          "searchable": 64,
+          "playable": 26,
+          "pending_videos": 101,
+          "oldest_pending_seconds": 167.743345
+        },
+        {
+          "seconds_from_load_start": 233.1463644504547,
+          "epoch": 1794431417.963663,
+          "videos": 133,
+          "searchable": 69,
+          "playable": 27,
+          "pending_videos": 106,
+          "oldest_pending_seconds": 176.746147
+        },
+        {
+          "seconds_from_load_start": 243.737144947052,
+          "epoch": 1794431428.58705,
+          "videos": 140,
+          "searchable": 71,
+          "playable": 28,
+          "pending_videos": 112,
+          "oldest_pending_seconds": 185.835171
+        },
+        {
+          "seconds_from_load_start": 254.46047139167786,
+          "epoch": 1794431439.287906,
+          "videos": 146,
+          "searchable": 75,
+          "playable": 30,
+          "pending_videos": 116,
+          "oldest_pending_seconds": 193.121748
+        },
+        {
+          "seconds_from_load_start": 265.0542483329773,
+          "epoch": 1794431449.877117,
+          "videos": 153,
+          "searchable": 79,
+          "playable": 31,
+          "pending_videos": 122,
+          "oldest_pending_seconds": 201.885422
+        },
+        {
+          "seconds_from_load_start": 275.65094017982483,
+          "epoch": 1794431460.495588,
+          "videos": 159,
+          "searchable": 82,
+          "playable": 32,
+          "pending_videos": 127,
+          "oldest_pending_seconds": 210.691142
+        },
+        {
+          "seconds_from_load_start": 286.31946206092834,
+          "epoch": 1794431471.138604,
+          "videos": 165,
+          "searchable": 85,
+          "playable": 34,
+          "pending_videos": 131,
+          "oldest_pending_seconds": 218.091542
+        },
+        {
+          "seconds_from_load_start": 296.9238076210022,
+          "epoch": 1794431481.743178,
+          "videos": 172,
+          "searchable": 88,
+          "playable": 35,
+          "pending_videos": 137,
+          "oldest_pending_seconds": 227.248889
+        },
+        {
+          "seconds_from_load_start": 307.5396785736084,
+          "epoch": 1794431492.396346,
+          "videos": 178,
+          "searchable": 91,
+          "playable": 36,
+          "pending_videos": 142,
+          "oldest_pending_seconds": 236.020379
+        },
+        {
+          "seconds_from_load_start": 318.1859209537506,
+          "epoch": 1794431503.015311,
+          "videos": 180,
+          "searchable": 95,
+          "playable": 38,
+          "pending_videos": 142,
+          "oldest_pending_seconds": 243.447821
+        },
+        {
+          "seconds_from_load_start": 328.78014969825745,
+          "epoch": 1794431513.601775,
+          "videos": 180,
+          "searchable": 98,
+          "playable": 39,
+          "pending_videos": 141,
+          "oldest_pending_seconds": 252.425473
+        },
+        {
+          "seconds_from_load_start": 339.38988423347473,
+          "epoch": 1794431524.234342,
+          "videos": 180,
+          "searchable": 102,
+          "playable": 40,
+          "pending_videos": 140,
+          "oldest_pending_seconds": 261.071693
+        },
+        {
+          "seconds_from_load_start": 350.02430295944214,
+          "epoch": 1794431534.840509,
+          "videos": 180,
+          "searchable": 106,
+          "playable": 42,
+          "pending_videos": 138,
+          "oldest_pending_seconds": 268.642311
+        }
+      ]
+    },
+    {
+      "name": "integrated-u036-api",
+      "mode": "api",
+      "processing": "active",
+      "file": "speech-20s.mp4",
+      "rate": 36,
+      "search_rps": 2,
+      "phases": {
+        "baseline": {
+          "planned": 120,
+          "recorded": 120,
+          "successes": 120,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.14654667699999846,
+          "p95_seconds": 0.18114184399999794,
+          "max_seconds": 0.21473279100000217,
+          "lag_p99_seconds": 0.0009112642331530196
+        },
+        "load": {
+          "planned": 600,
+          "recorded": 600,
+          "successes": 600,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.1590008810000145,
+          "p95_seconds": 0.2637132519999868,
+          "max_seconds": 0.40554924400002346,
+          "lag_p99_seconds": 0.0008684632331892317
+        },
+        "recovery": {
+          "planned": 120,
+          "recorded": 120,
+          "successes": 120,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.14726963100000284,
+          "p95_seconds": 0.21321062399999938,
+          "max_seconds": 0.4523456860000151,
+          "lag_p99_seconds": 0.0008328892331519455
+        }
+      },
+      "query_ledger": {
+        "planned": 840,
+        "recorded": 840,
+        "successes": 840,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "uploads": {
+        "planned": 180,
+        "recorded": 180,
+        "successes": 180,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true,
+        "pool_full": 0,
+        "accepted_p95_seconds": 11.173279089000003,
+        "completed_during_load_per_minute": 34.8,
+        "outstanding_at_load_end": 6,
+        "outstanding_at_midpoint": 7,
+        "completed_last_third_per_minute": 36.0
+      },
+      "client_headroom": {
+        "mixed-uploads": {
+          "peak_cpu_quota_fraction": 0.27308194153440624,
+          "peak_memory_fraction": 0.15286216735839844,
+          "oom": false
+        },
+        "mixed-queries": {
+          "peak_cpu_quota_fraction": 0.007851849260688529,
+          "peak_memory_fraction": 0.016452789306640625,
+          "oom": false
+        }
+      },
+      "infrastructure_valid": true,
+      "integrity_pass": true,
+      "search_p95_baseline_ratio": 1.4558383981118674,
+      "arrival_validation_pass": true,
+      "search_slo_pass": false,
+      "upload_success_pass": true,
+      "api_cpu_fraction_of_one_core": 0.3701649479956329,
+      "server_resources": {
+        "bench-api": {
+          "cpu_seconds": 106.441141,
+          "sampled_seconds": 287.5505678653717,
+          "allocated_cpu_utilization": 0.7403298959912656,
+          "throttled_seconds": 69.150249
+        },
+        "bench-proxy": {
+          "cpu_seconds": 24.935822,
+          "sampled_seconds": 287.5505678653717,
+          "allocated_cpu_utilization": 0.1734360824609792,
+          "throttled_seconds": 0.0
+        },
+        "bench-postgres": {
+          "cpu_seconds": 6.937419,
+          "sampled_seconds": 287.5505678653717,
+          "allocated_cpu_utilization": 0.04825181916001661,
+          "throttled_seconds": 0.183129
+        },
+        "bench-qdrant": {
+          "cpu_seconds": 1.277941,
+          "sampled_seconds": 287.5505678653717,
+          "allocated_cpu_utilization": 0.008888460972181555,
+          "throttled_seconds": 0.0
+        }
+      },
+      "pipeline_start": {
+        "epoch": 1794431891.04586,
+        "videos": 0,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 0,
+        "oldest_pending_seconds": 0
+      },
+      "pipeline_end": {
+        "epoch": 1794432178.642721,
+        "videos": 172,
+        "searchable": 89,
+        "playable": 35,
+        "pending_videos": 137,
+        "oldest_pending_seconds": 227.766116
+      },
+      "pipeline_pending_growth": 137,
+      "searchable_completions_per_minute": 18.570646685351477,
+      "playable_completions_per_minute": 7.303063303228109,
+      "worker_capacity_and_stability": {
+        "bench-search": true,
+        "bench-playback": true
+      },
+      "processing_windows": {
+        "load": {
+          "observed_seconds": 287.5505678653717,
+          "first_offset_seconds": 9.397061586380005,
+          "last_offset_seconds": 296.9476294517517,
+          "first": {
+            "epoch": 1794431891.04586,
+            "videos": 0,
+            "searchable": 0,
+            "playable": 0,
+            "pending_videos": 0,
+            "oldest_pending_seconds": 0
+          },
+          "last": {
+            "epoch": 1794432178.642721,
+            "videos": 172,
+            "searchable": 89,
+            "playable": 35,
+            "pending_videos": 137,
+            "oldest_pending_seconds": 227.766116
+          },
+          "searchable_completions_per_minute": 18.570646685351477,
+          "playable_completions_per_minute": 7.303063303228109,
+          "pending_growth": 137
+        },
+        "last_half_load": {
+          "observed_seconds": 138.44948840141296,
+          "first_offset_seconds": 8.498141050338745,
+          "last_offset_seconds": 146.9476294517517,
+          "first": {
+            "epoch": 1794432040.151531,
+            "videos": 89,
+            "searchable": 42,
+            "playable": 18,
+            "pending_videos": 71,
+            "oldest_pending_seconds": 117.757491
+          },
+          "last": {
+            "epoch": 1794432178.642721,
+            "videos": 172,
+            "searchable": 89,
+            "playable": 35,
+            "pending_videos": 137,
+            "oldest_pending_seconds": 227.766116
+          },
+          "searchable_completions_per_minute": 20.368439295520144,
+          "playable_completions_per_minute": 7.36730783029452,
+          "pending_growth": 66
+        },
+        "recovery": {
+          "observed_seconds": 42.416120290756226,
+          "first_offset_seconds": 7.656957149505615,
+          "last_offset_seconds": 50.07307744026184,
+          "first": {
+            "epoch": 1794432189.317456,
+            "videos": 179,
+            "searchable": 91,
+            "playable": 36,
+            "pending_videos": 143,
+            "oldest_pending_seconds": 236.846753
+          },
+          "last": {
+            "epoch": 1794432231.774712,
+            "videos": 180,
+            "searchable": 105,
+            "playable": 41,
+            "pending_videos": 139,
+            "oldest_pending_seconds": 271.062818
+          },
+          "searchable_completions_per_minute": 19.803791441601078,
+          "playable_completions_per_minute": 7.072782657714671,
+          "pending_growth": -4
+        }
+      },
+      "failed_jobs_before_teardown": 0,
+      "after_timing_search_publications_verified": 115,
+      "after_timing_db_processed_status_count": 46,
+      "pipeline_samples": [
+        {
+          "seconds_from_load_start": 9.397061586380005,
+          "epoch": 1794431891.04586,
+          "videos": 0,
+          "searchable": 0,
+          "playable": 0,
+          "pending_videos": 0,
+          "oldest_pending_seconds": 0
+        },
+        {
+          "seconds_from_load_start": 19.970041513442993,
+          "epoch": 1794431901.642459,
+          "videos": 6,
+          "searchable": 0,
+          "playable": 0,
+          "pending_videos": 6,
+          "oldest_pending_seconds": 9.067216
+        },
+        {
+          "seconds_from_load_start": 30.613781929016113,
+          "epoch": 1794431912.308495,
+          "videos": 12,
+          "searchable": 2,
+          "playable": 2,
+          "pending_videos": 10,
+          "oldest_pending_seconds": 16.636744
+        },
+        {
+          "seconds_from_load_start": 41.31442666053772,
+          "epoch": 1794431922.991059,
+          "videos": 19,
+          "searchable": 6,
+          "playable": 3,
+          "pending_videos": 16,
+          "oldest_pending_seconds": 25.570047
+        },
+        {
+          "seconds_from_load_start": 51.980071783065796,
+          "epoch": 1794431933.651508,
+          "videos": 25,
+          "searchable": 10,
+          "playable": 4,
+          "pending_videos": 21,
+          "oldest_pending_seconds": 34.612439
+        },
+        {
+          "seconds_from_load_start": 62.622740507125854,
+          "epoch": 1794431944.282925,
+          "videos": 32,
+          "searchable": 12,
+          "playable": 6,
+          "pending_videos": 26,
+          "oldest_pending_seconds": 41.867338
+        },
+        {
+          "seconds_from_load_start": 73.24140334129333,
+          "epoch": 1794431954.934392,
+          "videos": 38,
+          "searchable": 15,
+          "playable": 7,
+          "pending_videos": 31,
+          "oldest_pending_seconds": 50.848924
+        },
+        {
+          "seconds_from_load_start": 83.90818214416504,
+          "epoch": 1794431965.578786,
+          "videos": 44,
+          "searchable": 18,
+          "playable": 8,
+          "pending_videos": 36,
+          "oldest_pending_seconds": 59.811657
+        },
+        {
+          "seconds_from_load_start": 94.54701018333435,
+          "epoch": 1794431976.204195,
+          "videos": 51,
+          "searchable": 24,
+          "playable": 10,
+          "pending_videos": 41,
+          "oldest_pending_seconds": 67.177884
+        },
+        {
+          "seconds_from_load_start": 105.17076349258423,
+          "epoch": 1794431986.868621,
+          "videos": 57,
+          "searchable": 27,
+          "playable": 11,
+          "pending_videos": 46,
+          "oldest_pending_seconds": 76.116145
+        },
+        {
+          "seconds_from_load_start": 115.86929631233215,
+          "epoch": 1794431997.550572,
+          "videos": 64,
+          "searchable": 30,
+          "playable": 12,
+          "pending_videos": 52,
+          "oldest_pending_seconds": 85.002078
+        },
+        {
+          "seconds_from_load_start": 126.5315408706665,
+          "epoch": 1794432008.192179,
+          "videos": 70,
+          "searchable": 34,
+          "playable": 14,
+          "pending_videos": 56,
+          "oldest_pending_seconds": 92.433971
+        },
+        {
+          "seconds_from_load_start": 137.17377257347107,
+          "epoch": 1794432018.850171,
+          "videos": 76,
+          "searchable": 37,
+          "playable": 15,
+          "pending_videos": 61,
+          "oldest_pending_seconds": 101.388646
+        },
+        {
+          "seconds_from_load_start": 147.83363676071167,
+          "epoch": 1794432029.522728,
+          "videos": 83,
+          "searchable": 41,
+          "playable": 16,
+          "pending_videos": 67,
+          "oldest_pending_seconds": 110.422022
+        },
+        {
+          "seconds_from_load_start": 158.49814105033875,
+          "epoch": 1794432040.151531,
+          "videos": 89,
+          "searchable": 42,
+          "playable": 18,
+          "pending_videos": 71,
+          "oldest_pending_seconds": 117.757491
+        },
+        {
+          "seconds_from_load_start": 169.10535144805908,
+          "epoch": 1794432050.769845,
+          "videos": 95,
+          "searchable": 48,
+          "playable": 19,
+          "pending_videos": 76,
+          "oldest_pending_seconds": 126.77425
+        },
+        {
+          "seconds_from_load_start": 179.73766684532166,
+          "epoch": 1794432061.450513,
+          "videos": 102,
+          "searchable": 50,
+          "playable": 20,
+          "pending_videos": 82,
+          "oldest_pending_seconds": 135.757243
+        },
+        {
+          "seconds_from_load_start": 190.44230246543884,
+          "epoch": 1794432072.10267,
+          "videos": 108,
+          "searchable": 55,
+          "playable": 21,
+          "pending_videos": 87,
+          "oldest_pending_seconds": 144.706248
+        },
+        {
+          "seconds_from_load_start": 201.03956031799316,
+          "epoch": 1794432082.707274,
+          "videos": 115,
+          "searchable": 57,
+          "playable": 23,
+          "pending_videos": 92,
+          "oldest_pending_seconds": 151.969483
+        },
+        {
+          "seconds_from_load_start": 211.66353964805603,
+          "epoch": 1794432093.343816,
+          "videos": 121,
+          "searchable": 60,
+          "playable": 24,
+          "pending_videos": 97,
+          "oldest_pending_seconds": 160.921764
+        },
+        {
+          "seconds_from_load_start": 222.43975186347961,
+          "epoch": 1794432104.101398,
+          "videos": 128,
+          "searchable": 65,
+          "playable": 25,
+          "pending_videos": 103,
+          "oldest_pending_seconds": 170.052645
+        },
+        {
+          "seconds_from_load_start": 233.03548765182495,
+          "epoch": 1794432114.697256,
+          "videos": 134,
+          "searchable": 68,
+          "playable": 27,
+          "pending_videos": 107,
+          "oldest_pending_seconds": 177.178561
+        },
+        {
+          "seconds_from_load_start": 243.6931655406952,
+          "epoch": 1794432125.360313,
+          "videos": 140,
+          "searchable": 70,
+          "playable": 28,
+          "pending_videos": 112,
+          "oldest_pending_seconds": 186.339027
+        },
+        {
+          "seconds_from_load_start": 254.36288809776306,
+          "epoch": 1794432136.022381,
+          "videos": 147,
+          "searchable": 76,
+          "playable": 29,
+          "pending_videos": 118,
+          "oldest_pending_seconds": 195.284333
+        },
+        {
+          "seconds_from_load_start": 264.9665584564209,
+          "epoch": 1794432146.63306,
+          "videos": 153,
+          "searchable": 79,
+          "playable": 31,
+          "pending_videos": 122,
+          "oldest_pending_seconds": 202.540862
+        },
+        {
+          "seconds_from_load_start": 275.6368188858032,
+          "epoch": 1794432157.313303,
+          "videos": 159,
+          "searchable": 81,
+          "playable": 32,
+          "pending_videos": 127,
+          "oldest_pending_seconds": 211.575417
+        },
+        {
+          "seconds_from_load_start": 286.2772660255432,
+          "epoch": 1794432167.971925,
+          "videos": 166,
+          "searchable": 85,
+          "playable": 33,
+          "pending_videos": 133,
+          "oldest_pending_seconds": 220.501918
+        },
+        {
+          "seconds_from_load_start": 296.9476294517517,
+          "epoch": 1794432178.642721,
+          "videos": 172,
+          "searchable": 89,
+          "playable": 35,
+          "pending_videos": 137,
+          "oldest_pending_seconds": 227.766116
+        },
+        {
+          "seconds_from_load_start": 307.6569571495056,
+          "epoch": 1794432189.317456,
+          "videos": 179,
+          "searchable": 91,
+          "playable": 36,
+          "pending_videos": 143,
+          "oldest_pending_seconds": 236.846753
+        },
+        {
+          "seconds_from_load_start": 318.25878620147705,
+          "epoch": 1794432199.938992,
+          "videos": 180,
+          "searchable": 95,
+          "playable": 37,
+          "pending_videos": 143,
+          "oldest_pending_seconds": 245.935345
+        },
+        {
+          "seconds_from_load_start": 328.8797981739044,
+          "epoch": 1794432210.550499,
+          "videos": 180,
+          "searchable": 98,
+          "playable": 39,
+          "pending_videos": 141,
+          "oldest_pending_seconds": 253.080751
+        },
+        {
+          "seconds_from_load_start": 339.4790027141571,
+          "epoch": 1794432221.143977,
+          "videos": 180,
+          "searchable": 101,
+          "playable": 40,
+          "pending_videos": 140,
+          "oldest_pending_seconds": 262.093031
+        },
+        {
+          "seconds_from_load_start": 350.07307744026184,
+          "epoch": 1794432231.774712,
+          "videos": 180,
+          "searchable": 105,
+          "playable": 41,
+          "pending_videos": 139,
+          "oldest_pending_seconds": 271.062818
+        }
+      ]
+    }
+  ],
+  "limits": [
+    "One paired repetition per rate; exploratory confirmation only.",
+    "Worker containers restart for each trial, including lazy model startup.",
+    "Completion rates come from sampled database status; playback is not decoded by this measurement.",
+    "Verification after timing may observe more completed work than the final timed sample.",
+    "Admission success does not establish sustainable processing capacity."
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "trial": "primary-r03-u024-direct",
+  "query": {
+    "index": 493,
+    "scheduled_seconds": 246.5,
+    "lag_seconds": 0,
+    "phase": "recovery",
+    "video_id": "425cfb7f-6597-4266-b838-d634ad3a4445",
+    "query_index": 0,
+    "outcome": "invalid_response",
+    "http_status": 502,
+    "seconds": 0.0012419409999856726,
+    "server_seconds": null
+  },
+  "scheduled_at": "2026-11-11T20:38:01.129581+00:00",
+  "proxy_observation": {
+    "status": 502,
+    "error": "read: connection reset by peer",
+    "duration_seconds": 0.00021045,
+    "recorded_epoch": 1794429481.1311932
+  },
+  "source": {
+    "archive_label": "primary-001",
+    "file": "snapshots/primary-001-final/bench-proxy.log",
+    "line": 18,
+    "sha256": "3b23d0041e2be608076d68bef3e2caf7798db6fc2c872e076a06a51723426001"
+  },
+  "application_restart_or_oom_observed": false,
+  "interpretation": "Proxy-to-API connection reset. A more specific root cause was not established. Keep the failure in all query totals; it occurred outside the load interval.",
+  "primary_query_counts": {
+    "scheduled": 12960,
+    "correct": 12959,
+    "load_scheduled": 8640,
+    "load_correct": 8640
+  }
+}

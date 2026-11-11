@@ -1,0 +1,3416 @@
+{
+  "registered_plan_sha256": "eecbd7473370a188f7d92f5dee028a7786b149c89232ac8f980aa071ebffa8c9",
+  "started_at": "2026-11-11T18:08:29.091187+00:00",
+  "finished_at": "2026-11-11T20:46:01.331964+00:00",
+  "cohorts": [
+    {
+      "rate": 12,
+      "mode": "api",
+      "trials": 3,
+      "search_p95_mean_seconds": 0.17378713666667076,
+      "search_p95_range_seconds": [
+        0.17061049299998557,
+        0.17681093400000827
+      ],
+      "baseline_p95_mean_seconds": 0.1788021729999982,
+      "relative_p95_mean": 0.9782009934787657,
+      "api_allocated_cpu_mean": 0.349186368391698,
+      "uploads_planned": 108,
+      "uploads_accepted": 108,
+      "queries_planned": 1620,
+      "queries_correct": 1620,
+      "last_third_upload_completions_per_minute": [
+        12.0,
+        12.0,
+        12.0
+      ],
+      "search_gate_passes": 3,
+      "valid_trials": 3,
+      "integrity_passes": 3,
+      "all_gates_pass": true
+    },
+    {
+      "rate": 12,
+      "mode": "direct",
+      "trials": 3,
+      "search_p95_mean_seconds": 0.17155284799999693,
+      "search_p95_range_seconds": [
+        0.16831576099999074,
+        0.17368139099999097
+      ],
+      "baseline_p95_mean_seconds": 0.16945742966666633,
+      "relative_p95_mean": 1.013556121630433,
+      "api_allocated_cpu_mean": 0.13167466927513974,
+      "uploads_planned": 108,
+      "uploads_accepted": 108,
+      "queries_planned": 1620,
+      "queries_correct": 1620,
+      "last_third_upload_completions_per_minute": [
+        12.0,
+        12.0,
+        12.0
+      ],
+      "search_gate_passes": 3,
+      "valid_trials": 3,
+      "integrity_passes": 3,
+      "all_gates_pass": true
+    },
+    {
+      "rate": 24,
+      "mode": "api",
+      "trials": 3,
+      "search_p95_mean_seconds": 0.17611644466667592,
+      "search_p95_range_seconds": [
+        0.17218974200001685,
+        0.18061646099999779
+      ],
+      "baseline_p95_mean_seconds": 0.17067170133333395,
+      "relative_p95_mean": 1.0327535119762707,
+      "api_allocated_cpu_mean": 0.5408439460691492,
+      "uploads_planned": 216,
+      "uploads_accepted": 216,
+      "queries_planned": 1620,
+      "queries_correct": 1620,
+      "last_third_upload_completions_per_minute": [
+        24.0,
+        24.0,
+        24.0
+      ],
+      "search_gate_passes": 3,
+      "valid_trials": 3,
+      "integrity_passes": 3,
+      "all_gates_pass": true
+    },
+    {
+      "rate": 24,
+      "mode": "direct",
+      "trials": 3,
+      "search_p95_mean_seconds": 0.1790513700000059,
+      "search_p95_range_seconds": [
+        0.1731737620000058,
+        0.18365124000000652
+      ],
+      "baseline_p95_mean_seconds": 0.17813925766666702,
+      "relative_p95_mean": 1.0061834471270936,
+      "api_allocated_cpu_mean": 0.17272219916804196,
+      "uploads_planned": 216,
+      "uploads_accepted": 216,
+      "queries_planned": 1620,
+      "queries_correct": 1619,
+      "last_third_upload_completions_per_minute": [
+        24.0,
+        24.0,
+        24.0
+      ],
+      "search_gate_passes": 3,
+      "valid_trials": 3,
+      "integrity_passes": 3,
+      "all_gates_pass": true
+    },
+    {
+      "rate": 36,
+      "mode": "api",
+      "trials": 3,
+      "search_p95_mean_seconds": 0.2418736426666631,
+      "search_p95_range_seconds": [
+        0.21846443299998647,
+        0.25381685000000287
+      ],
+      "baseline_p95_mean_seconds": 0.18612396000000203,
+      "relative_p95_mean": 1.3044407090805004,
+      "api_allocated_cpu_mean": 0.6752011121518184,
+      "uploads_planned": 324,
+      "uploads_accepted": 324,
+      "queries_planned": 1620,
+      "queries_correct": 1620,
+      "last_third_upload_completions_per_minute": [
+        36.0,
+        36.0,
+        36.0
+      ],
+      "search_gate_passes": 1,
+      "valid_trials": 3,
+      "integrity_passes": 3,
+      "all_gates_pass": false
+    },
+    {
+      "rate": 36,
+      "mode": "direct",
+      "trials": 3,
+      "search_p95_mean_seconds": 0.17068454999999572,
+      "search_p95_range_seconds": [
+        0.16619347499999276,
+        0.17603280200000154
+      ],
+      "baseline_p95_mean_seconds": 0.17569718000000042,
+      "relative_p95_mean": 0.9736575674843417,
+      "api_allocated_cpu_mean": 0.21059170422790416,
+      "uploads_planned": 324,
+      "uploads_accepted": 324,
+      "queries_planned": 1620,
+      "queries_correct": 1620,
+      "last_third_upload_completions_per_minute": [
+        36.0,
+        35.0,
+        35.0
+      ],
+      "search_gate_passes": 3,
+      "valid_trials": 3,
+      "integrity_passes": 3,
+      "all_gates_pass": true
+    },
+    {
+      "rate": 60,
+      "mode": "api",
+      "trials": 3,
+      "search_p95_mean_seconds": 0.30657391333333117,
+      "search_p95_range_seconds": [
+        0.2837159790000005,
+        0.3233334279999981
+      ],
+      "baseline_p95_mean_seconds": 0.16823249399999987,
+      "relative_p95_mean": 1.822123314716717,
+      "api_allocated_cpu_mean": 0.9283776624467592,
+      "uploads_planned": 540,
+      "uploads_accepted": 540,
+      "queries_planned": 1620,
+      "queries_correct": 1620,
+      "last_third_upload_completions_per_minute": [
+        60.0,
+        60.0,
+        60.0
+      ],
+      "search_gate_passes": 0,
+      "valid_trials": 3,
+      "integrity_passes": 3,
+      "all_gates_pass": false
+    },
+    {
+      "rate": 60,
+      "mode": "direct",
+      "trials": 3,
+      "search_p95_mean_seconds": 0.1736431160000017,
+      "search_p95_range_seconds": [
+        0.17089913099999832,
+        0.1782717190000112
+      ],
+      "baseline_p95_mean_seconds": 0.1778294739999983,
+      "relative_p95_mean": 0.9770654469586199,
+      "api_allocated_cpu_mean": 0.2757737925106815,
+      "uploads_planned": 540,
+      "uploads_accepted": 540,
+      "queries_planned": 1620,
+      "queries_correct": 1620,
+      "last_third_upload_completions_per_minute": [
+        61.0,
+        60.0,
+        61.0
+      ],
+      "search_gate_passes": 3,
+      "valid_trials": 3,
+      "integrity_passes": 3,
+      "all_gates_pass": true
+    }
+  ],
+  "paired_comparisons": [
+    {
+      "rate": 12,
+      "all_planned_pairs_valid": true,
+      "search_p95_ratio": {
+        "right_over_left": 0.9871435325448784,
+        "paired_95pct_interval": [
+          0.9519533503509623,
+          1.012020942932412
+        ],
+        "independent_pairs": 3,
+        "resamples": 10000,
+        "seed": 20261111
+      },
+      "api_cpu_ratio": {
+        "right_over_left": 0.3770899473585245,
+        "paired_95pct_interval": [
+          0.3719791514217334,
+          0.38409521399423124
+        ],
+        "independent_pairs": 3,
+        "resamples": 10000,
+        "seed": 20261111
+      }
+    },
+    {
+      "rate": 24,
+      "all_planned_pairs_valid": true,
+      "search_p95_ratio": {
+        "right_over_left": 1.0166646864742512,
+        "paired_95pct_interval": [
+          0.9865026390579356,
+          1.0665631870218408
+        ],
+        "independent_pairs": 3,
+        "resamples": 10000,
+        "seed": 20261111
+      },
+      "api_cpu_ratio": {
+        "right_over_left": 0.3193568134087216,
+        "paired_95pct_interval": [
+          0.315191771045348,
+          0.32258429613399375
+        ],
+        "independent_pairs": 3,
+        "resamples": 10000,
+        "seed": 20261111
+      }
+    },
+    {
+      "rate": 36,
+      "all_planned_pairs_valid": true,
+      "search_p95_ratio": {
+        "right_over_left": 0.7056765181943522,
+        "paired_95pct_interval": [
+          0.6560105308428642,
+          0.7773685202112663
+        ],
+        "independent_pairs": 3,
+        "resamples": 10000,
+        "seed": 20261111
+      },
+      "api_cpu_ratio": {
+        "right_over_left": 0.3118947828103589,
+        "paired_95pct_interval": [
+          0.30865289789342953,
+          0.3167599849198521
+        ],
+        "independent_pairs": 3,
+        "resamples": 10000,
+        "seed": 20261111
+      }
+    },
+    {
+      "rate": 60,
+      "all_planned_pairs_valid": true,
+      "search_p95_ratio": {
+        "right_over_left": 0.5663988632040042,
+        "paired_95pct_interval": [
+          0.5493242601672671,
+          0.602359907969787
+        ],
+        "independent_pairs": 3,
+        "resamples": 10000,
+        "seed": 20261111
+      },
+      "api_cpu_ratio": {
+        "right_over_left": 0.29704914677058664,
+        "paired_95pct_interval": [
+          0.285900976430337,
+          0.3027378152185932
+        ],
+        "independent_pairs": 3,
+        "resamples": 10000,
+        "seed": 20261111
+      }
+    }
+  ],
+  "trials": [
+    {
+      "name": "primary-r01-u012-api",
+      "mode": "api",
+      "processing": "paused",
+      "file": "speech-20s.mp4",
+      "rate": 12,
+      "search_rps": 2,
+      "phases": {
+        "baseline": {
+          "planned": 120,
+          "recorded": 120,
+          "successes": 120,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.14633664600000337,
+          "p95_seconds": 0.18499403399999573,
+          "max_seconds": 0.22918147999999927,
+          "lag_p99_seconds": 0.00023081358557419662
+        },
+        "load": {
+          "planned": 360,
+          "recorded": 360,
+          "successes": 360,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.1453585659999808,
+          "p95_seconds": 0.17681093400000827,
+          "max_seconds": 0.2188428450000065,
+          "lag_p99_seconds": 0.00032221458559433813
+        },
+        "recovery": {
+          "planned": 60,
+          "recorded": 60,
+          "successes": 60,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.1419272709999932,
+          "p95_seconds": 0.17776387100003194,
+          "max_seconds": 0.2180670059999684,
+          "lag_p99_seconds": 0.00017836058560760648
+        }
+      },
+      "query_ledger": {
+        "planned": 540,
+        "recorded": 540,
+        "successes": 540,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "uploads": {
+        "planned": 36,
+        "recorded": 36,
+        "successes": 36,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true,
+        "pool_full": 0,
+        "accepted_p95_seconds": 11.20698335200001,
+        "completed_during_load_per_minute": 11.333333333333334,
+        "outstanding_at_load_end": 2,
+        "outstanding_at_midpoint": 2,
+        "completed_last_third_per_minute": 12.0
+      },
+      "client_headroom": {
+        "mixed-uploads": {
+          "peak_cpu_quota_fraction": 0.1133753790304096,
+          "peak_memory_fraction": 0.1309123992919922,
+          "oom": false
+        },
+        "mixed-queries": {
+          "peak_cpu_quota_fraction": 0.006981282905037724,
+          "peak_memory_fraction": 0.015972137451171875,
+          "oom": false
+        }
+      },
+      "infrastructure_valid": true,
+      "integrity_pass": true,
+      "search_p95_baseline_ratio": 0.955765600527487,
+      "arrival_validation_pass": true,
+      "search_slo_pass": true,
+      "upload_success_pass": true,
+      "api_cpu_fraction_of_one_core": 0.17286723886933467,
+      "server_resources": {
+        "bench-api": {
+          "cpu_seconds": 31.04753,
+          "sampled_seconds": 179.60331988334656,
+          "allocated_cpu_utilization": 0.3457344777386694,
+          "throttled_seconds": 3.093377
+        },
+        "bench-proxy": {
+          "cpu_seconds": 7.49593,
+          "sampled_seconds": 179.60331988334656,
+          "allocated_cpu_utilization": 0.08347206504722354,
+          "throttled_seconds": 0.0
+        },
+        "bench-postgres": {
+          "cpu_seconds": 1.625965,
+          "sampled_seconds": 179.60331988334656,
+          "allocated_cpu_utilization": 0.018106179786165136,
+          "throttled_seconds": 0.0
+        },
+        "bench-qdrant": {
+          "cpu_seconds": 0.550218,
+          "sampled_seconds": 179.60331988334656,
+          "allocated_cpu_utilization": 0.006127035963003021,
+          "throttled_seconds": 0.0
+        }
+      },
+      "pipeline_start": {
+        "epoch": 1794420588.460461,
+        "videos": 0,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 0,
+        "oldest_pending_seconds": 0
+      },
+      "pipeline_end": {
+        "epoch": 1794420768.06463,
+        "videos": 34,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 34,
+        "oldest_pending_seconds": 168.7421
+      },
+      "pipeline_pending_growth": 34,
+      "searchable_completions_per_minute": 0.0,
+      "playable_completions_per_minute": 0.0,
+      "repeat": 1,
+      "pair_id": "r01-u012"
+    },
+    {
+      "name": "primary-r01-u012-direct",
+      "mode": "direct",
+      "processing": "paused",
+      "file": "speech-20s.mp4",
+      "rate": 12,
+      "search_rps": 2,
+      "phases": {
+        "baseline": {
+          "planned": 120,
+          "recorded": 120,
+          "successes": 120,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.14017061499999908,
+          "p95_seconds": 0.16157489399999758,
+          "max_seconds": 0.20101888899999903,
+          "lag_p99_seconds": 0.0009612100074463115
+        },
+        "load": {
+          "planned": 360,
+          "recorded": 360,
+          "successes": 360,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.140746902999992,
+          "p95_seconds": 0.16831576099999074,
+          "max_seconds": 0.29136741400000754,
+          "lag_p99_seconds": 0.000956869007453065
+        },
+        "recovery": {
+          "planned": 60,
+          "recorded": 60,
+          "successes": 60,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.13759252399997784,
+          "p95_seconds": 0.15263648399998783,
+          "max_seconds": 0.2089624119999935,
+          "lag_p99_seconds": 0.0009015980074309482
+        }
+      },
+      "query_ledger": {
+        "planned": 540,
+        "recorded": 540,
+        "successes": 540,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "uploads": {
+        "planned": 36,
+        "recorded": 36,
+        "successes": 36,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true,
+        "pool_full": 0,
+        "accepted_p95_seconds": 12.108496350000001,
+        "completed_during_load_per_minute": 11.333333333333334,
+        "outstanding_at_load_end": 2,
+        "outstanding_at_midpoint": 2,
+        "completed_last_third_per_minute": 12.0
+      },
+      "client_headroom": {
+        "mixed-uploads": {
+          "peak_cpu_quota_fraction": 0.12840906644282177,
+          "peak_memory_fraction": 0.12960166931152345,
+          "oom": false
+        },
+        "mixed-queries": {
+          "peak_cpu_quota_fraction": 0.008888309530419842,
+          "peak_memory_fraction": 0.015987396240234375,
+          "oom": false
+        }
+      },
+      "infrastructure_valid": true,
+      "integrity_pass": true,
+      "search_p95_baseline_ratio": 1.0417197674286778,
+      "arrival_validation_pass": true,
+      "search_slo_pass": true,
+      "upload_success_pass": true,
+      "api_cpu_fraction_of_one_core": 0.06488010270027424,
+      "server_resources": {
+        "bench-api": {
+          "cpu_seconds": 11.646244,
+          "sampled_seconds": 179.50409317016602,
+          "allocated_cpu_utilization": 0.12976020540054883,
+          "throttled_seconds": 0.0
+        },
+        "bench-proxy": {
+          "cpu_seconds": 0.606845,
+          "sampled_seconds": 179.50409317016602,
+          "allocated_cpu_utilization": 0.0067613499980161895,
+          "throttled_seconds": 0.0
+        },
+        "bench-postgres": {
+          "cpu_seconds": 1.664958,
+          "sampled_seconds": 179.50409317016602,
+          "allocated_cpu_utilization": 0.018550641053311865,
+          "throttled_seconds": 0.0
+        },
+        "bench-qdrant": {
+          "cpu_seconds": 0.558466,
+          "sampled_seconds": 179.50409317016602,
+          "allocated_cpu_utilization": 0.0062223205068709635,
+          "throttled_seconds": 0.0
+        }
+      },
+      "pipeline_start": {
+        "epoch": 1794420939.494373,
+        "videos": 0,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 0,
+        "oldest_pending_seconds": 0
+      },
+      "pipeline_end": {
+        "epoch": 1794421119.001468,
+        "videos": 34,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 34,
+        "oldest_pending_seconds": 167.887888
+      },
+      "pipeline_pending_growth": 34,
+      "searchable_completions_per_minute": 0.0,
+      "playable_completions_per_minute": 0.0,
+      "repeat": 1,
+      "pair_id": "r01-u012"
+    },
+    {
+      "name": "primary-r01-u024-direct",
+      "mode": "direct",
+      "processing": "paused",
+      "file": "speech-20s.mp4",
+      "rate": 24,
+      "search_rps": 2,
+      "phases": {
+        "baseline": {
+          "planned": 120,
+          "recorded": 120,
+          "successes": 120,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.1431244540000007,
+          "p95_seconds": 0.17949472699999933,
+          "max_seconds": 0.21833612500000163,
+          "lag_p99_seconds": 0.0004883251016849499
+        },
+        "load": {
+          "planned": 360,
+          "recorded": 360,
+          "successes": 360,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.14379509299999335,
+          "p95_seconds": 0.1731737620000058,
+          "max_seconds": 0.5912748450000072,
+          "lag_p99_seconds": 0.0005467651016886066
+        },
+        "recovery": {
+          "planned": 60,
+          "recorded": 60,
+          "successes": 60,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.14621552000002702,
+          "p95_seconds": 0.17385089800000422,
+          "max_seconds": 0.21419090699998197,
+          "lag_p99_seconds": 0.0004845551017069738
+        }
+      },
+      "query_ledger": {
+        "planned": 540,
+        "recorded": 540,
+        "successes": 540,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "uploads": {
+        "planned": 72,
+        "recorded": 72,
+        "successes": 72,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true,
+        "pool_full": 0,
+        "accepted_p95_seconds": 12.006742455999978,
+        "completed_during_load_per_minute": 22.666666666666668,
+        "outstanding_at_load_end": 4,
+        "outstanding_at_midpoint": 5,
+        "completed_last_third_per_minute": 24.0
+      },
+      "client_headroom": {
+        "mixed-uploads": {
+          "peak_cpu_quota_fraction": 0.23124754771120568,
+          "peak_memory_fraction": 0.13721199035644532,
+          "oom": false
+        },
+        "mixed-queries": {
+          "peak_cpu_quota_fraction": 0.007593052893079871,
+          "peak_memory_fraction": 0.01613616943359375,
+          "oom": false
+        }
+      },
+      "infrastructure_valid": true,
+      "integrity_pass": true,
+      "search_p95_baseline_ratio": 0.9647846758195101,
+      "arrival_validation_pass": true,
+      "search_slo_pass": true,
+      "upload_success_pass": true,
+      "api_cpu_fraction_of_one_core": 0.08676071726073117,
+      "server_resources": {
+        "bench-api": {
+          "cpu_seconds": 14.658718,
+          "sampled_seconds": 168.9557032585144,
+          "allocated_cpu_utilization": 0.17352143452146276,
+          "throttled_seconds": 0.355887
+        },
+        "bench-proxy": {
+          "cpu_seconds": 0.921117,
+          "sampled_seconds": 168.9557032585144,
+          "allocated_cpu_utilization": 0.010903650865110182,
+          "throttled_seconds": 0.0
+        },
+        "bench-postgres": {
+          "cpu_seconds": 2.092181,
+          "sampled_seconds": 168.9557032585144,
+          "allocated_cpu_utilization": 0.024766029907836995,
+          "throttled_seconds": 0.0
+        },
+        "bench-qdrant": {
+          "cpu_seconds": 0.524329,
+          "sampled_seconds": 168.9557032585144,
+          "allocated_cpu_utilization": 0.006206703767764961,
+          "throttled_seconds": 0.0
+        }
+      },
+      "pipeline_start": {
+        "epoch": 1794421293.853672,
+        "videos": 0,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 0,
+        "oldest_pending_seconds": 0
+      },
+      "pipeline_end": {
+        "epoch": 1794421462.803663,
+        "videos": 67,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 67,
+        "oldest_pending_seconds": 167.149505
+      },
+      "pipeline_pending_growth": 67,
+      "searchable_completions_per_minute": 0.0,
+      "playable_completions_per_minute": 0.0,
+      "repeat": 1,
+      "pair_id": "r01-u024"
+    },
+    {
+      "name": "primary-r01-u024-api",
+      "mode": "api",
+      "processing": "paused",
+      "file": "speech-20s.mp4",
+      "rate": 24,
+      "search_rps": 2,
+      "phases": {
+        "baseline": {
+          "planned": 120,
+          "recorded": 120,
+          "successes": 120,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.14203438399999868,
+          "p95_seconds": 0.17757621800000198,
+          "max_seconds": 0.2226357860000062,
+          "lag_p99_seconds": 0.0006223295217253622
+        },
+        "load": {
+          "planned": 360,
+          "recorded": 360,
+          "successes": 360,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.14530722600000445,
+          "p95_seconds": 0.1755431310000131,
+          "max_seconds": 0.2335168700000213,
+          "lag_p99_seconds": 0.00028834752171746914
+        },
+        "recovery": {
+          "planned": 60,
+          "recorded": 60,
+          "successes": 60,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.14030897399998501,
+          "p95_seconds": 0.16966000500001246,
+          "max_seconds": 0.18382702299999074,
+          "lag_p99_seconds": 0.0005875235217445152
+        }
+      },
+      "query_ledger": {
+        "planned": 540,
+        "recorded": 540,
+        "successes": 540,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "uploads": {
+        "planned": 72,
+        "recorded": 72,
+        "successes": 72,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true,
+        "pool_full": 0,
+        "accepted_p95_seconds": 11.169274573000003,
+        "completed_during_load_per_minute": 22.666666666666668,
+        "outstanding_at_load_end": 4,
+        "outstanding_at_midpoint": 5,
+        "completed_last_third_per_minute": 24.0
+      },
+      "client_headroom": {
+        "mixed-uploads": {
+          "peak_cpu_quota_fraction": 0.1994276306008497,
+          "peak_memory_fraction": 0.1357097625732422,
+          "oom": false
+        },
+        "mixed-queries": {
+          "peak_cpu_quota_fraction": 0.00689122280112184,
+          "peak_memory_fraction": 0.01615142822265625,
+          "oom": false
+        }
+      },
+      "infrastructure_valid": true,
+      "integrity_pass": true,
+      "search_p95_baseline_ratio": 0.9885509049416242,
+      "arrival_validation_pass": true,
+      "search_slo_pass": true,
+      "upload_success_pass": true,
+      "api_cpu_fraction_of_one_core": 0.2689551794694087,
+      "server_resources": {
+        "bench-api": {
+          "cpu_seconds": 45.491752,
+          "sampled_seconds": 169.14250206947327,
+          "allocated_cpu_utilization": 0.5379103589388172,
+          "throttled_seconds": 15.770413
+        },
+        "bench-proxy": {
+          "cpu_seconds": 11.09686,
+          "sampled_seconds": 169.14250206947327,
+          "allocated_cpu_utilization": 0.13121314707100756,
+          "throttled_seconds": 0.0
+        },
+        "bench-postgres": {
+          "cpu_seconds": 2.002171,
+          "sampled_seconds": 169.14250206947327,
+          "allocated_cpu_utilization": 0.023674368955209524,
+          "throttled_seconds": 0.0
+        },
+        "bench-qdrant": {
+          "cpu_seconds": 0.4988,
+          "sampled_seconds": 169.14250206947327,
+          "allocated_cpu_utilization": 0.005897985354327132,
+          "throttled_seconds": 0.0
+        }
+      },
+      "pipeline_start": {
+        "epoch": 1794421661.464623,
+        "videos": 0,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 0,
+        "oldest_pending_seconds": 0
+      },
+      "pipeline_end": {
+        "epoch": 1794421830.615687,
+        "videos": 67,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 67,
+        "oldest_pending_seconds": 166.932486
+      },
+      "pipeline_pending_growth": 67,
+      "searchable_completions_per_minute": 0.0,
+      "playable_completions_per_minute": 0.0,
+      "repeat": 1,
+      "pair_id": "r01-u024"
+    },
+    {
+      "name": "primary-r01-u036-api",
+      "mode": "api",
+      "processing": "paused",
+      "file": "speech-20s.mp4",
+      "rate": 36,
+      "search_rps": 2,
+      "phases": {
+        "baseline": {
+          "planned": 120,
+          "recorded": 120,
+          "successes": 120,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.1422295379999996,
+          "p95_seconds": 0.1768712549999982,
+          "max_seconds": 0.21340255900000193,
+          "lag_p99_seconds": 0.00016933485473202836
+        },
+        "load": {
+          "planned": 360,
+          "recorded": 360,
+          "successes": 360,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.14955791799997678,
+          "p95_seconds": 0.253339645,
+          "max_seconds": 0.4483423650000186,
+          "lag_p99_seconds": 0.00017306985472487213
+        },
+        "recovery": {
+          "planned": 60,
+          "recorded": 60,
+          "successes": 60,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.14381966699997428,
+          "p95_seconds": 0.19014792299998226,
+          "max_seconds": 0.30135479899999335,
+          "lag_p99_seconds": 0.0002711458547537404
+        }
+      },
+      "query_ledger": {
+        "planned": 540,
+        "recorded": 540,
+        "successes": 540,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "uploads": {
+        "planned": 108,
+        "recorded": 108,
+        "successes": 108,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true,
+        "pool_full": 0,
+        "accepted_p95_seconds": 11.11810835699999,
+        "completed_during_load_per_minute": 34.0,
+        "outstanding_at_load_end": 6,
+        "outstanding_at_midpoint": 6,
+        "completed_last_third_per_minute": 36.0
+      },
+      "client_headroom": {
+        "mixed-uploads": {
+          "peak_cpu_quota_fraction": 0.26939880693375223,
+          "peak_memory_fraction": 0.14766273498535157,
+          "oom": false
+        },
+        "mixed-queries": {
+          "peak_cpu_quota_fraction": 0.0070777780226396365,
+          "peak_memory_fraction": 0.015933990478515625,
+          "oom": false
+        }
+      },
+      "infrastructure_valid": true,
+      "integrity_pass": true,
+      "search_p95_baseline_ratio": 1.432339274123444,
+      "arrival_validation_pass": true,
+      "search_slo_pass": false,
+      "upload_success_pass": true,
+      "api_cpu_fraction_of_one_core": 0.3297123252920999,
+      "server_resources": {
+        "bench-api": {
+          "cpu_seconds": 55.827075,
+          "sampled_seconds": 169.32055830955505,
+          "allocated_cpu_utilization": 0.6594246505842,
+          "throttled_seconds": 30.625317
+        },
+        "bench-proxy": {
+          "cpu_seconds": 13.260494,
+          "sampled_seconds": 169.32055830955505,
+          "allocated_cpu_utilization": 0.15663182465719153,
+          "throttled_seconds": 0.0
+        },
+        "bench-postgres": {
+          "cpu_seconds": 2.170096,
+          "sampled_seconds": 169.32055830955505,
+          "allocated_cpu_utilization": 0.0256329889490748,
+          "throttled_seconds": 0.0
+        },
+        "bench-qdrant": {
+          "cpu_seconds": 0.494642,
+          "sampled_seconds": 169.32055830955505,
+          "allocated_cpu_utilization": 0.0058426691352586515,
+          "throttled_seconds": 0.0
+        }
+      },
+      "pipeline_start": {
+        "epoch": 1794422031.500417,
+        "videos": 0,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 0,
+        "oldest_pending_seconds": 0
+      },
+      "pipeline_end": {
+        "epoch": 1794422200.822011,
+        "videos": 96,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 96,
+        "oldest_pending_seconds": 158.521126
+      },
+      "pipeline_pending_growth": 96,
+      "searchable_completions_per_minute": 0.0,
+      "playable_completions_per_minute": 0.0,
+      "repeat": 1,
+      "pair_id": "r01-u036"
+    },
+    {
+      "name": "primary-r01-u036-direct",
+      "mode": "direct",
+      "processing": "paused",
+      "file": "speech-20s.mp4",
+      "rate": 36,
+      "search_rps": 2,
+      "phases": {
+        "baseline": {
+          "planned": 120,
+          "recorded": 120,
+          "successes": 120,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.14274007399999392,
+          "p95_seconds": 0.1779914260000005,
+          "max_seconds": 0.3537792150000023,
+          "lag_p99_seconds": 0.000408707377197004
+        },
+        "load": {
+          "planned": 360,
+          "recorded": 360,
+          "successes": 360,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.14153643499998725,
+          "p95_seconds": 0.16619347499999276,
+          "max_seconds": 0.24034297500000684,
+          "lag_p99_seconds": 0.0004285703772097804
+        },
+        "recovery": {
+          "planned": 60,
+          "recorded": 60,
+          "successes": 60,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.14144642600003862,
+          "p95_seconds": 0.15644157299998915,
+          "max_seconds": 0.1868912459999847,
+          "lag_p99_seconds": 0.0005746743771624097
+        }
+      },
+      "query_ledger": {
+        "planned": 540,
+        "recorded": 540,
+        "successes": 540,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "uploads": {
+        "planned": 108,
+        "recorded": 108,
+        "successes": 108,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true,
+        "pool_full": 0,
+        "accepted_p95_seconds": 11.924913466999977,
+        "completed_during_load_per_minute": 34.0,
+        "outstanding_at_load_end": 6,
+        "outstanding_at_midpoint": 8,
+        "completed_last_third_per_minute": 36.0
+      },
+      "client_headroom": {
+        "mixed-uploads": {
+          "peak_cpu_quota_fraction": 0.3530246281431301,
+          "peak_memory_fraction": 0.15711746215820313,
+          "oom": false
+        },
+        "mixed-queries": {
+          "peak_cpu_quota_fraction": 0.006787361736375317,
+          "peak_memory_fraction": 0.0163421630859375,
+          "oom": false
+        }
+      },
+      "infrastructure_valid": true,
+      "integrity_pass": true,
+      "search_p95_baseline_ratio": 0.9337161836098345,
+      "arrival_validation_pass": true,
+      "search_slo_pass": true,
+      "upload_success_pass": true,
+      "api_cpu_fraction_of_one_core": 0.10443967118741491,
+      "server_resources": {
+        "bench-api": {
+          "cpu_seconds": 17.641953,
+          "sampled_seconds": 168.9200358390808,
+          "allocated_cpu_utilization": 0.20887934237483052,
+          "throttled_seconds": 0.0
+        },
+        "bench-proxy": {
+          "cpu_seconds": 1.229446,
+          "sampled_seconds": 168.9200358390808,
+          "allocated_cpu_utilization": 0.014556544389692335,
+          "throttled_seconds": 0.0
+        },
+        "bench-postgres": {
+          "cpu_seconds": 2.613153,
+          "sampled_seconds": 168.9200358390808,
+          "allocated_cpu_utilization": 0.030939526942669868,
+          "throttled_seconds": 0.0
+        },
+        "bench-qdrant": {
+          "cpu_seconds": 0.52196,
+          "sampled_seconds": 168.9200358390808,
+          "allocated_cpu_utilization": 0.0061799655370336,
+          "throttled_seconds": 0.0
+        }
+      },
+      "pipeline_start": {
+        "epoch": 1794422452.279392,
+        "videos": 0,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 0,
+        "oldest_pending_seconds": 0
+      },
+      "pipeline_end": {
+        "epoch": 1794422621.200529,
+        "videos": 101,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 101,
+        "oldest_pending_seconds": 167.659714
+      },
+      "pipeline_pending_growth": 101,
+      "searchable_completions_per_minute": 0.0,
+      "playable_completions_per_minute": 0.0,
+      "repeat": 1,
+      "pair_id": "r01-u036"
+    },
+    {
+      "name": "primary-r01-u060-direct",
+      "mode": "direct",
+      "processing": "paused",
+      "file": "speech-20s.mp4",
+      "rate": 60,
+      "search_rps": 2,
+      "phases": {
+        "baseline": {
+          "planned": 120,
+          "recorded": 120,
+          "successes": 120,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.140666244,
+          "p95_seconds": 0.1703161889999974,
+          "max_seconds": 0.22752702299999875,
+          "lag_p99_seconds": 0.0007807007646505326
+        },
+        "load": {
+          "planned": 360,
+          "recorded": 360,
+          "successes": 360,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.14439149000000906,
+          "p95_seconds": 0.1717584979999956,
+          "max_seconds": 0.368474773000009,
+          "lag_p99_seconds": 0.0008409057646474594
+        },
+        "recovery": {
+          "planned": 60,
+          "recorded": 60,
+          "successes": 60,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.14138102400000208,
+          "p95_seconds": 0.16651159100001678,
+          "max_seconds": 0.2327734070000006,
+          "lag_p99_seconds": 0.0011202517646609067
+        }
+      },
+      "query_ledger": {
+        "planned": 540,
+        "recorded": 540,
+        "successes": 540,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "uploads": {
+        "planned": 180,
+        "recorded": 180,
+        "successes": 180,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true,
+        "pool_full": 0,
+        "accepted_p95_seconds": 11.98969967599999,
+        "completed_during_load_per_minute": 56.333333333333336,
+        "outstanding_at_load_end": 11,
+        "outstanding_at_midpoint": 12,
+        "completed_last_third_per_minute": 61.0
+      },
+      "client_headroom": {
+        "mixed-uploads": {
+          "peak_cpu_quota_fraction": 0.4931143964736439,
+          "peak_memory_fraction": 0.19016647338867188,
+          "oom": false
+        },
+        "mixed-queries": {
+          "peak_cpu_quota_fraction": 0.007244559355716565,
+          "peak_memory_fraction": 0.01617431640625,
+          "oom": false
+        }
+      },
+      "infrastructure_valid": true,
+      "integrity_pass": true,
+      "search_p95_baseline_ratio": 1.0084684198752134,
+      "arrival_validation_pass": true,
+      "search_slo_pass": true,
+      "upload_success_pass": true,
+      "api_cpu_fraction_of_one_core": 0.14067452437075512,
+      "server_resources": {
+        "bench-api": {
+          "cpu_seconds": 23.782438,
+          "sampled_seconds": 169.06002068519592,
+          "allocated_cpu_utilization": 0.28134904874151073,
+          "throttled_seconds": 0.067205
+        },
+        "bench-proxy": {
+          "cpu_seconds": 1.818227,
+          "sampled_seconds": 169.06002068519592,
+          "allocated_cpu_utilization": 0.021509840027592243,
+          "throttled_seconds": 0.0
+        },
+        "bench-postgres": {
+          "cpu_seconds": 3.559302,
+          "sampled_seconds": 169.06002068519592,
+          "allocated_cpu_utilization": 0.04210696278841373,
+          "throttled_seconds": 0.008363
+        },
+        "bench-qdrant": {
+          "cpu_seconds": 0.50917,
+          "sampled_seconds": 169.06002068519592,
+          "allocated_cpu_utilization": 0.00602354120076819,
+          "throttled_seconds": 0.0
+        }
+      },
+      "pipeline_start": {
+        "epoch": 1794422840.965765,
+        "videos": 0,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 0,
+        "oldest_pending_seconds": 0
+      },
+      "pipeline_end": {
+        "epoch": 1794423010.024266,
+        "videos": 168,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 168,
+        "oldest_pending_seconds": 167.81827
+      },
+      "pipeline_pending_growth": 168,
+      "searchable_completions_per_minute": 0.0,
+      "playable_completions_per_minute": 0.0,
+      "repeat": 1,
+      "pair_id": "r01-u060"
+    },
+    {
+      "name": "primary-r01-u060-api",
+      "mode": "api",
+      "processing": "paused",
+      "file": "speech-20s.mp4",
+      "rate": 60,
+      "search_rps": 2,
+      "phases": {
+        "baseline": {
+          "planned": 120,
+          "recorded": 120,
+          "successes": 120,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.14199538900000333,
+          "p95_seconds": 0.17602327199999854,
+          "max_seconds": 0.20334828600000038,
+          "lag_p99_seconds": 0.0008497040320989413
+        },
+        "load": {
+          "planned": 360,
+          "recorded": 360,
+          "successes": 360,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.16274802400000044,
+          "p95_seconds": 0.312672332999995,
+          "max_seconds": 0.6666075119999878,
+          "lag_p99_seconds": 0.0007924800321177372
+        },
+        "recovery": {
+          "planned": 60,
+          "recorded": 60,
+          "successes": 60,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.1432639659999986,
+          "p95_seconds": 0.2613102089999884,
+          "max_seconds": 0.30539469899999677,
+          "lag_p99_seconds": 0.0009948090321074687
+        }
+      },
+      "query_ledger": {
+        "planned": 540,
+        "recorded": 540,
+        "successes": 540,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "uploads": {
+        "planned": 180,
+        "recorded": 180,
+        "successes": 180,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true,
+        "pool_full": 0,
+        "accepted_p95_seconds": 11.17468488499998,
+        "completed_during_load_per_minute": 56.333333333333336,
+        "outstanding_at_load_end": 11,
+        "outstanding_at_midpoint": 12,
+        "completed_last_third_per_minute": 60.0
+      },
+      "client_headroom": {
+        "mixed-uploads": {
+          "peak_cpu_quota_fraction": 0.40064772009842153,
+          "peak_memory_fraction": 0.1773387908935547,
+          "oom": false
+        },
+        "mixed-queries": {
+          "peak_cpu_quota_fraction": 0.007257808196181452,
+          "peak_memory_fraction": 0.0162811279296875,
+          "oom": false
+        }
+      },
+      "infrastructure_valid": true,
+      "integrity_pass": true,
+      "search_p95_baseline_ratio": 1.7763124696375236,
+      "arrival_validation_pass": true,
+      "search_slo_pass": false,
+      "upload_success_pass": true,
+      "api_cpu_fraction_of_one_core": 0.464872414767587,
+      "server_resources": {
+        "bench-api": {
+          "cpu_seconds": 78.81641,
+          "sampled_seconds": 169.54417490959167,
+          "allocated_cpu_utilization": 0.9297448295351738,
+          "throttled_seconds": 107.974541
+        },
+        "bench-proxy": {
+          "cpu_seconds": 18.78608,
+          "sampled_seconds": 169.54417490959167,
+          "allocated_cpu_utilization": 0.22160690581103779,
+          "throttled_seconds": 0.0
+        },
+        "bench-postgres": {
+          "cpu_seconds": 3.038772,
+          "sampled_seconds": 169.54417490959167,
+          "allocated_cpu_utilization": 0.03584637457017211,
+          "throttled_seconds": 0.0
+        },
+        "bench-qdrant": {
+          "cpu_seconds": 0.505625,
+          "sampled_seconds": 169.54417490959167,
+          "allocated_cpu_utilization": 0.005964522228730314,
+          "throttled_seconds": 0.0
+        }
+      },
+      "pipeline_start": {
+        "epoch": 1794423276.573166,
+        "videos": 0,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 0,
+        "oldest_pending_seconds": 0
+      },
+      "pipeline_end": {
+        "epoch": 1794423446.116383,
+        "videos": 169,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 169,
+        "oldest_pending_seconds": 168.493448
+      },
+      "pipeline_pending_growth": 169,
+      "searchable_completions_per_minute": 0.0,
+      "playable_completions_per_minute": 0.0,
+      "repeat": 1,
+      "pair_id": "r01-u060"
+    },
+    {
+      "name": "primary-r02-u024-api",
+      "mode": "api",
+      "processing": "paused",
+      "file": "speech-20s.mp4",
+      "rate": 24,
+      "search_rps": 2,
+      "phases": {
+        "baseline": {
+          "planned": 120,
+          "recorded": 120,
+          "successes": 120,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.13981465800000298,
+          "p95_seconds": 0.16771128899999893,
+          "max_seconds": 0.23408281400000125,
+          "lag_p99_seconds": 0.0006316231783429771
+        },
+        "load": {
+          "planned": 360,
+          "recorded": 360,
+          "successes": 360,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.1450241459999961,
+          "p95_seconds": 0.18061646099999779,
+          "max_seconds": 0.2932660090000136,
+          "lag_p99_seconds": 0.000731938178347491
+        },
+        "recovery": {
+          "planned": 60,
+          "recorded": 60,
+          "successes": 60,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.14408142400000362,
+          "p95_seconds": 0.19061338200001046,
+          "max_seconds": 0.27394608099997275,
+          "lag_p99_seconds": 0.0005442991783297657
+        }
+      },
+      "query_ledger": {
+        "planned": 540,
+        "recorded": 540,
+        "successes": 540,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "uploads": {
+        "planned": 72,
+        "recorded": 72,
+        "successes": 72,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true,
+        "pool_full": 0,
+        "accepted_p95_seconds": 11.139921599000008,
+        "completed_during_load_per_minute": 22.666666666666668,
+        "outstanding_at_load_end": 4,
+        "outstanding_at_midpoint": 4,
+        "completed_last_third_per_minute": 24.0
+      },
+      "client_headroom": {
+        "mixed-uploads": {
+          "peak_cpu_quota_fraction": 0.19638520756431124,
+          "peak_memory_fraction": 0.13492507934570314,
+          "oom": false
+        },
+        "mixed-queries": {
+          "peak_cpu_quota_fraction": 0.007200558125031393,
+          "peak_memory_fraction": 0.01598358154296875,
+          "oom": false
+        }
+      },
+      "infrastructure_valid": true,
+      "integrity_pass": true,
+      "search_p95_baseline_ratio": 1.0769487377799531,
+      "arrival_validation_pass": true,
+      "search_slo_pass": true,
+      "upload_success_pass": true,
+      "api_cpu_fraction_of_one_core": 0.27296486217140353,
+      "server_resources": {
+        "bench-api": {
+          "cpu_seconds": 46.185221,
+          "sampled_seconds": 169.19841122627258,
+          "allocated_cpu_utilization": 0.5459297243428076,
+          "throttled_seconds": 16.883991
+        },
+        "bench-proxy": {
+          "cpu_seconds": 11.709138,
+          "sampled_seconds": 169.19841122627258,
+          "allocated_cpu_utilization": 0.1384071861566256,
+          "throttled_seconds": 0.0
+        },
+        "bench-postgres": {
+          "cpu_seconds": 2.00985,
+          "sampled_seconds": 169.19841122627258,
+          "allocated_cpu_utilization": 0.02375731527776801,
+          "throttled_seconds": 0.0
+        },
+        "bench-qdrant": {
+          "cpu_seconds": 0.502794,
+          "sampled_seconds": 169.19841122627258,
+          "allocated_cpu_utilization": 0.005943247295952478,
+          "throttled_seconds": 0.0
+        }
+      },
+      "pipeline_start": {
+        "epoch": 1794423743.885931,
+        "videos": 0,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 0,
+        "oldest_pending_seconds": 0
+      },
+      "pipeline_end": {
+        "epoch": 1794423913.086948,
+        "videos": 68,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 68,
+        "oldest_pending_seconds": 167.592162
+      },
+      "pipeline_pending_growth": 68,
+      "searchable_completions_per_minute": 0.0,
+      "playable_completions_per_minute": 0.0,
+      "repeat": 2,
+      "pair_id": "r02-u024"
+    },
+    {
+      "name": "primary-r02-u024-direct",
+      "mode": "direct",
+      "processing": "paused",
+      "file": "speech-20s.mp4",
+      "rate": 24,
+      "search_rps": 2,
+      "phases": {
+        "baseline": {
+          "planned": 120,
+          "recorded": 120,
+          "successes": 120,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.14658015399999932,
+          "p95_seconds": 0.18317029100000037,
+          "max_seconds": 0.37179225600000065,
+          "lag_p99_seconds": 0.0007956831796889219
+        },
+        "load": {
+          "planned": 360,
+          "recorded": 360,
+          "successes": 360,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.145426919000005,
+          "p95_seconds": 0.18032910800000537,
+          "max_seconds": 0.4250924090000044,
+          "lag_p99_seconds": 0.0007611061796808372
+        },
+        "recovery": {
+          "planned": 60,
+          "recorded": 60,
+          "successes": 60,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.14436623699998016,
+          "p95_seconds": 0.1666210790000041,
+          "max_seconds": 0.182804701999994,
+          "lag_p99_seconds": 0.0007459551796955566
+        }
+      },
+      "query_ledger": {
+        "planned": 540,
+        "recorded": 540,
+        "successes": 540,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "uploads": {
+        "planned": 72,
+        "recorded": 72,
+        "successes": 72,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true,
+        "pool_full": 0,
+        "accepted_p95_seconds": 12.014760286000005,
+        "completed_during_load_per_minute": 22.666666666666668,
+        "outstanding_at_load_end": 4,
+        "outstanding_at_midpoint": 5,
+        "completed_last_third_per_minute": 24.0
+      },
+      "client_headroom": {
+        "mixed-uploads": {
+          "peak_cpu_quota_fraction": 0.2269494488813533,
+          "peak_memory_fraction": 0.13594474792480468,
+          "oom": false
+        },
+        "mixed-queries": {
+          "peak_cpu_quota_fraction": 0.006800879831374261,
+          "peak_memory_fraction": 0.01607513427734375,
+          "oom": false
+        }
+      },
+      "infrastructure_valid": true,
+      "integrity_pass": true,
+      "search_p95_baseline_ratio": 0.9844888437721868,
+      "arrival_validation_pass": true,
+      "search_slo_pass": true,
+      "upload_success_pass": true,
+      "api_cpu_fraction_of_one_core": 0.086036278340954,
+      "server_resources": {
+        "bench-api": {
+          "cpu_seconds": 14.541786,
+          "sampled_seconds": 169.0192356109619,
+          "allocated_cpu_utilization": 0.17207255668190796,
+          "throttled_seconds": 0.0
+        },
+        "bench-proxy": {
+          "cpu_seconds": 0.930304,
+          "sampled_seconds": 169.0192356109619,
+          "allocated_cpu_utilization": 0.011008261830521072,
+          "throttled_seconds": 0.0
+        },
+        "bench-postgres": {
+          "cpu_seconds": 2.10166,
+          "sampled_seconds": 169.0192356109619,
+          "allocated_cpu_utilization": 0.02486888539523953,
+          "throttled_seconds": 0.0
+        },
+        "bench-qdrant": {
+          "cpu_seconds": 0.530848,
+          "sampled_seconds": 169.0192356109619,
+          "allocated_cpu_utilization": 0.0062815098894645725,
+          "throttled_seconds": 0.0
+        }
+      },
+      "pipeline_start": {
+        "epoch": 1794424128.313576,
+        "videos": 0,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 0,
+        "oldest_pending_seconds": 0
+      },
+      "pipeline_end": {
+        "epoch": 1794424297.334306,
+        "videos": 68,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 68,
+        "oldest_pending_seconds": 167.728281
+      },
+      "pipeline_pending_growth": 68,
+      "searchable_completions_per_minute": 0.0,
+      "playable_completions_per_minute": 0.0,
+      "repeat": 2,
+      "pair_id": "r02-u024"
+    },
+    {
+      "name": "primary-r02-u036-direct",
+      "mode": "direct",
+      "processing": "paused",
+      "file": "speech-20s.mp4",
+      "rate": 36,
+      "search_rps": 2,
+      "phases": {
+        "baseline": {
+          "planned": 120,
+          "recorded": 120,
+          "successes": 120,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.13985667500000273,
+          "p95_seconds": 0.1856842089999991,
+          "max_seconds": 0.36910296499999823,
+          "lag_p99_seconds": 0.0003392674620315006
+        },
+        "load": {
+          "planned": 360,
+          "recorded": 360,
+          "successes": 360,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.14122337799999513,
+          "p95_seconds": 0.17603280200000154,
+          "max_seconds": 0.36030869999999415,
+          "lag_p99_seconds": 0.00033343746204650415
+        },
+        "recovery": {
+          "planned": 60,
+          "recorded": 60,
+          "successes": 60,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.1405101619999914,
+          "p95_seconds": 0.2015980349999736,
+          "max_seconds": 0.2548879340000567,
+          "lag_p99_seconds": 0.00026193846201749693
+        }
+      },
+      "query_ledger": {
+        "planned": 540,
+        "recorded": 540,
+        "successes": 540,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "uploads": {
+        "planned": 108,
+        "recorded": 108,
+        "successes": 108,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true,
+        "pool_full": 0,
+        "accepted_p95_seconds": 11.977218838,
+        "completed_during_load_per_minute": 33.666666666666664,
+        "outstanding_at_load_end": 7,
+        "outstanding_at_midpoint": 7,
+        "completed_last_third_per_minute": 35.0
+      },
+      "client_headroom": {
+        "mixed-uploads": {
+          "peak_cpu_quota_fraction": 0.3515611691558102,
+          "peak_memory_fraction": 0.1561309814453125,
+          "oom": false
+        },
+        "mixed-queries": {
+          "peak_cpu_quota_fraction": 0.007065675753031417,
+          "peak_memory_fraction": 0.0155792236328125,
+          "oom": false
+        }
+      },
+      "infrastructure_valid": true,
+      "integrity_pass": true,
+      "search_p95_baseline_ratio": 0.9480224675432815,
+      "arrival_validation_pass": true,
+      "search_slo_pass": true,
+      "upload_success_pass": true,
+      "api_cpu_fraction_of_one_core": 0.10672607452543204,
+      "server_resources": {
+        "bench-api": {
+          "cpu_seconds": 18.03957,
+          "sampled_seconds": 169.02682948112488,
+          "allocated_cpu_utilization": 0.21345214905086377,
+          "throttled_seconds": 0.0
+        },
+        "bench-proxy": {
+          "cpu_seconds": 1.263823,
+          "sampled_seconds": 169.02682948112488,
+          "allocated_cpu_utilization": 0.014954111177256984,
+          "throttled_seconds": 0.0
+        },
+        "bench-postgres": {
+          "cpu_seconds": 2.643115,
+          "sampled_seconds": 169.02682948112488,
+          "allocated_cpu_utilization": 0.03127450249305132,
+          "throttled_seconds": 0.0
+        },
+        "bench-qdrant": {
+          "cpu_seconds": 0.515399,
+          "sampled_seconds": 169.02682948112488,
+          "allocated_cpu_utilization": 0.006098428297828948,
+          "throttled_seconds": 0.0
+        }
+      },
+      "pipeline_start": {
+        "epoch": 1794424494.10117,
+        "videos": 0,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 0,
+        "oldest_pending_seconds": 0
+      },
+      "pipeline_end": {
+        "epoch": 1794424663.125674,
+        "videos": 101,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 101,
+        "oldest_pending_seconds": 167.094762
+      },
+      "pipeline_pending_growth": 101,
+      "searchable_completions_per_minute": 0.0,
+      "playable_completions_per_minute": 0.0,
+      "repeat": 2,
+      "pair_id": "r02-u036"
+    },
+    {
+      "name": "primary-r02-u036-api",
+      "mode": "api",
+      "processing": "paused",
+      "file": "speech-20s.mp4",
+      "rate": 36,
+      "search_rps": 2,
+      "phases": {
+        "baseline": {
+          "planned": 120,
+          "recorded": 120,
+          "successes": 120,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.1433548609999998,
+          "p95_seconds": 0.18668988400000672,
+          "max_seconds": 0.22011470499999997,
+          "lag_p99_seconds": 0.0006834145344232212
+        },
+        "load": {
+          "planned": 360,
+          "recorded": 360,
+          "successes": 360,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.14959005199999956,
+          "p95_seconds": 0.25381685000000287,
+          "max_seconds": 0.897630398999987,
+          "lag_p99_seconds": 0.0006305905344134999
+        },
+        "recovery": {
+          "planned": 60,
+          "recorded": 60,
+          "successes": 60,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.14132128999999258,
+          "p95_seconds": 0.18558570499997587,
+          "max_seconds": 0.1944604540000437,
+          "lag_p99_seconds": 0.0012461165344461733
+        }
+      },
+      "query_ledger": {
+        "planned": 540,
+        "recorded": 540,
+        "successes": 540,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "uploads": {
+        "planned": 108,
+        "recorded": 108,
+        "successes": 108,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true,
+        "pool_full": 0,
+        "accepted_p95_seconds": 11.097034390000001,
+        "completed_during_load_per_minute": 34.0,
+        "outstanding_at_load_end": 6,
+        "outstanding_at_midpoint": 7,
+        "completed_last_third_per_minute": 36.0
+      },
+      "client_headroom": {
+        "mixed-uploads": {
+          "peak_cpu_quota_fraction": 0.27651948269574905,
+          "peak_memory_fraction": 0.15183601379394532,
+          "oom": false
+        },
+        "mixed-queries": {
+          "peak_cpu_quota_fraction": 0.006881564982269701,
+          "peak_memory_fraction": 0.01605987548828125,
+          "oom": false
+        }
+      },
+      "infrastructure_valid": true,
+      "integrity_pass": true,
+      "search_p95_baseline_ratio": 1.3595640243688498,
+      "arrival_validation_pass": true,
+      "search_slo_pass": false,
+      "upload_success_pass": true,
+      "api_cpu_fraction_of_one_core": 0.3438026835725032,
+      "server_resources": {
+        "bench-api": {
+          "cpu_seconds": 58.206524,
+          "sampled_seconds": 169.30212235450745,
+          "allocated_cpu_utilization": 0.6876053671450071,
+          "throttled_seconds": 32.186477
+        },
+        "bench-proxy": {
+          "cpu_seconds": 13.819338,
+          "sampled_seconds": 169.30212235450745,
+          "allocated_cpu_utilization": 0.16325061739111835,
+          "throttled_seconds": 0.0
+        },
+        "bench-postgres": {
+          "cpu_seconds": 2.24768,
+          "sampled_seconds": 169.30212235450745,
+          "allocated_cpu_utilization": 0.02655229560907106,
+          "throttled_seconds": 0.0
+        },
+        "bench-qdrant": {
+          "cpu_seconds": 0.494329,
+          "sampled_seconds": 169.30212235450745,
+          "allocated_cpu_utilization": 0.005839607833916078,
+          "throttled_seconds": 0.0
+        }
+      },
+      "pipeline_start": {
+        "epoch": 1794424884.738389,
+        "videos": 0,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 0,
+        "oldest_pending_seconds": 0
+      },
+      "pipeline_end": {
+        "epoch": 1794425054.042002,
+        "videos": 101,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 101,
+        "oldest_pending_seconds": 167.75031
+      },
+      "pipeline_pending_growth": 101,
+      "searchable_completions_per_minute": 0.0,
+      "playable_completions_per_minute": 0.0,
+      "repeat": 2,
+      "pair_id": "r02-u036"
+    },
+    {
+      "name": "primary-r02-u060-api",
+      "mode": "api",
+      "processing": "paused",
+      "file": "speech-20s.mp4",
+      "rate": 60,
+      "search_rps": 2,
+      "phases": {
+        "baseline": {
+          "planned": 120,
+          "recorded": 120,
+          "successes": 120,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.1390590299999967,
+          "p95_seconds": 0.15966937300000064,
+          "max_seconds": 0.20974260499999947,
+          "lag_p99_seconds": 0.0006893406745618336
+        },
+        "load": {
+          "planned": 360,
+          "recorded": 360,
+          "successes": 360,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.17120150799999828,
+          "p95_seconds": 0.2837159790000005,
+          "max_seconds": 0.38897744500001136,
+          "lag_p99_seconds": 0.0007929346745640942
+        },
+        "recovery": {
+          "planned": 60,
+          "recorded": 60,
+          "successes": 60,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.14512765600002603,
+          "p95_seconds": 0.2403332109999901,
+          "max_seconds": 0.28456552800000645,
+          "lag_p99_seconds": 0.0009490506745919447
+        }
+      },
+      "query_ledger": {
+        "planned": 540,
+        "recorded": 540,
+        "successes": 540,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "uploads": {
+        "planned": 180,
+        "recorded": 180,
+        "successes": 180,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true,
+        "pool_full": 0,
+        "accepted_p95_seconds": 11.144865975000007,
+        "completed_during_load_per_minute": 56.333333333333336,
+        "outstanding_at_load_end": 11,
+        "outstanding_at_midpoint": 11,
+        "completed_last_third_per_minute": 60.0
+      },
+      "client_headroom": {
+        "mixed-uploads": {
+          "peak_cpu_quota_fraction": 0.3986004690191543,
+          "peak_memory_fraction": 0.1767810821533203,
+          "oom": false
+        },
+        "mixed-queries": {
+          "peak_cpu_quota_fraction": 0.007323573078534292,
+          "peak_memory_fraction": 0.016178131103515625,
+          "oom": false
+        }
+      },
+      "infrastructure_valid": true,
+      "integrity_pass": true,
+      "search_p95_baseline_ratio": 1.7768966813691902,
+      "arrival_validation_pass": true,
+      "search_slo_pass": false,
+      "upload_success_pass": true,
+      "api_cpu_fraction_of_one_core": 0.4669471711281296,
+      "server_resources": {
+        "bench-api": {
+          "cpu_seconds": 79.17654,
+          "sampled_seconds": 169.5620937347412,
+          "allocated_cpu_utilization": 0.9338943422562573,
+          "throttled_seconds": 99.173086
+        },
+        "bench-proxy": {
+          "cpu_seconds": 18.549751,
+          "sampled_seconds": 169.5620937347412,
+          "allocated_cpu_utilization": 0.21879596543575094,
+          "throttled_seconds": 0.0
+        },
+        "bench-postgres": {
+          "cpu_seconds": 2.987409,
+          "sampled_seconds": 169.5620937347412,
+          "allocated_cpu_utilization": 0.03523675527000073,
+          "throttled_seconds": 0.0
+        },
+        "bench-qdrant": {
+          "cpu_seconds": 0.501734,
+          "sampled_seconds": 169.5620937347412,
+          "allocated_cpu_utilization": 0.005917997223894869,
+          "throttled_seconds": 0.0
+        }
+      },
+      "pipeline_start": {
+        "epoch": 1794425297.816882,
+        "videos": 0,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 0,
+        "oldest_pending_seconds": 0
+      },
+      "pipeline_end": {
+        "epoch": 1794425467.379137,
+        "videos": 169,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 169,
+        "oldest_pending_seconds": 167.92589
+      },
+      "pipeline_pending_growth": 169,
+      "searchable_completions_per_minute": 0.0,
+      "playable_completions_per_minute": 0.0,
+      "repeat": 2,
+      "pair_id": "r02-u060"
+    },
+    {
+      "name": "primary-r02-u060-direct",
+      "mode": "direct",
+      "processing": "paused",
+      "file": "speech-20s.mp4",
+      "rate": 60,
+      "search_rps": 2,
+      "phases": {
+        "baseline": {
+          "planned": 120,
+          "recorded": 120,
+          "successes": 120,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.1470438190000059,
+          "p95_seconds": 0.1805788179999945,
+          "max_seconds": 0.2090205700000006,
+          "lag_p99_seconds": 0.0008142880355208604
+        },
+        "load": {
+          "planned": 360,
+          "recorded": 360,
+          "successes": 360,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.14439154099998996,
+          "p95_seconds": 0.17089913099999832,
+          "max_seconds": 0.2230763020000013,
+          "lag_p99_seconds": 0.0007717200355159548
+        },
+        "recovery": {
+          "planned": 60,
+          "recorded": 60,
+          "successes": 60,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.14388695800001733,
+          "p95_seconds": 0.15994409199996154,
+          "max_seconds": 0.28701066299999367,
+          "lag_p99_seconds": 0.0008208550354993349
+        }
+      },
+      "query_ledger": {
+        "planned": 540,
+        "recorded": 540,
+        "successes": 540,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "uploads": {
+        "planned": 180,
+        "recorded": 180,
+        "successes": 180,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true,
+        "pool_full": 0,
+        "accepted_p95_seconds": 11.977650267999998,
+        "completed_during_load_per_minute": 56.333333333333336,
+        "outstanding_at_load_end": 11,
+        "outstanding_at_midpoint": 11,
+        "completed_last_third_per_minute": 60.0
+      },
+      "client_headroom": {
+        "mixed-uploads": {
+          "peak_cpu_quota_fraction": 0.4831767322844205,
+          "peak_memory_fraction": 0.18802261352539062,
+          "oom": false
+        },
+        "mixed-queries": {
+          "peak_cpu_quota_fraction": 0.006966059113504439,
+          "peak_memory_fraction": 0.016353607177734375,
+          "oom": false
+        }
+      },
+      "infrastructure_valid": true,
+      "integrity_pass": true,
+      "search_p95_baseline_ratio": 0.9463963320437921,
+      "arrival_validation_pass": true,
+      "search_slo_pass": true,
+      "upload_success_pass": true,
+      "api_cpu_fraction_of_one_core": 0.13350065216691592,
+      "server_resources": {
+        "bench-api": {
+          "cpu_seconds": 23.967165,
+          "sampled_seconds": 179.52844882011414,
+          "allocated_cpu_utilization": 0.26700130433383157,
+          "throttled_seconds": 0.032547
+        },
+        "bench-proxy": {
+          "cpu_seconds": 1.823028,
+          "sampled_seconds": 179.52844882011414,
+          "allocated_cpu_utilization": 0.020309070924203858,
+          "throttled_seconds": 0.0
+        },
+        "bench-postgres": {
+          "cpu_seconds": 3.606232,
+          "sampled_seconds": 179.52844882011414,
+          "allocated_cpu_utilization": 0.040174490713874675,
+          "throttled_seconds": 0.0
+        },
+        "bench-qdrant": {
+          "cpu_seconds": 0.552025,
+          "sampled_seconds": 179.52844882011414,
+          "allocated_cpu_utilization": 0.006149721714056851,
+          "throttled_seconds": 0.0
+        }
+      },
+      "pipeline_start": {
+        "epoch": 1794425756.363674,
+        "videos": 0,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 0,
+        "oldest_pending_seconds": 0
+      },
+      "pipeline_end": {
+        "epoch": 1794425935.890889,
+        "videos": 169,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 169,
+        "oldest_pending_seconds": 168.019567
+      },
+      "pipeline_pending_growth": 169,
+      "searchable_completions_per_minute": 0.0,
+      "playable_completions_per_minute": 0.0,
+      "repeat": 2,
+      "pair_id": "r02-u060"
+    },
+    {
+      "name": "primary-r02-u012-direct",
+      "mode": "direct",
+      "processing": "paused",
+      "file": "speech-20s.mp4",
+      "rate": 12,
+      "search_rps": 2,
+      "phases": {
+        "baseline": {
+          "planned": 120,
+          "recorded": 120,
+          "successes": 120,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.14228788400000486,
+          "p95_seconds": 0.16827676200000133,
+          "max_seconds": 0.21204306599999836,
+          "lag_p99_seconds": 0.0008471503143283599
+        },
+        "load": {
+          "planned": 360,
+          "recorded": 360,
+          "successes": 360,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.14469117800000822,
+          "p95_seconds": 0.17266139200000907,
+          "max_seconds": 0.3726534150000079,
+          "lag_p99_seconds": 0.0009377843143170139
+        },
+        "recovery": {
+          "planned": 60,
+          "recorded": 60,
+          "successes": 60,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.14180245199997443,
+          "p95_seconds": 0.16264006499998504,
+          "max_seconds": 0.19570932600001106,
+          "lag_p99_seconds": 0.0009384493143329564
+        }
+      },
+      "query_ledger": {
+        "planned": 540,
+        "recorded": 540,
+        "successes": 540,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "uploads": {
+        "planned": 36,
+        "recorded": 36,
+        "successes": 36,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true,
+        "pool_full": 0,
+        "accepted_p95_seconds": 12.066767172000008,
+        "completed_during_load_per_minute": 11.333333333333334,
+        "outstanding_at_load_end": 2,
+        "outstanding_at_midpoint": 2,
+        "completed_last_third_per_minute": 12.0
+      },
+      "client_headroom": {
+        "mixed-uploads": {
+          "peak_cpu_quota_fraction": 0.13265179455019835,
+          "peak_memory_fraction": 0.13010711669921876,
+          "oom": false
+        },
+        "mixed-queries": {
+          "peak_cpu_quota_fraction": 0.0074690570479595915,
+          "peak_memory_fraction": 0.015899658203125,
+          "oom": false
+        }
+      },
+      "infrastructure_valid": true,
+      "integrity_pass": true,
+      "search_p95_baseline_ratio": 1.026056063522352,
+      "arrival_validation_pass": true,
+      "search_slo_pass": true,
+      "upload_success_pass": true,
+      "api_cpu_fraction_of_one_core": 0.06606430490604902,
+      "server_resources": {
+        "bench-api": {
+          "cpu_seconds": 11.159985,
+          "sampled_seconds": 168.92609429359436,
+          "allocated_cpu_utilization": 0.13212860981209798,
+          "throttled_seconds": 0.0
+        },
+        "bench-proxy": {
+          "cpu_seconds": 0.591952,
+          "sampled_seconds": 168.92609429359436,
+          "allocated_cpu_utilization": 0.007008413975062783,
+          "throttled_seconds": 0.0
+        },
+        "bench-postgres": {
+          "cpu_seconds": 1.600816,
+          "sampled_seconds": 168.92609429359436,
+          "allocated_cpu_utilization": 0.01895285635643448,
+          "throttled_seconds": 0.0
+        },
+        "bench-qdrant": {
+          "cpu_seconds": 0.527011,
+          "sampled_seconds": 168.92609429359436,
+          "allocated_cpu_utilization": 0.006239545195238485,
+          "throttled_seconds": 0.0
+        }
+      },
+      "pipeline_start": {
+        "epoch": 1794426208.738915,
+        "videos": 0,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 0,
+        "oldest_pending_seconds": 0
+      },
+      "pipeline_end": {
+        "epoch": 1794426377.66033,
+        "videos": 34,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 34,
+        "oldest_pending_seconds": 166.547012
+      },
+      "pipeline_pending_growth": 34,
+      "searchable_completions_per_minute": 0.0,
+      "playable_completions_per_minute": 0.0,
+      "repeat": 2,
+      "pair_id": "r02-u012"
+    },
+    {
+      "name": "primary-r02-u012-api",
+      "mode": "api",
+      "processing": "paused",
+      "file": "speech-20s.mp4",
+      "rate": 12,
+      "search_rps": 2,
+      "phases": {
+        "baseline": {
+          "planned": 120,
+          "recorded": 120,
+          "successes": 120,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.13946372600000176,
+          "p95_seconds": 0.15813664599999902,
+          "max_seconds": 0.21797676599999977,
+          "lag_p99_seconds": 0.0003340834908449608
+        },
+        "load": {
+          "planned": 360,
+          "recorded": 360,
+          "successes": 360,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.1392446340000024,
+          "p95_seconds": 0.17061049299998557,
+          "max_seconds": 0.34925210099999093,
+          "lag_p99_seconds": 0.0003066304908543316
+        },
+        "recovery": {
+          "planned": 60,
+          "recorded": 60,
+          "successes": 60,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.145811624999973,
+          "p95_seconds": 0.18601264100000844,
+          "max_seconds": 0.3533208600000362,
+          "lag_p99_seconds": 0.00036849049081411067
+        }
+      },
+      "query_ledger": {
+        "planned": 540,
+        "recorded": 540,
+        "successes": 540,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "uploads": {
+        "planned": 36,
+        "recorded": 36,
+        "successes": 36,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true,
+        "pool_full": 0,
+        "accepted_p95_seconds": 11.203072337999998,
+        "completed_during_load_per_minute": 11.333333333333334,
+        "outstanding_at_load_end": 2,
+        "outstanding_at_midpoint": 3,
+        "completed_last_third_per_minute": 12.0
+      },
+      "client_headroom": {
+        "mixed-uploads": {
+          "peak_cpu_quota_fraction": 0.12058201832391141,
+          "peak_memory_fraction": 0.1318065643310547,
+          "oom": false
+        },
+        "mixed-queries": {
+          "peak_cpu_quota_fraction": 0.007121395968853884,
+          "peak_memory_fraction": 0.016323089599609375,
+          "oom": false
+        }
+      },
+      "infrastructure_valid": true,
+      "integrity_pass": true,
+      "search_p95_baseline_ratio": 1.078880179360745,
+      "arrival_validation_pass": true,
+      "search_slo_pass": true,
+      "upload_success_pass": true,
+      "api_cpu_fraction_of_one_core": 0.17760217112584423,
+      "server_resources": {
+        "bench-api": {
+          "cpu_seconds": 30.018814,
+          "sampled_seconds": 169.0227873325348,
+          "allocated_cpu_utilization": 0.35520434225168823,
+          "throttled_seconds": 3.777193
+        },
+        "bench-proxy": {
+          "cpu_seconds": 7.105436,
+          "sampled_seconds": 169.0227873325348,
+          "allocated_cpu_utilization": 0.08407666341486597,
+          "throttled_seconds": 0.0
+        },
+        "bench-postgres": {
+          "cpu_seconds": 1.565126,
+          "sampled_seconds": 169.0227873325348,
+          "allocated_cpu_utilization": 0.018519704055297313,
+          "throttled_seconds": 0.0
+        },
+        "bench-qdrant": {
+          "cpu_seconds": 0.503511,
+          "sampled_seconds": 169.0227873325348,
+          "allocated_cpu_utilization": 0.005957906717150445,
+          "throttled_seconds": 0.0
+        }
+      },
+      "pipeline_start": {
+        "epoch": 1794426550.122992,
+        "videos": 0,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 0,
+        "oldest_pending_seconds": 0
+      },
+      "pipeline_end": {
+        "epoch": 1794426719.152394,
+        "videos": 34,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 34,
+        "oldest_pending_seconds": 167.34965
+      },
+      "pipeline_pending_growth": 34,
+      "searchable_completions_per_minute": 0.0,
+      "playable_completions_per_minute": 0.0,
+      "repeat": 2,
+      "pair_id": "r02-u012"
+    },
+    {
+      "name": "primary-r03-u036-api",
+      "mode": "api",
+      "processing": "paused",
+      "file": "speech-20s.mp4",
+      "rate": 36,
+      "search_rps": 2,
+      "phases": {
+        "baseline": {
+          "planned": 120,
+          "recorded": 120,
+          "successes": 120,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.14643061899999885,
+          "p95_seconds": 0.19481074100000115,
+          "max_seconds": 0.3721693160000068,
+          "lag_p99_seconds": 0.0006807420925305507
+        },
+        "load": {
+          "planned": 360,
+          "recorded": 360,
+          "successes": 360,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.14782830100000138,
+          "p95_seconds": 0.21846443299998647,
+          "max_seconds": 0.4643925380000001,
+          "lag_p99_seconds": 0.0008442600925206989
+        },
+        "recovery": {
+          "planned": 60,
+          "recorded": 60,
+          "successes": 60,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.1403041760000051,
+          "p95_seconds": 0.1590910589999694,
+          "max_seconds": 0.24313745599999675,
+          "lag_p99_seconds": 0.0006515900925023743
+        }
+      },
+      "query_ledger": {
+        "planned": 540,
+        "recorded": 540,
+        "successes": 540,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "uploads": {
+        "planned": 108,
+        "recorded": 108,
+        "successes": 108,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true,
+        "pool_full": 0,
+        "accepted_p95_seconds": 11.134923284000005,
+        "completed_during_load_per_minute": 34.0,
+        "outstanding_at_load_end": 6,
+        "outstanding_at_midpoint": 7,
+        "completed_last_third_per_minute": 36.0
+      },
+      "client_headroom": {
+        "mixed-uploads": {
+          "peak_cpu_quota_fraction": 0.2755692178441487,
+          "peak_memory_fraction": 0.14931297302246094,
+          "oom": false
+        },
+        "mixed-queries": {
+          "peak_cpu_quota_fraction": 0.007104640797004852,
+          "peak_memory_fraction": 0.01625823974609375,
+          "oom": false
+        }
+      },
+      "infrastructure_valid": true,
+      "integrity_pass": true,
+      "search_p95_baseline_ratio": 1.1214188287492073,
+      "arrival_validation_pass": true,
+      "search_slo_pass": true,
+      "upload_success_pass": true,
+      "api_cpu_fraction_of_one_core": 0.3392866593631246,
+      "server_resources": {
+        "bench-api": {
+          "cpu_seconds": 57.451076,
+          "sampled_seconds": 169.32901549339294,
+          "allocated_cpu_utilization": 0.6785733187262485,
+          "throttled_seconds": 30.415421
+        },
+        "bench-proxy": {
+          "cpu_seconds": 13.380166,
+          "sampled_seconds": 169.32901549339294,
+          "allocated_cpu_utilization": 0.15803748649943672,
+          "throttled_seconds": 0.0
+        },
+        "bench-postgres": {
+          "cpu_seconds": 2.233059,
+          "sampled_seconds": 169.32901549339294,
+          "allocated_cpu_utilization": 0.026375385145815507,
+          "throttled_seconds": 0.0
+        },
+        "bench-qdrant": {
+          "cpu_seconds": 0.499742,
+          "sampled_seconds": 169.32901549339294,
+          "allocated_cpu_utilization": 0.005902615078034272,
+          "throttled_seconds": 0.0
+        }
+      },
+      "pipeline_start": {
+        "epoch": 1794426898.670878,
+        "videos": 0,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 0,
+        "oldest_pending_seconds": 0
+      },
+      "pipeline_end": {
+        "epoch": 1794427068.002444,
+        "videos": 101,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 101,
+        "oldest_pending_seconds": 167.728306
+      },
+      "pipeline_pending_growth": 101,
+      "searchable_completions_per_minute": 0.0,
+      "playable_completions_per_minute": 0.0,
+      "repeat": 3,
+      "pair_id": "r03-u036"
+    },
+    {
+      "name": "primary-r03-u036-direct",
+      "mode": "direct",
+      "processing": "paused",
+      "file": "speech-20s.mp4",
+      "rate": 36,
+      "search_rps": 2,
+      "phases": {
+        "baseline": {
+          "planned": 120,
+          "recorded": 120,
+          "successes": 120,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.1442919949999996,
+          "p95_seconds": 0.16341590500000167,
+          "max_seconds": 0.21485027100000298,
+          "lag_p99_seconds": 0.000578918468139733
+        },
+        "load": {
+          "planned": 360,
+          "recorded": 360,
+          "successes": 360,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.1443730729999952,
+          "p95_seconds": 0.16982737299999281,
+          "max_seconds": 0.22236996300000464,
+          "lag_p99_seconds": 0.00048334746813338825
+        },
+        "recovery": {
+          "planned": 60,
+          "recorded": 60,
+          "successes": 60,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.1434888440000359,
+          "p95_seconds": 0.18383619299996645,
+          "max_seconds": 0.20478157300001476,
+          "lag_p99_seconds": 0.0005931764681577079
+        }
+      },
+      "query_ledger": {
+        "planned": 540,
+        "recorded": 540,
+        "successes": 540,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "uploads": {
+        "planned": 108,
+        "recorded": 108,
+        "successes": 108,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true,
+        "pool_full": 0,
+        "accepted_p95_seconds": 11.869451205999997,
+        "completed_during_load_per_minute": 33.666666666666664,
+        "outstanding_at_load_end": 7,
+        "outstanding_at_midpoint": 8,
+        "completed_last_third_per_minute": 35.0
+      },
+      "client_headroom": {
+        "mixed-uploads": {
+          "peak_cpu_quota_fraction": 0.35913501331568715,
+          "peak_memory_fraction": 0.15705108642578125,
+          "oom": false
+        },
+        "mixed-queries": {
+          "peak_cpu_quota_fraction": 0.006869679552669192,
+          "peak_memory_fraction": 0.0158843994140625,
+          "oom": false
+        }
+      },
+      "infrastructure_valid": true,
+      "integrity_pass": true,
+      "search_p95_baseline_ratio": 1.0392340512999092,
+      "arrival_validation_pass": true,
+      "search_slo_pass": true,
+      "upload_success_pass": true,
+      "api_cpu_fraction_of_one_core": 0.1047218106290093,
+      "server_resources": {
+        "bench-api": {
+          "cpu_seconds": 17.691505,
+          "sampled_seconds": 168.93811225891113,
+          "allocated_cpu_utilization": 0.20944362125801852,
+          "throttled_seconds": 0.0
+        },
+        "bench-proxy": {
+          "cpu_seconds": 1.222944,
+          "sampled_seconds": 168.93811225891113,
+          "allocated_cpu_utilization": 0.0144780119020833,
+          "throttled_seconds": 0.0
+        },
+        "bench-postgres": {
+          "cpu_seconds": 2.627567,
+          "sampled_seconds": 168.93811225891113,
+          "allocated_cpu_utilization": 0.03110685877646181,
+          "throttled_seconds": 0.0
+        },
+        "bench-qdrant": {
+          "cpu_seconds": 0.520689,
+          "sampled_seconds": 168.93811225891113,
+          "allocated_cpu_utilization": 0.006164257348892387,
+          "throttled_seconds": 0.0
+        }
+      },
+      "pipeline_start": {
+        "epoch": 1794427304.100291,
+        "videos": 0,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 0,
+        "oldest_pending_seconds": 0
+      },
+      "pipeline_end": {
+        "epoch": 1794427473.038948,
+        "videos": 101,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 101,
+        "oldest_pending_seconds": 166.448752
+      },
+      "pipeline_pending_growth": 101,
+      "searchable_completions_per_minute": 0.0,
+      "playable_completions_per_minute": 0.0,
+      "repeat": 3,
+      "pair_id": "r03-u036"
+    },
+    {
+      "name": "primary-r03-u060-direct",
+      "mode": "direct",
+      "processing": "paused",
+      "file": "speech-20s.mp4",
+      "rate": 60,
+      "search_rps": 2,
+      "phases": {
+        "baseline": {
+          "planned": 120,
+          "recorded": 120,
+          "successes": 120,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.14868415099999766,
+          "p95_seconds": 0.182593415000003,
+          "max_seconds": 0.22923972399999912,
+          "lag_p99_seconds": 0.0005104261859187886
+        },
+        "load": {
+          "planned": 360,
+          "recorded": 360,
+          "successes": 360,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.14795238100001007,
+          "p95_seconds": 0.1782717190000112,
+          "max_seconds": 0.2823003859999881,
+          "lag_p99_seconds": 0.0006886721859018508
+        },
+        "recovery": {
+          "planned": 60,
+          "recorded": 60,
+          "successes": 60,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.14246480899999733,
+          "p95_seconds": 0.17660314500000096,
+          "max_seconds": 0.19917613899998832,
+          "lag_p99_seconds": 0.0004903751859046679
+        }
+      },
+      "query_ledger": {
+        "planned": 540,
+        "recorded": 540,
+        "successes": 540,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "uploads": {
+        "planned": 180,
+        "recorded": 180,
+        "successes": 180,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true,
+        "pool_full": 0,
+        "accepted_p95_seconds": 11.960492152999999,
+        "completed_during_load_per_minute": 56.333333333333336,
+        "outstanding_at_load_end": 11,
+        "outstanding_at_midpoint": 12,
+        "completed_last_third_per_minute": 61.0
+      },
+      "client_headroom": {
+        "mixed-uploads": {
+          "peak_cpu_quota_fraction": 0.4935967588678696,
+          "peak_memory_fraction": 0.1937286376953125,
+          "oom": false
+        },
+        "mixed-queries": {
+          "peak_cpu_quota_fraction": 0.007286703169203577,
+          "peak_memory_fraction": 0.0159149169921875,
+          "oom": false
+        }
+      },
+      "infrastructure_valid": true,
+      "integrity_pass": true,
+      "search_p95_baseline_ratio": 0.9763315889568541,
+      "arrival_validation_pass": true,
+      "search_slo_pass": true,
+      "upload_success_pass": true,
+      "api_cpu_fraction_of_one_core": 0.13948551222835123,
+      "server_resources": {
+        "bench-api": {
+          "cpu_seconds": 23.576532,
+          "sampled_seconds": 169.02495193481445,
+          "allocated_cpu_utilization": 0.27897102445670197,
+          "throttled_seconds": 0.0
+        },
+        "bench-proxy": {
+          "cpu_seconds": 1.809206,
+          "sampled_seconds": 169.02495193481445,
+          "allocated_cpu_utilization": 0.0214075611830108,
+          "throttled_seconds": 0.0
+        },
+        "bench-postgres": {
+          "cpu_seconds": 3.527724,
+          "sampled_seconds": 169.02495193481445,
+          "allocated_cpu_utilization": 0.04174205003011022,
+          "throttled_seconds": 0.0
+        },
+        "bench-qdrant": {
+          "cpu_seconds": 0.521476,
+          "sampled_seconds": 169.02495193481445,
+          "allocated_cpu_utilization": 0.00617040258294066,
+          "throttled_seconds": 0.0
+        }
+      },
+      "pipeline_start": {
+        "epoch": 1794427696.924254,
+        "videos": 0,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 0,
+        "oldest_pending_seconds": 0
+      },
+      "pipeline_end": {
+        "epoch": 1794427865.948159,
+        "videos": 166,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 166,
+        "oldest_pending_seconds": 165.844718
+      },
+      "pipeline_pending_growth": 166,
+      "searchable_completions_per_minute": 0.0,
+      "playable_completions_per_minute": 0.0,
+      "repeat": 3,
+      "pair_id": "r03-u060"
+    },
+    {
+      "name": "primary-r03-u060-api",
+      "mode": "api",
+      "processing": "paused",
+      "file": "speech-20s.mp4",
+      "rate": 60,
+      "search_rps": 2,
+      "phases": {
+        "baseline": {
+          "planned": 120,
+          "recorded": 120,
+          "successes": 120,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.14769470600000204,
+          "p95_seconds": 0.1690048370000004,
+          "max_seconds": 0.3478783420000036,
+          "lag_p99_seconds": 0.0004377412949203574
+        },
+        "load": {
+          "planned": 360,
+          "recorded": 360,
+          "successes": 360,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.16837782600001083,
+          "p95_seconds": 0.3233334279999981,
+          "max_seconds": 0.7923071430000127,
+          "lag_p99_seconds": 0.00038437629490317704
+        },
+        "recovery": {
+          "planned": 60,
+          "recorded": 60,
+          "successes": 60,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.1463110020000022,
+          "p95_seconds": 0.18653098899999168,
+          "max_seconds": 0.2877168499999971,
+          "lag_p99_seconds": 0.00042904529493625887
+        }
+      },
+      "query_ledger": {
+        "planned": 540,
+        "recorded": 540,
+        "successes": 540,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "uploads": {
+        "planned": 180,
+        "recorded": 180,
+        "successes": 180,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true,
+        "pool_full": 0,
+        "accepted_p95_seconds": 11.336131653999997,
+        "completed_during_load_per_minute": 56.333333333333336,
+        "outstanding_at_load_end": 11,
+        "outstanding_at_midpoint": 12,
+        "completed_last_third_per_minute": 60.0
+      },
+      "client_headroom": {
+        "mixed-uploads": {
+          "peak_cpu_quota_fraction": 0.4019742044248704,
+          "peak_memory_fraction": 0.181695556640625,
+          "oom": false
+        },
+        "mixed-queries": {
+          "peak_cpu_quota_fraction": 0.007009551149225003,
+          "peak_memory_fraction": 0.016315460205078125,
+          "oom": false
+        }
+      },
+      "infrastructure_valid": true,
+      "integrity_pass": true,
+      "search_p95_baseline_ratio": 1.9131607931434371,
+      "arrival_validation_pass": true,
+      "search_slo_pass": false,
+      "upload_success_pass": true,
+      "api_cpu_fraction_of_one_core": 0.4607469077744222,
+      "server_resources": {
+        "bench-api": {
+          "cpu_seconds": 78.04949,
+          "sampled_seconds": 169.39775109291077,
+          "allocated_cpu_utilization": 0.9214938155488458,
+          "throttled_seconds": 105.958578
+        },
+        "bench-proxy": {
+          "cpu_seconds": 18.788391,
+          "sampled_seconds": 169.39775109291077,
+          "allocated_cpu_utilization": 0.22182574300759164,
+          "throttled_seconds": 0.0
+        },
+        "bench-postgres": {
+          "cpu_seconds": 3.022254,
+          "sampled_seconds": 169.39775109291077,
+          "allocated_cpu_utilization": 0.03568233911608854,
+          "throttled_seconds": 0.0
+        },
+        "bench-qdrant": {
+          "cpu_seconds": 0.50829,
+          "sampled_seconds": 169.39775109291077,
+          "allocated_cpu_utilization": 0.006001142243278243,
+          "throttled_seconds": 0.0
+        }
+      },
+      "pipeline_start": {
+        "epoch": 1794428136.300132,
+        "videos": 0,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 0,
+        "oldest_pending_seconds": 0
+      },
+      "pipeline_end": {
+        "epoch": 1794428305.699111,
+        "videos": 169,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 169,
+        "oldest_pending_seconds": 167.90854
+      },
+      "pipeline_pending_growth": 169,
+      "searchable_completions_per_minute": 0.0,
+      "playable_completions_per_minute": 0.0,
+      "repeat": 3,
+      "pair_id": "r03-u060"
+    },
+    {
+      "name": "primary-r03-u012-api",
+      "mode": "api",
+      "processing": "paused",
+      "file": "speech-20s.mp4",
+      "rate": 12,
+      "search_rps": 2,
+      "phases": {
+        "baseline": {
+          "planned": 120,
+          "recorded": 120,
+          "successes": 120,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.1474846899999975,
+          "p95_seconds": 0.1932758389999999,
+          "max_seconds": 0.21090213999999832,
+          "lag_p99_seconds": 0.0006446757788083346
+        },
+        "load": {
+          "planned": 360,
+          "recorded": 360,
+          "successes": 360,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.14573608899999818,
+          "p95_seconds": 0.1739399830000184,
+          "max_seconds": 0.2643037170000025,
+          "lag_p99_seconds": 0.0008639337788167722
+        },
+        "recovery": {
+          "planned": 60,
+          "recorded": 60,
+          "successes": 60,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.14688399599998955,
+          "p95_seconds": 0.188198602999968,
+          "max_seconds": 0.2221408559999545,
+          "lag_p99_seconds": 0.0009746717788061687
+        }
+      },
+      "query_ledger": {
+        "planned": 540,
+        "recorded": 540,
+        "successes": 540,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "uploads": {
+        "planned": 36,
+        "recorded": 36,
+        "successes": 36,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true,
+        "pool_full": 0,
+        "accepted_p95_seconds": 11.321677555999996,
+        "completed_during_load_per_minute": 11.333333333333334,
+        "outstanding_at_load_end": 2,
+        "outstanding_at_midpoint": 3,
+        "completed_last_third_per_minute": 12.0
+      },
+      "client_headroom": {
+        "mixed-uploads": {
+          "peak_cpu_quota_fraction": 0.11291483689088483,
+          "peak_memory_fraction": 0.12946853637695313,
+          "oom": false
+        },
+        "mixed-queries": {
+          "peak_cpu_quota_fraction": 0.007014397754003444,
+          "peak_memory_fraction": 0.015842437744140625,
+          "oom": false
+        }
+      },
+      "infrastructure_valid": true,
+      "integrity_pass": true,
+      "search_p95_baseline_ratio": 0.8999572005480648,
+      "arrival_validation_pass": true,
+      "search_slo_pass": true,
+      "upload_success_pass": true,
+      "api_cpu_fraction_of_one_core": 0.1733101425923681,
+      "server_resources": {
+        "bench-api": {
+          "cpu_seconds": 31.139553,
+          "sampled_seconds": 179.675306558609,
+          "allocated_cpu_utilization": 0.3466202851847364,
+          "throttled_seconds": 3.073474
+        },
+        "bench-proxy": {
+          "cpu_seconds": 7.557667,
+          "sampled_seconds": 179.675306558609,
+          "allocated_cpu_utilization": 0.08412582835955518,
+          "throttled_seconds": 0.0
+        },
+        "bench-postgres": {
+          "cpu_seconds": 1.674688,
+          "sampled_seconds": 179.675306558609,
+          "allocated_cpu_utilization": 0.018641270546030507,
+          "throttled_seconds": 0.042121
+        },
+        "bench-qdrant": {
+          "cpu_seconds": 0.541345,
+          "sampled_seconds": 179.675306558609,
+          "allocated_cpu_utilization": 0.0060258141240284065,
+          "throttled_seconds": 0.0
+        }
+      },
+      "pipeline_start": {
+        "epoch": 1794428602.346364,
+        "videos": 0,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 0,
+        "oldest_pending_seconds": 0
+      },
+      "pipeline_end": {
+        "epoch": 1794428782.023534,
+        "videos": 34,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 34,
+        "oldest_pending_seconds": 168.761922
+      },
+      "pipeline_pending_growth": 34,
+      "searchable_completions_per_minute": 0.0,
+      "playable_completions_per_minute": 0.0,
+      "repeat": 3,
+      "pair_id": "r03-u012"
+    },
+    {
+      "name": "primary-r03-u012-direct",
+      "mode": "direct",
+      "processing": "paused",
+      "file": "speech-20s.mp4",
+      "rate": 12,
+      "search_rps": 2,
+      "phases": {
+        "baseline": {
+          "planned": 120,
+          "recorded": 120,
+          "successes": 120,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.14362404799999787,
+          "p95_seconds": 0.1785206330000001,
+          "max_seconds": 0.2171313450000016,
+          "lag_p99_seconds": 0.0008620424936509608
+        },
+        "load": {
+          "planned": 360,
+          "recorded": 360,
+          "successes": 360,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.1433626500000246,
+          "p95_seconds": 0.17368139099999097,
+          "max_seconds": 0.21833756300000823,
+          "lag_p99_seconds": 0.0008352504936510741
+        },
+        "recovery": {
+          "planned": 60,
+          "recorded": 60,
+          "successes": 60,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.14139107099996182,
+          "p95_seconds": 0.16271077599999262,
+          "max_seconds": 0.17632042299996828,
+          "lag_p99_seconds": 0.0009263254936513476
+        }
+      },
+      "query_ledger": {
+        "planned": 540,
+        "recorded": 540,
+        "successes": 540,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "uploads": {
+        "planned": 36,
+        "recorded": 36,
+        "successes": 36,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true,
+        "pool_full": 0,
+        "accepted_p95_seconds": 12.105330487,
+        "completed_during_load_per_minute": 11.333333333333334,
+        "outstanding_at_load_end": 2,
+        "outstanding_at_midpoint": 3,
+        "completed_last_third_per_minute": 12.0
+      },
+      "client_headroom": {
+        "mixed-uploads": {
+          "peak_cpu_quota_fraction": 0.13376420117732696,
+          "peak_memory_fraction": 0.13031845092773436,
+          "oom": false
+        },
+        "mixed-queries": {
+          "peak_cpu_quota_fraction": 0.007249401242911633,
+          "peak_memory_fraction": 0.0164794921875,
+          "oom": false
+        }
+      },
+      "infrastructure_valid": true,
+      "integrity_pass": true,
+      "search_p95_baseline_ratio": 0.9728925339402694,
+      "arrival_validation_pass": true,
+      "search_slo_pass": true,
+      "upload_success_pass": true,
+      "api_cpu_fraction_of_one_core": 0.06656759630638635,
+      "server_resources": {
+        "bench-api": {
+          "cpu_seconds": 11.24881,
+          "sampled_seconds": 168.9832684993744,
+          "allocated_cpu_utilization": 0.13313519261277215,
+          "throttled_seconds": 0.02819
+        },
+        "bench-proxy": {
+          "cpu_seconds": 0.594163,
+          "sampled_seconds": 168.9832684993744,
+          "allocated_cpu_utilization": 0.007032211002620058,
+          "throttled_seconds": 0.0
+        },
+        "bench-postgres": {
+          "cpu_seconds": 1.605078,
+          "sampled_seconds": 168.9832684993744,
+          "allocated_cpu_utilization": 0.01899688666521375,
+          "throttled_seconds": 0.0
+        },
+        "bench-qdrant": {
+          "cpu_seconds": 0.521522,
+          "sampled_seconds": 168.9832684993744,
+          "allocated_cpu_utilization": 0.006172469080889281,
+          "throttled_seconds": 0.0
+        }
+      },
+      "pipeline_start": {
+        "epoch": 1794428962.841915,
+        "videos": 0,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 0,
+        "oldest_pending_seconds": 0
+      },
+      "pipeline_end": {
+        "epoch": 1794429131.822405,
+        "videos": 34,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 34,
+        "oldest_pending_seconds": 166.674729
+      },
+      "pipeline_pending_growth": 34,
+      "searchable_completions_per_minute": 0.0,
+      "playable_completions_per_minute": 0.0,
+      "repeat": 3,
+      "pair_id": "r03-u012"
+    },
+    {
+      "name": "primary-r03-u024-direct",
+      "mode": "direct",
+      "processing": "paused",
+      "file": "speech-20s.mp4",
+      "rate": 24,
+      "search_rps": 2,
+      "phases": {
+        "baseline": {
+          "planned": 120,
+          "recorded": 120,
+          "successes": 120,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.13990230699999665,
+          "p95_seconds": 0.17175275500000134,
+          "max_seconds": 0.20111464500000148,
+          "lag_p99_seconds": 0.0002788947823511023
+        },
+        "load": {
+          "planned": 360,
+          "recorded": 360,
+          "successes": 360,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.1400831130000006,
+          "p95_seconds": 0.18365124000000652,
+          "max_seconds": 0.37022477900001105,
+          "lag_p99_seconds": 0.00036786878234806863
+        },
+        "recovery": {
+          "planned": 60,
+          "recorded": 60,
+          "successes": 59,
+          "success_fraction": 0.9833333333333333,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.13738650600000984,
+          "p95_seconds": 0.1669152260000119,
+          "max_seconds": 0.2046094190000149,
+          "lag_p99_seconds": 0.0002315497823133228
+        }
+      },
+      "query_ledger": {
+        "planned": 540,
+        "recorded": 540,
+        "successes": 539,
+        "success_fraction": 0.9981481481481481,
+        "complete_unique_ledger": true
+      },
+      "uploads": {
+        "planned": 72,
+        "recorded": 72,
+        "successes": 72,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true,
+        "pool_full": 0,
+        "accepted_p95_seconds": 11.968639903999996,
+        "completed_during_load_per_minute": 22.666666666666668,
+        "outstanding_at_load_end": 4,
+        "outstanding_at_midpoint": 5,
+        "completed_last_third_per_minute": 24.0
+      },
+      "client_headroom": {
+        "mixed-uploads": {
+          "peak_cpu_quota_fraction": 0.2343679364171218,
+          "peak_memory_fraction": 0.136138916015625,
+          "oom": false
+        },
+        "mixed-queries": {
+          "peak_cpu_quota_fraction": 0.007310168096071495,
+          "peak_memory_fraction": 0.016017913818359375,
+          "oom": false
+        }
+      },
+      "infrastructure_valid": true,
+      "integrity_pass": true,
+      "search_p95_baseline_ratio": 1.069276821789584,
+      "arrival_validation_pass": true,
+      "search_slo_pass": true,
+      "upload_success_pass": true,
+      "api_cpu_fraction_of_one_core": 0.08628630315037776,
+      "server_resources": {
+        "bench-api": {
+          "cpu_seconds": 14.575315,
+          "sampled_seconds": 168.91806077957153,
+          "allocated_cpu_utilization": 0.172572606300755,
+          "throttled_seconds": 0.023628
+        },
+        "bench-proxy": {
+          "cpu_seconds": 0.935928,
+          "sampled_seconds": 168.91806077957153,
+          "allocated_cpu_utilization": 0.011081443815783947,
+          "throttled_seconds": 0.0
+        },
+        "bench-postgres": {
+          "cpu_seconds": 2.12665,
+          "sampled_seconds": 168.91806077957153,
+          "allocated_cpu_utilization": 0.02517966391734934,
+          "throttled_seconds": 0.0
+        },
+        "bench-qdrant": {
+          "cpu_seconds": 0.521115,
+          "sampled_seconds": 168.91806077957153,
+          "allocated_cpu_utilization": 0.006170032944908425,
+          "throttled_seconds": 0.0
+        }
+      },
+      "pipeline_start": {
+        "epoch": 1794429305.063834,
+        "videos": 0,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 0,
+        "oldest_pending_seconds": 0
+      },
+      "pipeline_end": {
+        "epoch": 1794429473.985772,
+        "videos": 68,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 68,
+        "oldest_pending_seconds": 167.528578
+      },
+      "pipeline_pending_growth": 68,
+      "searchable_completions_per_minute": 0.0,
+      "playable_completions_per_minute": 0.0,
+      "repeat": 3,
+      "pair_id": "r03-u024"
+    },
+    {
+      "name": "primary-r03-u024-api",
+      "mode": "api",
+      "processing": "paused",
+      "file": "speech-20s.mp4",
+      "rate": 24,
+      "search_rps": 2,
+      "phases": {
+        "baseline": {
+          "planned": 120,
+          "recorded": 120,
+          "successes": 120,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.14027281899999797,
+          "p95_seconds": 0.16672759700000098,
+          "max_seconds": 0.22367722200000026,
+          "lag_p99_seconds": 0.0006289295842289988
+        },
+        "load": {
+          "planned": 360,
+          "recorded": 360,
+          "successes": 360,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.14581812199999694,
+          "p95_seconds": 0.17218974200001685,
+          "max_seconds": 0.26180640199998745,
+          "lag_p99_seconds": 0.0005775935842251556
+        },
+        "recovery": {
+          "planned": 60,
+          "recorded": 60,
+          "successes": 60,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.1373248489999969,
+          "p95_seconds": 0.17673638499999653,
+          "max_seconds": 0.19887254899999243,
+          "lag_p99_seconds": 0.0006244465841973579
+        }
+      },
+      "query_ledger": {
+        "planned": 540,
+        "recorded": 540,
+        "successes": 540,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "uploads": {
+        "planned": 72,
+        "recorded": 72,
+        "successes": 72,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true,
+        "pool_full": 0,
+        "accepted_p95_seconds": 11.185719957000023,
+        "completed_during_load_per_minute": 22.666666666666668,
+        "outstanding_at_load_end": 4,
+        "outstanding_at_midpoint": 4,
+        "completed_last_third_per_minute": 24.0
+      },
+      "client_headroom": {
+        "mixed-uploads": {
+          "peak_cpu_quota_fraction": 0.2023314097364346,
+          "peak_memory_fraction": 0.13503875732421874,
+          "oom": false
+        },
+        "mixed-queries": {
+          "peak_cpu_quota_fraction": 0.007249785746739244,
+          "peak_memory_fraction": 0.0162200927734375,
+          "oom": false
+        }
+      },
+      "infrastructure_valid": true,
+      "integrity_pass": true,
+      "search_p95_baseline_ratio": 1.0327608932072345,
+      "arrival_validation_pass": true,
+      "search_slo_pass": true,
+      "upload_success_pass": true,
+      "api_cpu_fraction_of_one_core": 0.2693458774629115,
+      "server_resources": {
+        "bench-api": {
+          "cpu_seconds": 45.582243,
+          "sampled_seconds": 169.23311924934387,
+          "allocated_cpu_utilization": 0.5386917549258222,
+          "throttled_seconds": 14.744831
+        },
+        "bench-proxy": {
+          "cpu_seconds": 11.057005,
+          "sampled_seconds": 169.23311924934387,
+          "allocated_cpu_utilization": 0.130671880882948,
+          "throttled_seconds": 0.0
+        },
+        "bench-postgres": {
+          "cpu_seconds": 2.017804,
+          "sampled_seconds": 169.23311924934387,
+          "allocated_cpu_utilization": 0.023846443402452656,
+          "throttled_seconds": 0.0
+        },
+        "bench-qdrant": {
+          "cpu_seconds": 0.502249,
+          "sampled_seconds": 169.23311924934387,
+          "allocated_cpu_utilization": 0.005935587575621043,
+          "throttled_seconds": 0.0
+        }
+      },
+      "pipeline_start": {
+        "epoch": 1794429671.633425,
+        "videos": 0,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 0,
+        "oldest_pending_seconds": 0
+      },
+      "pipeline_end": {
+        "epoch": 1794429840.871027,
+        "videos": 67,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 67,
+        "oldest_pending_seconds": 166.700948
+      },
+      "pipeline_pending_growth": 67,
+      "searchable_completions_per_minute": 0.0,
+      "playable_completions_per_minute": 0.0,
+      "repeat": 3,
+      "pair_id": "r03-u024"
+    }
+  ],
+  "limits": [
+    "Three whole-trial pairs per rate; intervals are conditional on this controlled workload.",
+    "Workers paused: admission/search interference only, not processing throughput.",
+    "Highest passing tested rate is a lower bound; no unmeasured capacity maximum is inferred."
+  ]
+}
