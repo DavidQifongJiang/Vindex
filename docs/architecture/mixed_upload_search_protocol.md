@@ -1,6 +1,6 @@
 # Fixed-capacity upload and search comparison
 
-Status: implementation and exploratory calibration; no capacity result yet.
+Status: calibration completed; [primary plan](evidence/mixed_upload_search_2026-11-11/primary-plan.json) registered before collection. No primary capacity result yet.
 
 ## Question and scope
 
