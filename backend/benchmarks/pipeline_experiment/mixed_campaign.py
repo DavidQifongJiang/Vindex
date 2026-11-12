@@ -20,7 +20,10 @@ def state(action, seeds, expected=None, fixture=None, stopped=False):
 
 
 def stop_workers():
-    command(['docker', 'stop', '-t', '60']+WORKERS, 200)
+    # Stop new dispatch first. The idle dispatcher can retain Celery signal
+    # handlers; it does not need the processing workers' full drain allowance.
+    command(['docker', 'stop', '-t', '5', 'bench-dispatcher'], 30)
+    command(['docker', 'stop', '-t', '60', 'bench-search', 'bench-playback'], 150)
     assert all(not container_state()[name]['running'] for name in WORKERS)
 
 
@@ -161,6 +164,8 @@ def main():
         for spec in plan['trials']:
             if time.monotonic()-began+900 > plan['max_wall_seconds']: raise RuntimeError('Campaign time budget exhausted')
             spec = {**spec, 'seeds': seeds, 'commit': settings['commit'], 'environment': 'staging', 'origin': 'https://bench-proxy:8443'}
+            if 'upload_client_vcpu' in plan:
+                spec.update(upload_client_vcpu=plan['upload_client_vcpu'], query_client_vcpu=plan['query_client_vcpu'])
             progress['active_trial'] = spec['name']; write(destination/'progress.json', progress); archive(destination/'progress.json')
             progress['completed'].append(trial(destination/spec['name'], spec, settings))
             write(destination/'progress.json', progress); archive(destination/'progress.json')

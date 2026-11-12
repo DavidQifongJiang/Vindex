@@ -34,6 +34,9 @@ def stats(names):
 
 
 def run(spec, settings):
+    if 'upload_client_vcpu' in spec:
+        assert float(settings.get('upload_client_cpus', '6')) == spec['upload_client_vcpu'], 'Upload client quota differs from registration'
+        assert float(settings.get('query_client_cpus', '1')) == spec['query_client_vcpu'], 'Query client quota differs from registration'
     folder = ROOT/'results'/spec['name']; folder.mkdir()
     write(folder/'spec.json', spec)
     remote = '/bench/results/' + spec['name']

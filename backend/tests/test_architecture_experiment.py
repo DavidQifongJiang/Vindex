@@ -34,6 +34,15 @@ finally:
 
 
 class ArchitectureExperimentTests(unittest.TestCase):
+    def test_wrong_client_quota_cannot_launch_a_registered_trial(self):
+        spec = {'upload_client_vcpu': 3.5, 'query_client_vcpu': .25}
+        with patch.object(client, 'command') as command:
+            with self.assertRaisesRegex(AssertionError, 'Upload client quota'):
+                client.run(spec, {'upload_client_cpus': '3', 'query_client_cpus': '.25'})
+            with self.assertRaisesRegex(AssertionError, 'Query client quota'):
+                client.run(spec, {'upload_client_cpus': '3.5', 'query_client_cpus': '.5'})
+        command.assert_not_called()
+
     def test_client_restart_preserves_successful_and_failed_prior_trials(self):
         with tempfile.TemporaryDirectory() as directory:
             folder = Path(directory)
@@ -58,6 +67,14 @@ class ArchitectureExperimentTests(unittest.TestCase):
             publication.validate_legacy_cardinality(segments, segments[:1], points[:1])
         with self.assertRaises(AssertionError):
             publication.validate_legacy_cardinality(segments, segments, points[:1] * 2)
+
+    def test_legacy_identity_allows_serialization_roundoff_but_not_timestamp_changes(self):
+        segments = [{'start': 108.39999999999999, 'end': 111.75999999999999, 'text': 'same words'}]
+        points = [SimpleNamespace(payload={'start': 108.4, 'end': 111.76, 'text': 'same words'})]
+        publication.validate_legacy_cardinality(segments, segments, points)
+        points[0].payload['start'] += .000001
+        with self.assertRaises(AssertionError):
+            publication.validate_legacy_cardinality(segments, segments, points)
 
     def test_completed_publication_cannot_skip_missing_artifact_checks(self):
         for segments, embeddings in [(None, 'embeddings'), ('segments', None), (None, None)]:

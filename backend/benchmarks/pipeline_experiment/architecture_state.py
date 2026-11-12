@@ -3,7 +3,7 @@ import argparse
 import hashlib
 import json
 import os
-from collections import Counter
+from math import isclose
 from pathlib import Path
 
 from guard import validate_environment
@@ -18,8 +18,13 @@ def completed_search_publication(video):
 
 def validate_legacy_cardinality(segments, embeddings, points):
     assert len(segments) == len(embeddings) == len(points), 'Incomplete legacy search publication'
-    identity = lambda rows: Counter((r['start'], r['end'], r['text']) for r in rows)
-    assert identity(segments) == identity(embeddings) == identity([p.payload for p in points])
+    identity = lambda rows: sorted((r['text'], r['start'], r['end']) for r in rows)
+    # JSON/Qdrant may round the last floating-point bit (108.39999999999999 ->
+    # 108.4). Preserve every segment and exact text, allowing only 1 ns in time.
+    for original, embedding, indexed in zip(identity(segments), identity(embeddings), identity([p.payload for p in points])):
+        assert original[0] == embedding[0] == indexed[0]
+        assert all(isclose(original[i], other[i], rel_tol=0, abs_tol=1e-9)
+                   for other in (embedding, indexed) for i in (1, 2))
 
 
 def main():

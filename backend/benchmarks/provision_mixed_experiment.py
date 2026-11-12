@@ -122,7 +122,7 @@ def main():
         settings = json.loads((folder/'run-settings.json').read_text())
         settings.update(server_ip=state['server_ip'], browser_image=base.IMAGES['BROWSER_IMAGE'])
         if args.client_type == 'm7i.xlarge':
-            settings.update(upload_client_cpus='3', query_client_cpus='.5')
+                settings.update(upload_client_cpus='3.5', query_client_cpus='.25')
         save(folder/'client-settings.json', settings)
         s3.upload_file(str(folder/'client-settings.json'), state['bucket'], 'bootstrap/client-settings.json')
         script = f'''#!/bin/bash
