@@ -1,6 +1,8 @@
 # Aligned architecture comparison
 
-Status: calibration running; primary outcomes have not been collected.
+Status: nine calibration trials complete; primary plan registered before collection.
+Registered primary plan: [24 trials](evidence/aligned_architecture_2026-11-12/primary-plan.json),
+SHA-256 `51cd88e75f8ca81465a6f430a2b218d68923b1fe4cde1c9846b2fad6014d6e22`.
 
 ## Question and reusable evidence
 
@@ -112,7 +114,9 @@ The initial three-vCPU upload generator exceeded its 90% CPU gate in the
 high-rate direct trial. Preserve that invalid calibration. Assign 3.5 vCPU to
 uploads and 0.25 vCPU to queries, and check the full primary load duration in a
 separate calibration before registration. Generator headroom gates remain
-unchanged. Estimated compute ceiling $5,
+unchanged. This full-duration calibration passed: upload-generator peak CPU
+82.7% of its allocation, 121 verified uploads, and 540 correct scheduled queries.
+The primary plan retains this client allocation for every stage. Estimated compute ceiling $5,
 maximum five-hour lifetime including setup and cleanup; storage/IP/requests extra.
 Automatic graceful expiry and independent hard stops. Keep shared ECS capacity
 unchanged. Preserve/download/hash-verify evidence before guarded deletion.
