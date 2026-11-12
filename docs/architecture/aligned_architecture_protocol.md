@@ -56,8 +56,8 @@ search continues at two requests/second against three protected processed videos
 Browser uploads retain 20 Mbps / 40 ms shaping; search uses the same independent
 client network in all modes.
 
-Preliminary choices: background upload rates 3 and 60/minute, 30s baseline,
-180s load, 120s recovery, three repetitions per configuration/rate. Calibration
+Primary choices: background upload rates 3 and 60/minute, 30s baseline,
+120s load, 120s recovery, three repetitions per configuration/rate. Calibration
 may adjust durations/rates before the exact primary plan is registered and hashed.
 Run A -> B -> C -> D within each repetition as requested; alternate low/high rate
 order between repetitions. Warm every worker before each trial and record each
@@ -108,8 +108,11 @@ unreturned commits and missing evidence prevent a comparative improvement claim.
 Dedicated m7i.2xlarge server and m7i.xlarge client, current combined EC2 price
 $0.6048/hour (AWS pricing inventory 2026-11-11). The original eight-vCPU client
 was refused by the account quota; the replacement has four vCPU and 16 GiB.
-Its upload/query containers receive three and 0.5 vCPU; measured generator
-headroom gates remain unchanged. Estimated compute ceiling $5,
+The initial three-vCPU upload generator exceeded its 90% CPU gate in the
+high-rate direct trial. Preserve that invalid calibration. Assign 3.5 vCPU to
+uploads and 0.25 vCPU to queries, and check the full primary load duration in a
+separate calibration before registration. Generator headroom gates remain
+unchanged. Estimated compute ceiling $5,
 maximum five-hour lifetime including setup and cleanup; storage/IP/requests extra.
 Automatic graceful expiry and independent hard stops. Keep shared ECS capacity
 unchanged. Preserve/download/hash-verify evidence before guarded deletion.
