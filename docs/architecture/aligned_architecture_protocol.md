@@ -1,8 +1,15 @@
 # Aligned architecture comparison
 
 Status: nine calibration trials complete; primary plan registered before collection.
-Registered primary plan: [24 trials](evidence/aligned_architecture_2026-11-12/primary-plan.json),
-SHA-256 `51cd88e75f8ca81465a6f430a2b218d68923b1fe4cde1c9846b2fad6014d6e22`.
+Current registered plan: [24 fresh trials](evidence/aligned_architecture_2026-11-12/primary-002-plan.json),
+SHA-256 `7835a8f58317c02b50917d4849246dac2d6c3e781ecbf5daa380fa14bbc7b642`.
+The [first registration](evidence/aligned_architecture_2026-11-12/primary-plan.json)
+stopped at its first trial because exact floating-point timestamp comparisons
+rejected Qdrant serialization roundoff (maximum observed difference 5.68e-14 s).
+All seven retained inputs matched segment counts and text. Preserve the failed
+attempt and rerun all 24 trials; do not pool that attempt with the replacement.
+The repaired identity check retains exact text/cardinality and permits at most
+one nanosecond of timestamp roundoff. Workloads and performance gates are unchanged.
 
 ## Question and reusable evidence
 
@@ -45,6 +52,8 @@ processes warm the same Whisper tiny and MiniLM models before measurement.
 Primary warmup records the current child PID/start-time set and samples that set
 throughout observation, invalidating a trial if a child is replaced. Container
 image references, commands, quotas and start identities are recorded as well.
+Between trials, stop the dispatcher before draining workers; only processing
+workers need the full shutdown allowance. This does not change the timed window.
 
 The adapter is guarded against non-experiment databases, buckets and queues.
 No application source, shared service or production flag changes.
