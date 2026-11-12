@@ -64,8 +64,17 @@ def trial(folder, spec, settings):
     seeds = spec['seeds']; bucket = settings['bucket']
     folder.mkdir()
     assert state('summary', seeds)['videos'] == 0 and not any(queues_empty().values()), 'Previous trial is not clean'
+    if 'architecture' in spec:
+        assert spec['architecture'] in ('serialized', 'branches', 'dag') and spec['processing'] == 'active'
+        stop_workers()
+        write(ROOT/'architecture.json', {'architecture': spec['architecture']})
+        command(['docker', 'start', 'bench-search'])
+        warm = json.loads(command(['docker', 'exec', 'bench-search', 'python', '/bench/architecture_warm.py'], 180))
+        assert len(set(warm['pids'])) == 4
+        write(folder/'worker-warmup.json', warm)
     if spec['processing'] == 'active':
-        command(['docker', 'start']+WORKERS); wait_workers()
+        command(['docker', 'start']+(['bench-dispatcher', 'bench-search'] if 'architecture' in spec else WORKERS))
+        if 'architecture' not in spec: wait_workers()
     else: stop_workers()
     write(folder/'spec.json', spec)
     write(folder/'before.json', {'containers': container_state(), 'state': inspect_state()})
@@ -84,6 +93,9 @@ def trial(folder, spec, settings):
     archive(folder)
     assert completed, 'Client did not complete; evidence retained without deletion'
     rows = [json.loads(line) for line in (folder/'client/uploads.jsonl').read_text().splitlines()] if (folder/'client/uploads.jsonl').exists() else []
+    sentinel_rows = [json.loads(line) for line in (folder/'client/sentinel.jsonl').read_text().splitlines()] if (folder/'client/sentinel.jsonl').exists() else []
+    if 'architecture' in spec:
+        rows += sentinel_rows
     accepted = [row['video_id'] for row in rows if row['outcome'] == 'accepted']
     assert len(accepted) == len(set(accepted)), 'Duplicate acceptance identity'
     # Include late commits in reconciliation; never silently drop failed browser attempts.
@@ -97,7 +109,21 @@ def trial(folder, spec, settings):
         subprocess.run(['docker', 'exec', 'bench-postgres', 'pg_dump', '-U', 'bench', '-d', 'vindex_pipeline_bench', '--no-owner', '--no-acl'], stdout=output, stderr=subprocess.DEVNULL, timeout=60, check=True)
     if logical:
         fixture = ROOT/'fixtures'/Path(spec['file']).name
-        verification = state('verify', seeds, logical, {'bytes': fixture.stat().st_size, 'sha256': hashlib.sha256(fixture.read_bytes()).hexdigest()})
+        if 'architecture' in spec:
+            assert set(accepted) == set(logical), 'Unreturned commits preserved for investigation'
+            sentinel_ids = {r['video_id'] for r in sentinel_rows if r['outcome'] == 'accepted'}
+            inputs = []
+            for vid in logical:
+                path = ROOT/'fixtures'/Path(spec['sentinel_file']).name if vid in sentinel_ids else fixture
+                inputs.append({'video_id': vid, 'kind': 'sentinel' if vid in sentinel_ids else 'background',
+                               'bytes': path.stat().st_size, 'sha256': hashlib.sha256(path.read_bytes()).hexdigest()})
+            write(folder/'verification-input.json', {'seeds': seeds, 'expected': inputs, 'architecture': spec['architecture']})
+            verification = json.loads(command(['docker', 'exec', 'bench-api', 'python', '/bench/architecture_state.py',
+                '/bench/'+str((folder/'verification-input.json').relative_to(ROOT))], 600))
+            for vid in sentinel_ids:
+                write(folder/(vid+'-metrics.json'), app_request('/videos/'+vid+'/metrics'))
+        else:
+            verification = state('verify', seeds, logical, {'bytes': fixture.stat().st_size, 'sha256': hashlib.sha256(fixture.read_bytes()).hexdigest()})
         write(folder/'verification.json', verification); archive(folder)
         retirement = state('retire', seeds, logical, stopped=True)
         write(folder/'retirement.json', retirement)

@@ -28,8 +28,8 @@ def run(spec, settings):
     write(folder/'spec.json', spec)
     remote = '/bench/results/' + spec['name']
     names = ['mixed-uploads', 'mixed-queries']
-    for name, script, cpu, memory in [('mixed-uploads', 'run_mixed_uploads.cjs', '6', '10g'),
-                                       ('mixed-queries', 'run_mixed_queries.cjs', '1', '1g')]:
+    for name, script, cpu, memory in [('mixed-uploads', 'run_mixed_uploads.cjs', settings.get('upload_client_cpus', '6'), '10g'),
+                                       ('mixed-queries', 'run_mixed_queries.cjs', settings.get('query_client_cpus', '1'), '1g')]:
         subprocess.run(['docker', 'rm', '-f', name], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         command(['docker', 'run', '-d', '--init', '--name', name, '--cpus='+cpu, '--memory='+memory,
                  '--memory-swap='+memory, '--shm-size=1g', '--add-host', 'bench-proxy:'+settings['server_ip'],
