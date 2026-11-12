@@ -1,0 +1,17 @@
+{
+  "python_version": "3.11.16",
+  "archive_sha256": "d74e407b274f75b4f51e75c5c561459907a3c209b527d78e4703e043f431bcd1",
+  "verified_public_files": 875,
+  "reports_semantically_equal": {
+    "pilot-summary.json": true,
+    "pilot-002-summary.json": true,
+    "aborted-primary-summary.json": true,
+    "primary-summary.json": true
+  },
+  "analysis_source_sha256_with_lf_newlines": {
+    "analyze_architecture_experiment.py": "86ad91599b2647e6ed74d69f6ef67d8cacddf68e2b0aea5e42bb1055dc3944ec",
+    "analyze_mixed_experiment.py": "51011b565eabef04d0a7159844427aeb061411b2f181e5d8af312f6dc2daaac3",
+    "summarize_mixed_comparison.py": "13de72a6a2280cdd7f3b80891b874015eca39a86248451b902889939d4409f11",
+    "pipeline_experiment/architecture_processes.py": "32b74b2de0fc3dec49d5e8a993d7e6726a4c30c13d53cc7f51275acd8ed7094a"
+  }
+}

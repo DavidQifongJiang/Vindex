@@ -1,0 +1,2040 @@
+{
+  "plan_sha256": "52f3a5f937a2bec85969f8a732f258be445f0ff610a8d974fe10dd60da4f26da",
+  "partial": false,
+  "progress": {
+    "started_at": "2026-11-12T00:03:50.084257+00:00",
+    "finished": true,
+    "completed": [
+      {
+        "trial": "aligned-pilot-001-r1-u003-a",
+        "accepted": 4,
+        "logical": 4,
+        "at": "2026-11-12T00:09:26.012728+00:00"
+      },
+      {
+        "trial": "aligned-pilot-001-r1-u003-b",
+        "accepted": 4,
+        "logical": 4,
+        "at": "2026-11-12T00:15:06.611570+00:00"
+      },
+      {
+        "trial": "aligned-pilot-001-r1-u003-c",
+        "accepted": 4,
+        "logical": 4,
+        "at": "2026-11-12T00:20:46.826253+00:00"
+      },
+      {
+        "trial": "aligned-pilot-001-r1-u003-d",
+        "accepted": 4,
+        "logical": 4,
+        "at": "2026-11-12T00:26:26.659287+00:00"
+      },
+      {
+        "trial": "aligned-pilot-001-r1-u060-a",
+        "accepted": 61,
+        "logical": 61,
+        "at": "2026-11-12T00:33:06.337382+00:00"
+      },
+      {
+        "trial": "aligned-pilot-001-r1-u060-b",
+        "accepted": 61,
+        "logical": 61,
+        "at": "2026-11-12T00:39:49.401922+00:00"
+      },
+      {
+        "trial": "aligned-pilot-001-r1-u060-c",
+        "accepted": 61,
+        "logical": 61,
+        "at": "2026-11-12T00:46:33.908497+00:00"
+      },
+      {
+        "trial": "aligned-pilot-001-r1-u060-d",
+        "accepted": 61,
+        "logical": 61,
+        "at": "2026-11-12T00:53:09.548827+00:00"
+      }
+    ],
+    "active_trial": "aligned-pilot-001-r1-u060-d",
+    "finished_at": "2026-11-12T00:53:09.976344+00:00"
+  },
+  "planned_trials": 8,
+  "trials": [
+    {
+      "name": "aligned-pilot-001-r1-u003-a",
+      "mode": "api",
+      "processing": "active",
+      "file": "speech-20s.mp4",
+      "rate": 3,
+      "search_rps": 2,
+      "phases": {
+        "baseline": {
+          "planned": 60,
+          "recorded": 60,
+          "successes": 60,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.14522115300000224,
+          "p95_seconds": 0.18505493800000114,
+          "max_seconds": 0.23554046999999992,
+          "lag_p99_seconds": 0.00039906083044627394
+        },
+        "load": {
+          "planned": 120,
+          "recorded": 120,
+          "successes": 120,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.14722667699999875,
+          "p95_seconds": 0.17669536199999858,
+          "max_seconds": 0.2572969649999941,
+          "lag_p99_seconds": 0.00032299383044431806
+        },
+        "recovery": {
+          "planned": 240,
+          "recorded": 240,
+          "successes": 240,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.14796238099999026,
+          "p95_seconds": 0.18862896399998863,
+          "max_seconds": 0.33233963599998967,
+          "lag_p99_seconds": 0.0003388938304453859
+        }
+      },
+      "query_ledger": {
+        "planned": 420,
+        "recorded": 420,
+        "successes": 420,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "uploads": {
+        "planned": 3,
+        "recorded": 3,
+        "successes": 3,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true,
+        "pool_full": 0,
+        "accepted_p95_seconds": 11.330873156999994,
+        "completed_during_load_per_minute": 3.0,
+        "outstanding_at_load_end": 0,
+        "outstanding_at_midpoint": 1,
+        "completed_last_third_per_minute": 3.0
+      },
+      "client_headroom": {
+        "mixed-uploads": {
+          "peak_cpu_quota_fraction": 0.10186259663740894,
+          "peak_memory_fraction": 0.13038482666015624,
+          "oom": false
+        },
+        "mixed-queries": {
+          "peak_cpu_quota_fraction": 0.013887357037825029,
+          "peak_memory_fraction": 0.015033721923828125,
+          "oom": false
+        }
+      },
+      "infrastructure_valid": true,
+      "integrity_pass": true,
+      "search_p95_baseline_ratio": 0.9548265175177195,
+      "arrival_validation_pass": true,
+      "search_slo_pass": true,
+      "upload_success_pass": true,
+      "api_cpu_fraction_of_one_core": 0.10456385282037547,
+      "server_resources": {
+        "bench-api": {
+          "cpu_seconds": 4.457542,
+          "sampled_seconds": 42.62985610961914,
+          "allocated_cpu_utilization": 0.20912770564075095,
+          "throttled_seconds": 0.504335
+        },
+        "bench-proxy": {
+          "cpu_seconds": 0.749189,
+          "sampled_seconds": 42.62985610961914,
+          "allocated_cpu_utilization": 0.035148558703718004,
+          "throttled_seconds": 0.0
+        },
+        "bench-postgres": {
+          "cpu_seconds": 0.412613,
+          "sampled_seconds": 42.62985610961914,
+          "allocated_cpu_utilization": 0.01935793538401818,
+          "throttled_seconds": 0.049923
+        },
+        "bench-qdrant": {
+          "cpu_seconds": 0.136356,
+          "sampled_seconds": 42.62985610961914,
+          "allocated_cpu_utilization": 0.006397206673621973,
+          "throttled_seconds": 0.0
+        }
+      },
+      "pipeline_start": {
+        "epoch": 1794441901.330953,
+        "videos": 0,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 0,
+        "oldest_pending_seconds": 0
+      },
+      "pipeline_end": {
+        "epoch": 1794441943.966339,
+        "videos": 4,
+        "searchable": 2,
+        "playable": 2,
+        "pending_videos": 2,
+        "oldest_pending_seconds": 42.108406
+      },
+      "pipeline_pending_growth": 2,
+      "searchable_completions_per_minute": 2.8149285723937223,
+      "playable_completions_per_minute": 2.8149285723937223,
+      "stage": "a",
+      "architecture": "serialized",
+      "repeat": 1,
+      "pair_id": "r1-u003",
+      "sentinel_upload": {
+        "planned": 1,
+        "recorded": 1,
+        "successes": 1,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "readiness": {
+        "video_id": "eae29f5a-02ca-4e70-8f8f-d67de3fd7e22",
+        "outcome": "ready",
+        "after_acceptance_seconds": 104.60208018700001,
+        "last_negative_seconds": 102.45716573700001,
+        "click_to_ready_seconds": 114.49859955000001,
+        "observation_seconds": 114.75552293400001,
+        "full_pipeline": {
+          "outcome": "accepted",
+          "failure_stage": null,
+          "upload_seconds": 9.896519363,
+          "pre_request_seconds": 0.03799255599999742,
+          "observed_mode": "api",
+          "video_id": "eae29f5a-02ca-4e70-8f8f-d67de3fd7e22",
+          "elapsed_seconds": 9.896568264,
+          "searchable": {
+            "outcome": "ready",
+            "observed_seconds": 114.49859955000001,
+            "after_acceptance_seconds": 104.60208018700001,
+            "probes": 52,
+            "last_code": "expected_search_hit",
+            "last_probe_started_seconds": 114.35367666500001,
+            "last_probe_finished_seconds": 114.49859955000001
+          },
+          "playable": {
+            "outcome": "ready",
+            "observed_seconds": 114.75534562900002,
+            "after_acceptance_seconds": 104.85882626600002,
+            "probes": 52,
+            "last_code": "decoded_advancing_video",
+            "last_probe_started_seconds": 114.354069358,
+            "last_probe_finished_seconds": 114.75534562900002
+          },
+          "readiness_outcome": "ready",
+          "pipeline_elapsed_seconds": 114.75552293400001
+        }
+      },
+      "worker_resources": {
+        "cpu_seconds": 100.742181,
+        "sampled_seconds": 42.62985610961914,
+        "allocated_cpu_utilization": 0.5907959244628332,
+        "throttled_seconds": 19.666198
+      },
+      "worker_child_stability_verified": false,
+      "worker_capacity_valid": true,
+      "failed_processing_jobs": 0,
+      "failed_videos": 0,
+      "publication_verifications": 4,
+      "accepted_total": 4,
+      "trial_state": "completed"
+    },
+    {
+      "name": "aligned-pilot-001-r1-u003-b",
+      "mode": "api",
+      "processing": "active",
+      "file": "speech-20s.mp4",
+      "rate": 3,
+      "search_rps": 2,
+      "phases": {
+        "baseline": {
+          "planned": 60,
+          "recorded": 60,
+          "successes": 60,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.14741377400000055,
+          "p95_seconds": 0.19522079699999995,
+          "max_seconds": 0.23069542899999942,
+          "lag_p99_seconds": 0.0006907357261951574
+        },
+        "load": {
+          "planned": 120,
+          "recorded": 120,
+          "successes": 120,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.15636136899999836,
+          "p95_seconds": 0.2041687329999986,
+          "max_seconds": 0.35691256799999976,
+          "lag_p99_seconds": 0.0006361477261975779
+        },
+        "recovery": {
+          "planned": 240,
+          "recorded": 240,
+          "successes": 240,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.14295611199998529,
+          "p95_seconds": 0.1742121039999911,
+          "max_seconds": 0.34551246399999946,
+          "lag_p99_seconds": 0.0007581557261744365
+        }
+      },
+      "query_ledger": {
+        "planned": 420,
+        "recorded": 420,
+        "successes": 420,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "uploads": {
+        "planned": 3,
+        "recorded": 3,
+        "successes": 3,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true,
+        "pool_full": 0,
+        "accepted_p95_seconds": 11.310609807000008,
+        "completed_during_load_per_minute": 3.0,
+        "outstanding_at_load_end": 0,
+        "outstanding_at_midpoint": 1,
+        "completed_last_third_per_minute": 3.0
+      },
+      "client_headroom": {
+        "mixed-uploads": {
+          "peak_cpu_quota_fraction": 0.08996508631388174,
+          "peak_memory_fraction": 0.13129768371582032,
+          "oom": false
+        },
+        "mixed-queries": {
+          "peak_cpu_quota_fraction": 0.016696730626261667,
+          "peak_memory_fraction": 0.015110015869140625,
+          "oom": false
+        }
+      },
+      "infrastructure_valid": true,
+      "integrity_pass": true,
+      "search_p95_baseline_ratio": 1.0458349527176587,
+      "arrival_validation_pass": true,
+      "search_slo_pass": true,
+      "upload_success_pass": true,
+      "api_cpu_fraction_of_one_core": 0.11324174395344333,
+      "server_resources": {
+        "bench-api": {
+          "cpu_seconds": 4.834058,
+          "sampled_seconds": 42.68795084953308,
+          "allocated_cpu_utilization": 0.22648348790688672,
+          "throttled_seconds": 0.354467
+        },
+        "bench-proxy": {
+          "cpu_seconds": 0.741596,
+          "sampled_seconds": 42.68795084953308,
+          "allocated_cpu_utilization": 0.034744980034951085,
+          "throttled_seconds": 0.0
+        },
+        "bench-postgres": {
+          "cpu_seconds": 0.526097,
+          "sampled_seconds": 42.68795084953308,
+          "allocated_cpu_utilization": 0.024648501018678177,
+          "throttled_seconds": 0.0
+        },
+        "bench-qdrant": {
+          "cpu_seconds": 0.151757,
+          "sampled_seconds": 42.68795084953308,
+          "allocated_cpu_utilization": 0.007110062534269429,
+          "throttled_seconds": 0.0
+        }
+      },
+      "pipeline_start": {
+        "epoch": 1794442239.567819,
+        "videos": 0,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 0,
+        "oldest_pending_seconds": 0
+      },
+      "pipeline_end": {
+        "epoch": 1794442282.294389,
+        "videos": 4,
+        "searchable": 2,
+        "playable": 2,
+        "pending_videos": 2,
+        "oldest_pending_seconds": 42.107511
+      },
+      "pipeline_pending_growth": 2,
+      "searchable_completions_per_minute": 2.8110976894388116,
+      "playable_completions_per_minute": 2.8110976894388116,
+      "stage": "b",
+      "architecture": "branches",
+      "repeat": 1,
+      "pair_id": "r1-u003",
+      "sentinel_upload": {
+        "planned": 1,
+        "recorded": 1,
+        "successes": 1,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "readiness": {
+        "video_id": "e521ae53-51bc-4723-82a9-e616fa7e51af",
+        "outcome": "ready",
+        "after_acceptance_seconds": 80.01303076500002,
+        "last_negative_seconds": 77.85426071800002,
+        "click_to_ready_seconds": 89.98144458800002,
+        "observation_seconds": 89.98156596800001,
+        "full_pipeline": {
+          "outcome": "accepted",
+          "failure_stage": null,
+          "upload_seconds": 9.968413822999995,
+          "pre_request_seconds": 0.021649180000000344,
+          "observed_mode": "api",
+          "video_id": "e521ae53-51bc-4723-82a9-e616fa7e51af",
+          "elapsed_seconds": 9.968456380999996,
+          "searchable": {
+            "outcome": "ready",
+            "observed_seconds": 89.98144458800002,
+            "after_acceptance_seconds": 80.01303076500002,
+            "probes": 40,
+            "last_code": "expected_search_hit",
+            "last_probe_started_seconds": 89.82373341300001,
+            "last_probe_finished_seconds": 89.98144458800002
+          },
+          "playable": {
+            "outcome": "ready",
+            "observed_seconds": 39.0781267,
+            "after_acceptance_seconds": 29.109712877000003,
+            "probes": 15,
+            "last_code": "decoded_advancing_video",
+            "last_probe_started_seconds": 38.630106573000006,
+            "last_probe_finished_seconds": 39.0781267
+          },
+          "readiness_outcome": "ready",
+          "pipeline_elapsed_seconds": 89.98156596800001
+        }
+      },
+      "worker_resources": {
+        "cpu_seconds": 113.822218,
+        "sampled_seconds": 42.68795084953308,
+        "allocated_cpu_utilization": 0.6665945292220848,
+        "throttled_seconds": 31.841065
+      },
+      "worker_child_stability_verified": false,
+      "worker_capacity_valid": true,
+      "failed_processing_jobs": 0,
+      "failed_videos": 0,
+      "publication_verifications": 4,
+      "accepted_total": 4,
+      "trial_state": "completed"
+    },
+    {
+      "name": "aligned-pilot-001-r1-u003-c",
+      "mode": "api",
+      "processing": "active",
+      "file": "speech-20s.mp4",
+      "rate": 3,
+      "search_rps": 2,
+      "phases": {
+        "baseline": {
+          "planned": 60,
+          "recorded": 60,
+          "successes": 60,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.14758845999999903,
+          "p95_seconds": 0.17817223099999682,
+          "max_seconds": 0.23496656499999882,
+          "lag_p99_seconds": 0.0009676461369565459
+        },
+        "load": {
+          "planned": 120,
+          "recorded": 120,
+          "successes": 120,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.1596705890000012,
+          "p95_seconds": 0.21388648400000237,
+          "max_seconds": 0.6010301099999997,
+          "lag_p99_seconds": 0.0009714721369604717
+        },
+        "recovery": {
+          "planned": 240,
+          "recorded": 240,
+          "successes": 240,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.15156588900000498,
+          "p95_seconds": 0.1853835609999951,
+          "max_seconds": 0.3028547639999888,
+          "lag_p99_seconds": 0.0010128971369738338
+        }
+      },
+      "query_ledger": {
+        "planned": 420,
+        "recorded": 420,
+        "successes": 420,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "uploads": {
+        "planned": 3,
+        "recorded": 3,
+        "successes": 3,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true,
+        "pool_full": 0,
+        "accepted_p95_seconds": 11.312941872999996,
+        "completed_during_load_per_minute": 3.0,
+        "outstanding_at_load_end": 0,
+        "outstanding_at_midpoint": 1,
+        "completed_last_third_per_minute": 3.0
+      },
+      "client_headroom": {
+        "mixed-uploads": {
+          "peak_cpu_quota_fraction": 0.11362538411854867,
+          "peak_memory_fraction": 0.13022499084472655,
+          "oom": false
+        },
+        "mixed-queries": {
+          "peak_cpu_quota_fraction": 0.013334480450041966,
+          "peak_memory_fraction": 0.01531982421875,
+          "oom": false
+        }
+      },
+      "infrastructure_valid": true,
+      "integrity_pass": true,
+      "search_p95_baseline_ratio": 1.200447919406735,
+      "arrival_validation_pass": true,
+      "search_slo_pass": false,
+      "upload_success_pass": true,
+      "api_cpu_fraction_of_one_core": 0.12808044034761287,
+      "server_resources": {
+        "bench-api": {
+          "cpu_seconds": 5.505959,
+          "sampled_seconds": 42.98828911781311,
+          "allocated_cpu_utilization": 0.25616088069522586,
+          "throttled_seconds": 0.368692
+        },
+        "bench-proxy": {
+          "cpu_seconds": 0.937057,
+          "sampled_seconds": 42.98828911781311,
+          "allocated_cpu_utilization": 0.043595919690216776,
+          "throttled_seconds": 0.0
+        },
+        "bench-postgres": {
+          "cpu_seconds": 0.557599,
+          "sampled_seconds": 42.98828911781311,
+          "allocated_cpu_utilization": 0.025941902385175266,
+          "throttled_seconds": 0.002911
+        },
+        "bench-qdrant": {
+          "cpu_seconds": 0.164394,
+          "sampled_seconds": 42.98828911781311,
+          "allocated_cpu_utilization": 0.00764831554703022,
+          "throttled_seconds": 0.0
+        }
+      },
+      "pipeline_start": {
+        "epoch": 1794442578.975089,
+        "videos": 0,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 0,
+        "oldest_pending_seconds": 0
+      },
+      "pipeline_end": {
+        "epoch": 1794442621.9955,
+        "videos": 3,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 3,
+        "oldest_pending_seconds": 40.494777
+      },
+      "pipeline_pending_growth": 3,
+      "searchable_completions_per_minute": 0.0,
+      "playable_completions_per_minute": 0.0,
+      "stage": "c",
+      "architecture": "dag",
+      "repeat": 1,
+      "pair_id": "r1-u003",
+      "sentinel_upload": {
+        "planned": 1,
+        "recorded": 1,
+        "successes": 1,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "readiness": {
+        "video_id": "4ad5522d-4470-4e7c-85ca-65959e77ef2f",
+        "outcome": "ready",
+        "after_acceptance_seconds": 53.379853385,
+        "last_negative_seconds": 51.226993820000004,
+        "click_to_ready_seconds": 63.376582997,
+        "observation_seconds": 63.37671903300001,
+        "full_pipeline": {
+          "outcome": "accepted",
+          "failure_stage": null,
+          "upload_seconds": 9.996729612000003,
+          "pre_request_seconds": 0.041577819000005546,
+          "observed_mode": "api",
+          "video_id": "4ad5522d-4470-4e7c-85ca-65959e77ef2f",
+          "elapsed_seconds": 9.996787403000003,
+          "searchable": {
+            "outcome": "ready",
+            "observed_seconds": 63.376582997,
+            "after_acceptance_seconds": 53.379853385,
+            "probes": 27,
+            "last_code": "expected_search_hit",
+            "last_probe_started_seconds": 63.22443034500001,
+            "last_probe_finished_seconds": 63.376582997
+          },
+          "playable": {
+            "outcome": "ready",
+            "observed_seconds": 45.20975049,
+            "after_acceptance_seconds": 35.213020877999995,
+            "probes": 18,
+            "last_code": "decoded_advancing_video",
+            "last_probe_started_seconds": 44.797283854,
+            "last_probe_finished_seconds": 45.20975049
+          },
+          "readiness_outcome": "ready",
+          "pipeline_elapsed_seconds": 63.37671903300001
+        }
+      },
+      "worker_resources": {
+        "cpu_seconds": 155.425318,
+        "sampled_seconds": 42.98828911781311,
+        "allocated_cpu_utilization": 0.9038817384313873,
+        "throttled_seconds": 65.708952
+      },
+      "worker_child_stability_verified": false,
+      "worker_capacity_valid": true,
+      "failed_processing_jobs": 0,
+      "failed_videos": 0,
+      "publication_verifications": 4,
+      "accepted_total": 4,
+      "trial_state": "completed"
+    },
+    {
+      "name": "aligned-pilot-001-r1-u003-d",
+      "mode": "direct",
+      "processing": "active",
+      "file": "speech-20s.mp4",
+      "rate": 3,
+      "search_rps": 2,
+      "phases": {
+        "baseline": {
+          "planned": 60,
+          "recorded": 60,
+          "successes": 60,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.1482773840000009,
+          "p95_seconds": 0.19239856800000052,
+          "max_seconds": 0.21284680799999842,
+          "lag_p99_seconds": 0.0007655288625478818
+        },
+        "load": {
+          "planned": 120,
+          "recorded": 120,
+          "successes": 120,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.14913462399999844,
+          "p95_seconds": 0.1806984889999876,
+          "max_seconds": 0.2088610800000024,
+          "lag_p99_seconds": 0.0006397618625442192
+        },
+        "recovery": {
+          "planned": 240,
+          "recorded": 240,
+          "successes": 240,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.1506472500000091,
+          "p95_seconds": 0.19759474000000046,
+          "max_seconds": 0.3870387980000232,
+          "lag_p99_seconds": 0.0006599398625581898
+        }
+      },
+      "query_ledger": {
+        "planned": 420,
+        "recorded": 420,
+        "successes": 420,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "uploads": {
+        "planned": 3,
+        "recorded": 3,
+        "successes": 3,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true,
+        "pool_full": 0,
+        "accepted_p95_seconds": 12.034516725000001,
+        "completed_during_load_per_minute": 3.0,
+        "outstanding_at_load_end": 0,
+        "outstanding_at_midpoint": 1,
+        "completed_last_third_per_minute": 3.0
+      },
+      "client_headroom": {
+        "mixed-uploads": {
+          "peak_cpu_quota_fraction": 0.1249375781944948,
+          "peak_memory_fraction": 0.12982635498046874,
+          "oom": false
+        },
+        "mixed-queries": {
+          "peak_cpu_quota_fraction": 0.013883665504788893,
+          "peak_memory_fraction": 0.015472412109375,
+          "oom": false
+        }
+      },
+      "infrastructure_valid": true,
+      "integrity_pass": true,
+      "search_p95_baseline_ratio": 0.9391883259754154,
+      "arrival_validation_pass": true,
+      "search_slo_pass": true,
+      "upload_success_pass": true,
+      "api_cpu_fraction_of_one_core": 0.0665688324381412,
+      "server_resources": {
+        "bench-api": {
+          "cpu_seconds": 2.867596,
+          "sampled_seconds": 43.07715630531311,
+          "allocated_cpu_utilization": 0.13313766487628212,
+          "throttled_seconds": 0.000124
+        },
+        "bench-proxy": {
+          "cpu_seconds": 0.158063,
+          "sampled_seconds": 43.07715630531311,
+          "allocated_cpu_utilization": 0.007338599552844885,
+          "throttled_seconds": 0.0
+        },
+        "bench-postgres": {
+          "cpu_seconds": 0.51125,
+          "sampled_seconds": 43.07715630531311,
+          "allocated_cpu_utilization": 0.023736478628090998,
+          "throttled_seconds": 0.098812
+        },
+        "bench-qdrant": {
+          "cpu_seconds": 0.149342,
+          "sampled_seconds": 43.07715630531311,
+          "allocated_cpu_utilization": 0.006933698173645703,
+          "throttled_seconds": 0.0
+        }
+      },
+      "pipeline_start": {
+        "epoch": 1794442919.915319,
+        "videos": 0,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 0,
+        "oldest_pending_seconds": 0
+      },
+      "pipeline_end": {
+        "epoch": 1794442963.099534,
+        "videos": 3,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 3,
+        "oldest_pending_seconds": 39.779679
+      },
+      "pipeline_pending_growth": 3,
+      "searchable_completions_per_minute": 0.0,
+      "playable_completions_per_minute": 0.0,
+      "stage": "d",
+      "architecture": "dag",
+      "repeat": 1,
+      "pair_id": "r1-u003",
+      "sentinel_upload": {
+        "planned": 1,
+        "recorded": 1,
+        "successes": 1,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "readiness": {
+        "video_id": "b647ad85-316e-4eac-a131-5b7b4ac109bd",
+        "outcome": "ready",
+        "after_acceptance_seconds": 57.45701569600001,
+        "last_negative_seconds": 55.31785651700001,
+        "click_to_ready_seconds": 68.07155631500001,
+        "observation_seconds": 68.071686787,
+        "full_pipeline": {
+          "outcome": "accepted",
+          "failure_stage": null,
+          "upload_seconds": 10.614540619,
+          "pre_request_seconds": 0.4843888150000057,
+          "observed_mode": "direct",
+          "intent_seconds": 0.07116214799999579,
+          "storage_seconds": 9.448096682999996,
+          "completion_seconds": 0.6111388860000007,
+          "video_id": "b647ad85-316e-4eac-a131-5b7b4ac109bd",
+          "elapsed_seconds": 10.614638620000004,
+          "searchable": {
+            "outcome": "ready",
+            "observed_seconds": 68.07155631500001,
+            "after_acceptance_seconds": 57.45701569600001,
+            "probes": 29,
+            "last_code": "expected_search_hit",
+            "last_probe_started_seconds": 67.93343084,
+            "last_probe_finished_seconds": 68.07155631500001
+          },
+          "playable": {
+            "outcome": "ready",
+            "observed_seconds": 49.909829673,
+            "after_acceptance_seconds": 39.295289053999994,
+            "probes": 20,
+            "last_code": "decoded_advancing_video",
+            "last_probe_started_seconds": 49.505073453,
+            "last_probe_finished_seconds": 49.909829673
+          },
+          "readiness_outcome": "ready",
+          "pipeline_elapsed_seconds": 68.071686787
+        }
+      },
+      "worker_resources": {
+        "cpu_seconds": 137.36514,
+        "sampled_seconds": 43.07715630531311,
+        "allocated_cpu_utilization": 0.7972040855390532,
+        "throttled_seconds": 67.622653
+      },
+      "worker_child_stability_verified": false,
+      "worker_capacity_valid": true,
+      "failed_processing_jobs": 0,
+      "failed_videos": 0,
+      "publication_verifications": 4,
+      "accepted_total": 4,
+      "trial_state": "completed"
+    },
+    {
+      "name": "aligned-pilot-001-r1-u060-a",
+      "mode": "api",
+      "processing": "active",
+      "file": "speech-20s.mp4",
+      "rate": 60,
+      "search_rps": 2,
+      "phases": {
+        "baseline": {
+          "planned": 60,
+          "recorded": 60,
+          "successes": 60,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.1439665810000006,
+          "p95_seconds": 0.1663390899999995,
+          "max_seconds": 0.18783719299999938,
+          "lag_p99_seconds": 0.0006912887072729745
+        },
+        "load": {
+          "planned": 120,
+          "recorded": 120,
+          "successes": 120,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.23846727599999576,
+          "p95_seconds": 0.44457853699999395,
+          "max_seconds": 0.5441123740000039,
+          "lag_p99_seconds": 0.0006926197072729678
+        },
+        "recovery": {
+          "planned": 240,
+          "recorded": 240,
+          "successes": 240,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.16151518300001044,
+          "p95_seconds": 0.20522867300000508,
+          "max_seconds": 0.7387935719999951,
+          "lag_p99_seconds": 0.0008040257072821078
+        }
+      },
+      "query_ledger": {
+        "planned": 420,
+        "recorded": 420,
+        "successes": 420,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "uploads": {
+        "planned": 60,
+        "recorded": 60,
+        "successes": 60,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true,
+        "pool_full": 0,
+        "accepted_p95_seconds": 11.781685502999993,
+        "completed_during_load_per_minute": 49.0,
+        "outstanding_at_load_end": 11,
+        "outstanding_at_midpoint": 11,
+        "completed_last_third_per_minute": 60.0
+      },
+      "client_headroom": {
+        "mixed-uploads": {
+          "peak_cpu_quota_fraction": 0.808166216658214,
+          "peak_memory_fraction": 0.17922325134277345,
+          "oom": false
+        },
+        "mixed-queries": {
+          "peak_cpu_quota_fraction": 0.01361733395487733,
+          "peak_memory_fraction": 0.01513671875,
+          "oom": false
+        }
+      },
+      "infrastructure_valid": true,
+      "integrity_pass": true,
+      "search_p95_baseline_ratio": 2.672724354810377,
+      "arrival_validation_pass": true,
+      "search_slo_pass": false,
+      "upload_success_pass": true,
+      "api_cpu_fraction_of_one_core": 0.4930091887352018,
+      "server_resources": {
+        "bench-api": {
+          "cpu_seconds": 21.342695,
+          "sampled_seconds": 43.290663719177246,
+          "allocated_cpu_utilization": 0.9860183774704032,
+          "throttled_seconds": 51.394498
+        },
+        "bench-proxy": {
+          "cpu_seconds": 6.54292,
+          "sampled_seconds": 43.290663719177246,
+          "allocated_cpu_utilization": 0.3022785717698093,
+          "throttled_seconds": 0.0
+        },
+        "bench-postgres": {
+          "cpu_seconds": 1.26941,
+          "sampled_seconds": 43.290663719177246,
+          "allocated_cpu_utilization": 0.05864590149204234,
+          "throttled_seconds": 0.121875
+        },
+        "bench-qdrant": {
+          "cpu_seconds": 0.167011,
+          "sampled_seconds": 43.290663719177246,
+          "allocated_cpu_utilization": 0.007715797617859858,
+          "throttled_seconds": 0.0
+        }
+      },
+      "pipeline_start": {
+        "epoch": 1794443259.891387,
+        "videos": 0,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 0,
+        "oldest_pending_seconds": 0
+      },
+      "pipeline_end": {
+        "epoch": 1794443303.303342,
+        "videos": 42,
+        "searchable": 7,
+        "playable": 7,
+        "pending_videos": 35,
+        "oldest_pending_seconds": 41.805167
+      },
+      "pipeline_pending_growth": 35,
+      "searchable_completions_per_minute": 9.701860953772927,
+      "playable_completions_per_minute": 9.701860953772927,
+      "stage": "a",
+      "architecture": "serialized",
+      "repeat": 1,
+      "pair_id": "r1-u060",
+      "sentinel_upload": {
+        "planned": 1,
+        "recorded": 1,
+        "successes": 1,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "readiness": {
+        "video_id": "7f2838a8-729c-4137-97bd-d7fc2cc3661a",
+        "outcome": "timeout",
+        "after_acceptance_seconds": null,
+        "last_negative_seconds": 168.221804719,
+        "click_to_ready_seconds": null,
+        "observation_seconds": 179.976820592,
+        "full_pipeline": {
+          "outcome": "accepted",
+          "failure_stage": null,
+          "upload_seconds": 9.901285652999999,
+          "pre_request_seconds": 0.031621084999998855,
+          "observed_mode": "api",
+          "video_id": "7f2838a8-729c-4137-97bd-d7fc2cc3661a",
+          "elapsed_seconds": 9.901377077999998,
+          "searchable": {
+            "outcome": "timeout",
+            "observed_seconds": null,
+            "after_acceptance_seconds": null,
+            "probes": 83,
+            "last_code": "http_400",
+            "last_probe_started_seconds": 178.07563331,
+            "last_probe_finished_seconds": 178.123090372
+          },
+          "playable": {
+            "outcome": "timeout",
+            "observed_seconds": null,
+            "after_acceptance_seconds": null,
+            "probes": 83,
+            "last_code": "http_400",
+            "last_probe_started_seconds": 178.076097514,
+            "last_probe_finished_seconds": 178.12321486
+          },
+          "readiness_outcome": "incomplete",
+          "pipeline_elapsed_seconds": 179.976820592
+        }
+      },
+      "worker_resources": {
+        "cpu_seconds": 158.882517,
+        "sampled_seconds": 43.290663719177246,
+        "allocated_cpu_utilization": 0.9175333856663472,
+        "throttled_seconds": 95.552408
+      },
+      "worker_child_stability_verified": false,
+      "worker_capacity_valid": true,
+      "failed_processing_jobs": 0,
+      "failed_videos": 0,
+      "publication_verifications": 59,
+      "accepted_total": 61,
+      "trial_state": "completed"
+    },
+    {
+      "name": "aligned-pilot-001-r1-u060-b",
+      "mode": "api",
+      "processing": "active",
+      "file": "speech-20s.mp4",
+      "rate": 60,
+      "search_rps": 2,
+      "phases": {
+        "baseline": {
+          "planned": 60,
+          "recorded": 60,
+          "successes": 60,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.15820226100000218,
+          "p95_seconds": 0.1927201239999995,
+          "max_seconds": 0.23367669299999944,
+          "lag_p99_seconds": 0.0017644904992693
+        },
+        "load": {
+          "planned": 120,
+          "recorded": 120,
+          "successes": 120,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.835893751999989,
+          "p95_seconds": 2.1228197440000076,
+          "max_seconds": 2.410261295999997,
+          "lag_p99_seconds": 0.0005764394992695543
+        },
+        "recovery": {
+          "planned": 240,
+          "recorded": 240,
+          "successes": 240,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.16606978200000594,
+          "p95_seconds": 1.8232019549999967,
+          "max_seconds": 3.823399724999996,
+          "lag_p99_seconds": 0.0002050364992669529
+        }
+      },
+      "query_ledger": {
+        "planned": 420,
+        "recorded": 420,
+        "successes": 420,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "uploads": {
+        "planned": 60,
+        "recorded": 60,
+        "successes": 60,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true,
+        "pool_full": 0,
+        "accepted_p95_seconds": 20.978060297000003,
+        "completed_during_load_per_minute": 40.0,
+        "outstanding_at_load_end": 20,
+        "outstanding_at_midpoint": 14,
+        "completed_last_third_per_minute": 42.0
+      },
+      "client_headroom": {
+        "mixed-uploads": {
+          "peak_cpu_quota_fraction": 0.8322710386136588,
+          "peak_memory_fraction": 0.2082530975341797,
+          "oom": false
+        },
+        "mixed-queries": {
+          "peak_cpu_quota_fraction": 0.013830846837019939,
+          "peak_memory_fraction": 0.016353607177734375,
+          "oom": false
+        }
+      },
+      "infrastructure_valid": true,
+      "integrity_pass": true,
+      "search_p95_baseline_ratio": 11.015039321996353,
+      "arrival_validation_pass": true,
+      "search_slo_pass": false,
+      "upload_success_pass": true,
+      "api_cpu_fraction_of_one_core": 0.4911822254588724,
+      "server_resources": {
+        "bench-api": {
+          "cpu_seconds": 21.247984,
+          "sampled_seconds": 43.258861780166626,
+          "allocated_cpu_utilization": 0.9823644509177446,
+          "throttled_seconds": 60.802426
+        },
+        "bench-proxy": {
+          "cpu_seconds": 6.407862,
+          "sampled_seconds": 43.258861780166626,
+          "allocated_cpu_utilization": 0.29625661593055985,
+          "throttled_seconds": 0.0
+        },
+        "bench-postgres": {
+          "cpu_seconds": 2.544311,
+          "sampled_seconds": 43.258861780166626,
+          "allocated_cpu_utilization": 0.1176318976180977,
+          "throttled_seconds": 0.030736
+        },
+        "bench-qdrant": {
+          "cpu_seconds": 0.160936,
+          "sampled_seconds": 43.258861780166626,
+          "allocated_cpu_utilization": 0.0074406026130713464,
+          "throttled_seconds": 0.0
+        }
+      },
+      "pipeline_start": {
+        "epoch": 1794443659.437188,
+        "videos": 0,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 0,
+        "oldest_pending_seconds": 0
+      },
+      "pipeline_end": {
+        "epoch": 1794443702.811317,
+        "videos": 33,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 33,
+        "oldest_pending_seconds": 41.217943
+      },
+      "pipeline_pending_growth": 33,
+      "searchable_completions_per_minute": 0.0,
+      "playable_completions_per_minute": 0.0,
+      "stage": "b",
+      "architecture": "branches",
+      "repeat": 1,
+      "pair_id": "r1-u060",
+      "sentinel_upload": {
+        "planned": 1,
+        "recorded": 1,
+        "successes": 1,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "readiness": {
+        "video_id": "a34cbe4a-c072-4a10-9df7-ab3b401a76f7",
+        "outcome": "timeout",
+        "after_acceptance_seconds": null,
+        "last_negative_seconds": 169.984648771,
+        "click_to_ready_seconds": null,
+        "observation_seconds": 179.98319245899998,
+        "full_pipeline": {
+          "outcome": "accepted",
+          "failure_stage": null,
+          "upload_seconds": 9.998416010000001,
+          "pre_request_seconds": 0.039329205000001824,
+          "observed_mode": "api",
+          "video_id": "a34cbe4a-c072-4a10-9df7-ab3b401a76f7",
+          "elapsed_seconds": 9.998462811999998,
+          "searchable": {
+            "outcome": "timeout",
+            "observed_seconds": null,
+            "after_acceptance_seconds": null,
+            "probes": 78,
+            "last_code": "probe_timeout",
+            "last_probe_started_seconds": 179.98003060599999,
+            "last_probe_finished_seconds": 179.983064781
+          },
+          "playable": {
+            "outcome": "ready",
+            "observed_seconds": 60.213929614,
+            "after_acceptance_seconds": 50.215513604,
+            "probes": 21,
+            "last_code": "decoded_advancing_video",
+            "last_probe_started_seconds": 58.795819851,
+            "last_probe_finished_seconds": 60.213929614
+          },
+          "readiness_outcome": "incomplete",
+          "pipeline_elapsed_seconds": 179.98319245899998
+        }
+      },
+      "worker_resources": {
+        "cpu_seconds": 158.6286,
+        "sampled_seconds": 43.258861780166626,
+        "allocated_cpu_utilization": 0.916740486643642,
+        "throttled_seconds": 77.59701
+      },
+      "worker_child_stability_verified": false,
+      "worker_capacity_valid": true,
+      "failed_processing_jobs": 0,
+      "failed_videos": 0,
+      "publication_verifications": 12,
+      "accepted_total": 61,
+      "trial_state": "completed"
+    },
+    {
+      "name": "aligned-pilot-001-r1-u060-c",
+      "mode": "api",
+      "processing": "active",
+      "file": "speech-20s.mp4",
+      "rate": 60,
+      "search_rps": 2,
+      "phases": {
+        "baseline": {
+          "planned": 60,
+          "recorded": 60,
+          "successes": 60,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.14977544600000328,
+          "p95_seconds": 0.1645872240000026,
+          "max_seconds": 0.2652409460000017,
+          "lag_p99_seconds": 0.00015100989111260787
+        },
+        "load": {
+          "planned": 120,
+          "recorded": 120,
+          "successes": 120,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.247323344000004,
+          "p95_seconds": 0.4935135619999928,
+          "max_seconds": 0.6216350590000075,
+          "lag_p99_seconds": 0.0010573568911240727
+        },
+        "recovery": {
+          "planned": 240,
+          "recorded": 240,
+          "successes": 240,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.1508995510000095,
+          "p95_seconds": 0.1966707499999902,
+          "max_seconds": 0.4892716970000038,
+          "lag_p99_seconds": 0.00039619589111339337
+        }
+      },
+      "query_ledger": {
+        "planned": 420,
+        "recorded": 420,
+        "successes": 420,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "uploads": {
+        "planned": 60,
+        "recorded": 60,
+        "successes": 60,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true,
+        "pool_full": 0,
+        "accepted_p95_seconds": 11.799426706000006,
+        "completed_during_load_per_minute": 49.0,
+        "outstanding_at_load_end": 11,
+        "outstanding_at_midpoint": 12,
+        "completed_last_third_per_minute": 60.0
+      },
+      "client_headroom": {
+        "mixed-uploads": {
+          "peak_cpu_quota_fraction": 0.8416361345197793,
+          "peak_memory_fraction": 0.17746810913085936,
+          "oom": false
+        },
+        "mixed-queries": {
+          "peak_cpu_quota_fraction": 0.013504802781836904,
+          "peak_memory_fraction": 0.01540374755859375,
+          "oom": false
+        }
+      },
+      "infrastructure_valid": true,
+      "integrity_pass": true,
+      "search_p95_baseline_ratio": 2.9984925318382243,
+      "arrival_validation_pass": true,
+      "search_slo_pass": false,
+      "upload_success_pass": true,
+      "api_cpu_fraction_of_one_core": 0.492190716985389,
+      "server_resources": {
+        "bench-api": {
+          "cpu_seconds": 21.235455,
+          "sampled_seconds": 43.14476943016052,
+          "allocated_cpu_utilization": 0.984381433970778,
+          "throttled_seconds": 50.241253
+        },
+        "bench-proxy": {
+          "cpu_seconds": 6.597747,
+          "sampled_seconds": 43.14476943016052,
+          "allocated_cpu_utilization": 0.30584226487430566,
+          "throttled_seconds": 0.0
+        },
+        "bench-postgres": {
+          "cpu_seconds": 1.60445,
+          "sampled_seconds": 43.14476943016052,
+          "allocated_cpu_utilization": 0.0743751801755326,
+          "throttled_seconds": 0.019403
+        },
+        "bench-qdrant": {
+          "cpu_seconds": 0.13668,
+          "sampled_seconds": 43.14476943016052,
+          "allocated_cpu_utilization": 0.0063358781055139115,
+          "throttled_seconds": 0.0
+        }
+      },
+      "pipeline_start": {
+        "epoch": 1794444062.526678,
+        "videos": 0,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 0,
+        "oldest_pending_seconds": 0
+      },
+      "pipeline_end": {
+        "epoch": 1794444105.723347,
+        "videos": 42,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 42,
+        "oldest_pending_seconds": 41.701285
+      },
+      "pipeline_pending_growth": 42,
+      "searchable_completions_per_minute": 0.0,
+      "playable_completions_per_minute": 0.0,
+      "stage": "c",
+      "architecture": "dag",
+      "repeat": 1,
+      "pair_id": "r1-u060",
+      "sentinel_upload": {
+        "planned": 1,
+        "recorded": 1,
+        "successes": 1,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "readiness": {
+        "video_id": "e516273c-1713-4197-99bd-3a68ce8b0fdf",
+        "outcome": "timeout",
+        "after_acceptance_seconds": null,
+        "last_negative_seconds": 170.093294721,
+        "click_to_ready_seconds": null,
+        "observation_seconds": 179.982949814,
+        "full_pipeline": {
+          "outcome": "accepted",
+          "failure_stage": null,
+          "upload_seconds": 9.889535493000004,
+          "pre_request_seconds": 0.028876755000004778,
+          "observed_mode": "api",
+          "video_id": "e516273c-1713-4197-99bd-3a68ce8b0fdf",
+          "elapsed_seconds": 9.889605630000005,
+          "searchable": {
+            "outcome": "timeout",
+            "observed_seconds": null,
+            "after_acceptance_seconds": null,
+            "probes": 84,
+            "last_code": "probe_timeout",
+            "last_probe_started_seconds": 179.979670037,
+            "last_probe_finished_seconds": 179.98283021400002
+          },
+          "playable": {
+            "outcome": "ready",
+            "observed_seconds": 59.49000020900001,
+            "after_acceptance_seconds": 49.600464716000005,
+            "probes": 25,
+            "last_code": "decoded_advancing_video",
+            "last_probe_started_seconds": 59.19900936700001,
+            "last_probe_finished_seconds": 59.49000020900001
+          },
+          "readiness_outcome": "incomplete",
+          "pipeline_elapsed_seconds": 179.982949814
+        }
+      },
+      "worker_resources": {
+        "cpu_seconds": 159.233334,
+        "sampled_seconds": 43.14476943016052,
+        "allocated_cpu_utilization": 0.9226688200162644,
+        "throttled_seconds": 89.222995
+      },
+      "worker_child_stability_verified": false,
+      "worker_capacity_valid": true,
+      "failed_processing_jobs": 0,
+      "failed_videos": 0,
+      "publication_verifications": 8,
+      "accepted_total": 61,
+      "trial_state": "completed"
+    },
+    {
+      "name": "aligned-pilot-001-r1-u060-d",
+      "mode": "direct",
+      "processing": "active",
+      "file": "speech-20s.mp4",
+      "rate": 60,
+      "search_rps": 2,
+      "phases": {
+        "baseline": {
+          "planned": 60,
+          "recorded": 60,
+          "successes": 60,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.15022148600000218,
+          "p95_seconds": 0.18149462300000596,
+          "max_seconds": 0.23044108400000188,
+          "lag_p99_seconds": 0.0007705513728026858
+        },
+        "load": {
+          "planned": 120,
+          "recorded": 120,
+          "successes": 120,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.14921693000000233,
+          "p95_seconds": 0.1845554550000088,
+          "max_seconds": 0.4228623099999968,
+          "lag_p99_seconds": 0.0009941163728086622
+        },
+        "recovery": {
+          "planned": 240,
+          "recorded": 240,
+          "successes": 240,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.14955033699999332,
+          "p95_seconds": 0.1963985990000074,
+          "max_seconds": 0.3793180440000142,
+          "lag_p99_seconds": 0.0007589353728008064
+        }
+      },
+      "query_ledger": {
+        "planned": 420,
+        "recorded": 420,
+        "successes": 420,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "uploads": {
+        "planned": 60,
+        "recorded": 60,
+        "successes": 60,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true,
+        "pool_full": 0,
+        "accepted_p95_seconds": 12.449638806999996,
+        "completed_during_load_per_minute": 48.0,
+        "outstanding_at_load_end": 12,
+        "outstanding_at_midpoint": 12,
+        "completed_last_third_per_minute": 60.0
+      },
+      "client_headroom": {
+        "mixed-uploads": {
+          "peak_cpu_quota_fraction": 0.9445533868146053,
+          "peak_memory_fraction": 0.1785724639892578,
+          "oom": false
+        },
+        "mixed-queries": {
+          "peak_cpu_quota_fraction": 0.013699530989729695,
+          "peak_memory_fraction": 0.01519012451171875,
+          "oom": false
+        }
+      },
+      "infrastructure_valid": true,
+      "integrity_pass": true,
+      "search_p95_baseline_ratio": 1.0168645877735052,
+      "arrival_validation_pass": false,
+      "search_slo_pass": false,
+      "upload_success_pass": false,
+      "api_cpu_fraction_of_one_core": 0.20579233259193033,
+      "server_resources": {
+        "bench-api": {
+          "cpu_seconds": 8.854277,
+          "sampled_seconds": 43.02530074119568,
+          "allocated_cpu_utilization": 0.41158466518386216,
+          "throttled_seconds": 1.815495
+        },
+        "bench-proxy": {
+          "cpu_seconds": 0.690535,
+          "sampled_seconds": 43.02530074119568,
+          "allocated_cpu_utilization": 0.03209902025571803,
+          "throttled_seconds": 0.0
+        },
+        "bench-postgres": {
+          "cpu_seconds": 1.598839,
+          "sampled_seconds": 43.02530074119568,
+          "allocated_cpu_utilization": 0.07432087504128242,
+          "throttled_seconds": 0.0
+        },
+        "bench-qdrant": {
+          "cpu_seconds": 0.130344,
+          "sampled_seconds": 43.02530074119568,
+          "allocated_cpu_utilization": 0.006058946608370771,
+          "throttled_seconds": 0.0
+        }
+      },
+      "pipeline_start": {
+        "epoch": 1794444467.0681,
+        "videos": 0,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 0,
+        "oldest_pending_seconds": 0
+      },
+      "pipeline_end": {
+        "epoch": 1794444510.129721,
+        "videos": 41,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 41,
+        "oldest_pending_seconds": 40.940647
+      },
+      "pipeline_pending_growth": 41,
+      "searchable_completions_per_minute": 0.0,
+      "playable_completions_per_minute": 0.0,
+      "stage": "d",
+      "architecture": "dag",
+      "repeat": 1,
+      "pair_id": "r1-u060",
+      "sentinel_upload": {
+        "planned": 1,
+        "recorded": 1,
+        "successes": 1,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "readiness": {
+        "video_id": "0d3a098a-0d83-412b-ae03-f90d5222e11a",
+        "outcome": "timeout",
+        "after_acceptance_seconds": null,
+        "last_negative_seconds": 169.651097845,
+        "click_to_ready_seconds": null,
+        "observation_seconds": 180.00047035000003,
+        "full_pipeline": {
+          "outcome": "accepted",
+          "failure_stage": null,
+          "upload_seconds": 10.349257110999998,
+          "pre_request_seconds": 0.4543939350000001,
+          "observed_mode": "direct",
+          "intent_seconds": 0.06703334200000245,
+          "storage_seconds": 9.301153483000002,
+          "completion_seconds": 0.5268923589999976,
+          "video_id": "0d3a098a-0d83-412b-ae03-f90d5222e11a",
+          "elapsed_seconds": 10.349393770000002,
+          "searchable": {
+            "outcome": "timeout",
+            "observed_seconds": null,
+            "after_acceptance_seconds": null,
+            "probes": 84,
+            "last_code": "probe_timeout",
+            "last_probe_started_seconds": 179.997491003,
+            "last_probe_finished_seconds": 180.000354956
+          },
+          "playable": {
+            "outcome": "ready",
+            "observed_seconds": 51.875931208,
+            "after_acceptance_seconds": 41.526674097,
+            "probes": 21,
+            "last_code": "decoded_advancing_video",
+            "last_probe_started_seconds": 51.31786358800001,
+            "last_probe_finished_seconds": 51.875931208
+          },
+          "readiness_outcome": "incomplete",
+          "pipeline_elapsed_seconds": 180.00047035000003
+        }
+      },
+      "worker_resources": {
+        "cpu_seconds": 156.588166,
+        "sampled_seconds": 43.02530074119568,
+        "allocated_cpu_utilization": 0.9098609614718547,
+        "throttled_seconds": 83.170201
+      },
+      "worker_child_stability_verified": false,
+      "worker_capacity_valid": true,
+      "failed_processing_jobs": 0,
+      "failed_videos": 0,
+      "publication_verifications": 9,
+      "accepted_total": 61,
+      "trial_state": "completed"
+    }
+  ],
+  "comparisons": [
+    {
+      "rate": 3,
+      "before": "a",
+      "after": "b",
+      "adjacent": true,
+      "metrics": [
+        {
+          "metric": "readiness_seconds",
+          "all_planned_pairs_valid": true,
+          "all_ready": true,
+          "before_values_seconds": [
+            104.60208018700001
+          ],
+          "after_values_seconds": [
+            80.01303076500002
+          ],
+          "before_mean_seconds": 104.60208018700001,
+          "after_mean_seconds": 80.01303076500002,
+          "before_median_seconds": 104.60208018700001,
+          "after_median_seconds": 80.01303076500002,
+          "mean_reduction_percent": 23.507227942352074,
+          "paired_absolute_differences_seconds": [
+            24.589049421999988
+          ],
+          "right_over_left": 0.7649277205764793,
+          "independent_pairs": 1,
+          "uncertainty": "Not estimated from a single calibration pair"
+        },
+        {
+          "metric": "search_p95_seconds",
+          "all_planned_pairs_valid": true,
+          "before_values_seconds": [
+            0.17669536199999858
+          ],
+          "after_values_seconds": [
+            0.2041687329999986
+          ],
+          "before_mean_seconds": 0.17669536199999858,
+          "after_mean_seconds": 0.2041687329999986,
+          "before_median_seconds": 0.17669536199999858,
+          "after_median_seconds": 0.2041687329999986,
+          "mean_reduction_percent": -15.548439239735249,
+          "paired_absolute_differences_seconds": [
+            -0.027473371000000024
+          ],
+          "right_over_left": 1.1554843923973526,
+          "independent_pairs": 1,
+          "uncertainty": "Not estimated from a single calibration pair"
+        }
+      ]
+    },
+    {
+      "rate": 3,
+      "before": "a",
+      "after": "c",
+      "adjacent": false,
+      "metrics": [
+        {
+          "metric": "readiness_seconds",
+          "all_planned_pairs_valid": true,
+          "all_ready": true,
+          "before_values_seconds": [
+            104.60208018700001
+          ],
+          "after_values_seconds": [
+            53.379853385
+          ],
+          "before_mean_seconds": 104.60208018700001,
+          "after_mean_seconds": 53.379853385,
+          "before_median_seconds": 104.60208018700001,
+          "after_median_seconds": 53.379853385,
+          "mean_reduction_percent": 48.968650250959286,
+          "paired_absolute_differences_seconds": [
+            51.222226802000016
+          ],
+          "right_over_left": 0.5103134974904071,
+          "independent_pairs": 1,
+          "uncertainty": "Not estimated from a single calibration pair"
+        },
+        {
+          "metric": "search_p95_seconds",
+          "all_planned_pairs_valid": true,
+          "before_values_seconds": [
+            0.17669536199999858
+          ],
+          "after_values_seconds": [
+            0.21388648400000237
+          ],
+          "before_mean_seconds": 0.17669536199999858,
+          "after_mean_seconds": 0.21388648400000237,
+          "before_median_seconds": 0.17669536199999858,
+          "after_median_seconds": 0.21388648400000237,
+          "mean_reduction_percent": -21.04815971344177,
+          "paired_absolute_differences_seconds": [
+            -0.037191122000003796
+          ],
+          "right_over_left": 1.2104815971344176,
+          "independent_pairs": 1,
+          "uncertainty": "Not estimated from a single calibration pair"
+        }
+      ]
+    },
+    {
+      "rate": 3,
+      "before": "a",
+      "after": "d",
+      "adjacent": false,
+      "metrics": [
+        {
+          "metric": "readiness_seconds",
+          "all_planned_pairs_valid": true,
+          "all_ready": true,
+          "before_values_seconds": [
+            104.60208018700001
+          ],
+          "after_values_seconds": [
+            57.45701569600001
+          ],
+          "before_mean_seconds": 104.60208018700001,
+          "after_mean_seconds": 57.45701569600001,
+          "before_median_seconds": 104.60208018700001,
+          "after_median_seconds": 57.45701569600001,
+          "mean_reduction_percent": 45.070867048453984,
+          "paired_absolute_differences_seconds": [
+            47.145064491
+          ],
+          "right_over_left": 0.5492913295154602,
+          "independent_pairs": 1,
+          "uncertainty": "Not estimated from a single calibration pair"
+        },
+        {
+          "metric": "search_p95_seconds",
+          "all_planned_pairs_valid": true,
+          "before_values_seconds": [
+            0.17669536199999858
+          ],
+          "after_values_seconds": [
+            0.1806984889999876
+          ],
+          "before_mean_seconds": 0.17669536199999858,
+          "after_mean_seconds": 0.1806984889999876,
+          "before_median_seconds": 0.17669536199999858,
+          "after_median_seconds": 0.1806984889999876,
+          "mean_reduction_percent": -2.2655529577449034,
+          "paired_absolute_differences_seconds": [
+            -0.004003126999989032
+          ],
+          "right_over_left": 1.022655529577449,
+          "independent_pairs": 1,
+          "uncertainty": "Not estimated from a single calibration pair"
+        }
+      ]
+    },
+    {
+      "rate": 3,
+      "before": "b",
+      "after": "c",
+      "adjacent": true,
+      "metrics": [
+        {
+          "metric": "readiness_seconds",
+          "all_planned_pairs_valid": true,
+          "all_ready": true,
+          "before_values_seconds": [
+            80.01303076500002
+          ],
+          "after_values_seconds": [
+            53.379853385
+          ],
+          "before_mean_seconds": 80.01303076500002,
+          "after_mean_seconds": 53.379853385,
+          "before_median_seconds": 80.01303076500002,
+          "after_median_seconds": 53.379853385,
+          "mean_reduction_percent": 33.286049941317984,
+          "paired_absolute_differences_seconds": [
+            26.633177380000028
+          ],
+          "right_over_left": 0.6671395005868203,
+          "independent_pairs": 1,
+          "uncertainty": "Not estimated from a single calibration pair"
+        },
+        {
+          "metric": "search_p95_seconds",
+          "all_planned_pairs_valid": true,
+          "before_values_seconds": [
+            0.2041687329999986
+          ],
+          "after_values_seconds": [
+            0.21388648400000237
+          ],
+          "before_mean_seconds": 0.2041687329999986,
+          "after_mean_seconds": 0.21388648400000237,
+          "before_median_seconds": 0.2041687329999986,
+          "after_median_seconds": 0.21388648400000237,
+          "mean_reduction_percent": -4.7596666038006115,
+          "paired_absolute_differences_seconds": [
+            -0.009717751000003771
+          ],
+          "right_over_left": 1.047596666038006,
+          "independent_pairs": 1,
+          "uncertainty": "Not estimated from a single calibration pair"
+        }
+      ]
+    },
+    {
+      "rate": 3,
+      "before": "b",
+      "after": "d",
+      "adjacent": false,
+      "metrics": [
+        {
+          "metric": "readiness_seconds",
+          "all_planned_pairs_valid": true,
+          "all_ready": true,
+          "before_values_seconds": [
+            80.01303076500002
+          ],
+          "after_values_seconds": [
+            57.45701569600001
+          ],
+          "before_mean_seconds": 80.01303076500002,
+          "after_mean_seconds": 57.45701569600001,
+          "before_median_seconds": 80.01303076500002,
+          "after_median_seconds": 57.45701569600001,
+          "mean_reduction_percent": 28.19042705087314,
+          "paired_absolute_differences_seconds": [
+            22.55601506900001
+          ],
+          "right_over_left": 0.7180957294912687,
+          "independent_pairs": 1,
+          "uncertainty": "Not estimated from a single calibration pair"
+        },
+        {
+          "metric": "search_p95_seconds",
+          "all_planned_pairs_valid": true,
+          "before_values_seconds": [
+            0.2041687329999986
+          ],
+          "after_values_seconds": [
+            0.1806984889999876
+          ],
+          "before_mean_seconds": 0.2041687329999986,
+          "after_mean_seconds": 0.1806984889999876,
+          "before_median_seconds": 0.2041687329999986,
+          "after_median_seconds": 0.1806984889999876,
+          "mean_reduction_percent": 11.495513370311777,
+          "paired_absolute_differences_seconds": [
+            0.023470244000010992
+          ],
+          "right_over_left": 0.8850448662968823,
+          "independent_pairs": 1,
+          "uncertainty": "Not estimated from a single calibration pair"
+        }
+      ]
+    },
+    {
+      "rate": 3,
+      "before": "c",
+      "after": "d",
+      "adjacent": true,
+      "metrics": [
+        {
+          "metric": "readiness_seconds",
+          "all_planned_pairs_valid": true,
+          "all_ready": true,
+          "before_values_seconds": [
+            53.379853385
+          ],
+          "after_values_seconds": [
+            57.45701569600001
+          ],
+          "before_mean_seconds": 53.379853385,
+          "after_mean_seconds": 57.45701569600001,
+          "before_median_seconds": 53.379853385,
+          "after_median_seconds": 57.45701569600001,
+          "mean_reduction_percent": -7.63801706534046,
+          "paired_absolute_differences_seconds": [
+            -4.077162311000016
+          ],
+          "right_over_left": 1.0763801706534046,
+          "independent_pairs": 1,
+          "uncertainty": "Not estimated from a single calibration pair"
+        },
+        {
+          "metric": "search_p95_seconds",
+          "all_planned_pairs_valid": true,
+          "before_values_seconds": [
+            0.21388648400000237
+          ],
+          "after_values_seconds": [
+            0.1806984889999876
+          ],
+          "before_mean_seconds": 0.21388648400000237,
+          "after_mean_seconds": 0.1806984889999876,
+          "before_median_seconds": 0.21388648400000237,
+          "after_median_seconds": 0.1806984889999876,
+          "mean_reduction_percent": 15.516639658265829,
+          "paired_absolute_differences_seconds": [
+            0.033187995000014764
+          ],
+          "right_over_left": 0.8448336034173417,
+          "independent_pairs": 1,
+          "uncertainty": "Not estimated from a single calibration pair"
+        }
+      ]
+    },
+    {
+      "rate": 60,
+      "before": "a",
+      "after": "b",
+      "adjacent": true,
+      "metrics": [
+        {
+          "metric": "readiness_seconds",
+          "all_planned_pairs_valid": true,
+          "all_ready": false
+        },
+        {
+          "metric": "search_p95_seconds",
+          "all_planned_pairs_valid": true,
+          "before_values_seconds": [
+            0.44457853699999395
+          ],
+          "after_values_seconds": [
+            2.1228197440000076
+          ],
+          "before_mean_seconds": 0.44457853699999395,
+          "after_mean_seconds": 2.1228197440000076,
+          "before_median_seconds": 0.44457853699999395,
+          "after_median_seconds": 2.1228197440000076,
+          "mean_reduction_percent": -377.4903796131833,
+          "paired_absolute_differences_seconds": [
+            -1.6782412070000137
+          ],
+          "right_over_left": 4.774903796131833,
+          "independent_pairs": 1,
+          "uncertainty": "Not estimated from a single calibration pair"
+        }
+      ]
+    },
+    {
+      "rate": 60,
+      "before": "a",
+      "after": "c",
+      "adjacent": false,
+      "metrics": [
+        {
+          "metric": "readiness_seconds",
+          "all_planned_pairs_valid": true,
+          "all_ready": false
+        },
+        {
+          "metric": "search_p95_seconds",
+          "all_planned_pairs_valid": true,
+          "before_values_seconds": [
+            0.44457853699999395
+          ],
+          "after_values_seconds": [
+            0.4935135619999928
+          ],
+          "before_mean_seconds": 0.44457853699999395,
+          "after_mean_seconds": 0.4935135619999928,
+          "before_median_seconds": 0.44457853699999395,
+          "after_median_seconds": 0.4935135619999928,
+          "mean_reduction_percent": -11.00705970427887,
+          "paired_absolute_differences_seconds": [
+            -0.048935024999998855
+          ],
+          "right_over_left": 1.1100705970427887,
+          "independent_pairs": 1,
+          "uncertainty": "Not estimated from a single calibration pair"
+        }
+      ]
+    },
+    {
+      "rate": 60,
+      "before": "a",
+      "after": "d",
+      "adjacent": false,
+      "metrics": [
+        {
+          "metric": "readiness_seconds",
+          "all_planned_pairs_valid": false,
+          "all_ready": false
+        },
+        {
+          "metric": "search_p95_seconds",
+          "all_planned_pairs_valid": false
+        }
+      ]
+    },
+    {
+      "rate": 60,
+      "before": "b",
+      "after": "c",
+      "adjacent": true,
+      "metrics": [
+        {
+          "metric": "readiness_seconds",
+          "all_planned_pairs_valid": true,
+          "all_ready": false
+        },
+        {
+          "metric": "search_p95_seconds",
+          "all_planned_pairs_valid": true,
+          "before_values_seconds": [
+            2.1228197440000076
+          ],
+          "after_values_seconds": [
+            0.4935135619999928
+          ],
+          "before_mean_seconds": 2.1228197440000076,
+          "after_mean_seconds": 0.4935135619999928,
+          "before_median_seconds": 2.1228197440000076,
+          "after_median_seconds": 0.4935135619999928,
+          "mean_reduction_percent": 76.75197984214758,
+          "paired_absolute_differences_seconds": [
+            1.6293061820000148
+          ],
+          "right_over_left": 0.23248020157852414,
+          "independent_pairs": 1,
+          "uncertainty": "Not estimated from a single calibration pair"
+        }
+      ]
+    },
+    {
+      "rate": 60,
+      "before": "b",
+      "after": "d",
+      "adjacent": false,
+      "metrics": [
+        {
+          "metric": "readiness_seconds",
+          "all_planned_pairs_valid": false,
+          "all_ready": false
+        },
+        {
+          "metric": "search_p95_seconds",
+          "all_planned_pairs_valid": false
+        }
+      ]
+    },
+    {
+      "rate": 60,
+      "before": "c",
+      "after": "d",
+      "adjacent": true,
+      "metrics": [
+        {
+          "metric": "readiness_seconds",
+          "all_planned_pairs_valid": false,
+          "all_ready": false
+        },
+        {
+          "metric": "search_p95_seconds",
+          "all_planned_pairs_valid": false
+        }
+      ]
+    }
+  ],
+  "limits": [
+    "Three independent repetitions per primary cell; uncertainty is conditional on this workload.",
+    "A uses a retained legacy implementation; B is the durable DAG with a whole-video search unit.",
+    "Fixed A/B/C/D execution order; earlier experiments are supporting evidence, not pooled samples.",
+    "No sustainable-capacity claim follows from accepting uploads when processing backlog grows."
+  ]
+}

@@ -1,13 +1,15 @@
 # Aligned architecture comparison
 
-Status: nine calibration trials complete; primary plan registered before collection.
+Status: all 24 primary trials and nine calibration trials complete. See the
+[results and evidence](aligned_architecture_results_2026-11-12.md).
+The primary plan was registered before collection.
 Current registered plan: [24 fresh trials](evidence/aligned_architecture_2026-11-12/primary-002-plan.json),
 SHA-256 `7835a8f58317c02b50917d4849246dac2d6c3e781ecbf5daa380fa14bbc7b642`.
 The [first registration](evidence/aligned_architecture_2026-11-12/primary-plan.json)
 stopped at its first trial because exact floating-point timestamp comparisons
 rejected Qdrant serialization roundoff (maximum observed difference 5.68e-14 s).
-All seven retained inputs matched segment counts and text. Preserve the failed
-attempt and rerun all 24 trials; do not pool that attempt with the replacement.
+All seven retained inputs matched segment counts and text. The failed attempt
+was preserved and all 24 trials rerun; that attempt is not pooled with the replacement.
 The repaired identity check retains exact text/cardinality and permits at most
 one nanosecond of timestamp roundoff. Workloads and performance gates are unchanged.
 

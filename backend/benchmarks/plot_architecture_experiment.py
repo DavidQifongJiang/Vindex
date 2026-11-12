@@ -25,6 +25,8 @@ def main():
     for ax, metric, rate, title, ylabel in [
         (axes[0], 'readiness', rates[0], 'New video becomes searchable', 'Time after upload acceptance (seconds)'),
         (axes[1], 'search', rates[-1], 'Existing videos remain responsive', 'Mean trial search p95 (milliseconds)')]:
+        labels_to_place = []
+        maxima = []
         for index, stage in enumerate(stages):
             rows = sorted([r for r in report['trials'] if r['stage'] == stage and r['rate'] == rate], key=lambda r:r['repeat'])
             valid = len(rows) == 3 and all(r['arrival_validation_pass'] and r['integrity_pass'] and r['upload_success_pass']
@@ -35,20 +37,23 @@ def main():
             if complete:
                 average = mean(values)
                 ax.bar(index, average, color=colors[index], alpha=.88, width=.63, zorder=2)
-                ax.text(index, max(values) * 1.07, f'{average:.1f}' if metric == 'readiness' else f'{average:.0f}',
-                        ha='center', fontsize=12, weight='bold', color='#0f172a')
+                labels_to_place.append((index, max(values), f'{average:.1f}' if metric == 'readiness' else f'{average:.0f}'))
             else:
                 ax.text(index, .02, f'{len(values)}/3 observed\n' + ('invalid workload' if not valid else 'censored'),
                         transform=ax.get_xaxis_transform(), ha='center', fontsize=9, color='#991b1b')
             if values:
+                maxima.append(max(values))
                 offsets = [-.12, 0, .12][:len(values)]
                 ax.scatter([index + offset for offset in offsets], values, s=35, c='#0f172a',
                            edgecolors='white', linewidths=.8, zorder=3)
         ax.set_title(title + f'\n{rate} background uploads/min + 2 searches/sec', fontsize=13, loc='left', pad=15)
         ax.set_ylabel(ylabel, fontsize=11)
         ax.set_xticks(range(4), labels, fontsize=10)
-        ax.set_ylim(bottom=0)
-        ax.margins(y=.20)
+        ceiling = max(maxima, default=1)
+        ax.set_ylim(0, ceiling * 1.20)
+        for index, top, label in labels_to_place:
+            ax.text(index, top + ceiling * .04, label,
+                    ha='center', fontsize=12, weight='bold', color='#0f172a')
         ax.grid(axis='y', color='#e2e8f0', zorder=0)
         ax.set_axisbelow(True)
         for spine in ['top', 'right']: ax.spines[spine].set_visible(False)

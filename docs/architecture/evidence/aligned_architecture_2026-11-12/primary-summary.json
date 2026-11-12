@@ -1,0 +1,5405 @@
+{
+  "plan_sha256": "7835a8f58317c02b50917d4849246dac2d6c3e781ecbf5daa380fa14bbc7b642",
+  "partial": false,
+  "progress": {
+    "started_at": "2026-11-12T01:27:07.287137+00:00",
+    "finished": true,
+    "completed": [
+      {
+        "trial": "aligned-primary-002-r1-u003-a",
+        "accepted": 7,
+        "logical": 7,
+        "at": "2026-11-12T01:33:01.351504+00:00"
+      },
+      {
+        "trial": "aligned-primary-002-r1-u003-b",
+        "accepted": 7,
+        "logical": 7,
+        "at": "2026-11-12T01:38:46.219266+00:00"
+      },
+      {
+        "trial": "aligned-primary-002-r1-u003-c",
+        "accepted": 7,
+        "logical": 7,
+        "at": "2026-11-12T01:44:31.624138+00:00"
+      },
+      {
+        "trial": "aligned-primary-002-r1-u003-d",
+        "accepted": 7,
+        "logical": 7,
+        "at": "2026-11-12T01:50:15.521945+00:00"
+      },
+      {
+        "trial": "aligned-primary-002-r1-u060-a",
+        "accepted": 121,
+        "logical": 121,
+        "at": "2026-11-12T01:58:07.310553+00:00"
+      },
+      {
+        "trial": "aligned-primary-002-r1-u060-b",
+        "accepted": 121,
+        "logical": 121,
+        "at": "2026-11-12T02:05:51.006300+00:00"
+      },
+      {
+        "trial": "aligned-primary-002-r1-u060-c",
+        "accepted": 121,
+        "logical": 121,
+        "at": "2026-11-12T02:13:32.235008+00:00"
+      },
+      {
+        "trial": "aligned-primary-002-r1-u060-d",
+        "accepted": 121,
+        "logical": 121,
+        "at": "2026-11-12T02:20:51.146780+00:00"
+      },
+      {
+        "trial": "aligned-primary-002-r2-u060-a",
+        "accepted": 121,
+        "logical": 121,
+        "at": "2026-11-12T02:28:57.754937+00:00"
+      },
+      {
+        "trial": "aligned-primary-002-r2-u060-b",
+        "accepted": 121,
+        "logical": 121,
+        "at": "2026-11-12T02:36:39.017175+00:00"
+      },
+      {
+        "trial": "aligned-primary-002-r2-u060-c",
+        "accepted": 121,
+        "logical": 121,
+        "at": "2026-11-12T02:44:12.313355+00:00"
+      },
+      {
+        "trial": "aligned-primary-002-r2-u060-d",
+        "accepted": 121,
+        "logical": 121,
+        "at": "2026-11-12T02:51:28.033625+00:00"
+      },
+      {
+        "trial": "aligned-primary-002-r2-u003-a",
+        "accepted": 7,
+        "logical": 7,
+        "at": "2026-11-12T02:57:24.930712+00:00"
+      },
+      {
+        "trial": "aligned-primary-002-r2-u003-b",
+        "accepted": 7,
+        "logical": 7,
+        "at": "2026-11-12T03:03:20.251559+00:00"
+      },
+      {
+        "trial": "aligned-primary-002-r2-u003-c",
+        "accepted": 7,
+        "logical": 7,
+        "at": "2026-11-12T03:09:05.829197+00:00"
+      },
+      {
+        "trial": "aligned-primary-002-r2-u003-d",
+        "accepted": 7,
+        "logical": 7,
+        "at": "2026-11-12T03:14:58.407203+00:00"
+      },
+      {
+        "trial": "aligned-primary-002-r3-u003-a",
+        "accepted": 7,
+        "logical": 7,
+        "at": "2026-11-12T03:20:40.942194+00:00"
+      },
+      {
+        "trial": "aligned-primary-002-r3-u003-b",
+        "accepted": 7,
+        "logical": 7,
+        "at": "2026-11-12T03:26:22.815818+00:00"
+      },
+      {
+        "trial": "aligned-primary-002-r3-u003-c",
+        "accepted": 7,
+        "logical": 7,
+        "at": "2026-11-12T03:32:05.005280+00:00"
+      },
+      {
+        "trial": "aligned-primary-002-r3-u003-d",
+        "accepted": 7,
+        "logical": 7,
+        "at": "2026-11-12T03:37:47.897955+00:00"
+      },
+      {
+        "trial": "aligned-primary-002-r3-u060-a",
+        "accepted": 121,
+        "logical": 121,
+        "at": "2026-11-12T03:45:42.888422+00:00"
+      },
+      {
+        "trial": "aligned-primary-002-r3-u060-b",
+        "accepted": 121,
+        "logical": 121,
+        "at": "2026-11-12T03:53:17.793429+00:00"
+      },
+      {
+        "trial": "aligned-primary-002-r3-u060-c",
+        "accepted": 121,
+        "logical": 121,
+        "at": "2026-11-12T04:00:43.501084+00:00"
+      },
+      {
+        "trial": "aligned-primary-002-r3-u060-d",
+        "accepted": 121,
+        "logical": 121,
+        "at": "2026-11-12T04:08:04.998808+00:00"
+      }
+    ],
+    "active_trial": "aligned-primary-002-r3-u060-d",
+    "finished_at": "2026-11-12T04:08:05.429227+00:00"
+  },
+  "planned_trials": 24,
+  "trials": [
+    {
+      "name": "aligned-primary-002-r1-u003-a",
+      "mode": "api",
+      "processing": "active",
+      "file": "speech-20s.mp4",
+      "rate": 3,
+      "search_rps": 2,
+      "phases": {
+        "baseline": {
+          "planned": 60,
+          "recorded": 60,
+          "successes": 60,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.1419026019999983,
+          "p95_seconds": 0.1764843800000017,
+          "max_seconds": 0.2164027509999978,
+          "lag_p99_seconds": 0.0006525731630873111
+        },
+        "load": {
+          "planned": 240,
+          "recorded": 240,
+          "successes": 240,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.14772247599999536,
+          "p95_seconds": 0.18503563500000747,
+          "max_seconds": 0.2500706470000005,
+          "lag_p99_seconds": 0.0005423181630845875
+        },
+        "recovery": {
+          "planned": 240,
+          "recorded": 240,
+          "successes": 240,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.14207739399996352,
+          "p95_seconds": 0.17413050899998053,
+          "max_seconds": 0.2744064279999584,
+          "lag_p99_seconds": 0.0005453861630826395
+        }
+      },
+      "query_ledger": {
+        "planned": 540,
+        "recorded": 540,
+        "successes": 540,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "uploads": {
+        "planned": 6,
+        "recorded": 6,
+        "successes": 6,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true,
+        "pool_full": 0,
+        "accepted_p95_seconds": 11.280779930999998,
+        "completed_during_load_per_minute": 3.0,
+        "outstanding_at_load_end": 0,
+        "outstanding_at_midpoint": 1,
+        "completed_last_third_per_minute": 3.0
+      },
+      "client_headroom": {
+        "mixed-uploads": {
+          "peak_cpu_quota_fraction": 0.11065569200329983,
+          "peak_memory_fraction": 0.13048934936523438,
+          "oom": false
+        },
+        "mixed-queries": {
+          "peak_cpu_quota_fraction": 0.03603168206507825,
+          "peak_memory_fraction": 0.015415191650390625,
+          "oom": false
+        }
+      },
+      "infrastructure_valid": true,
+      "integrity_pass": true,
+      "search_p95_baseline_ratio": 1.0484533248778487,
+      "arrival_validation_pass": true,
+      "search_slo_pass": true,
+      "upload_success_pass": true,
+      "api_cpu_fraction_of_one_core": 0.11024492108236057,
+      "server_resources": {
+        "bench-api": {
+          "cpu_seconds": 11.748621,
+          "sampled_seconds": 106.5683650970459,
+          "allocated_cpu_utilization": 0.2204898421647209,
+          "throttled_seconds": 2.016455
+        },
+        "bench-proxy": {
+          "cpu_seconds": 1.901475,
+          "sampled_seconds": 106.5683650970459,
+          "allocated_cpu_utilization": 0.03568554323355589,
+          "throttled_seconds": 0.0
+        },
+        "bench-postgres": {
+          "cpu_seconds": 1.098467,
+          "sampled_seconds": 106.5683650970459,
+          "allocated_cpu_utilization": 0.020615254799108293,
+          "throttled_seconds": 0.122517
+        },
+        "bench-qdrant": {
+          "cpu_seconds": 0.397005,
+          "sampled_seconds": 106.5683650970459,
+          "allocated_cpu_utilization": 0.007450710154715606,
+          "throttled_seconds": 0.0
+        }
+      },
+      "pipeline_start": {
+        "epoch": 1794446899.873161,
+        "videos": 0,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 0,
+        "oldest_pending_seconds": 0
+      },
+      "pipeline_end": {
+        "epoch": 1794447006.442324,
+        "videos": 7,
+        "searchable": 6,
+        "playable": 6,
+        "pending_videos": 1,
+        "oldest_pending_seconds": 3.078702
+      },
+      "pipeline_pending_growth": 1,
+      "searchable_completions_per_minute": 3.3781131921482324,
+      "playable_completions_per_minute": 3.3781131921482324,
+      "stage": "a",
+      "architecture": "serialized",
+      "repeat": 1,
+      "pair_id": "r1-u003",
+      "sentinel_upload": {
+        "planned": 1,
+        "recorded": 1,
+        "successes": 1,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "readiness": {
+        "video_id": "6bf10799-8d20-4e5a-929d-bb2c69502fc8",
+        "outcome": "ready",
+        "after_acceptance_seconds": 102.478351018,
+        "last_negative_seconds": null,
+        "click_to_ready_seconds": 112.40495775299999,
+        "observation_seconds": 112.66604434199998,
+        "full_pipeline": {
+          "outcome": "accepted",
+          "failure_stage": null,
+          "upload_seconds": 9.926606734999995,
+          "pre_request_seconds": 0.031686398999998346,
+          "observed_mode": "api",
+          "video_id": "6bf10799-8d20-4e5a-929d-bb2c69502fc8",
+          "elapsed_seconds": 9.926647301999997,
+          "searchable": {
+            "outcome": "ready",
+            "observed_seconds": 112.40495775299999,
+            "after_acceptance_seconds": 102.478351018,
+            "probes": 51,
+            "last_code": "expected_search_hit",
+            "last_probe_started_seconds": 112.264315695,
+            "last_probe_finished_seconds": 112.40495775299999
+          },
+          "playable": {
+            "outcome": "ready",
+            "observed_seconds": 112.66590880799998,
+            "after_acceptance_seconds": 102.73930207299999,
+            "probes": 51,
+            "last_code": "decoded_advancing_video",
+            "last_probe_started_seconds": 112.265037239,
+            "last_probe_finished_seconds": 112.66590880799998
+          },
+          "readiness_outcome": "ready",
+          "pipeline_elapsed_seconds": 112.66604434199998
+        }
+      },
+      "worker_resources": {
+        "cpu_seconds": 190.839712,
+        "sampled_seconds": 106.5683650970459,
+        "allocated_cpu_utilization": 0.447693158814562,
+        "throttled_seconds": 31.350147
+      },
+      "worker_child_stability_verified": true,
+      "worker_capacity_valid": true,
+      "failed_processing_jobs": 0,
+      "failed_videos": 0,
+      "publication_verifications": 7,
+      "accepted_total": 7,
+      "trial_state": "completed"
+    },
+    {
+      "name": "aligned-primary-002-r1-u003-b",
+      "mode": "api",
+      "processing": "active",
+      "file": "speech-20s.mp4",
+      "rate": 3,
+      "search_rps": 2,
+      "phases": {
+        "baseline": {
+          "planned": 60,
+          "recorded": 60,
+          "successes": 60,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.14698889400000006,
+          "p95_seconds": 0.1818786719999989,
+          "max_seconds": 0.20093543000000136,
+          "lag_p99_seconds": 0.0005326295872798426
+        },
+        "load": {
+          "planned": 240,
+          "recorded": 240,
+          "successes": 240,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.14821602399999392,
+          "p95_seconds": 0.1917303519999987,
+          "max_seconds": 0.34077595300000396,
+          "lag_p99_seconds": 0.0005755845872812415
+        },
+        "recovery": {
+          "planned": 240,
+          "recorded": 240,
+          "successes": 240,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.14173558600002434,
+          "p95_seconds": 0.17050138599998899,
+          "max_seconds": 0.23820053600001848,
+          "lag_p99_seconds": 0.0005709345872730864
+        }
+      },
+      "query_ledger": {
+        "planned": 540,
+        "recorded": 540,
+        "successes": 540,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "uploads": {
+        "planned": 6,
+        "recorded": 6,
+        "successes": 6,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true,
+        "pool_full": 0,
+        "accepted_p95_seconds": 11.306908603999997,
+        "completed_during_load_per_minute": 3.0,
+        "outstanding_at_load_end": 0,
+        "outstanding_at_midpoint": 0,
+        "completed_last_third_per_minute": 3.0
+      },
+      "client_headroom": {
+        "mixed-uploads": {
+          "peak_cpu_quota_fraction": 0.098938173562614,
+          "peak_memory_fraction": 0.12954940795898437,
+          "oom": false
+        },
+        "mixed-queries": {
+          "peak_cpu_quota_fraction": 0.035363218638648254,
+          "peak_memory_fraction": 0.0155181884765625,
+          "oom": false
+        }
+      },
+      "infrastructure_valid": true,
+      "integrity_pass": true,
+      "search_p95_baseline_ratio": 1.0541662191155643,
+      "arrival_validation_pass": true,
+      "search_slo_pass": true,
+      "upload_success_pass": true,
+      "api_cpu_fraction_of_one_core": 0.10584164964560744,
+      "server_resources": {
+        "bench-api": {
+          "cpu_seconds": 11.305625,
+          "sampled_seconds": 106.81640958786011,
+          "allocated_cpu_utilization": 0.211683299291215,
+          "throttled_seconds": 0.884342
+        },
+        "bench-proxy": {
+          "cpu_seconds": 1.838947,
+          "sampled_seconds": 106.81640958786011,
+          "allocated_cpu_utilization": 0.03443191934826089,
+          "throttled_seconds": 0.0
+        },
+        "bench-postgres": {
+          "cpu_seconds": 1.315981,
+          "sampled_seconds": 106.81640958786011,
+          "allocated_cpu_utilization": 0.024640053060715567,
+          "throttled_seconds": 0.040863
+        },
+        "bench-qdrant": {
+          "cpu_seconds": 0.411904,
+          "sampled_seconds": 106.81640958786011,
+          "allocated_cpu_utilization": 0.007712373063076886,
+          "throttled_seconds": 0.0
+        }
+      },
+      "pipeline_start": {
+        "epoch": 1794447253.975159,
+        "videos": 0,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 0,
+        "oldest_pending_seconds": 0
+      },
+      "pipeline_end": {
+        "epoch": 1794447360.795146,
+        "videos": 7,
+        "searchable": 6,
+        "playable": 6,
+        "pending_videos": 1,
+        "oldest_pending_seconds": 4.756953
+      },
+      "pipeline_pending_growth": 1,
+      "searchable_completions_per_minute": 3.37026868239648,
+      "playable_completions_per_minute": 3.37026868239648,
+      "stage": "b",
+      "architecture": "branches",
+      "repeat": 1,
+      "pair_id": "r1-u003",
+      "sentinel_upload": {
+        "planned": 1,
+        "recorded": 1,
+        "successes": 1,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "readiness": {
+        "video_id": "90d4635d-c522-401b-83b3-a825942266fb",
+        "outcome": "ready",
+        "after_acceptance_seconds": 84.12363282,
+        "last_negative_seconds": null,
+        "click_to_ready_seconds": 94.053501644,
+        "observation_seconds": 94.05363150100001,
+        "full_pipeline": {
+          "outcome": "accepted",
+          "failure_stage": null,
+          "upload_seconds": 9.929868823999998,
+          "pre_request_seconds": 0.02769658199999685,
+          "observed_mode": "api",
+          "video_id": "90d4635d-c522-401b-83b3-a825942266fb",
+          "elapsed_seconds": 9.929936902999994,
+          "searchable": {
+            "outcome": "ready",
+            "observed_seconds": 94.053501644,
+            "after_acceptance_seconds": 84.12363282,
+            "probes": 42,
+            "last_code": "expected_search_hit",
+            "last_probe_started_seconds": 93.87303622399999,
+            "last_probe_finished_seconds": 94.053501644
+          },
+          "playable": {
+            "outcome": "ready",
+            "observed_seconds": 41.047528349,
+            "after_acceptance_seconds": 31.117659525,
+            "probes": 16,
+            "last_code": "decoded_advancing_video",
+            "last_probe_started_seconds": 40.63759813299999,
+            "last_probe_finished_seconds": 41.047528349
+          },
+          "readiness_outcome": "ready",
+          "pipeline_elapsed_seconds": 94.05363150100001
+        }
+      },
+      "worker_resources": {
+        "cpu_seconds": 191.650689,
+        "sampled_seconds": 106.81640958786011,
+        "allocated_cpu_utilization": 0.4485516077058386,
+        "throttled_seconds": 50.565513
+      },
+      "worker_child_stability_verified": true,
+      "worker_capacity_valid": true,
+      "failed_processing_jobs": 0,
+      "failed_videos": 0,
+      "publication_verifications": 7,
+      "accepted_total": 7,
+      "trial_state": "completed"
+    },
+    {
+      "name": "aligned-primary-002-r1-u003-c",
+      "mode": "api",
+      "processing": "active",
+      "file": "speech-20s.mp4",
+      "rate": 3,
+      "search_rps": 2,
+      "phases": {
+        "baseline": {
+          "planned": 60,
+          "recorded": 60,
+          "successes": 60,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.14386736100000053,
+          "p95_seconds": 0.16747377000000052,
+          "max_seconds": 0.18982700699999985,
+          "lag_p99_seconds": 0.0006248943808628837
+        },
+        "load": {
+          "planned": 240,
+          "recorded": 240,
+          "successes": 240,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.14426153499999783,
+          "p95_seconds": 0.17205251300000238,
+          "max_seconds": 0.24911650799999915,
+          "lag_p99_seconds": 0.0005623833808598988
+        },
+        "recovery": {
+          "planned": 240,
+          "recorded": 240,
+          "successes": 240,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.1445448650000035,
+          "p95_seconds": 0.17939085799999885,
+          "max_seconds": 0.2761924270000018,
+          "lag_p99_seconds": 0.0006295103808611202
+        }
+      },
+      "query_ledger": {
+        "planned": 540,
+        "recorded": 540,
+        "successes": 540,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "uploads": {
+        "planned": 6,
+        "recorded": 6,
+        "successes": 6,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true,
+        "pool_full": 0,
+        "accepted_p95_seconds": 11.272438198000003,
+        "completed_during_load_per_minute": 3.0,
+        "outstanding_at_load_end": 0,
+        "outstanding_at_midpoint": 0,
+        "completed_last_third_per_minute": 3.0
+      },
+      "client_headroom": {
+        "mixed-uploads": {
+          "peak_cpu_quota_fraction": 0.09893677336614219,
+          "peak_memory_fraction": 0.13120689392089843,
+          "oom": false
+        },
+        "mixed-queries": {
+          "peak_cpu_quota_fraction": 0.03343421861358925,
+          "peak_memory_fraction": 0.015552520751953125,
+          "oom": false
+        }
+      },
+      "infrastructure_valid": true,
+      "integrity_pass": true,
+      "search_p95_baseline_ratio": 1.0273400604763472,
+      "arrival_validation_pass": true,
+      "search_slo_pass": true,
+      "upload_success_pass": true,
+      "api_cpu_fraction_of_one_core": 0.102631823752197,
+      "server_resources": {
+        "bench-api": {
+          "cpu_seconds": 10.987485,
+          "sampled_seconds": 107.05729079246521,
+          "allocated_cpu_utilization": 0.20526364750439413,
+          "throttled_seconds": 1.990798
+        },
+        "bench-proxy": {
+          "cpu_seconds": 1.826217,
+          "sampled_seconds": 107.05729079246521,
+          "allocated_cpu_utilization": 0.034116630198314915,
+          "throttled_seconds": 0.0
+        },
+        "bench-postgres": {
+          "cpu_seconds": 1.350949,
+          "sampled_seconds": 107.05729079246521,
+          "allocated_cpu_utilization": 0.025237870116083323,
+          "throttled_seconds": 0.037301
+        },
+        "bench-qdrant": {
+          "cpu_seconds": 0.404661,
+          "sampled_seconds": 107.05729079246521,
+          "allocated_cpu_utilization": 0.007559709329548631,
+          "throttled_seconds": 0.0
+        }
+      },
+      "pipeline_start": {
+        "epoch": 1794447598.663929,
+        "videos": 0,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 0,
+        "oldest_pending_seconds": 0
+      },
+      "pipeline_end": {
+        "epoch": 1794447705.719632,
+        "videos": 7,
+        "searchable": 6,
+        "playable": 6,
+        "pending_videos": 1,
+        "oldest_pending_seconds": 4.734152
+      },
+      "pipeline_pending_growth": 1,
+      "searchable_completions_per_minute": 3.3626855054446896,
+      "playable_completions_per_minute": 3.3626855054446896,
+      "stage": "c",
+      "architecture": "dag",
+      "repeat": 1,
+      "pair_id": "r1-u003",
+      "sentinel_upload": {
+        "planned": 1,
+        "recorded": 1,
+        "successes": 1,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "readiness": {
+        "video_id": "628f6a51-12c2-47ea-a964-82b3012ae788",
+        "outcome": "ready",
+        "after_acceptance_seconds": 53.381614307,
+        "last_negative_seconds": null,
+        "click_to_ready_seconds": 63.356422967,
+        "observation_seconds": 63.356551855000006,
+        "full_pipeline": {
+          "outcome": "accepted",
+          "failure_stage": null,
+          "upload_seconds": 9.974808660000003,
+          "pre_request_seconds": 0.026670332000001507,
+          "observed_mode": "api",
+          "video_id": "628f6a51-12c2-47ea-a964-82b3012ae788",
+          "elapsed_seconds": 9.974881516000002,
+          "searchable": {
+            "outcome": "ready",
+            "observed_seconds": 63.356422967,
+            "after_acceptance_seconds": 53.381614307,
+            "probes": 27,
+            "last_code": "expected_search_hit",
+            "last_probe_started_seconds": 63.200154441,
+            "last_probe_finished_seconds": 63.356422967
+          },
+          "playable": {
+            "outcome": "ready",
+            "observed_seconds": 47.213825248,
+            "after_acceptance_seconds": 37.239016588,
+            "probes": 19,
+            "last_code": "decoded_advancing_video",
+            "last_probe_started_seconds": 46.820451368,
+            "last_probe_finished_seconds": 47.213825248
+          },
+          "readiness_outcome": "ready",
+          "pipeline_elapsed_seconds": 63.356551855000006
+        }
+      },
+      "worker_resources": {
+        "cpu_seconds": 216.641935,
+        "sampled_seconds": 107.05729079246521,
+        "allocated_cpu_utilization": 0.5059018713166601,
+        "throttled_seconds": 93.783942
+      },
+      "worker_child_stability_verified": true,
+      "worker_capacity_valid": true,
+      "failed_processing_jobs": 0,
+      "failed_videos": 0,
+      "publication_verifications": 7,
+      "accepted_total": 7,
+      "trial_state": "completed"
+    },
+    {
+      "name": "aligned-primary-002-r1-u003-d",
+      "mode": "direct",
+      "processing": "active",
+      "file": "speech-20s.mp4",
+      "rate": 3,
+      "search_rps": 2,
+      "phases": {
+        "baseline": {
+          "planned": 60,
+          "recorded": 60,
+          "successes": 60,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.1424871779999994,
+          "p95_seconds": 0.1546428820000001,
+          "max_seconds": 0.16764129999999933,
+          "lag_p99_seconds": 0.0003963772761181872
+        },
+        "load": {
+          "planned": 240,
+          "recorded": 240,
+          "successes": 240,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.15026359200000297,
+          "p95_seconds": 0.18934622999999556,
+          "max_seconds": 0.2862640829999873,
+          "lag_p99_seconds": 0.0004061842761302614
+        },
+        "recovery": {
+          "planned": 240,
+          "recorded": 240,
+          "successes": 240,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.1400451030000113,
+          "p95_seconds": 0.1625577549999871,
+          "max_seconds": 0.23022088199999416,
+          "lag_p99_seconds": 0.0003600332761379832
+        }
+      },
+      "query_ledger": {
+        "planned": 540,
+        "recorded": 540,
+        "successes": 540,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "uploads": {
+        "planned": 6,
+        "recorded": 6,
+        "successes": 6,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true,
+        "pool_full": 0,
+        "accepted_p95_seconds": 12.040359519000004,
+        "completed_during_load_per_minute": 3.0,
+        "outstanding_at_load_end": 0,
+        "outstanding_at_midpoint": 0,
+        "completed_last_third_per_minute": 3.0
+      },
+      "client_headroom": {
+        "mixed-uploads": {
+          "peak_cpu_quota_fraction": 0.09684238182390457,
+          "peak_memory_fraction": 0.13232460021972656,
+          "oom": false
+        },
+        "mixed-queries": {
+          "peak_cpu_quota_fraction": 0.034021140825708576,
+          "peak_memory_fraction": 0.0152740478515625,
+          "oom": false
+        }
+      },
+      "infrastructure_valid": true,
+      "integrity_pass": true,
+      "search_p95_baseline_ratio": 1.2244096045752397,
+      "arrival_validation_pass": true,
+      "search_slo_pass": false,
+      "upload_success_pass": true,
+      "api_cpu_fraction_of_one_core": 0.07462461671923105,
+      "server_resources": {
+        "bench-api": {
+          "cpu_seconds": 7.991351,
+          "sampled_seconds": 107.08733057975769,
+          "allocated_cpu_utilization": 0.14924923343846194,
+          "throttled_seconds": 1.20573
+        },
+        "bench-proxy": {
+          "cpu_seconds": 0.360709,
+          "sampled_seconds": 107.08733057975769,
+          "allocated_cpu_utilization": 0.0067367259608987476,
+          "throttled_seconds": 0.0
+        },
+        "bench-postgres": {
+          "cpu_seconds": 1.342302,
+          "sampled_seconds": 107.08733057975769,
+          "allocated_cpu_utilization": 0.02506929611062189,
+          "throttled_seconds": 0.132906
+        },
+        "bench-qdrant": {
+          "cpu_seconds": 0.472632,
+          "sampled_seconds": 107.08733057975769,
+          "allocated_cpu_utilization": 0.008827038594411276,
+          "throttled_seconds": 0.0
+        }
+      },
+      "pipeline_start": {
+        "epoch": 1794447944.280066,
+        "videos": 0,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 0,
+        "oldest_pending_seconds": 0
+      },
+      "pipeline_end": {
+        "epoch": 1794448051.36589,
+        "videos": 7,
+        "searchable": 6,
+        "playable": 6,
+        "pending_videos": 1,
+        "oldest_pending_seconds": 4.569518
+      },
+      "pipeline_pending_growth": 1,
+      "searchable_completions_per_minute": 3.3617422159185786,
+      "playable_completions_per_minute": 3.3617422159185786,
+      "stage": "d",
+      "architecture": "dag",
+      "repeat": 1,
+      "pair_id": "r1-u003",
+      "sentinel_upload": {
+        "planned": 1,
+        "recorded": 1,
+        "successes": 1,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "readiness": {
+        "video_id": "7c5356e1-5496-42d4-9d69-bcb6de0382b0",
+        "outcome": "ready",
+        "after_acceptance_seconds": 53.37470819900001,
+        "last_negative_seconds": null,
+        "click_to_ready_seconds": 63.961819604000006,
+        "observation_seconds": 63.961954631,
+        "full_pipeline": {
+          "outcome": "accepted",
+          "failure_stage": null,
+          "upload_seconds": 10.587111404999996,
+          "pre_request_seconds": 0.47080441299999803,
+          "observed_mode": "direct",
+          "intent_seconds": 0.06735135599999921,
+          "storage_seconds": 9.443566387999999,
+          "completion_seconds": 0.6052172340000034,
+          "video_id": "7c5356e1-5496-42d4-9d69-bcb6de0382b0",
+          "elapsed_seconds": 10.587211268999999,
+          "searchable": {
+            "outcome": "ready",
+            "observed_seconds": 63.961819604000006,
+            "after_acceptance_seconds": 53.37470819900001,
+            "probes": 27,
+            "last_code": "expected_search_hit",
+            "last_probe_started_seconds": 63.810394411000004,
+            "last_probe_finished_seconds": 63.961819604000006
+          },
+          "playable": {
+            "outcome": "ready",
+            "observed_seconds": 47.63433353999999,
+            "after_acceptance_seconds": 37.047222135,
+            "probes": 19,
+            "last_code": "decoded_advancing_video",
+            "last_probe_started_seconds": 47.433897036,
+            "last_probe_finished_seconds": 47.63433353999999
+          },
+          "readiness_outcome": "ready",
+          "pipeline_elapsed_seconds": 63.961954631
+        }
+      },
+      "worker_resources": {
+        "cpu_seconds": 217.22541,
+        "sampled_seconds": 107.08733057975769,
+        "allocated_cpu_utilization": 0.5071221049772374,
+        "throttled_seconds": 87.920068
+      },
+      "worker_child_stability_verified": true,
+      "worker_capacity_valid": true,
+      "failed_processing_jobs": 0,
+      "failed_videos": 0,
+      "publication_verifications": 7,
+      "accepted_total": 7,
+      "trial_state": "completed"
+    },
+    {
+      "name": "aligned-primary-002-r1-u060-a",
+      "mode": "api",
+      "processing": "active",
+      "file": "speech-20s.mp4",
+      "rate": 60,
+      "search_rps": 2,
+      "phases": {
+        "baseline": {
+          "planned": 60,
+          "recorded": 60,
+          "successes": 60,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.1394545450000005,
+          "p95_seconds": 0.16510305399999925,
+          "max_seconds": 0.20685475399999995,
+          "lag_p99_seconds": 0.00036545329467685406
+        },
+        "load": {
+          "planned": 240,
+          "recorded": 240,
+          "successes": 240,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.26578561200000694,
+          "p95_seconds": 0.6039704229999916,
+          "max_seconds": 0.9659372009999934,
+          "lag_p99_seconds": 0.0010261392946802061
+        },
+        "recovery": {
+          "planned": 240,
+          "recorded": 240,
+          "successes": 240,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.15301475499998196,
+          "p95_seconds": 0.25184015099998214,
+          "max_seconds": 0.759614356999984,
+          "lag_p99_seconds": 0.0009813222946775113
+        }
+      },
+      "query_ledger": {
+        "planned": 540,
+        "recorded": 540,
+        "successes": 540,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "uploads": {
+        "planned": 120,
+        "recorded": 120,
+        "successes": 120,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true,
+        "pool_full": 0,
+        "accepted_p95_seconds": 12.092477865000008,
+        "completed_during_load_per_minute": 54.5,
+        "outstanding_at_load_end": 11,
+        "outstanding_at_midpoint": 12,
+        "completed_last_third_per_minute": 61.5
+      },
+      "client_headroom": {
+        "mixed-uploads": {
+          "peak_cpu_quota_fraction": 0.7165680106862414,
+          "peak_memory_fraction": 0.18911056518554686,
+          "oom": false
+        },
+        "mixed-queries": {
+          "peak_cpu_quota_fraction": 0.03432371347327615,
+          "peak_memory_fraction": 0.015594482421875,
+          "oom": false
+        }
+      },
+      "infrastructure_valid": true,
+      "integrity_pass": true,
+      "search_p95_baseline_ratio": 3.658142041394306,
+      "arrival_validation_pass": true,
+      "search_slo_pass": false,
+      "upload_success_pass": true,
+      "api_cpu_fraction_of_one_core": 0.4969993240365283,
+      "server_resources": {
+        "bench-api": {
+          "cpu_seconds": 54.064988,
+          "sampled_seconds": 108.78281998634338,
+          "allocated_cpu_utilization": 0.9939986480730566,
+          "throttled_seconds": 140.982353
+        },
+        "bench-proxy": {
+          "cpu_seconds": 17.286293,
+          "sampled_seconds": 108.78281998634338,
+          "allocated_cpu_utilization": 0.31781292307314934,
+          "throttled_seconds": 0.0
+        },
+        "bench-postgres": {
+          "cpu_seconds": 3.233818,
+          "sampled_seconds": 108.78281998634338,
+          "allocated_cpu_utilization": 0.059454571970205844,
+          "throttled_seconds": 0.169916
+        },
+        "bench-qdrant": {
+          "cpu_seconds": 0.493837,
+          "sampled_seconds": 108.78281998634338,
+          "allocated_cpu_utilization": 0.009079319695187098,
+          "throttled_seconds": 0.0
+        }
+      },
+      "pipeline_start": {
+        "epoch": 1794448288.621881,
+        "videos": 0,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 0,
+        "oldest_pending_seconds": 0
+      },
+      "pipeline_end": {
+        "epoch": 1794448397.421927,
+        "videos": 107,
+        "searchable": 30,
+        "playable": 30,
+        "pending_videos": 77,
+        "oldest_pending_seconds": 107.588893
+      },
+      "pipeline_pending_growth": 77,
+      "searchable_completions_per_minute": 16.54673045087425,
+      "playable_completions_per_minute": 16.54673045087425,
+      "stage": "a",
+      "architecture": "serialized",
+      "repeat": 1,
+      "pair_id": "r1-u060",
+      "sentinel_upload": {
+        "planned": 1,
+        "recorded": 1,
+        "successes": 1,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "readiness": {
+        "video_id": "fc386c6e-4f8b-43f1-8dd1-483d45b82cfc",
+        "outcome": "ready",
+        "after_acceptance_seconds": 214.97310143800001,
+        "last_negative_seconds": null,
+        "click_to_ready_seconds": 224.81116040900002,
+        "observation_seconds": 225.08099565100002,
+        "full_pipeline": {
+          "outcome": "accepted",
+          "failure_stage": null,
+          "upload_seconds": 9.838058970999999,
+          "pre_request_seconds": 0.028629578000000037,
+          "observed_mode": "api",
+          "video_id": "fc386c6e-4f8b-43f1-8dd1-483d45b82cfc",
+          "elapsed_seconds": 9.83810138,
+          "searchable": {
+            "outcome": "ready",
+            "observed_seconds": 224.81116040900002,
+            "after_acceptance_seconds": 214.97310143800001,
+            "probes": 105,
+            "last_code": "expected_search_hit",
+            "last_probe_started_seconds": 224.66360816099998,
+            "last_probe_finished_seconds": 224.81116040900002
+          },
+          "playable": {
+            "outcome": "ready",
+            "observed_seconds": 225.080793714,
+            "after_acceptance_seconds": 215.242734743,
+            "probes": 105,
+            "last_code": "decoded_advancing_video",
+            "last_probe_started_seconds": 224.65804899100002,
+            "last_probe_finished_seconds": 225.080793714
+          },
+          "readiness_outcome": "ready",
+          "pipeline_elapsed_seconds": 225.08099565100002
+        }
+      },
+      "worker_resources": {
+        "cpu_seconds": 410.165473,
+        "sampled_seconds": 108.78281998634338,
+        "allocated_cpu_utilization": 0.9426246558314362,
+        "throttled_seconds": 238.098588
+      },
+      "worker_child_stability_verified": true,
+      "worker_capacity_valid": true,
+      "failed_processing_jobs": 0,
+      "failed_videos": 0,
+      "publication_verifications": 83,
+      "accepted_total": 121,
+      "trial_state": "completed"
+    },
+    {
+      "name": "aligned-primary-002-r1-u060-b",
+      "mode": "api",
+      "processing": "active",
+      "file": "speech-20s.mp4",
+      "rate": 60,
+      "search_rps": 2,
+      "phases": {
+        "baseline": {
+          "planned": 60,
+          "recorded": 60,
+          "successes": 60,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.14536633500000243,
+          "p95_seconds": 0.1692044399999977,
+          "max_seconds": 0.2047839280000044,
+          "lag_p99_seconds": 0.0004478426979979133
+        },
+        "load": {
+          "planned": 240,
+          "recorded": 240,
+          "successes": 240,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.24182432400000106,
+          "p95_seconds": 0.43903533400000017,
+          "max_seconds": 0.5438043139999936,
+          "lag_p99_seconds": 0.0006665976980002597
+        },
+        "recovery": {
+          "planned": 240,
+          "recorded": 240,
+          "successes": 240,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.15723914200000583,
+          "p95_seconds": 0.19549604700002238,
+          "max_seconds": 0.299155345999985,
+          "lag_p99_seconds": 0.0005653236979981102
+        }
+      },
+      "query_ledger": {
+        "planned": 540,
+        "recorded": 540,
+        "successes": 540,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "uploads": {
+        "planned": 120,
+        "recorded": 120,
+        "successes": 120,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true,
+        "pool_full": 0,
+        "accepted_p95_seconds": 11.657256710999995,
+        "completed_during_load_per_minute": 54.5,
+        "outstanding_at_load_end": 11,
+        "outstanding_at_midpoint": 11,
+        "completed_last_third_per_minute": 60.0
+      },
+      "client_headroom": {
+        "mixed-uploads": {
+          "peak_cpu_quota_fraction": 0.7060139939098343,
+          "peak_memory_fraction": 0.19486618041992188,
+          "oom": false
+        },
+        "mixed-queries": {
+          "peak_cpu_quota_fraction": 0.03447652443246688,
+          "peak_memory_fraction": 0.015716552734375,
+          "oom": false
+        }
+      },
+      "infrastructure_valid": true,
+      "integrity_pass": true,
+      "search_p95_baseline_ratio": 2.5947033895801206,
+      "arrival_validation_pass": true,
+      "search_slo_pass": false,
+      "upload_success_pass": true,
+      "api_cpu_fraction_of_one_core": 0.49693885837299184,
+      "server_resources": {
+        "bench-api": {
+          "cpu_seconds": 53.982191,
+          "sampled_seconds": 108.62944221496582,
+          "allocated_cpu_utilization": 0.9938777167459837,
+          "throttled_seconds": 107.269354
+        },
+        "bench-proxy": {
+          "cpu_seconds": 16.885838,
+          "sampled_seconds": 108.62944221496582,
+          "allocated_cpu_utilization": 0.3108887913938611,
+          "throttled_seconds": 0.0
+        },
+        "bench-postgres": {
+          "cpu_seconds": 3.916496,
+          "sampled_seconds": 108.62944221496582,
+          "allocated_cpu_utilization": 0.07210744932758988,
+          "throttled_seconds": 0.223469
+        },
+        "bench-qdrant": {
+          "cpu_seconds": 0.362314,
+          "sampled_seconds": 108.62944221496582,
+          "allocated_cpu_utilization": 0.006670640898312267,
+          "throttled_seconds": 0.0
+        }
+      },
+      "pipeline_start": {
+        "epoch": 1794448761.43552,
+        "videos": 0,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 0,
+        "oldest_pending_seconds": 0
+      },
+      "pipeline_end": {
+        "epoch": 1794448870.196386,
+        "videos": 108,
+        "searchable": 1,
+        "playable": 1,
+        "pending_videos": 107,
+        "oldest_pending_seconds": 107.775594
+      },
+      "pipeline_pending_growth": 107,
+      "searchable_completions_per_minute": 0.5523364455951688,
+      "playable_completions_per_minute": 0.5523364455951688,
+      "stage": "b",
+      "architecture": "branches",
+      "repeat": 1,
+      "pair_id": "r1-u060",
+      "sentinel_upload": {
+        "planned": 1,
+        "recorded": 1,
+        "successes": 1,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "readiness": {
+        "video_id": "f618c4bf-e5e5-42f1-bfb6-54ffa1e692c9",
+        "outcome": "timeout",
+        "after_acceptance_seconds": null,
+        "last_negative_seconds": null,
+        "click_to_ready_seconds": null,
+        "observation_seconds": 239.97334700599998,
+        "full_pipeline": {
+          "outcome": "accepted",
+          "failure_stage": null,
+          "upload_seconds": 9.900450861999998,
+          "pre_request_seconds": 0.026056872000001022,
+          "observed_mode": "api",
+          "video_id": "f618c4bf-e5e5-42f1-bfb6-54ffa1e692c9",
+          "elapsed_seconds": 9.900496197,
+          "searchable": {
+            "outcome": "timeout",
+            "observed_seconds": null,
+            "after_acceptance_seconds": null,
+            "probes": 113,
+            "last_code": "http_400",
+            "last_probe_started_seconds": 239.492959164,
+            "last_probe_finished_seconds": 239.54057764000004
+          },
+          "playable": {
+            "outcome": "ready",
+            "observed_seconds": 67.798075476,
+            "after_acceptance_seconds": 57.897624613999994,
+            "probes": 29,
+            "last_code": "decoded_advancing_video",
+            "last_probe_started_seconds": 67.36278900399999,
+            "last_probe_finished_seconds": 67.798075476
+          },
+          "readiness_outcome": "incomplete",
+          "pipeline_elapsed_seconds": 239.97334700599998
+        }
+      },
+      "worker_resources": {
+        "cpu_seconds": 420.0908,
+        "sampled_seconds": 108.62944221496582,
+        "allocated_cpu_utilization": 0.9667977470801289,
+        "throttled_seconds": 249.367294
+      },
+      "worker_child_stability_verified": true,
+      "worker_capacity_valid": true,
+      "failed_processing_jobs": 0,
+      "failed_videos": 0,
+      "publication_verifications": 6,
+      "accepted_total": 121,
+      "trial_state": "completed"
+    },
+    {
+      "name": "aligned-primary-002-r1-u060-c",
+      "mode": "api",
+      "processing": "active",
+      "file": "speech-20s.mp4",
+      "rate": 60,
+      "search_rps": 2,
+      "phases": {
+        "baseline": {
+          "planned": 60,
+          "recorded": 60,
+          "successes": 60,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.14844841500000258,
+          "p95_seconds": 0.18813342700000066,
+          "max_seconds": 0.2791963770000002,
+          "lag_p99_seconds": 0.0005656456348859251
+        },
+        "load": {
+          "planned": 240,
+          "recorded": 240,
+          "successes": 240,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.6542014959999942,
+          "p95_seconds": 1.5642782339999977,
+          "max_seconds": 1.875415015999999,
+          "lag_p99_seconds": 0.0011723436348916039
+        },
+        "recovery": {
+          "planned": 240,
+          "recorded": 240,
+          "successes": 240,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.14853583400000933,
+          "p95_seconds": 0.2006990320000332,
+          "max_seconds": 0.5767554870000168,
+          "lag_p99_seconds": 0.0005621676348823712
+        }
+      },
+      "query_ledger": {
+        "planned": 540,
+        "recorded": 540,
+        "successes": 540,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "uploads": {
+        "planned": 120,
+        "recorded": 120,
+        "successes": 120,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true,
+        "pool_full": 0,
+        "accepted_p95_seconds": 14.886405645000007,
+        "completed_during_load_per_minute": 54.5,
+        "outstanding_at_load_end": 11,
+        "outstanding_at_midpoint": 13,
+        "completed_last_third_per_minute": 63.0
+      },
+      "client_headroom": {
+        "mixed-uploads": {
+          "peak_cpu_quota_fraction": 0.7504689125155045,
+          "peak_memory_fraction": 0.20916213989257812,
+          "oom": false
+        },
+        "mixed-queries": {
+          "peak_cpu_quota_fraction": 0.03516008128978392,
+          "peak_memory_fraction": 0.01610565185546875,
+          "oom": false
+        }
+      },
+      "infrastructure_valid": true,
+      "integrity_pass": true,
+      "search_p95_baseline_ratio": 8.314727791568865,
+      "arrival_validation_pass": true,
+      "search_slo_pass": false,
+      "upload_success_pass": true,
+      "api_cpu_fraction_of_one_core": 0.49468618551529475,
+      "server_resources": {
+        "bench-api": {
+          "cpu_seconds": 53.617746,
+          "sampled_seconds": 108.3873929977417,
+          "allocated_cpu_utilization": 0.9893723710305893,
+          "throttled_seconds": 142.515638
+        },
+        "bench-proxy": {
+          "cpu_seconds": 16.709088,
+          "sampled_seconds": 108.3873929977417,
+          "allocated_cpu_utilization": 0.3083216144952973,
+          "throttled_seconds": 0.0
+        },
+        "bench-postgres": {
+          "cpu_seconds": 6.072453,
+          "sampled_seconds": 108.3873929977417,
+          "allocated_cpu_utilization": 0.11205090983462482,
+          "throttled_seconds": 0.212421
+        },
+        "bench-qdrant": {
+          "cpu_seconds": 0.485598,
+          "sampled_seconds": 108.3873929977417,
+          "allocated_cpu_utilization": 0.008960414796767326,
+          "throttled_seconds": 0.0
+        }
+      },
+      "pipeline_start": {
+        "epoch": 1794449223.005543,
+        "videos": 0,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 0,
+        "oldest_pending_seconds": 0
+      },
+      "pipeline_end": {
+        "epoch": 1794449331.458114,
+        "videos": 105,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 105,
+        "oldest_pending_seconds": 105.809484
+      },
+      "pipeline_pending_growth": 105,
+      "searchable_completions_per_minute": 0.0,
+      "playable_completions_per_minute": 0.0,
+      "stage": "c",
+      "architecture": "dag",
+      "repeat": 1,
+      "pair_id": "r1-u060",
+      "sentinel_upload": {
+        "planned": 1,
+        "recorded": 1,
+        "successes": 1,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "readiness": {
+        "video_id": "be905989-494a-4ded-9734-9e677a9885b2",
+        "outcome": "ready",
+        "after_acceptance_seconds": 227.66455569500002,
+        "last_negative_seconds": null,
+        "click_to_ready_seconds": 237.62713205000003,
+        "observation_seconds": 237.62728363000002,
+        "full_pipeline": {
+          "outcome": "accepted",
+          "failure_stage": null,
+          "upload_seconds": 9.962576355000005,
+          "pre_request_seconds": 0.041546262000003484,
+          "observed_mode": "api",
+          "video_id": "be905989-494a-4ded-9734-9e677a9885b2",
+          "elapsed_seconds": 9.962651457,
+          "searchable": {
+            "outcome": "ready",
+            "observed_seconds": 237.62713205000003,
+            "after_acceptance_seconds": 227.66455569500002,
+            "probes": 106,
+            "last_code": "expected_search_hit",
+            "last_probe_started_seconds": 237.45282513199996,
+            "last_probe_finished_seconds": 237.62713205000003
+          },
+          "playable": {
+            "outcome": "ready",
+            "observed_seconds": 52.45623399,
+            "after_acceptance_seconds": 42.493657635,
+            "probes": 19,
+            "last_code": "decoded_advancing_video",
+            "last_probe_started_seconds": 51.65266226600001,
+            "last_probe_finished_seconds": 52.45623399
+          },
+          "readiness_outcome": "ready",
+          "pipeline_elapsed_seconds": 237.62728363000002
+        }
+      },
+      "worker_resources": {
+        "cpu_seconds": 412.72078,
+        "sampled_seconds": 108.3873929977417,
+        "allocated_cpu_utilization": 0.9519575307263808,
+        "throttled_seconds": 210.360563
+      },
+      "worker_child_stability_verified": true,
+      "worker_capacity_valid": true,
+      "failed_processing_jobs": 0,
+      "failed_videos": 0,
+      "publication_verifications": 4,
+      "accepted_total": 121,
+      "trial_state": "completed"
+    },
+    {
+      "name": "aligned-primary-002-r1-u060-d",
+      "mode": "direct",
+      "processing": "active",
+      "file": "speech-20s.mp4",
+      "rate": 60,
+      "search_rps": 2,
+      "phases": {
+        "baseline": {
+          "planned": 60,
+          "recorded": 60,
+          "successes": 60,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.15107539000000178,
+          "p95_seconds": 0.17378697499999907,
+          "max_seconds": 0.19653145399999994,
+          "lag_p99_seconds": 0.0005632927423064871
+        },
+        "load": {
+          "planned": 240,
+          "recorded": 240,
+          "successes": 240,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.15272938999999314,
+          "p95_seconds": 0.18838416799998958,
+          "max_seconds": 0.29775508299999637,
+          "lag_p99_seconds": 0.0011810047423068681
+        },
+        "recovery": {
+          "planned": 240,
+          "recorded": 240,
+          "successes": 240,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.15022218699997755,
+          "p95_seconds": 0.17786980099999347,
+          "max_seconds": 0.3573723790000076,
+          "lag_p99_seconds": 0.001033122742313708
+        }
+      },
+      "query_ledger": {
+        "planned": 540,
+        "recorded": 540,
+        "successes": 540,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "uploads": {
+        "planned": 120,
+        "recorded": 120,
+        "successes": 120,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true,
+        "pool_full": 0,
+        "accepted_p95_seconds": 12.262168438000009,
+        "completed_during_load_per_minute": 54.0,
+        "outstanding_at_load_end": 12,
+        "outstanding_at_midpoint": 13,
+        "completed_last_third_per_minute": 60.0
+      },
+      "client_headroom": {
+        "mixed-uploads": {
+          "peak_cpu_quota_fraction": 0.817797628126204,
+          "peak_memory_fraction": 0.19747581481933593,
+          "oom": false
+        },
+        "mixed-queries": {
+          "peak_cpu_quota_fraction": 0.03529237397797609,
+          "peak_memory_fraction": 0.015522003173828125,
+          "oom": false
+        }
+      },
+      "infrastructure_valid": true,
+      "integrity_pass": true,
+      "search_p95_baseline_ratio": 1.0839947470170914,
+      "arrival_validation_pass": true,
+      "search_slo_pass": true,
+      "upload_success_pass": true,
+      "api_cpu_fraction_of_one_core": 0.20175910107005407,
+      "server_resources": {
+        "bench-api": {
+          "cpu_seconds": 21.761145,
+          "sampled_seconds": 107.85706758499146,
+          "allocated_cpu_utilization": 0.4035182021401092,
+          "throttled_seconds": 2.111599
+        },
+        "bench-proxy": {
+          "cpu_seconds": 1.784272,
+          "sampled_seconds": 107.85706758499146,
+          "allocated_cpu_utilization": 0.03308586150080508,
+          "throttled_seconds": 0.0
+        },
+        "bench-postgres": {
+          "cpu_seconds": 3.886899,
+          "sampled_seconds": 107.85706758499146,
+          "allocated_cpu_utilization": 0.07207499864461123,
+          "throttled_seconds": 0.169415
+        },
+        "bench-qdrant": {
+          "cpu_seconds": 0.407602,
+          "sampled_seconds": 107.85706758499146,
+          "allocated_cpu_utilization": 0.007558188056221894,
+          "throttled_seconds": 0.0
+        }
+      },
+      "pipeline_start": {
+        "epoch": 1794449685.897492,
+        "videos": 0,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 0,
+        "oldest_pending_seconds": 0
+      },
+      "pipeline_end": {
+        "epoch": 1794449793.801641,
+        "videos": 105,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 105,
+        "oldest_pending_seconds": 104.654858
+      },
+      "pipeline_pending_growth": 105,
+      "searchable_completions_per_minute": 0.0,
+      "playable_completions_per_minute": 0.0,
+      "stage": "d",
+      "architecture": "dag",
+      "repeat": 1,
+      "pair_id": "r1-u060",
+      "sentinel_upload": {
+        "planned": 1,
+        "recorded": 1,
+        "successes": 1,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "readiness": {
+        "video_id": "801e0a6b-1f4e-4230-87b2-f0398915fd1a",
+        "outcome": "timeout",
+        "after_acceptance_seconds": null,
+        "last_negative_seconds": null,
+        "click_to_ready_seconds": null,
+        "observation_seconds": 239.97706879,
+        "full_pipeline": {
+          "outcome": "accepted",
+          "failure_stage": null,
+          "upload_seconds": 10.455482375999999,
+          "pre_request_seconds": 0.4707148440000019,
+          "observed_mode": "direct",
+          "intent_seconds": 0.08275383800000417,
+          "storage_seconds": 9.345005314999995,
+          "completion_seconds": 0.5576507580000034,
+          "video_id": "801e0a6b-1f4e-4230-87b2-f0398915fd1a",
+          "elapsed_seconds": 10.455617376000003,
+          "searchable": {
+            "outcome": "timeout",
+            "observed_seconds": null,
+            "after_acceptance_seconds": null,
+            "probes": 113,
+            "last_code": "probe_timeout",
+            "last_probe_started_seconds": 239.97345580600003,
+            "last_probe_finished_seconds": 239.976925559
+          },
+          "playable": {
+            "outcome": "ready",
+            "observed_seconds": 78.650558932,
+            "after_acceptance_seconds": 68.195076556,
+            "probes": 34,
+            "last_code": "decoded_advancing_video",
+            "last_probe_started_seconds": 78.14434164,
+            "last_probe_finished_seconds": 78.650558932
+          },
+          "readiness_outcome": "incomplete",
+          "pipeline_elapsed_seconds": 239.97706879
+        }
+      },
+      "worker_resources": {
+        "cpu_seconds": 394.272717,
+        "sampled_seconds": 107.85706758499146,
+        "allocated_cpu_utilization": 0.9138777963931589,
+        "throttled_seconds": 213.432541
+      },
+      "worker_child_stability_verified": true,
+      "worker_capacity_valid": true,
+      "failed_processing_jobs": 0,
+      "failed_videos": 0,
+      "publication_verifications": 4,
+      "accepted_total": 121,
+      "trial_state": "completed"
+    },
+    {
+      "name": "aligned-primary-002-r2-u060-a",
+      "mode": "api",
+      "processing": "active",
+      "file": "speech-20s.mp4",
+      "rate": 60,
+      "search_rps": 2,
+      "phases": {
+        "baseline": {
+          "planned": 60,
+          "recorded": 60,
+          "successes": 60,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.1484140210000005,
+          "p95_seconds": 0.17674060199999986,
+          "max_seconds": 0.21006903099999907,
+          "lag_p99_seconds": 0.002348754744751602
+        },
+        "load": {
+          "planned": 240,
+          "recorded": 240,
+          "successes": 240,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.6462767909999966,
+          "p95_seconds": 1.257532697000017,
+          "max_seconds": 1.7594697080000041,
+          "lag_p99_seconds": 0.0009894787447564113
+        },
+        "recovery": {
+          "planned": 240,
+          "recorded": 240,
+          "successes": 240,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.15142705900000875,
+          "p95_seconds": 0.21727080200001364,
+          "max_seconds": 0.6536985310000019,
+          "lag_p99_seconds": 0.001034529744771362
+        }
+      },
+      "query_ledger": {
+        "planned": 540,
+        "recorded": 540,
+        "successes": 540,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "uploads": {
+        "planned": 120,
+        "recorded": 120,
+        "successes": 120,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true,
+        "pool_full": 0,
+        "accepted_p95_seconds": 13.559493290999992,
+        "completed_during_load_per_minute": 54.0,
+        "outstanding_at_load_end": 12,
+        "outstanding_at_midpoint": 12,
+        "completed_last_third_per_minute": 60.0
+      },
+      "client_headroom": {
+        "mixed-uploads": {
+          "peak_cpu_quota_fraction": 0.7177230294648139,
+          "peak_memory_fraction": 0.19626808166503906,
+          "oom": false
+        },
+        "mixed-queries": {
+          "peak_cpu_quota_fraction": 0.027673502404987282,
+          "peak_memory_fraction": 0.015636444091796875,
+          "oom": false
+        }
+      },
+      "infrastructure_valid": true,
+      "integrity_pass": true,
+      "search_p95_baseline_ratio": 7.115131909531563,
+      "arrival_validation_pass": true,
+      "search_slo_pass": false,
+      "upload_success_pass": true,
+      "api_cpu_fraction_of_one_core": 0.4951642396547675,
+      "server_resources": {
+        "bench-api": {
+          "cpu_seconds": 53.655161,
+          "sampled_seconds": 108.3583116531372,
+          "allocated_cpu_utilization": 0.9903284793095347,
+          "throttled_seconds": 161.769991
+        },
+        "bench-proxy": {
+          "cpu_seconds": 17.583847,
+          "sampled_seconds": 108.3583116531372,
+          "allocated_cpu_utilization": 0.3245500364805824,
+          "throttled_seconds": 0.0
+        },
+        "bench-postgres": {
+          "cpu_seconds": 4.743434,
+          "sampled_seconds": 108.3583116531372,
+          "allocated_cpu_utilization": 0.08755090269741513,
+          "throttled_seconds": 0.093483
+        },
+        "bench-qdrant": {
+          "cpu_seconds": 0.537845,
+          "sampled_seconds": 108.3583116531372,
+          "allocated_cpu_utilization": 0.009927157258073211,
+          "throttled_seconds": 0.0
+        }
+      },
+      "pipeline_start": {
+        "epoch": 1794450124.549373,
+        "videos": 0,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 0,
+        "oldest_pending_seconds": 0
+      },
+      "pipeline_end": {
+        "epoch": 1794450233.005294,
+        "videos": 105,
+        "searchable": 27,
+        "playable": 27,
+        "pending_videos": 78,
+        "oldest_pending_seconds": 105.816777
+      },
+      "pipeline_pending_growth": 78,
+      "searchable_completions_per_minute": 14.950399053703764,
+      "playable_completions_per_minute": 14.950399053703764,
+      "stage": "a",
+      "architecture": "serialized",
+      "repeat": 2,
+      "pair_id": "r2-u060",
+      "sentinel_upload": {
+        "planned": 1,
+        "recorded": 1,
+        "successes": 1,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "readiness": {
+        "video_id": "625c6c62-2025-485a-87b8-65558698a224",
+        "outcome": "ready",
+        "after_acceptance_seconds": 190.852352183,
+        "last_negative_seconds": null,
+        "click_to_ready_seconds": 200.755533719,
+        "observation_seconds": 200.91593930499997,
+        "full_pipeline": {
+          "outcome": "accepted",
+          "failure_stage": null,
+          "upload_seconds": 9.903181535999996,
+          "pre_request_seconds": 0.03350352799999382,
+          "observed_mode": "api",
+          "video_id": "625c6c62-2025-485a-87b8-65558698a224",
+          "elapsed_seconds": 9.903255078999996,
+          "searchable": {
+            "outcome": "ready",
+            "observed_seconds": 200.755533719,
+            "after_acceptance_seconds": 190.852352183,
+            "probes": 90,
+            "last_code": "expected_search_hit",
+            "last_probe_started_seconds": 200.477832035,
+            "last_probe_finished_seconds": 200.755533719
+          },
+          "playable": {
+            "outcome": "ready",
+            "observed_seconds": 200.915775024,
+            "after_acceptance_seconds": 191.012593488,
+            "probes": 90,
+            "last_code": "decoded_advancing_video",
+            "last_probe_started_seconds": 200.46064843,
+            "last_probe_finished_seconds": 200.915775024
+          },
+          "readiness_outcome": "ready",
+          "pipeline_elapsed_seconds": 200.91593930499997
+        }
+      },
+      "worker_resources": {
+        "cpu_seconds": 408.970381,
+        "sampled_seconds": 108.3583116531372,
+        "allocated_cpu_utilization": 0.943560246465319,
+        "throttled_seconds": 205.422183
+      },
+      "worker_child_stability_verified": true,
+      "worker_capacity_valid": true,
+      "failed_processing_jobs": 0,
+      "failed_videos": 0,
+      "publication_verifications": 86,
+      "accepted_total": 121,
+      "trial_state": "completed"
+    },
+    {
+      "name": "aligned-primary-002-r2-u060-b",
+      "mode": "api",
+      "processing": "active",
+      "file": "speech-20s.mp4",
+      "rate": 60,
+      "search_rps": 2,
+      "phases": {
+        "baseline": {
+          "planned": 60,
+          "recorded": 60,
+          "successes": 60,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.1413685770000011,
+          "p95_seconds": 0.1702742049999997,
+          "max_seconds": 0.1929689699999999,
+          "lag_p99_seconds": 0.0006344401180413684
+        },
+        "load": {
+          "planned": 240,
+          "recorded": 240,
+          "successes": 240,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.39526942399999826,
+          "p95_seconds": 0.7069515030000039,
+          "max_seconds": 1.1026748020000086,
+          "lag_p99_seconds": 0.0015063491180455912
+        },
+        "recovery": {
+          "planned": 240,
+          "recorded": 240,
+          "successes": 240,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.15753061799998977,
+          "p95_seconds": 0.2174597960000392,
+          "max_seconds": 0.5040354100000113,
+          "lag_p99_seconds": 0.0005087981180338375
+        }
+      },
+      "query_ledger": {
+        "planned": 540,
+        "recorded": 540,
+        "successes": 540,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "uploads": {
+        "planned": 120,
+        "recorded": 120,
+        "successes": 120,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true,
+        "pool_full": 0,
+        "accepted_p95_seconds": 12.617025160999997,
+        "completed_during_load_per_minute": 54.5,
+        "outstanding_at_load_end": 11,
+        "outstanding_at_midpoint": 11,
+        "completed_last_third_per_minute": 60.0
+      },
+      "client_headroom": {
+        "mixed-uploads": {
+          "peak_cpu_quota_fraction": 0.7217875490577895,
+          "peak_memory_fraction": 0.1929706573486328,
+          "oom": false
+        },
+        "mixed-queries": {
+          "peak_cpu_quota_fraction": 0.027455249025423272,
+          "peak_memory_fraction": 0.015659332275390625,
+          "oom": false
+        }
+      },
+      "infrastructure_valid": true,
+      "integrity_pass": true,
+      "search_p95_baseline_ratio": 4.151841454787618,
+      "arrival_validation_pass": true,
+      "search_slo_pass": false,
+      "upload_success_pass": true,
+      "api_cpu_fraction_of_one_core": 0.49686080328414056,
+      "server_resources": {
+        "bench-api": {
+          "cpu_seconds": 53.993341,
+          "sampled_seconds": 108.66894841194153,
+          "allocated_cpu_utilization": 0.9937216065682793,
+          "throttled_seconds": 184.737796
+        },
+        "bench-proxy": {
+          "cpu_seconds": 17.928522,
+          "sampled_seconds": 108.66894841194153,
+          "allocated_cpu_utilization": 0.3299658690362343,
+          "throttled_seconds": 0.0
+        },
+        "bench-postgres": {
+          "cpu_seconds": 4.658882,
+          "sampled_seconds": 108.66894841194153,
+          "allocated_cpu_utilization": 0.08574449404514602,
+          "throttled_seconds": 0.079047
+        },
+        "bench-qdrant": {
+          "cpu_seconds": 0.426527,
+          "sampled_seconds": 108.66894841194153,
+          "allocated_cpu_utilization": 0.007850025351917905,
+          "throttled_seconds": 0.0
+        }
+      },
+      "pipeline_start": {
+        "epoch": 1794450611.584451,
+        "videos": 0,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 0,
+        "oldest_pending_seconds": 0
+      },
+      "pipeline_end": {
+        "epoch": 1794450720.328465,
+        "videos": 106,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 106,
+        "oldest_pending_seconds": 106.421611
+      },
+      "pipeline_pending_growth": 106,
+      "searchable_completions_per_minute": 0.0,
+      "playable_completions_per_minute": 0.0,
+      "stage": "b",
+      "architecture": "branches",
+      "repeat": 2,
+      "pair_id": "r2-u060",
+      "sentinel_upload": {
+        "planned": 1,
+        "recorded": 1,
+        "successes": 1,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "readiness": {
+        "video_id": "065dcb32-8e46-43c2-87c0-1f8530f60ff6",
+        "outcome": "timeout",
+        "after_acceptance_seconds": null,
+        "last_negative_seconds": null,
+        "click_to_ready_seconds": null,
+        "observation_seconds": 239.981041132,
+        "full_pipeline": {
+          "outcome": "accepted",
+          "failure_stage": null,
+          "upload_seconds": 10.012052017000002,
+          "pre_request_seconds": 0.0262382460000008,
+          "observed_mode": "api",
+          "video_id": "065dcb32-8e46-43c2-87c0-1f8530f60ff6",
+          "elapsed_seconds": 10.012111576000002,
+          "searchable": {
+            "outcome": "timeout",
+            "observed_seconds": null,
+            "after_acceptance_seconds": null,
+            "probes": 112,
+            "last_code": "probe_timeout",
+            "last_probe_started_seconds": 239.97774633600002,
+            "last_probe_finished_seconds": 239.98094710899997
+          },
+          "playable": {
+            "outcome": "ready",
+            "observed_seconds": 61.41994510200001,
+            "after_acceptance_seconds": 51.407893085000005,
+            "probes": 25,
+            "last_code": "decoded_advancing_video",
+            "last_probe_started_seconds": 60.86968132700001,
+            "last_probe_finished_seconds": 61.41994510200001
+          },
+          "readiness_outcome": "incomplete",
+          "pipeline_elapsed_seconds": 239.981041132
+        }
+      },
+      "worker_resources": {
+        "cpu_seconds": 418.855807,
+        "sampled_seconds": 108.66894841194153,
+        "allocated_cpu_utilization": 0.9636050894046665,
+        "throttled_seconds": 246.032338
+      },
+      "worker_child_stability_verified": true,
+      "worker_capacity_valid": true,
+      "failed_processing_jobs": 0,
+      "failed_videos": 0,
+      "publication_verifications": 5,
+      "accepted_total": 121,
+      "trial_state": "completed"
+    },
+    {
+      "name": "aligned-primary-002-r2-u060-c",
+      "mode": "api",
+      "processing": "active",
+      "file": "speech-20s.mp4",
+      "rate": 60,
+      "search_rps": 2,
+      "phases": {
+        "baseline": {
+          "planned": 60,
+          "recorded": 60,
+          "successes": 60,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.1453023409999987,
+          "p95_seconds": 0.1662667419999998,
+          "max_seconds": 0.20832661000000008,
+          "lag_p99_seconds": 0.00046734600976705565
+        },
+        "load": {
+          "planned": 240,
+          "recorded": 240,
+          "successes": 240,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.7407317739999999,
+          "p95_seconds": 1.7307242470000055,
+          "max_seconds": 2.4334590579999933,
+          "lag_p99_seconds": 0.0008444720097600111
+        },
+        "recovery": {
+          "planned": 240,
+          "recorded": 240,
+          "successes": 240,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.1582395049999759,
+          "p95_seconds": 0.22773160899998038,
+          "max_seconds": 0.4814167190000007,
+          "lag_p99_seconds": 0.0002668960097764739
+        }
+      },
+      "query_ledger": {
+        "planned": 540,
+        "recorded": 540,
+        "successes": 540,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "uploads": {
+        "planned": 120,
+        "recorded": 120,
+        "successes": 120,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true,
+        "pool_full": 0,
+        "accepted_p95_seconds": 16.124660474999995,
+        "completed_during_load_per_minute": 54.5,
+        "outstanding_at_load_end": 11,
+        "outstanding_at_midpoint": 16,
+        "completed_last_third_per_minute": 66.0
+      },
+      "client_headroom": {
+        "mixed-uploads": {
+          "peak_cpu_quota_fraction": 0.7223784645873438,
+          "peak_memory_fraction": 0.21661109924316407,
+          "oom": false
+        },
+        "mixed-queries": {
+          "peak_cpu_quota_fraction": 0.029956657160771814,
+          "peak_memory_fraction": 0.01612091064453125,
+          "oom": false
+        }
+      },
+      "infrastructure_valid": true,
+      "integrity_pass": true,
+      "search_p95_baseline_ratio": 10.409323152552105,
+      "arrival_validation_pass": true,
+      "search_slo_pass": false,
+      "upload_success_pass": true,
+      "api_cpu_fraction_of_one_core": 0.49684006426948496,
+      "server_resources": {
+        "bench-api": {
+          "cpu_seconds": 53.996374,
+          "sampled_seconds": 108.67958903312683,
+          "allocated_cpu_utilization": 0.9936801285389709,
+          "throttled_seconds": 187.912463
+        },
+        "bench-proxy": {
+          "cpu_seconds": 17.406431,
+          "sampled_seconds": 108.67958903312683,
+          "allocated_cpu_utilization": 0.3203256684140444,
+          "throttled_seconds": 0.0
+        },
+        "bench-postgres": {
+          "cpu_seconds": 6.693053,
+          "sampled_seconds": 108.67958903312683,
+          "allocated_cpu_utilization": 0.1231703774286426,
+          "throttled_seconds": 0.166821
+        },
+        "bench-qdrant": {
+          "cpu_seconds": 0.498399,
+          "sampled_seconds": 108.67958903312683,
+          "allocated_cpu_utilization": 0.00917189703115425,
+          "throttled_seconds": 0.0
+        }
+      },
+      "pipeline_start": {
+        "epoch": 1794451073.344119,
+        "videos": 0,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 0,
+        "oldest_pending_seconds": 0
+      },
+      "pipeline_end": {
+        "epoch": 1794451182.112178,
+        "videos": 107,
+        "searchable": 1,
+        "playable": 1,
+        "pending_videos": 106,
+        "oldest_pending_seconds": 107.333194
+      },
+      "pipeline_pending_growth": 106,
+      "searchable_completions_per_minute": 0.552081587111185,
+      "playable_completions_per_minute": 0.552081587111185,
+      "stage": "c",
+      "architecture": "dag",
+      "repeat": 2,
+      "pair_id": "r2-u060",
+      "sentinel_upload": {
+        "planned": 1,
+        "recorded": 1,
+        "successes": 1,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "readiness": {
+        "video_id": "83150644-3570-44c6-a6ee-79cad4d25159",
+        "outcome": "timeout",
+        "after_acceptance_seconds": null,
+        "last_negative_seconds": null,
+        "click_to_ready_seconds": null,
+        "observation_seconds": 239.98455434100003,
+        "full_pipeline": {
+          "outcome": "accepted",
+          "failure_stage": null,
+          "upload_seconds": 9.862530705000005,
+          "pre_request_seconds": 0.027015079000004334,
+          "observed_mode": "api",
+          "video_id": "83150644-3570-44c6-a6ee-79cad4d25159",
+          "elapsed_seconds": 9.862571699,
+          "searchable": {
+            "outcome": "timeout",
+            "observed_seconds": null,
+            "after_acceptance_seconds": null,
+            "probes": 106,
+            "last_code": "probe_timeout",
+            "last_probe_started_seconds": 239.98080268200005,
+            "last_probe_finished_seconds": 239.98441047500003
+          },
+          "playable": {
+            "outcome": "ready",
+            "observed_seconds": 60.850121369,
+            "after_acceptance_seconds": 50.987590663999995,
+            "probes": 22,
+            "last_code": "decoded_advancing_video",
+            "last_probe_started_seconds": 59.80637136800001,
+            "last_probe_finished_seconds": 60.850121369
+          },
+          "readiness_outcome": "incomplete",
+          "pipeline_elapsed_seconds": 239.98455434100003
+        }
+      },
+      "worker_resources": {
+        "cpu_seconds": 415.180643,
+        "sampled_seconds": 108.67958903312683,
+        "allocated_cpu_utilization": 0.9550566180220096,
+        "throttled_seconds": 214.676247
+      },
+      "worker_child_stability_verified": true,
+      "worker_capacity_valid": true,
+      "failed_processing_jobs": 0,
+      "failed_videos": 0,
+      "publication_verifications": 5,
+      "accepted_total": 121,
+      "trial_state": "completed"
+    },
+    {
+      "name": "aligned-primary-002-r2-u060-d",
+      "mode": "direct",
+      "processing": "active",
+      "file": "speech-20s.mp4",
+      "rate": 60,
+      "search_rps": 2,
+      "phases": {
+        "baseline": {
+          "planned": 60,
+          "recorded": 60,
+          "successes": 60,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.1448535979999997,
+          "p95_seconds": 0.16283458099999917,
+          "max_seconds": 0.20457960900000036,
+          "lag_p99_seconds": 0.001000797597050962
+        },
+        "load": {
+          "planned": 240,
+          "recorded": 240,
+          "successes": 240,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.14680449300000328,
+          "p95_seconds": 0.18333014700000058,
+          "max_seconds": 0.29115979900000094,
+          "lag_p99_seconds": 0.0009113055970573214
+        },
+        "recovery": {
+          "planned": 240,
+          "recorded": 240,
+          "successes": 240,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.1486467849999899,
+          "p95_seconds": 0.1780124899999937,
+          "max_seconds": 0.2520723790000193,
+          "lag_p99_seconds": 0.0009610025970232527
+        }
+      },
+      "query_ledger": {
+        "planned": 540,
+        "recorded": 540,
+        "successes": 540,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "uploads": {
+        "planned": 120,
+        "recorded": 120,
+        "successes": 120,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true,
+        "pool_full": 0,
+        "accepted_p95_seconds": 12.258795729999997,
+        "completed_during_load_per_minute": 54.5,
+        "outstanding_at_load_end": 11,
+        "outstanding_at_midpoint": 12,
+        "completed_last_third_per_minute": 60.0
+      },
+      "client_headroom": {
+        "mixed-uploads": {
+          "peak_cpu_quota_fraction": 0.8003469939709913,
+          "peak_memory_fraction": 0.19051284790039064,
+          "oom": false
+        },
+        "mixed-queries": {
+          "peak_cpu_quota_fraction": 0.0317913845108211,
+          "peak_memory_fraction": 0.01570892333984375,
+          "oom": false
+        }
+      },
+      "infrastructure_valid": true,
+      "integrity_pass": true,
+      "search_p95_baseline_ratio": 1.125867404049767,
+      "arrival_validation_pass": true,
+      "search_slo_pass": true,
+      "upload_success_pass": true,
+      "api_cpu_fraction_of_one_core": 0.196436250711885,
+      "server_resources": {
+        "bench-api": {
+          "cpu_seconds": 21.167166,
+          "sampled_seconds": 107.75590515136719,
+          "allocated_cpu_utilization": 0.39287250142376884,
+          "throttled_seconds": 2.069125
+        },
+        "bench-proxy": {
+          "cpu_seconds": 1.703135,
+          "sampled_seconds": 107.75590515136719,
+          "allocated_cpu_utilization": 0.03161098220292553,
+          "throttled_seconds": 0.0
+        },
+        "bench-postgres": {
+          "cpu_seconds": 3.829761,
+          "sampled_seconds": 107.75590515136719,
+          "allocated_cpu_utilization": 0.07108215544420042,
+          "throttled_seconds": 0.0483
+        },
+        "bench-qdrant": {
+          "cpu_seconds": 0.392201,
+          "sampled_seconds": 107.75590515136719,
+          "allocated_cpu_utilization": 0.007279434003158645,
+          "throttled_seconds": 0.0
+        }
+      },
+      "pipeline_start": {
+        "epoch": 1794451526.679207,
+        "videos": 0,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 0,
+        "oldest_pending_seconds": 0
+      },
+      "pipeline_end": {
+        "epoch": 1794451634.497263,
+        "videos": 105,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 105,
+        "oldest_pending_seconds": 105.320376
+      },
+      "pipeline_pending_growth": 105,
+      "searchable_completions_per_minute": 0.0,
+      "playable_completions_per_minute": 0.0,
+      "stage": "d",
+      "architecture": "dag",
+      "repeat": 2,
+      "pair_id": "r2-u060",
+      "sentinel_upload": {
+        "planned": 1,
+        "recorded": 1,
+        "successes": 1,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "readiness": {
+        "video_id": "b5834719-0699-4a26-b090-60d8c3f5c016",
+        "outcome": "ready",
+        "after_acceptance_seconds": 221.45280309700004,
+        "last_negative_seconds": null,
+        "click_to_ready_seconds": 231.84624179100004,
+        "observation_seconds": 231.846391238,
+        "full_pipeline": {
+          "outcome": "accepted",
+          "failure_stage": null,
+          "upload_seconds": 10.393438694000004,
+          "pre_request_seconds": 0.4498399900000004,
+          "observed_mode": "direct",
+          "intent_seconds": 0.06463370600000053,
+          "storage_seconds": 9.303470844000003,
+          "completion_seconds": 0.5757349479999976,
+          "video_id": "b5834719-0699-4a26-b090-60d8c3f5c016",
+          "elapsed_seconds": 10.393533243000006,
+          "searchable": {
+            "outcome": "ready",
+            "observed_seconds": 231.84624179100004,
+            "after_acceptance_seconds": 221.45280309700004,
+            "probes": 109,
+            "last_code": "expected_search_hit",
+            "last_probe_started_seconds": 231.690301795,
+            "last_probe_finished_seconds": 231.84624179100004
+          },
+          "playable": {
+            "outcome": "ready",
+            "observed_seconds": 53.935238867,
+            "after_acceptance_seconds": 43.541800173,
+            "probes": 22,
+            "last_code": "decoded_advancing_video",
+            "last_probe_started_seconds": 53.524401848000004,
+            "last_probe_finished_seconds": 53.935238867
+          },
+          "readiness_outcome": "ready",
+          "pipeline_elapsed_seconds": 231.846391238
+        }
+      },
+      "worker_resources": {
+        "cpu_seconds": 411.382463,
+        "sampled_seconds": 107.75590515136719,
+        "allocated_cpu_utilization": 0.954431366016836,
+        "throttled_seconds": 220.945119
+      },
+      "worker_child_stability_verified": true,
+      "worker_capacity_valid": true,
+      "failed_processing_jobs": 0,
+      "failed_videos": 0,
+      "publication_verifications": 4,
+      "accepted_total": 121,
+      "trial_state": "completed"
+    },
+    {
+      "name": "aligned-primary-002-r2-u003-a",
+      "mode": "api",
+      "processing": "active",
+      "file": "speech-20s.mp4",
+      "rate": 3,
+      "search_rps": 2,
+      "phases": {
+        "baseline": {
+          "planned": 60,
+          "recorded": 60,
+          "successes": 60,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.1411746680000033,
+          "p95_seconds": 0.17010393900000054,
+          "max_seconds": 0.21430943800000024,
+          "lag_p99_seconds": 0.001010105274048101
+        },
+        "load": {
+          "planned": 240,
+          "recorded": 240,
+          "successes": 240,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.14450130699999864,
+          "p95_seconds": 0.16915374099998734,
+          "max_seconds": 0.6301200900000112,
+          "lag_p99_seconds": 0.0010304702740313587
+        },
+        "recovery": {
+          "planned": 240,
+          "recorded": 240,
+          "successes": 240,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.14344806599998264,
+          "p95_seconds": 0.17122327000001678,
+          "max_seconds": 0.2576249229999958,
+          "lag_p99_seconds": 0.0009544092740441101
+        }
+      },
+      "query_ledger": {
+        "planned": 540,
+        "recorded": 540,
+        "successes": 540,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "uploads": {
+        "planned": 6,
+        "recorded": 6,
+        "successes": 6,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true,
+        "pool_full": 0,
+        "accepted_p95_seconds": 11.306251208,
+        "completed_during_load_per_minute": 3.0,
+        "outstanding_at_load_end": 0,
+        "outstanding_at_midpoint": 0,
+        "completed_last_third_per_minute": 3.0
+      },
+      "client_headroom": {
+        "mixed-uploads": {
+          "peak_cpu_quota_fraction": 0.08846327234819426,
+          "peak_memory_fraction": 0.13050460815429688,
+          "oom": false
+        },
+        "mixed-queries": {
+          "peak_cpu_quota_fraction": 0.033424810044708826,
+          "peak_memory_fraction": 0.01578521728515625,
+          "oom": false
+        }
+      },
+      "infrastructure_valid": true,
+      "integrity_pass": true,
+      "search_p95_baseline_ratio": 0.9944140153038243,
+      "arrival_validation_pass": true,
+      "search_slo_pass": true,
+      "upload_success_pass": true,
+      "api_cpu_fraction_of_one_core": 0.11759927231581976,
+      "server_resources": {
+        "bench-api": {
+          "cpu_seconds": 12.550807,
+          "sampled_seconds": 106.72520971298218,
+          "allocated_cpu_utilization": 0.23519854463164022,
+          "throttled_seconds": 1.8845
+        },
+        "bench-proxy": {
+          "cpu_seconds": 2.212542,
+          "sampled_seconds": 106.72520971298218,
+          "allocated_cpu_utilization": 0.04146240622904794,
+          "throttled_seconds": 0.0
+        },
+        "bench-postgres": {
+          "cpu_seconds": 1.1368,
+          "sampled_seconds": 106.72520971298218,
+          "allocated_cpu_utilization": 0.021303307869944027,
+          "throttled_seconds": 0.063641
+        },
+        "bench-qdrant": {
+          "cpu_seconds": 0.410728,
+          "sampled_seconds": 106.72520971298218,
+          "allocated_cpu_utilization": 0.007696925611194907,
+          "throttled_seconds": 0.0
+        }
+      },
+      "pipeline_start": {
+        "epoch": 1794451963.28735,
+        "videos": 0,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 0,
+        "oldest_pending_seconds": 0
+      },
+      "pipeline_end": {
+        "epoch": 1794452070.009948,
+        "videos": 7,
+        "searchable": 6,
+        "playable": 6,
+        "pending_videos": 1,
+        "oldest_pending_seconds": 2.970436
+      },
+      "pipeline_pending_growth": 1,
+      "searchable_completions_per_minute": 3.3731486775069714,
+      "playable_completions_per_minute": 3.3731486775069714,
+      "stage": "a",
+      "architecture": "serialized",
+      "repeat": 2,
+      "pair_id": "r2-u003",
+      "sentinel_upload": {
+        "planned": 1,
+        "recorded": 1,
+        "successes": 1,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "readiness": {
+        "video_id": "92dfabdf-80cc-4851-be9e-0e4d10a0daa2",
+        "outcome": "ready",
+        "after_acceptance_seconds": 96.34246533999998,
+        "last_negative_seconds": null,
+        "click_to_ready_seconds": 106.26844737799998,
+        "observation_seconds": 108.51973875699998,
+        "full_pipeline": {
+          "outcome": "accepted",
+          "failure_stage": null,
+          "upload_seconds": 9.925982037999995,
+          "pre_request_seconds": 0.038393108999996914,
+          "observed_mode": "api",
+          "video_id": "92dfabdf-80cc-4851-be9e-0e4d10a0daa2",
+          "elapsed_seconds": 9.926023989999994,
+          "searchable": {
+            "outcome": "ready",
+            "observed_seconds": 106.26844737799998,
+            "after_acceptance_seconds": 96.34246533999998,
+            "probes": 48,
+            "last_code": "expected_search_hit",
+            "last_probe_started_seconds": 106.12276003499998,
+            "last_probe_finished_seconds": 106.26844737799998
+          },
+          "playable": {
+            "outcome": "ready",
+            "observed_seconds": 108.51941881399998,
+            "after_acceptance_seconds": 98.59343677599998,
+            "probes": 49,
+            "last_code": "decoded_advancing_video",
+            "last_probe_started_seconds": 108.169285638,
+            "last_probe_finished_seconds": 108.51941881399998
+          },
+          "readiness_outcome": "ready",
+          "pipeline_elapsed_seconds": 108.51973875699998
+        }
+      },
+      "worker_resources": {
+        "cpu_seconds": 186.759123,
+        "sampled_seconds": 106.72520971298218,
+        "allocated_cpu_utilization": 0.43747658941653594,
+        "throttled_seconds": 36.50565
+      },
+      "worker_child_stability_verified": true,
+      "worker_capacity_valid": true,
+      "failed_processing_jobs": 0,
+      "failed_videos": 0,
+      "publication_verifications": 7,
+      "accepted_total": 7,
+      "trial_state": "completed"
+    },
+    {
+      "name": "aligned-primary-002-r2-u003-b",
+      "mode": "api",
+      "processing": "active",
+      "file": "speech-20s.mp4",
+      "rate": 3,
+      "search_rps": 2,
+      "phases": {
+        "baseline": {
+          "planned": 60,
+          "recorded": 60,
+          "successes": 60,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.139358017999999,
+          "p95_seconds": 0.1712393630000006,
+          "max_seconds": 0.2324799949999997,
+          "lag_p99_seconds": 0.00025235620520192015
+        },
+        "load": {
+          "planned": 240,
+          "recorded": 240,
+          "successes": 240,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.1442254200000025,
+          "p95_seconds": 0.16681244400000286,
+          "max_seconds": 0.2593045890000067,
+          "lag_p99_seconds": 0.00019145620520077955
+        },
+        "recovery": {
+          "planned": 240,
+          "recorded": 240,
+          "successes": 240,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.1416011249999865,
+          "p95_seconds": 0.16068622699999832,
+          "max_seconds": 0.2090806969999685,
+          "lag_p99_seconds": 0.0002532792051965771
+        }
+      },
+      "query_ledger": {
+        "planned": 540,
+        "recorded": 540,
+        "successes": 540,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "uploads": {
+        "planned": 6,
+        "recorded": 6,
+        "successes": 6,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true,
+        "pool_full": 0,
+        "accepted_p95_seconds": 11.191020915000001,
+        "completed_during_load_per_minute": 3.0,
+        "outstanding_at_load_end": 0,
+        "outstanding_at_midpoint": 0,
+        "completed_last_third_per_minute": 3.0
+      },
+      "client_headroom": {
+        "mixed-uploads": {
+          "peak_cpu_quota_fraction": 0.0977121693477685,
+          "peak_memory_fraction": 0.1313945770263672,
+          "oom": false
+        },
+        "mixed-queries": {
+          "peak_cpu_quota_fraction": 0.037668185844854034,
+          "peak_memory_fraction": 0.0156402587890625,
+          "oom": false
+        }
+      },
+      "infrastructure_valid": true,
+      "integrity_pass": true,
+      "search_p95_baseline_ratio": 0.9741477723203297,
+      "arrival_validation_pass": true,
+      "search_slo_pass": true,
+      "upload_success_pass": true,
+      "api_cpu_fraction_of_one_core": 0.10981232065561501,
+      "server_resources": {
+        "bench-api": {
+          "cpu_seconds": 11.704995,
+          "sampled_seconds": 106.59090828895569,
+          "allocated_cpu_utilization": 0.21962464131122902,
+          "throttled_seconds": 1.239847
+        },
+        "bench-proxy": {
+          "cpu_seconds": 2.055848,
+          "sampled_seconds": 106.59090828895569,
+          "allocated_cpu_utilization": 0.0385745469853176,
+          "throttled_seconds": 0.0
+        },
+        "bench-postgres": {
+          "cpu_seconds": 1.295476,
+          "sampled_seconds": 106.59090828895569,
+          "allocated_cpu_utilization": 0.024307438988850974,
+          "throttled_seconds": 0.087035
+        },
+        "bench-qdrant": {
+          "cpu_seconds": 0.405003,
+          "sampled_seconds": 106.59090828895569,
+          "allocated_cpu_utilization": 0.007599203468687657,
+          "throttled_seconds": 0.0
+        }
+      },
+      "pipeline_start": {
+        "epoch": 1794452317.515879,
+        "videos": 0,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 0,
+        "oldest_pending_seconds": 0
+      },
+      "pipeline_end": {
+        "epoch": 1794452424.099935,
+        "videos": 7,
+        "searchable": 6,
+        "playable": 6,
+        "pending_videos": 1,
+        "oldest_pending_seconds": 2.789628
+      },
+      "pipeline_pending_growth": 1,
+      "searchable_completions_per_minute": 3.3773987460926915,
+      "playable_completions_per_minute": 3.3773987460926915,
+      "stage": "b",
+      "architecture": "branches",
+      "repeat": 2,
+      "pair_id": "r2-u003",
+      "sentinel_upload": {
+        "planned": 1,
+        "recorded": 1,
+        "successes": 1,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "readiness": {
+        "video_id": "ce43ae80-42bb-4ff2-9894-a24672632777",
+        "outcome": "ready",
+        "after_acceptance_seconds": 82.06382466200002,
+        "last_negative_seconds": null,
+        "click_to_ready_seconds": 91.939966866,
+        "observation_seconds": 91.94010764000001,
+        "full_pipeline": {
+          "outcome": "accepted",
+          "failure_stage": null,
+          "upload_seconds": 9.876142203999995,
+          "pre_request_seconds": 0.027559119999998074,
+          "observed_mode": "api",
+          "video_id": "ce43ae80-42bb-4ff2-9894-a24672632777",
+          "elapsed_seconds": 9.87618707,
+          "searchable": {
+            "outcome": "ready",
+            "observed_seconds": 91.939966866,
+            "after_acceptance_seconds": 82.06382466200002,
+            "probes": 41,
+            "last_code": "expected_search_hit",
+            "last_probe_started_seconds": 91.765392682,
+            "last_probe_finished_seconds": 91.939966866
+          },
+          "playable": {
+            "outcome": "ready",
+            "observed_seconds": 34.683095869000006,
+            "after_acceptance_seconds": 24.80695366500001,
+            "probes": 13,
+            "last_code": "decoded_advancing_video",
+            "last_probe_started_seconds": 34.440911528,
+            "last_probe_finished_seconds": 34.683095869000006
+          },
+          "readiness_outcome": "ready",
+          "pipeline_elapsed_seconds": 91.94010764000001
+        }
+      },
+      "worker_resources": {
+        "cpu_seconds": 184.470461,
+        "sampled_seconds": 106.59090828895569,
+        "allocated_cpu_utilization": 0.43265993310593104,
+        "throttled_seconds": 43.630502
+      },
+      "worker_child_stability_verified": true,
+      "worker_capacity_valid": true,
+      "failed_processing_jobs": 0,
+      "failed_videos": 0,
+      "publication_verifications": 7,
+      "accepted_total": 7,
+      "trial_state": "completed"
+    },
+    {
+      "name": "aligned-primary-002-r2-u003-c",
+      "mode": "api",
+      "processing": "active",
+      "file": "speech-20s.mp4",
+      "rate": 3,
+      "search_rps": 2,
+      "phases": {
+        "baseline": {
+          "planned": 60,
+          "recorded": 60,
+          "successes": 60,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.1453431610000007,
+          "p95_seconds": 0.17164100999999937,
+          "max_seconds": 0.1924285519999994,
+          "lag_p99_seconds": 0.0006526683927035037
+        },
+        "load": {
+          "planned": 240,
+          "recorded": 240,
+          "successes": 240,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.14820028900000035,
+          "p95_seconds": 0.1918359449999989,
+          "max_seconds": 0.27196539899999334,
+          "lag_p99_seconds": 0.0007846093927099673
+        },
+        "recovery": {
+          "planned": 240,
+          "recorded": 240,
+          "successes": 240,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.14214085699999124,
+          "p95_seconds": 0.1775679690000252,
+          "max_seconds": 0.3106127250000136,
+          "lag_p99_seconds": 0.0007221863926929473
+        }
+      },
+      "query_ledger": {
+        "planned": 540,
+        "recorded": 540,
+        "successes": 540,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "uploads": {
+        "planned": 6,
+        "recorded": 6,
+        "successes": 6,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true,
+        "pool_full": 0,
+        "accepted_p95_seconds": 11.361298287999992,
+        "completed_during_load_per_minute": 3.0,
+        "outstanding_at_load_end": 0,
+        "outstanding_at_midpoint": 0,
+        "completed_last_third_per_minute": 3.0
+      },
+      "client_headroom": {
+        "mixed-uploads": {
+          "peak_cpu_quota_fraction": 0.09258023496962928,
+          "peak_memory_fraction": 0.13180007934570312,
+          "oom": false
+        },
+        "mixed-queries": {
+          "peak_cpu_quota_fraction": 0.031983050756443414,
+          "peak_memory_fraction": 0.015811920166015625,
+          "oom": false
+        }
+      },
+      "infrastructure_valid": true,
+      "integrity_pass": true,
+      "search_p95_baseline_ratio": 1.1176579827862794,
+      "arrival_validation_pass": true,
+      "search_slo_pass": true,
+      "upload_success_pass": true,
+      "api_cpu_fraction_of_one_core": 0.10005716809081774,
+      "server_resources": {
+        "bench-api": {
+          "cpu_seconds": 10.699711,
+          "sampled_seconds": 106.93597674369812,
+          "allocated_cpu_utilization": 0.20011433618163588,
+          "throttled_seconds": 1.236983
+        },
+        "bench-proxy": {
+          "cpu_seconds": 1.776299,
+          "sampled_seconds": 106.93597674369812,
+          "allocated_cpu_utilization": 0.03322172862847451,
+          "throttled_seconds": 0.0
+        },
+        "bench-postgres": {
+          "cpu_seconds": 1.310977,
+          "sampled_seconds": 106.93597674369812,
+          "allocated_cpu_utilization": 0.024518913838363715,
+          "throttled_seconds": 0.095348
+        },
+        "bench-qdrant": {
+          "cpu_seconds": 0.399408,
+          "sampled_seconds": 106.93597674369812,
+          "allocated_cpu_utilization": 0.007470039778236516,
+          "throttled_seconds": 0.0
+        }
+      },
+      "pipeline_start": {
+        "epoch": 1794452673.654549,
+        "videos": 0,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 0,
+        "oldest_pending_seconds": 0
+      },
+      "pipeline_end": {
+        "epoch": 1794452780.599925,
+        "videos": 7,
+        "searchable": 6,
+        "playable": 6,
+        "pending_videos": 1,
+        "oldest_pending_seconds": 4.791548
+      },
+      "pipeline_pending_growth": 1,
+      "searchable_completions_per_minute": 3.36650032068104,
+      "playable_completions_per_minute": 3.36650032068104,
+      "stage": "c",
+      "architecture": "dag",
+      "repeat": 2,
+      "pair_id": "r2-u003",
+      "sentinel_upload": {
+        "planned": 1,
+        "recorded": 1,
+        "successes": 1,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "readiness": {
+        "video_id": "78a012ef-a53b-4b0d-aea1-7237f903ffa8",
+        "outcome": "ready",
+        "after_acceptance_seconds": 53.475780086,
+        "last_negative_seconds": null,
+        "click_to_ready_seconds": 63.39620815799999,
+        "observation_seconds": 63.396351022000005,
+        "full_pipeline": {
+          "outcome": "accepted",
+          "failure_stage": null,
+          "upload_seconds": 9.920428071999995,
+          "pre_request_seconds": 0.029680254999999305,
+          "observed_mode": "api",
+          "video_id": "78a012ef-a53b-4b0d-aea1-7237f903ffa8",
+          "elapsed_seconds": 9.920471825,
+          "searchable": {
+            "outcome": "ready",
+            "observed_seconds": 63.39620815799999,
+            "after_acceptance_seconds": 53.475780086,
+            "probes": 27,
+            "last_code": "expected_search_hit",
+            "last_probe_started_seconds": 63.134882314,
+            "last_probe_finished_seconds": 63.39620815799999
+          },
+          "playable": {
+            "outcome": "ready",
+            "observed_seconds": 46.94934973,
+            "after_acceptance_seconds": 37.02892165800001,
+            "probes": 19,
+            "last_code": "decoded_advancing_video",
+            "last_probe_started_seconds": 46.754310769,
+            "last_probe_finished_seconds": 46.94934973
+          },
+          "readiness_outcome": "ready",
+          "pipeline_elapsed_seconds": 63.396351022000005
+        }
+      },
+      "worker_resources": {
+        "cpu_seconds": 212.994472,
+        "sampled_seconds": 106.93597674369812,
+        "allocated_cpu_utilization": 0.4979485821467284,
+        "throttled_seconds": 90.797577
+      },
+      "worker_child_stability_verified": true,
+      "worker_capacity_valid": true,
+      "failed_processing_jobs": 0,
+      "failed_videos": 0,
+      "publication_verifications": 7,
+      "accepted_total": 7,
+      "trial_state": "completed"
+    },
+    {
+      "name": "aligned-primary-002-r2-u003-d",
+      "mode": "direct",
+      "processing": "active",
+      "file": "speech-20s.mp4",
+      "rate": 3,
+      "search_rps": 2,
+      "phases": {
+        "baseline": {
+          "planned": 60,
+          "recorded": 60,
+          "successes": 60,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.14483887499999765,
+          "p95_seconds": 0.1709495489999972,
+          "max_seconds": 0.20025535200000014,
+          "lag_p99_seconds": 0.0007860927983429633
+        },
+        "load": {
+          "planned": 240,
+          "recorded": 240,
+          "successes": 240,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.14731175000000804,
+          "p95_seconds": 0.18953751999999804,
+          "max_seconds": 0.28602061000000684,
+          "lag_p99_seconds": 0.0007282037983316059
+        },
+        "recovery": {
+          "planned": 240,
+          "recorded": 240,
+          "successes": 240,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.14448741999999037,
+          "p95_seconds": 0.1732999420000124,
+          "max_seconds": 0.22524449599999935,
+          "lag_p99_seconds": 0.0007720347983308784
+        }
+      },
+      "query_ledger": {
+        "planned": 540,
+        "recorded": 540,
+        "successes": 540,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "uploads": {
+        "planned": 6,
+        "recorded": 6,
+        "successes": 6,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true,
+        "pool_full": 0,
+        "accepted_p95_seconds": 11.935759154,
+        "completed_during_load_per_minute": 3.0,
+        "outstanding_at_load_end": 0,
+        "outstanding_at_midpoint": 1,
+        "completed_last_third_per_minute": 3.0
+      },
+      "client_headroom": {
+        "mixed-uploads": {
+          "peak_cpu_quota_fraction": 0.10759334095244609,
+          "peak_memory_fraction": 0.13074913024902343,
+          "oom": false
+        },
+        "mixed-queries": {
+          "peak_cpu_quota_fraction": 0.03445758830597922,
+          "peak_memory_fraction": 0.01578521728515625,
+          "oom": false
+        }
+      },
+      "infrastructure_valid": true,
+      "integrity_pass": true,
+      "search_p95_baseline_ratio": 1.1087336650417319,
+      "arrival_validation_pass": true,
+      "search_slo_pass": true,
+      "upload_success_pass": true,
+      "api_cpu_fraction_of_one_core": 0.06962102448467827,
+      "server_resources": {
+        "bench-api": {
+          "cpu_seconds": 7.427742,
+          "sampled_seconds": 106.68820309638977,
+          "allocated_cpu_utilization": 0.13924204896935505,
+          "throttled_seconds": 1.400871
+        },
+        "bench-proxy": {
+          "cpu_seconds": 0.337476,
+          "sampled_seconds": 106.68820309638977,
+          "allocated_cpu_utilization": 0.006326397674822585,
+          "throttled_seconds": 0.0
+        },
+        "bench-postgres": {
+          "cpu_seconds": 1.311609,
+          "sampled_seconds": 106.68820309638977,
+          "allocated_cpu_utilization": 0.024587704393427612,
+          "throttled_seconds": 0.026797
+        },
+        "bench-qdrant": {
+          "cpu_seconds": 0.458596,
+          "sampled_seconds": 106.68820309638977,
+          "allocated_cpu_utilization": 0.008596939243332677,
+          "throttled_seconds": 0.0
+        }
+      },
+      "pipeline_start": {
+        "epoch": 1794453017.806752,
+        "videos": 0,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 0,
+        "oldest_pending_seconds": 0
+      },
+      "pipeline_end": {
+        "epoch": 1794453124.496705,
+        "videos": 7,
+        "searchable": 6,
+        "playable": 6,
+        "pending_videos": 1,
+        "oldest_pending_seconds": 2.838941
+      },
+      "pipeline_pending_growth": 1,
+      "searchable_completions_per_minute": 3.374318711458194,
+      "playable_completions_per_minute": 3.374318711458194,
+      "stage": "d",
+      "architecture": "dag",
+      "repeat": 2,
+      "pair_id": "r2-u003",
+      "sentinel_upload": {
+        "planned": 1,
+        "recorded": 1,
+        "successes": 1,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "readiness": {
+        "video_id": "7ade4a1a-0dc2-40b4-8f40-212eeb8aeaa2",
+        "outcome": "ready",
+        "after_acceptance_seconds": 53.370246244,
+        "last_negative_seconds": null,
+        "click_to_ready_seconds": 63.897282921,
+        "observation_seconds": 63.89742509699999,
+        "full_pipeline": {
+          "outcome": "accepted",
+          "failure_stage": null,
+          "upload_seconds": 10.527036676999996,
+          "pre_request_seconds": 0.47572645799999735,
+          "observed_mode": "direct",
+          "intent_seconds": 0.07982973199999834,
+          "storage_seconds": 9.471328517000002,
+          "completion_seconds": 0.5003706559999992,
+          "video_id": "7ade4a1a-0dc2-40b4-8f40-212eeb8aeaa2",
+          "elapsed_seconds": 10.527160306999999,
+          "searchable": {
+            "outcome": "ready",
+            "observed_seconds": 63.897282921,
+            "after_acceptance_seconds": 53.370246244,
+            "probes": 27,
+            "last_code": "expected_search_hit",
+            "last_probe_started_seconds": 63.747383828,
+            "last_probe_finished_seconds": 63.897282921
+          },
+          "playable": {
+            "outcome": "ready",
+            "observed_seconds": 43.651321174,
+            "after_acceptance_seconds": 33.124284497000005,
+            "probes": 17,
+            "last_code": "decoded_advancing_video",
+            "last_probe_started_seconds": 43.268441463,
+            "last_probe_finished_seconds": 43.651321174
+          },
+          "readiness_outcome": "ready",
+          "pipeline_elapsed_seconds": 63.89742509699999
+        }
+      },
+      "worker_resources": {
+        "cpu_seconds": 196.68242,
+        "sampled_seconds": 106.68820309638977,
+        "allocated_cpu_utilization": 0.4608813680700551,
+        "throttled_seconds": 72.064157
+      },
+      "worker_child_stability_verified": true,
+      "worker_capacity_valid": true,
+      "failed_processing_jobs": 0,
+      "failed_videos": 0,
+      "publication_verifications": 7,
+      "accepted_total": 7,
+      "trial_state": "completed"
+    },
+    {
+      "name": "aligned-primary-002-r3-u003-a",
+      "mode": "api",
+      "processing": "active",
+      "file": "speech-20s.mp4",
+      "rate": 3,
+      "search_rps": 2,
+      "phases": {
+        "baseline": {
+          "planned": 60,
+          "recorded": 60,
+          "successes": 60,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.13831331899999713,
+          "p95_seconds": 0.16634969199999977,
+          "max_seconds": 0.39201739199999974,
+          "lag_p99_seconds": 0.0006541133433835
+        },
+        "load": {
+          "planned": 240,
+          "recorded": 240,
+          "successes": 240,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.14504426300001796,
+          "p95_seconds": 0.18679251900000962,
+          "max_seconds": 0.23508248899999307,
+          "lag_p99_seconds": 0.0006209833433814538
+        },
+        "recovery": {
+          "planned": 240,
+          "recorded": 240,
+          "successes": 240,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.14434497100001317,
+          "p95_seconds": 0.20495552400001907,
+          "max_seconds": 0.5097248510000063,
+          "lag_p99_seconds": 0.0006022503434053306
+        }
+      },
+      "query_ledger": {
+        "planned": 540,
+        "recorded": 540,
+        "successes": 540,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "uploads": {
+        "planned": 6,
+        "recorded": 6,
+        "successes": 6,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true,
+        "pool_full": 0,
+        "accepted_p95_seconds": 11.304947773000007,
+        "completed_during_load_per_minute": 3.0,
+        "outstanding_at_load_end": 0,
+        "outstanding_at_midpoint": 1,
+        "completed_last_third_per_minute": 3.0
+      },
+      "client_headroom": {
+        "mixed-uploads": {
+          "peak_cpu_quota_fraction": 0.08896944435727265,
+          "peak_memory_fraction": 0.13074836730957032,
+          "oom": false
+        },
+        "mixed-queries": {
+          "peak_cpu_quota_fraction": 0.03302443411113174,
+          "peak_memory_fraction": 0.0157470703125,
+          "oom": false
+        }
+      },
+      "infrastructure_valid": true,
+      "integrity_pass": true,
+      "search_p95_baseline_ratio": 1.1228906813966921,
+      "arrival_validation_pass": true,
+      "search_slo_pass": true,
+      "upload_success_pass": true,
+      "api_cpu_fraction_of_one_core": 0.10188359151936807,
+      "server_resources": {
+        "bench-api": {
+          "cpu_seconds": 10.861678,
+          "sampled_seconds": 106.60870742797852,
+          "allocated_cpu_utilization": 0.20376718303873645,
+          "throttled_seconds": 1.407256
+        },
+        "bench-proxy": {
+          "cpu_seconds": 1.765625,
+          "sampled_seconds": 106.60870742797852,
+          "allocated_cpu_utilization": 0.0331234669774568,
+          "throttled_seconds": 0.0
+        },
+        "bench-postgres": {
+          "cpu_seconds": 1.077964,
+          "sampled_seconds": 106.60870742797852,
+          "allocated_cpu_utilization": 0.020222813426909587,
+          "throttled_seconds": 0.019819
+        },
+        "bench-qdrant": {
+          "cpu_seconds": 0.391027,
+          "sampled_seconds": 106.60870742797852,
+          "allocated_cpu_utilization": 0.007335742256591293,
+          "throttled_seconds": 0.0
+        }
+      },
+      "pipeline_start": {
+        "epoch": 1794453370.481486,
+        "videos": 0,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 0,
+        "oldest_pending_seconds": 0
+      },
+      "pipeline_end": {
+        "epoch": 1794453477.100309,
+        "videos": 7,
+        "searchable": 6,
+        "playable": 6,
+        "pending_videos": 1,
+        "oldest_pending_seconds": 4.052052
+      },
+      "pipeline_pending_growth": 1,
+      "searchable_completions_per_minute": 3.3768348635424985,
+      "playable_completions_per_minute": 3.3768348635424985,
+      "stage": "a",
+      "architecture": "serialized",
+      "repeat": 3,
+      "pair_id": "r3-u003",
+      "sentinel_upload": {
+        "planned": 1,
+        "recorded": 1,
+        "successes": 1,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "readiness": {
+        "video_id": "6d5b564b-7eb7-4ea4-aa31-0717295026fd",
+        "outcome": "ready",
+        "after_acceptance_seconds": 90.22327769800002,
+        "last_negative_seconds": null,
+        "click_to_ready_seconds": 100.12247563100001,
+        "observation_seconds": 102.440182236,
+        "full_pipeline": {
+          "outcome": "accepted",
+          "failure_stage": null,
+          "upload_seconds": 9.899197932999996,
+          "pre_request_seconds": 0.04103378499999963,
+          "observed_mode": "api",
+          "video_id": "6d5b564b-7eb7-4ea4-aa31-0717295026fd",
+          "elapsed_seconds": 9.899239047999997,
+          "searchable": {
+            "outcome": "ready",
+            "observed_seconds": 100.12247563100001,
+            "after_acceptance_seconds": 90.22327769800002,
+            "probes": 45,
+            "last_code": "expected_search_hit",
+            "last_probe_started_seconds": 99.959788959,
+            "last_probe_finished_seconds": 100.12247563100001
+          },
+          "playable": {
+            "outcome": "ready",
+            "observed_seconds": 102.440028585,
+            "after_acceptance_seconds": 92.540830652,
+            "probes": 46,
+            "last_code": "decoded_advancing_video",
+            "last_probe_started_seconds": 102.00858660000002,
+            "last_probe_finished_seconds": 102.440028585
+          },
+          "readiness_outcome": "ready",
+          "pipeline_elapsed_seconds": 102.440182236
+        }
+      },
+      "worker_resources": {
+        "cpu_seconds": 185.774981,
+        "sampled_seconds": 106.60870742797852,
+        "allocated_cpu_utilization": 0.4356468282046842,
+        "throttled_seconds": 36.884983
+      },
+      "worker_child_stability_verified": true,
+      "worker_capacity_valid": true,
+      "failed_processing_jobs": 0,
+      "failed_videos": 0,
+      "publication_verifications": 7,
+      "accepted_total": 7,
+      "trial_state": "completed"
+    },
+    {
+      "name": "aligned-primary-002-r3-u003-b",
+      "mode": "api",
+      "processing": "active",
+      "file": "speech-20s.mp4",
+      "rate": 3,
+      "search_rps": 2,
+      "phases": {
+        "baseline": {
+          "planned": 60,
+          "recorded": 60,
+          "successes": 60,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.14116290800000206,
+          "p95_seconds": 0.19682065400000284,
+          "max_seconds": 1.2593999699999985,
+          "lag_p99_seconds": 0.00043156682519196465
+        },
+        "load": {
+          "planned": 240,
+          "recorded": 240,
+          "successes": 240,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.1463682330000156,
+          "p95_seconds": 0.18621984999999405,
+          "max_seconds": 0.2521934039999906,
+          "lag_p99_seconds": 0.00046246882519085375
+        },
+        "recovery": {
+          "planned": 240,
+          "recorded": 240,
+          "successes": 240,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.1391902779999946,
+          "p95_seconds": 0.16501463499997043,
+          "max_seconds": 0.21012923700001557,
+          "lag_p99_seconds": 0.00048290582520849057
+        }
+      },
+      "query_ledger": {
+        "planned": 540,
+        "recorded": 540,
+        "successes": 540,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "uploads": {
+        "planned": 6,
+        "recorded": 6,
+        "successes": 6,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true,
+        "pool_full": 0,
+        "accepted_p95_seconds": 11.398834670999998,
+        "completed_during_load_per_minute": 3.0,
+        "outstanding_at_load_end": 0,
+        "outstanding_at_midpoint": 0,
+        "completed_last_third_per_minute": 3.0
+      },
+      "client_headroom": {
+        "mixed-uploads": {
+          "peak_cpu_quota_fraction": 0.09544840473527287,
+          "peak_memory_fraction": 0.13219566345214845,
+          "oom": false
+        },
+        "mixed-queries": {
+          "peak_cpu_quota_fraction": 0.03395254251695938,
+          "peak_memory_fraction": 0.01580047607421875,
+          "oom": false
+        }
+      },
+      "infrastructure_valid": true,
+      "integrity_pass": true,
+      "search_p95_baseline_ratio": 0.9461397786026632,
+      "arrival_validation_pass": true,
+      "search_slo_pass": true,
+      "upload_success_pass": true,
+      "api_cpu_fraction_of_one_core": 0.10118426757064707,
+      "server_resources": {
+        "bench-api": {
+          "cpu_seconds": 10.796033,
+          "sampled_seconds": 106.69675493240356,
+          "allocated_cpu_utilization": 0.20236853514129263,
+          "throttled_seconds": 0.758084
+        },
+        "bench-proxy": {
+          "cpu_seconds": 1.711982,
+          "sampled_seconds": 106.69675493240356,
+          "allocated_cpu_utilization": 0.03209061046110737,
+          "throttled_seconds": 0.0
+        },
+        "bench-postgres": {
+          "cpu_seconds": 1.258069,
+          "sampled_seconds": 106.69675493240356,
+          "allocated_cpu_utilization": 0.02358214175861364,
+          "throttled_seconds": 0.136809
+        },
+        "bench-qdrant": {
+          "cpu_seconds": 0.379568,
+          "sampled_seconds": 106.69675493240356,
+          "allocated_cpu_utilization": 0.00711489304881804,
+          "throttled_seconds": 0.0
+        }
+      },
+      "pipeline_start": {
+        "epoch": 1794453712.818061,
+        "videos": 0,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 0,
+        "oldest_pending_seconds": 0
+      },
+      "pipeline_end": {
+        "epoch": 1794453819.512967,
+        "videos": 7,
+        "searchable": 6,
+        "playable": 6,
+        "pending_videos": 1,
+        "oldest_pending_seconds": 4.217432
+      },
+      "pipeline_pending_growth": 1,
+      "searchable_completions_per_minute": 3.374048256932215,
+      "playable_completions_per_minute": 3.374048256932215,
+      "stage": "b",
+      "architecture": "branches",
+      "repeat": 3,
+      "pair_id": "r3-u003",
+      "sentinel_upload": {
+        "planned": 1,
+        "recorded": 1,
+        "successes": 1,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "readiness": {
+        "video_id": "0cb4f2fc-be9c-45c7-8a7b-12331c96bfd5",
+        "outcome": "ready",
+        "after_acceptance_seconds": 84.09381998500001,
+        "last_negative_seconds": null,
+        "click_to_ready_seconds": 93.970851994,
+        "observation_seconds": 93.97097891899999,
+        "full_pipeline": {
+          "outcome": "accepted",
+          "failure_stage": null,
+          "upload_seconds": 9.877032008999995,
+          "pre_request_seconds": 0.025650117999997748,
+          "observed_mode": "api",
+          "video_id": "0cb4f2fc-be9c-45c7-8a7b-12331c96bfd5",
+          "elapsed_seconds": 9.877075580999998,
+          "searchable": {
+            "outcome": "ready",
+            "observed_seconds": 93.970851994,
+            "after_acceptance_seconds": 84.09381998500001,
+            "probes": 42,
+            "last_code": "expected_search_hit",
+            "last_probe_started_seconds": 93.81516226099998,
+            "last_probe_finished_seconds": 93.970851994
+          },
+          "playable": {
+            "outcome": "ready",
+            "observed_seconds": 38.779782958000006,
+            "after_acceptance_seconds": 28.90275094900001,
+            "probes": 15,
+            "last_code": "decoded_advancing_video",
+            "last_probe_started_seconds": 38.53059490999999,
+            "last_probe_finished_seconds": 38.779782958000006
+          },
+          "readiness_outcome": "ready",
+          "pipeline_elapsed_seconds": 93.97097891899999
+        }
+      },
+      "worker_resources": {
+        "cpu_seconds": 185.712363,
+        "sampled_seconds": 106.69675493240356,
+        "allocated_cpu_utilization": 0.43514060741035615,
+        "throttled_seconds": 46.05229
+      },
+      "worker_child_stability_verified": true,
+      "worker_capacity_valid": true,
+      "failed_processing_jobs": 0,
+      "failed_videos": 0,
+      "publication_verifications": 7,
+      "accepted_total": 7,
+      "trial_state": "completed"
+    },
+    {
+      "name": "aligned-primary-002-r3-u003-c",
+      "mode": "api",
+      "processing": "active",
+      "file": "speech-20s.mp4",
+      "rate": 3,
+      "search_rps": 2,
+      "phases": {
+        "baseline": {
+          "planned": 60,
+          "recorded": 60,
+          "successes": 60,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.14077673700000015,
+          "p95_seconds": 0.15498102700000163,
+          "max_seconds": 0.1985029460000005,
+          "lag_p99_seconds": 0.0005834880637181072
+        },
+        "load": {
+          "planned": 240,
+          "recorded": 240,
+          "successes": 240,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.1447155880000064,
+          "p95_seconds": 0.17002145700000257,
+          "max_seconds": 0.25932476699999824,
+          "lag_p99_seconds": 0.0005873540637253427
+        },
+        "recovery": {
+          "planned": 240,
+          "recorded": 240,
+          "successes": 240,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.14215458699999725,
+          "p95_seconds": 0.1745095319999964,
+          "max_seconds": 0.30081008899997685,
+          "lag_p99_seconds": 0.0005366290637311977
+        }
+      },
+      "query_ledger": {
+        "planned": 540,
+        "recorded": 540,
+        "successes": 540,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "uploads": {
+        "planned": 6,
+        "recorded": 6,
+        "successes": 6,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true,
+        "pool_full": 0,
+        "accepted_p95_seconds": 11.30323630199999,
+        "completed_during_load_per_minute": 3.0,
+        "outstanding_at_load_end": 0,
+        "outstanding_at_midpoint": 1,
+        "completed_last_third_per_minute": 3.0
+      },
+      "client_headroom": {
+        "mixed-uploads": {
+          "peak_cpu_quota_fraction": 0.09490552290698083,
+          "peak_memory_fraction": 0.1306171417236328,
+          "oom": false
+        },
+        "mixed-queries": {
+          "peak_cpu_quota_fraction": 0.035013116583129195,
+          "peak_memory_fraction": 0.015262603759765625,
+          "oom": false
+        }
+      },
+      "infrastructure_valid": true,
+      "integrity_pass": true,
+      "search_p95_baseline_ratio": 1.0970469114261372,
+      "arrival_validation_pass": true,
+      "search_slo_pass": true,
+      "upload_success_pass": true,
+      "api_cpu_fraction_of_one_core": 0.09953452841337836,
+      "server_resources": {
+        "bench-api": {
+          "cpu_seconds": 10.619011,
+          "sampled_seconds": 106.68670630455017,
+          "allocated_cpu_utilization": 0.1990690568267567,
+          "throttled_seconds": 1.558247
+        },
+        "bench-proxy": {
+          "cpu_seconds": 1.756804,
+          "sampled_seconds": 106.68670630455017,
+          "allocated_cpu_utilization": 0.03293388765766167,
+          "throttled_seconds": 0.0
+        },
+        "bench-postgres": {
+          "cpu_seconds": 1.277902,
+          "sampled_seconds": 106.68670630455017,
+          "allocated_cpu_utilization": 0.02395616181742594,
+          "throttled_seconds": 0.0
+        },
+        "bench-qdrant": {
+          "cpu_seconds": 0.398054,
+          "sampled_seconds": 106.68670630455017,
+          "allocated_cpu_utilization": 0.007462110581307225,
+          "throttled_seconds": 0.0
+        }
+      },
+      "pipeline_start": {
+        "epoch": 1794454054.785775,
+        "videos": 0,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 0,
+        "oldest_pending_seconds": 0
+      },
+      "pipeline_end": {
+        "epoch": 1794454161.471221,
+        "videos": 7,
+        "searchable": 6,
+        "playable": 6,
+        "pending_videos": 1,
+        "oldest_pending_seconds": 3.828049
+      },
+      "pipeline_pending_growth": 1,
+      "searchable_completions_per_minute": 3.374366052433339,
+      "playable_completions_per_minute": 3.374366052433339,
+      "stage": "c",
+      "architecture": "dag",
+      "repeat": 3,
+      "pair_id": "r3-u003",
+      "sentinel_upload": {
+        "planned": 1,
+        "recorded": 1,
+        "successes": 1,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "readiness": {
+        "video_id": "45471dd7-36a8-4032-86b3-5b06286fcd1e",
+        "outcome": "ready",
+        "after_acceptance_seconds": 53.360052596,
+        "last_negative_seconds": null,
+        "click_to_ready_seconds": 63.236176558000004,
+        "observation_seconds": 63.236312072000004,
+        "full_pipeline": {
+          "outcome": "accepted",
+          "failure_stage": null,
+          "upload_seconds": 9.876123962000005,
+          "pre_request_seconds": 0.032999815000002854,
+          "observed_mode": "api",
+          "video_id": "45471dd7-36a8-4032-86b3-5b06286fcd1e",
+          "elapsed_seconds": 9.87616891,
+          "searchable": {
+            "outcome": "ready",
+            "observed_seconds": 63.236176558000004,
+            "after_acceptance_seconds": 53.360052596,
+            "probes": 27,
+            "last_code": "expected_search_hit",
+            "last_probe_started_seconds": 63.086841686,
+            "last_probe_finished_seconds": 63.236176558000004
+          },
+          "playable": {
+            "outcome": "ready",
+            "observed_seconds": 47.08557313200001,
+            "after_acceptance_seconds": 37.20944917,
+            "probes": 19,
+            "last_code": "decoded_advancing_video",
+            "last_probe_started_seconds": 46.706233815,
+            "last_probe_finished_seconds": 47.08557313200001
+          },
+          "readiness_outcome": "ready",
+          "pipeline_elapsed_seconds": 63.236312072000004
+        }
+      },
+      "worker_resources": {
+        "cpu_seconds": 210.964368,
+        "sampled_seconds": 106.68670630455017,
+        "allocated_cpu_utilization": 0.49435486225850994,
+        "throttled_seconds": 91.642268
+      },
+      "worker_child_stability_verified": true,
+      "worker_capacity_valid": true,
+      "failed_processing_jobs": 0,
+      "failed_videos": 0,
+      "publication_verifications": 7,
+      "accepted_total": 7,
+      "trial_state": "completed"
+    },
+    {
+      "name": "aligned-primary-002-r3-u003-d",
+      "mode": "direct",
+      "processing": "active",
+      "file": "speech-20s.mp4",
+      "rate": 3,
+      "search_rps": 2,
+      "phases": {
+        "baseline": {
+          "planned": 60,
+          "recorded": 60,
+          "successes": 60,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.14426449899999716,
+          "p95_seconds": 0.18105203499999334,
+          "max_seconds": 0.3531958739999973,
+          "lag_p99_seconds": 0.0008405029103997208
+        },
+        "load": {
+          "planned": 240,
+          "recorded": 240,
+          "successes": 240,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.1514676330000002,
+          "p95_seconds": 0.18821569399999863,
+          "max_seconds": 0.25308934199999206,
+          "lag_p99_seconds": 0.0007316029104060817
+        },
+        "recovery": {
+          "planned": 240,
+          "recorded": 240,
+          "successes": 240,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.14408987799999887,
+          "p95_seconds": 0.16808202800000435,
+          "max_seconds": 0.1959078959999897,
+          "lag_p99_seconds": 0.0007930779104015073
+        }
+      },
+      "query_ledger": {
+        "planned": 540,
+        "recorded": 540,
+        "successes": 540,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "uploads": {
+        "planned": 6,
+        "recorded": 6,
+        "successes": 6,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true,
+        "pool_full": 0,
+        "accepted_p95_seconds": 11.928348915999988,
+        "completed_during_load_per_minute": 3.0,
+        "outstanding_at_load_end": 0,
+        "outstanding_at_midpoint": 0,
+        "completed_last_third_per_minute": 3.0
+      },
+      "client_headroom": {
+        "mixed-uploads": {
+          "peak_cpu_quota_fraction": 0.08858656922402897,
+          "peak_memory_fraction": 0.13189353942871093,
+          "oom": false
+        },
+        "mixed-queries": {
+          "peak_cpu_quota_fraction": 0.03263765789586176,
+          "peak_memory_fraction": 0.015155792236328125,
+          "oom": false
+        }
+      },
+      "infrastructure_valid": true,
+      "integrity_pass": true,
+      "search_p95_baseline_ratio": 1.0395668515960372,
+      "arrival_validation_pass": true,
+      "search_slo_pass": true,
+      "upload_success_pass": true,
+      "api_cpu_fraction_of_one_core": 0.07231336360477639,
+      "server_resources": {
+        "bench-api": {
+          "cpu_seconds": 7.736706,
+          "sampled_seconds": 106.9886064529419,
+          "allocated_cpu_utilization": 0.1446267272095544,
+          "throttled_seconds": 2.146614
+        },
+        "bench-proxy": {
+          "cpu_seconds": 0.331113,
+          "sampled_seconds": 106.9886064529419,
+          "allocated_cpu_utilization": 0.006189687126089216,
+          "throttled_seconds": 0.0
+        },
+        "bench-postgres": {
+          "cpu_seconds": 1.332082,
+          "sampled_seconds": 106.9886064529419,
+          "allocated_cpu_utilization": 0.024901380514492557,
+          "throttled_seconds": 0.041156
+        },
+        "bench-qdrant": {
+          "cpu_seconds": 0.482952,
+          "sampled_seconds": 106.9886064529419,
+          "allocated_cpu_utilization": 0.009028101514948187,
+          "throttled_seconds": 0.0
+        }
+      },
+      "pipeline_start": {
+        "epoch": 1794454397.639299,
+        "videos": 0,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 0,
+        "oldest_pending_seconds": 0
+      },
+      "pipeline_end": {
+        "epoch": 1794454504.632473,
+        "videos": 7,
+        "searchable": 6,
+        "playable": 6,
+        "pending_videos": 1,
+        "oldest_pending_seconds": 3.938323
+      },
+      "pipeline_pending_growth": 1,
+      "searchable_completions_per_minute": 3.364844275809342,
+      "playable_completions_per_minute": 3.364844275809342,
+      "stage": "d",
+      "architecture": "dag",
+      "repeat": 3,
+      "pair_id": "r3-u003",
+      "sentinel_upload": {
+        "planned": 1,
+        "recorded": 1,
+        "successes": 1,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "readiness": {
+        "video_id": "fde6c262-4fae-4ecc-a595-a149a07c6fb1",
+        "outcome": "ready",
+        "after_acceptance_seconds": 53.381511781,
+        "last_negative_seconds": null,
+        "click_to_ready_seconds": 64.241499077,
+        "observation_seconds": 64.241644384,
+        "full_pipeline": {
+          "outcome": "accepted",
+          "failure_stage": null,
+          "upload_seconds": 10.859987296,
+          "pre_request_seconds": 0.46118839899999875,
+          "observed_mode": "direct",
+          "intent_seconds": 0.07327251799999794,
+          "storage_seconds": 9.437597954999998,
+          "completion_seconds": 0.8881508220000033,
+          "video_id": "fde6c262-4fae-4ecc-a595-a149a07c6fb1",
+          "elapsed_seconds": 10.860114102999999,
+          "searchable": {
+            "outcome": "ready",
+            "observed_seconds": 64.241499077,
+            "after_acceptance_seconds": 53.381511781,
+            "probes": 27,
+            "last_code": "expected_search_hit",
+            "last_probe_started_seconds": 64.08420444699999,
+            "last_probe_finished_seconds": 64.241499077
+          },
+          "playable": {
+            "outcome": "ready",
+            "observed_seconds": 46.048024602999995,
+            "after_acceptance_seconds": 35.188037306999995,
+            "probes": 18,
+            "last_code": "decoded_advancing_video",
+            "last_probe_started_seconds": 45.659425929,
+            "last_probe_finished_seconds": 46.048024602999995
+          },
+          "readiness_outcome": "ready",
+          "pipeline_elapsed_seconds": 64.241644384
+        }
+      },
+      "worker_resources": {
+        "cpu_seconds": 209.58582,
+        "sampled_seconds": 106.9886064529419,
+        "allocated_cpu_utilization": 0.4897386435540328,
+        "throttled_seconds": 84.922568
+      },
+      "worker_child_stability_verified": true,
+      "worker_capacity_valid": true,
+      "failed_processing_jobs": 0,
+      "failed_videos": 0,
+      "publication_verifications": 7,
+      "accepted_total": 7,
+      "trial_state": "completed"
+    },
+    {
+      "name": "aligned-primary-002-r3-u060-a",
+      "mode": "api",
+      "processing": "active",
+      "file": "speech-20s.mp4",
+      "rate": 60,
+      "search_rps": 2,
+      "phases": {
+        "baseline": {
+          "planned": 60,
+          "recorded": 60,
+          "successes": 60,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.14269706799999948,
+          "p95_seconds": 0.17029070499999943,
+          "max_seconds": 0.2021422410000014,
+          "lag_p99_seconds": 0.0004906422679411548
+        },
+        "load": {
+          "planned": 240,
+          "recorded": 240,
+          "successes": 240,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.4798765260000073,
+          "p95_seconds": 0.9350124769999966,
+          "max_seconds": 1.1367345639999984,
+          "lag_p99_seconds": 0.001196214267963569
+        },
+        "recovery": {
+          "planned": 240,
+          "recorded": 240,
+          "successes": 240,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.1483291989999998,
+          "p95_seconds": 0.21944572299998252,
+          "max_seconds": 1.1374694200000086,
+          "lag_p99_seconds": 0.0005806132679708753
+        }
+      },
+      "query_ledger": {
+        "planned": 540,
+        "recorded": 540,
+        "successes": 540,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "uploads": {
+        "planned": 120,
+        "recorded": 120,
+        "successes": 120,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true,
+        "pool_full": 0,
+        "accepted_p95_seconds": 12.654464760000003,
+        "completed_during_load_per_minute": 54.0,
+        "outstanding_at_load_end": 12,
+        "outstanding_at_midpoint": 12,
+        "completed_last_third_per_minute": 58.5
+      },
+      "client_headroom": {
+        "mixed-uploads": {
+          "peak_cpu_quota_fraction": 0.7034528510081789,
+          "peak_memory_fraction": 0.20575218200683593,
+          "oom": false
+        },
+        "mixed-queries": {
+          "peak_cpu_quota_fraction": 0.027490340575080117,
+          "peak_memory_fraction": 0.015895843505859375,
+          "oom": false
+        }
+      },
+      "infrastructure_valid": true,
+      "integrity_pass": true,
+      "search_p95_baseline_ratio": 5.490684162708702,
+      "arrival_validation_pass": true,
+      "search_slo_pass": false,
+      "upload_success_pass": true,
+      "api_cpu_fraction_of_one_core": 0.496471987936661,
+      "server_resources": {
+        "bench-api": {
+          "cpu_seconds": 53.648118,
+          "sampled_seconds": 108.05870079994202,
+          "allocated_cpu_utilization": 0.9929439758733206,
+          "throttled_seconds": 142.529916
+        },
+        "bench-proxy": {
+          "cpu_seconds": 16.843682,
+          "sampled_seconds": 108.05870079994202,
+          "allocated_cpu_utilization": 0.3117505925077537,
+          "throttled_seconds": 0.0
+        },
+        "bench-postgres": {
+          "cpu_seconds": 4.221017,
+          "sampled_seconds": 108.05870079994202,
+          "allocated_cpu_utilization": 0.07812451878011595,
+          "throttled_seconds": 0.069371
+        },
+        "bench-qdrant": {
+          "cpu_seconds": 0.504623,
+          "sampled_seconds": 108.05870079994202,
+          "allocated_cpu_utilization": 0.009339793950220634,
+          "throttled_seconds": 0.0
+        }
+      },
+      "pipeline_start": {
+        "epoch": 1794454739.833048,
+        "videos": 0,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 0,
+        "oldest_pending_seconds": 0
+      },
+      "pipeline_end": {
+        "epoch": 1794454847.954246,
+        "videos": 106,
+        "searchable": 28,
+        "playable": 28,
+        "pending_videos": 78,
+        "oldest_pending_seconds": 106.713021
+      },
+      "pipeline_pending_growth": 78,
+      "searchable_completions_per_minute": 15.547105300759839,
+      "playable_completions_per_minute": 15.547105300759839,
+      "stage": "a",
+      "architecture": "serialized",
+      "repeat": 3,
+      "pair_id": "r3-u060",
+      "sentinel_upload": {
+        "planned": 1,
+        "recorded": 1,
+        "successes": 1,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "readiness": {
+        "video_id": "5c582642-21d9-4db8-9343-bd5100b1ada1",
+        "outcome": "ready",
+        "after_acceptance_seconds": 209.425462247,
+        "last_negative_seconds": null,
+        "click_to_ready_seconds": 219.345241923,
+        "observation_seconds": 219.902977056,
+        "full_pipeline": {
+          "outcome": "accepted",
+          "failure_stage": null,
+          "upload_seconds": 9.919779675999997,
+          "pre_request_seconds": 0.036421821000003546,
+          "observed_mode": "api",
+          "video_id": "5c582642-21d9-4db8-9343-bd5100b1ada1",
+          "elapsed_seconds": 9.919826077999998,
+          "searchable": {
+            "outcome": "ready",
+            "observed_seconds": 219.345241923,
+            "after_acceptance_seconds": 209.425462247,
+            "probes": 101,
+            "last_code": "expected_search_hit",
+            "last_probe_started_seconds": 219.18182373699997,
+            "last_probe_finished_seconds": 219.345241923
+          },
+          "playable": {
+            "outcome": "ready",
+            "observed_seconds": 219.902784536,
+            "after_acceptance_seconds": 209.98300486000002,
+            "probes": 101,
+            "last_code": "decoded_advancing_video",
+            "last_probe_started_seconds": 219.501079243,
+            "last_probe_finished_seconds": 219.902784536
+          },
+          "readiness_outcome": "ready",
+          "pipeline_elapsed_seconds": 219.902977056
+        }
+      },
+      "worker_resources": {
+        "cpu_seconds": 407.936287,
+        "sampled_seconds": 108.05870079994202,
+        "allocated_cpu_utilization": 0.9437839895818433,
+        "throttled_seconds": 209.448855
+      },
+      "worker_child_stability_verified": true,
+      "worker_capacity_valid": true,
+      "failed_processing_jobs": 0,
+      "failed_videos": 0,
+      "publication_verifications": 85,
+      "accepted_total": 121,
+      "trial_state": "completed"
+    },
+    {
+      "name": "aligned-primary-002-r3-u060-b",
+      "mode": "api",
+      "processing": "active",
+      "file": "speech-20s.mp4",
+      "rate": 60,
+      "search_rps": 2,
+      "phases": {
+        "baseline": {
+          "planned": 60,
+          "recorded": 60,
+          "successes": 60,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.14245521400000144,
+          "p95_seconds": 0.16564301500000148,
+          "max_seconds": 0.21158259700000054,
+          "lag_p99_seconds": 0.0007021353404539354
+        },
+        "load": {
+          "planned": 240,
+          "recorded": 240,
+          "successes": 240,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.33183248899999307,
+          "p95_seconds": 0.5933705199999968,
+          "max_seconds": 0.8581548049999983,
+          "lag_p99_seconds": 0.0012375303404326132
+        },
+        "recovery": {
+          "planned": 240,
+          "recorded": 240,
+          "successes": 240,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.15379847399998106,
+          "p95_seconds": 0.19563449899997795,
+          "max_seconds": 0.3324812070000044,
+          "lag_p99_seconds": 0.0006617703404572239
+        }
+      },
+      "query_ledger": {
+        "planned": 540,
+        "recorded": 540,
+        "successes": 540,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "uploads": {
+        "planned": 120,
+        "recorded": 120,
+        "successes": 120,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true,
+        "pool_full": 0,
+        "accepted_p95_seconds": 11.973885513999994,
+        "completed_during_load_per_minute": 54.5,
+        "outstanding_at_load_end": 11,
+        "outstanding_at_midpoint": 12,
+        "completed_last_third_per_minute": 60.0
+      },
+      "client_headroom": {
+        "mixed-uploads": {
+          "peak_cpu_quota_fraction": 0.715105323467033,
+          "peak_memory_fraction": 0.19248809814453124,
+          "oom": false
+        },
+        "mixed-queries": {
+          "peak_cpu_quota_fraction": 0.032998006619731735,
+          "peak_memory_fraction": 0.0160675048828125,
+          "oom": false
+        }
+      },
+      "infrastructure_valid": true,
+      "integrity_pass": true,
+      "search_p95_baseline_ratio": 3.58222482245926,
+      "arrival_validation_pass": true,
+      "search_slo_pass": false,
+      "upload_success_pass": true,
+      "api_cpu_fraction_of_one_core": 0.4959547904639642,
+      "server_resources": {
+        "bench-api": {
+          "cpu_seconds": 53.637699,
+          "sampled_seconds": 108.15037989616394,
+          "allocated_cpu_utilization": 0.9919095809279262,
+          "throttled_seconds": 110.488064
+        },
+        "bench-proxy": {
+          "cpu_seconds": 16.445111,
+          "sampled_seconds": 108.15037989616394,
+          "allocated_cpu_utilization": 0.3041156400151176,
+          "throttled_seconds": 0.0
+        },
+        "bench-postgres": {
+          "cpu_seconds": 3.975282,
+          "sampled_seconds": 108.15037989616394,
+          "allocated_cpu_utilization": 0.07351397200484548,
+          "throttled_seconds": 0.15381
+        },
+        "bench-qdrant": {
+          "cpu_seconds": 0.40449,
+          "sampled_seconds": 108.15037989616394,
+          "allocated_cpu_utilization": 0.007480140160179819,
+          "throttled_seconds": 0.0
+        }
+      },
+      "pipeline_start": {
+        "epoch": 1794455216.601949,
+        "videos": 0,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 0,
+        "oldest_pending_seconds": 0
+      },
+      "pipeline_end": {
+        "epoch": 1794455324.817611,
+        "videos": 107,
+        "searchable": 1,
+        "playable": 1,
+        "pending_videos": 106,
+        "oldest_pending_seconds": 106.683501
+      },
+      "pipeline_pending_growth": 106,
+      "searchable_completions_per_minute": 0.5547830720299503,
+      "playable_completions_per_minute": 0.5547830720299503,
+      "stage": "b",
+      "architecture": "branches",
+      "repeat": 3,
+      "pair_id": "r3-u060",
+      "sentinel_upload": {
+        "planned": 1,
+        "recorded": 1,
+        "successes": 1,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "readiness": {
+        "video_id": "fffc9d6a-0fd9-4217-97f9-cef886a8bb07",
+        "outcome": "timeout",
+        "after_acceptance_seconds": null,
+        "last_negative_seconds": null,
+        "click_to_ready_seconds": null,
+        "observation_seconds": 239.984103058,
+        "full_pipeline": {
+          "outcome": "accepted",
+          "failure_stage": null,
+          "upload_seconds": 9.941762559999995,
+          "pre_request_seconds": 0.02933654199999728,
+          "observed_mode": "api",
+          "video_id": "fffc9d6a-0fd9-4217-97f9-cef886a8bb07",
+          "elapsed_seconds": 9.941808869,
+          "searchable": {
+            "outcome": "timeout",
+            "observed_seconds": null,
+            "after_acceptance_seconds": null,
+            "probes": 112,
+            "last_code": "http_400",
+            "last_probe_started_seconds": 238.62477925299999,
+            "last_probe_finished_seconds": 238.67155415099998
+          },
+          "playable": {
+            "outcome": "ready",
+            "observed_seconds": 66.66661141300001,
+            "after_acceptance_seconds": 56.72484885300002,
+            "probes": 28,
+            "last_code": "decoded_advancing_video",
+            "last_probe_started_seconds": 66.091762563,
+            "last_probe_finished_seconds": 66.66661141300001
+          },
+          "readiness_outcome": "incomplete",
+          "pipeline_elapsed_seconds": 239.984103058
+        }
+      },
+      "worker_resources": {
+        "cpu_seconds": 416.41198,
+        "sampled_seconds": 108.15037989616394,
+        "allocated_cpu_utilization": 0.9625763228936425,
+        "throttled_seconds": 248.290264
+      },
+      "worker_child_stability_verified": true,
+      "worker_capacity_valid": true,
+      "failed_processing_jobs": 0,
+      "failed_videos": 0,
+      "publication_verifications": 5,
+      "accepted_total": 121,
+      "trial_state": "completed"
+    },
+    {
+      "name": "aligned-primary-002-r3-u060-c",
+      "mode": "api",
+      "processing": "active",
+      "file": "speech-20s.mp4",
+      "rate": 60,
+      "search_rps": 2,
+      "phases": {
+        "baseline": {
+          "planned": 60,
+          "recorded": 60,
+          "successes": 60,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.14156801699999777,
+          "p95_seconds": 0.15299919900000533,
+          "max_seconds": 0.18186083700000016,
+          "lag_p99_seconds": 0.0004579448145776155
+        },
+        "load": {
+          "planned": 240,
+          "recorded": 240,
+          "successes": 240,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.43133078999997815,
+          "p95_seconds": 1.088656231999994,
+          "max_seconds": 1.8999336600000096,
+          "lag_p99_seconds": 0.0007727608145842169
+        },
+        "recovery": {
+          "planned": 240,
+          "recorded": 240,
+          "successes": 240,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.14446680900000503,
+          "p95_seconds": 0.19068571199997678,
+          "max_seconds": 0.44837361800001235,
+          "lag_p99_seconds": 0.0010678358145810307
+        }
+      },
+      "query_ledger": {
+        "planned": 540,
+        "recorded": 540,
+        "successes": 540,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "uploads": {
+        "planned": 120,
+        "recorded": 120,
+        "successes": 120,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true,
+        "pool_full": 0,
+        "accepted_p95_seconds": 13.220749390000012,
+        "completed_during_load_per_minute": 54.5,
+        "outstanding_at_load_end": 11,
+        "outstanding_at_midpoint": 12,
+        "completed_last_third_per_minute": 60.0
+      },
+      "client_headroom": {
+        "mixed-uploads": {
+          "peak_cpu_quota_fraction": 0.7237203864121639,
+          "peak_memory_fraction": 0.20202369689941407,
+          "oom": false
+        },
+        "mixed-queries": {
+          "peak_cpu_quota_fraction": 0.033895513424000774,
+          "peak_memory_fraction": 0.015842437744140625,
+          "oom": false
+        }
+      },
+      "infrastructure_valid": true,
+      "integrity_pass": true,
+      "search_p95_baseline_ratio": 7.115437460557921,
+      "arrival_validation_pass": true,
+      "search_slo_pass": false,
+      "upload_success_pass": true,
+      "api_cpu_fraction_of_one_core": 0.49577363908928485,
+      "server_resources": {
+        "bench-api": {
+          "cpu_seconds": 53.719497,
+          "sampled_seconds": 108.35488772392273,
+          "allocated_cpu_utilization": 0.9915472781785687,
+          "throttled_seconds": 178.052387
+        },
+        "bench-proxy": {
+          "cpu_seconds": 17.411951,
+          "sampled_seconds": 108.35488772392273,
+          "allocated_cpu_utilization": 0.32138745866940277,
+          "throttled_seconds": 0.0
+        },
+        "bench-postgres": {
+          "cpu_seconds": 4.85004,
+          "sampled_seconds": 108.35488772392273,
+          "allocated_cpu_utilization": 0.08952138850177964,
+          "throttled_seconds": 0.171625
+        },
+        "bench-qdrant": {
+          "cpu_seconds": 0.473397,
+          "sampled_seconds": 108.35488772392273,
+          "allocated_cpu_utilization": 0.008737898399307423,
+          "throttled_seconds": 0.0
+        }
+      },
+      "pipeline_start": {
+        "epoch": 1794455670.698765,
+        "videos": 0,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 0,
+        "oldest_pending_seconds": 0
+      },
+      "pipeline_end": {
+        "epoch": 1794455779.12177,
+        "videos": 106,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 106,
+        "oldest_pending_seconds": 106.528126
+      },
+      "pipeline_pending_growth": 106,
+      "searchable_completions_per_minute": 0.0,
+      "playable_completions_per_minute": 0.0,
+      "stage": "c",
+      "architecture": "dag",
+      "repeat": 3,
+      "pair_id": "r3-u060",
+      "sentinel_upload": {
+        "planned": 1,
+        "recorded": 1,
+        "successes": 1,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "readiness": {
+        "video_id": "243cf18f-b676-4121-9073-21887e88ac36",
+        "outcome": "ready",
+        "after_acceptance_seconds": 225.945823239,
+        "last_negative_seconds": null,
+        "click_to_ready_seconds": 235.773321582,
+        "observation_seconds": 235.77346817900002,
+        "full_pipeline": {
+          "outcome": "accepted",
+          "failure_stage": null,
+          "upload_seconds": 9.827498342999998,
+          "pre_request_seconds": 0.025622722000000066,
+          "observed_mode": "api",
+          "video_id": "243cf18f-b676-4121-9073-21887e88ac36",
+          "elapsed_seconds": 9.827545200000001,
+          "searchable": {
+            "outcome": "ready",
+            "observed_seconds": 235.773321582,
+            "after_acceptance_seconds": 225.945823239,
+            "probes": 109,
+            "last_code": "expected_search_hit",
+            "last_probe_started_seconds": 235.60452290199999,
+            "last_probe_finished_seconds": 235.773321582
+          },
+          "playable": {
+            "outcome": "ready",
+            "observed_seconds": 54.61908489599999,
+            "after_acceptance_seconds": 44.79158655299999,
+            "probes": 21,
+            "last_code": "decoded_advancing_video",
+            "last_probe_started_seconds": 53.892443192,
+            "last_probe_finished_seconds": 54.61908489599999
+          },
+          "readiness_outcome": "ready",
+          "pipeline_elapsed_seconds": 235.77346817900002
+        }
+      },
+      "worker_resources": {
+        "cpu_seconds": 413.884274,
+        "sampled_seconds": 108.35488772392273,
+        "allocated_cpu_utilization": 0.9549275595544319,
+        "throttled_seconds": 222.375529
+      },
+      "worker_child_stability_verified": true,
+      "worker_capacity_valid": true,
+      "failed_processing_jobs": 0,
+      "failed_videos": 0,
+      "publication_verifications": 4,
+      "accepted_total": 121,
+      "trial_state": "completed"
+    },
+    {
+      "name": "aligned-primary-002-r3-u060-d",
+      "mode": "direct",
+      "processing": "active",
+      "file": "speech-20s.mp4",
+      "rate": 60,
+      "search_rps": 2,
+      "phases": {
+        "baseline": {
+          "planned": 60,
+          "recorded": 60,
+          "successes": 60,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.1388966569999975,
+          "p95_seconds": 0.15525805200000467,
+          "max_seconds": 0.18795653200000015,
+          "lag_p99_seconds": 0.0003154778823244442
+        },
+        "load": {
+          "planned": 240,
+          "recorded": 240,
+          "successes": 240,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.14631138199999988,
+          "p95_seconds": 0.18073238200000197,
+          "max_seconds": 0.3520443929999892,
+          "lag_p99_seconds": 0.0005448758823263233
+        },
+        "recovery": {
+          "planned": 240,
+          "recorded": 240,
+          "successes": 240,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.14410900999998558,
+          "p95_seconds": 0.17176115000000572,
+          "max_seconds": 0.3418279669999902,
+          "lag_p99_seconds": 0.0002275168823189233
+        }
+      },
+      "query_ledger": {
+        "planned": 540,
+        "recorded": 540,
+        "successes": 540,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "uploads": {
+        "planned": 120,
+        "recorded": 120,
+        "successes": 120,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true,
+        "pool_full": 0,
+        "accepted_p95_seconds": 12.226674674000002,
+        "completed_during_load_per_minute": 54.5,
+        "outstanding_at_load_end": 11,
+        "outstanding_at_midpoint": 12,
+        "completed_last_third_per_minute": 61.5
+      },
+      "client_headroom": {
+        "mixed-uploads": {
+          "peak_cpu_quota_fraction": 0.8162064364184444,
+          "peak_memory_fraction": 0.19853439331054687,
+          "oom": false
+        },
+        "mixed-queries": {
+          "peak_cpu_quota_fraction": 0.027674798877842948,
+          "peak_memory_fraction": 0.015247344970703125,
+          "oom": false
+        }
+      },
+      "infrastructure_valid": true,
+      "integrity_pass": true,
+      "search_p95_baseline_ratio": 1.1640773516854155,
+      "arrival_validation_pass": true,
+      "search_slo_pass": true,
+      "upload_success_pass": true,
+      "api_cpu_fraction_of_one_core": 0.1933155443917515,
+      "server_resources": {
+        "bench-api": {
+          "cpu_seconds": 20.827073,
+          "sampled_seconds": 107.73615264892578,
+          "allocated_cpu_utilization": 0.38663108878350433,
+          "throttled_seconds": 1.456539
+        },
+        "bench-proxy": {
+          "cpu_seconds": 1.670987,
+          "sampled_seconds": 107.73615264892578,
+          "allocated_cpu_utilization": 0.031019986493209178,
+          "throttled_seconds": 0.0
+        },
+        "bench-postgres": {
+          "cpu_seconds": 3.760132,
+          "sampled_seconds": 107.73615264892578,
+          "allocated_cpu_utilization": 0.06980260400151743,
+          "throttled_seconds": 0.078869
+        },
+        "bench-qdrant": {
+          "cpu_seconds": 0.392534,
+          "sampled_seconds": 107.73615264892578,
+          "allocated_cpu_utilization": 0.007286950394063731,
+          "throttled_seconds": 0.0
+        }
+      },
+      "pipeline_start": {
+        "epoch": 1794456115.548729,
+        "videos": 0,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 0,
+        "oldest_pending_seconds": 0
+      },
+      "pipeline_end": {
+        "epoch": 1794456223.34113,
+        "videos": 105,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 105,
+        "oldest_pending_seconds": 104.95259
+      },
+      "pipeline_pending_growth": 105,
+      "searchable_completions_per_minute": 0.0,
+      "playable_completions_per_minute": 0.0,
+      "stage": "d",
+      "architecture": "dag",
+      "repeat": 3,
+      "pair_id": "r3-u060",
+      "sentinel_upload": {
+        "planned": 1,
+        "recorded": 1,
+        "successes": 1,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "readiness": {
+        "video_id": "f4364a05-4bf3-44de-a189-336159a6aaf2",
+        "outcome": "ready",
+        "after_acceptance_seconds": 217.38086617299996,
+        "last_negative_seconds": null,
+        "click_to_ready_seconds": 227.78069722399997,
+        "observation_seconds": 227.780906284,
+        "full_pipeline": {
+          "outcome": "accepted",
+          "failure_stage": null,
+          "upload_seconds": 10.399831051000001,
+          "pre_request_seconds": 0.48677162300000054,
+          "observed_mode": "direct",
+          "intent_seconds": 0.07026281500000187,
+          "storage_seconds": 9.317410708000002,
+          "completion_seconds": 0.5255983740000011,
+          "video_id": "f4364a05-4bf3-44de-a189-336159a6aaf2",
+          "elapsed_seconds": 10.399965068000006,
+          "searchable": {
+            "outcome": "ready",
+            "observed_seconds": 227.78069722399997,
+            "after_acceptance_seconds": 217.38086617299996,
+            "probes": 107,
+            "last_code": "expected_search_hit",
+            "last_probe_started_seconds": 227.621841406,
+            "last_probe_finished_seconds": 227.78069722399997
+          },
+          "playable": {
+            "outcome": "ready",
+            "observed_seconds": 51.829958699,
+            "after_acceptance_seconds": 41.430127648,
+            "probes": 21,
+            "last_code": "decoded_advancing_video",
+            "last_probe_started_seconds": 51.41499531800001,
+            "last_probe_finished_seconds": 51.829958699
+          },
+          "readiness_outcome": "ready",
+          "pipeline_elapsed_seconds": 227.780906284
+        }
+      },
+      "worker_resources": {
+        "cpu_seconds": 410.225277,
+        "sampled_seconds": 107.73615264892578,
+        "allocated_cpu_utilization": 0.9519211214474584,
+        "throttled_seconds": 234.123687
+      },
+      "worker_child_stability_verified": true,
+      "worker_capacity_valid": true,
+      "failed_processing_jobs": 0,
+      "failed_videos": 0,
+      "publication_verifications": 4,
+      "accepted_total": 121,
+      "trial_state": "completed"
+    }
+  ],
+  "comparisons": [
+    {
+      "rate": 3,
+      "before": "a",
+      "after": "b",
+      "adjacent": true,
+      "metrics": [
+        {
+          "metric": "readiness_seconds",
+          "all_planned_pairs_valid": true,
+          "all_ready": true,
+          "before_values_seconds": [
+            102.478351018,
+            96.34246533999998,
+            90.22327769800002
+          ],
+          "after_values_seconds": [
+            84.12363282,
+            82.06382466200002,
+            84.09381998500001
+          ],
+          "before_mean_seconds": 96.34803135199999,
+          "after_mean_seconds": 83.427092489,
+          "before_median_seconds": 96.34246533999998,
+          "after_median_seconds": 84.09381998500001,
+          "mean_reduction_percent": 13.410693173163395,
+          "paired_absolute_differences_seconds": [
+            18.354718198,
+            14.27864067799996,
+            6.129457713000008
+          ],
+          "right_over_left": 0.8658930682683661,
+          "paired_95pct_interval": [
+            0.8208917491775795,
+            0.9320634555805338
+          ],
+          "independent_pairs": 3,
+          "resamples": 10000,
+          "seed": 20261112
+        },
+        {
+          "metric": "search_p95_seconds",
+          "all_planned_pairs_valid": true,
+          "before_values_seconds": [
+            0.18503563500000747,
+            0.16915374099998734,
+            0.18679251900000962
+          ],
+          "after_values_seconds": [
+            0.1917303519999987,
+            0.16681244400000286,
+            0.18621984999999405
+          ],
+          "before_mean_seconds": 0.1803272983333348,
+          "after_mean_seconds": 0.1815875486666652,
+          "before_median_seconds": 0.18503563500000747,
+          "after_median_seconds": 0.18621984999999405,
+          "mean_reduction_percent": -0.698868305008839,
+          "paired_absolute_differences_seconds": [
+            -0.006694716999991218,
+            0.002341296999984477,
+            0.0005726690000155688
+          ],
+          "right_over_left": 1.0069886830500885,
+          "paired_95pct_interval": [
+            0.986158763110154,
+            1.036180690276178
+          ],
+          "independent_pairs": 3,
+          "resamples": 10000,
+          "seed": 20261112
+        }
+      ]
+    },
+    {
+      "rate": 3,
+      "before": "a",
+      "after": "c",
+      "adjacent": false,
+      "metrics": [
+        {
+          "metric": "readiness_seconds",
+          "all_planned_pairs_valid": true,
+          "all_ready": true,
+          "before_values_seconds": [
+            102.478351018,
+            96.34246533999998,
+            90.22327769800002
+          ],
+          "after_values_seconds": [
+            53.381614307,
+            53.475780086,
+            53.360052596
+          ],
+          "before_mean_seconds": 96.34803135199999,
+          "after_mean_seconds": 53.405815663,
+          "before_median_seconds": 96.34246533999998,
+          "after_median_seconds": 53.381614307,
+          "mean_reduction_percent": 44.569894253587776,
+          "paired_absolute_differences_seconds": [
+            49.096736711,
+            42.866685253999975,
+            36.863225102000015
+          ],
+          "right_over_left": 0.5543010574641223,
+          "paired_95pct_interval": [
+            0.5209062575335905,
+            0.5914222355633045
+          ],
+          "independent_pairs": 3,
+          "resamples": 10000,
+          "seed": 20261112
+        },
+        {
+          "metric": "search_p95_seconds",
+          "all_planned_pairs_valid": true,
+          "before_values_seconds": [
+            0.18503563500000747,
+            0.16915374099998734,
+            0.18679251900000962
+          ],
+          "after_values_seconds": [
+            0.17205251300000238,
+            0.1918359449999989,
+            0.17002145700000257
+          ],
+          "before_mean_seconds": 0.1803272983333348,
+          "after_mean_seconds": 0.17796997166666795,
+          "before_median_seconds": 0.18503563500000747,
+          "after_median_seconds": 0.17205251300000238,
+          "mean_reduction_percent": 1.3072489237371803,
+          "paired_absolute_differences_seconds": [
+            0.012983122000005093,
+            -0.022682204000011558,
+            0.016771062000007053
+          ],
+          "right_over_left": 0.9869275107626282,
+          "paired_95pct_interval": [
+            0.9102155584720918,
+            1.134092239792753
+          ],
+          "independent_pairs": 3,
+          "resamples": 10000,
+          "seed": 20261112
+        }
+      ]
+    },
+    {
+      "rate": 3,
+      "before": "a",
+      "after": "d",
+      "adjacent": false,
+      "metrics": [
+        {
+          "metric": "readiness_seconds",
+          "all_planned_pairs_valid": true,
+          "all_ready": true,
+          "before_values_seconds": [
+            102.478351018,
+            96.34246533999998,
+            90.22327769800002
+          ],
+          "after_values_seconds": [
+            53.37470819900001,
+            53.370246244,
+            53.381511781
+          ],
+          "before_mean_seconds": 96.34803135199999,
+          "after_mean_seconds": 53.375488741333335,
+          "before_median_seconds": 96.34246533999998,
+          "after_median_seconds": 53.37470819900001,
+          "mean_reduction_percent": 44.60137068464828,
+          "paired_absolute_differences_seconds": [
+            49.10364281899999,
+            42.972219095999975,
+            36.84176591700002
+          ],
+          "right_over_left": 0.5539862931535172,
+          "paired_95pct_interval": [
+            0.520838866636573,
+            0.5916600808904475
+          ],
+          "independent_pairs": 3,
+          "resamples": 10000,
+          "seed": 20261112
+        },
+        {
+          "metric": "search_p95_seconds",
+          "all_planned_pairs_valid": true,
+          "before_values_seconds": [
+            0.18503563500000747,
+            0.16915374099998734,
+            0.18679251900000962
+          ],
+          "after_values_seconds": [
+            0.18934622999999556,
+            0.18953751999999804,
+            0.18821569399999863
+          ],
+          "before_mean_seconds": 0.1803272983333348,
+          "after_mean_seconds": 0.1890331479999974,
+          "before_median_seconds": 0.18503563500000747,
+          "after_median_seconds": 0.18934622999999556,
+          "mean_reduction_percent": -4.8278046347535515,
+          "paired_absolute_differences_seconds": [
+            -0.004310594999988093,
+            -0.020383779000010704,
+            -0.0014231749999890075
+          ],
+          "right_over_left": 1.0482780463475354,
+          "paired_95pct_interval": [
+            1.0076190149777302,
+            1.1205044528102528
+          ],
+          "independent_pairs": 3,
+          "resamples": 10000,
+          "seed": 20261112
+        }
+      ]
+    },
+    {
+      "rate": 3,
+      "before": "b",
+      "after": "c",
+      "adjacent": true,
+      "metrics": [
+        {
+          "metric": "readiness_seconds",
+          "all_planned_pairs_valid": true,
+          "all_ready": true,
+          "before_values_seconds": [
+            84.12363282,
+            82.06382466200002,
+            84.09381998500001
+          ],
+          "after_values_seconds": [
+            53.381614307,
+            53.475780086,
+            53.360052596
+          ],
+          "before_mean_seconds": 83.427092489,
+          "after_mean_seconds": 53.405815663,
+          "before_median_seconds": 84.09381998500001,
+          "after_median_seconds": 53.381614307,
+          "mean_reduction_percent": 35.985045061900436,
+          "paired_absolute_differences_seconds": [
+            30.742018512999998,
+            28.588044576000016,
+            30.733767389000008
+          ],
+          "right_over_left": 0.6401495493809957,
+          "paired_95pct_interval": [
+            0.634530011902396,
+            0.6516364586497536
+          ],
+          "independent_pairs": 3,
+          "resamples": 10000,
+          "seed": 20261112
+        },
+        {
+          "metric": "search_p95_seconds",
+          "all_planned_pairs_valid": true,
+          "before_values_seconds": [
+            0.1917303519999987,
+            0.16681244400000286,
+            0.18621984999999405
+          ],
+          "after_values_seconds": [
+            0.17205251300000238,
+            0.1918359449999989,
+            0.17002145700000257
+          ],
+          "before_mean_seconds": 0.1815875486666652,
+          "after_mean_seconds": 0.17796997166666795,
+          "before_median_seconds": 0.18621984999999405,
+          "after_median_seconds": 0.17205251300000238,
+          "mean_reduction_percent": 1.9921944134164948,
+          "paired_absolute_differences_seconds": [
+            0.01967783899999631,
+            -0.025023500999996034,
+            0.016198392999991484
+          ],
+          "right_over_left": 0.9800780558658351,
+          "paired_95pct_interval": [
+            0.8973671158753391,
+            1.1500097978301642
+          ],
+          "independent_pairs": 3,
+          "resamples": 10000,
+          "seed": 20261112
+        }
+      ]
+    },
+    {
+      "rate": 3,
+      "before": "b",
+      "after": "d",
+      "adjacent": false,
+      "metrics": [
+        {
+          "metric": "readiness_seconds",
+          "all_planned_pairs_valid": true,
+          "all_ready": true,
+          "before_values_seconds": [
+            84.12363282,
+            82.06382466200002,
+            84.09381998500001
+          ],
+          "after_values_seconds": [
+            53.37470819900001,
+            53.370246244,
+            53.381511781
+          ],
+          "before_mean_seconds": 83.427092489,
+          "after_mean_seconds": 53.375488741333335,
+          "before_median_seconds": 84.09381998500001,
+          "after_median_seconds": 53.37470819900001,
+          "mean_reduction_percent": 36.02139646857407,
+          "paired_absolute_differences_seconds": [
+            30.748924620999986,
+            28.693578418000016,
+            30.71230820400001
+          ],
+          "right_over_left": 0.6397860353142594,
+          "paired_95pct_interval": [
+            0.6344793538957869,
+            0.6503504615318436
+          ],
+          "independent_pairs": 3,
+          "resamples": 10000,
+          "seed": 20261112
+        },
+        {
+          "metric": "search_p95_seconds",
+          "all_planned_pairs_valid": true,
+          "before_values_seconds": [
+            0.1917303519999987,
+            0.16681244400000286,
+            0.18621984999999405
+          ],
+          "after_values_seconds": [
+            0.18934622999999556,
+            0.18953751999999804,
+            0.18821569399999863
+          ],
+          "before_mean_seconds": 0.1815875486666652,
+          "after_mean_seconds": 0.1890331479999974,
+          "before_median_seconds": 0.18621984999999405,
+          "after_median_seconds": 0.18934622999999556,
+          "mean_reduction_percent": -4.100280767047445,
+          "paired_absolute_differences_seconds": [
+            0.002384122000003125,
+            -0.02272507599999518,
+            -0.0019958440000045763
+          ],
+          "right_over_left": 1.0410028076704745,
+          "paired_95pct_interval": [
+            0.9875652343244895,
+            1.1362312993867218
+          ],
+          "independent_pairs": 3,
+          "resamples": 10000,
+          "seed": 20261112
+        }
+      ]
+    },
+    {
+      "rate": 3,
+      "before": "c",
+      "after": "d",
+      "adjacent": true,
+      "metrics": [
+        {
+          "metric": "readiness_seconds",
+          "all_planned_pairs_valid": true,
+          "all_ready": true,
+          "before_values_seconds": [
+            53.381614307,
+            53.475780086,
+            53.360052596
+          ],
+          "after_values_seconds": [
+            53.37470819900001,
+            53.370246244,
+            53.381511781
+          ],
+          "before_mean_seconds": 53.405815663,
+          "after_mean_seconds": 53.375488741333335,
+          "before_median_seconds": 53.381614307,
+          "after_median_seconds": 53.37470819900001,
+          "mean_reduction_percent": 0.05678580373724028,
+          "paired_absolute_differences_seconds": [
+            0.0069061079999883646,
+            0.10553384199999982,
+            -0.02145918499999766
+          ],
+          "right_over_left": 0.9994321419626276,
+          "paired_95pct_interval": [
+            0.998026511407028,
+            1.00040215824303
+          ],
+          "independent_pairs": 3,
+          "resamples": 10000,
+          "seed": 20261112
+        },
+        {
+          "metric": "search_p95_seconds",
+          "all_planned_pairs_valid": true,
+          "before_values_seconds": [
+            0.17205251300000238,
+            0.1918359449999989,
+            0.17002145700000257
+          ],
+          "after_values_seconds": [
+            0.18934622999999556,
+            0.18953751999999804,
+            0.18821569399999863
+          ],
+          "before_mean_seconds": 0.17796997166666795,
+          "after_mean_seconds": 0.1890331479999974,
+          "before_median_seconds": 0.17205251300000238,
+          "after_median_seconds": 0.18934622999999556,
+          "mean_reduction_percent": -6.216316286238686,
+          "paired_absolute_differences_seconds": [
+            -0.017293716999993186,
+            0.0022984250000008533,
+            -0.01819423699999606
+          ],
+          "right_over_left": 1.0621631628623869,
+          "paired_95pct_interval": [
+            0.9880187990837647,
+            1.1070114168001501
+          ],
+          "independent_pairs": 3,
+          "resamples": 10000,
+          "seed": 20261112
+        }
+      ]
+    },
+    {
+      "rate": 60,
+      "before": "a",
+      "after": "b",
+      "adjacent": true,
+      "metrics": [
+        {
+          "metric": "readiness_seconds",
+          "all_planned_pairs_valid": true,
+          "all_ready": false
+        },
+        {
+          "metric": "search_p95_seconds",
+          "all_planned_pairs_valid": true,
+          "before_values_seconds": [
+            0.6039704229999916,
+            1.257532697000017,
+            0.9350124769999966
+          ],
+          "after_values_seconds": [
+            0.43903533400000017,
+            0.7069515030000039,
+            0.5933705199999968
+          ],
+          "before_mean_seconds": 0.9321718656666683,
+          "after_mean_seconds": 0.5797857856666669,
+          "before_median_seconds": 0.9350124769999966,
+          "after_median_seconds": 0.5933705199999968,
+          "mean_reduction_percent": 37.80269422184104,
+          "paired_absolute_differences_seconds": [
+            0.16493508899999143,
+            0.550581194000013,
+            0.3416419569999998
+          ],
+          "right_over_left": 0.6219730577815896,
+          "paired_95pct_interval": [
+            0.5621734565522747,
+            0.7269152880355637
+          ],
+          "independent_pairs": 3,
+          "resamples": 10000,
+          "seed": 20261112
+        }
+      ]
+    },
+    {
+      "rate": 60,
+      "before": "a",
+      "after": "c",
+      "adjacent": false,
+      "metrics": [
+        {
+          "metric": "readiness_seconds",
+          "all_planned_pairs_valid": true,
+          "all_ready": false
+        },
+        {
+          "metric": "search_p95_seconds",
+          "all_planned_pairs_valid": true,
+          "before_values_seconds": [
+            0.6039704229999916,
+            1.257532697000017,
+            0.9350124769999966
+          ],
+          "after_values_seconds": [
+            1.5642782339999977,
+            1.7307242470000055,
+            1.088656231999994
+          ],
+          "before_mean_seconds": 0.9321718656666683,
+          "after_mean_seconds": 1.461219570999999,
+          "before_median_seconds": 0.9350124769999966,
+          "after_median_seconds": 1.5642782339999977,
+          "mean_reduction_percent": -56.754309459336426,
+          "paired_absolute_differences_seconds": [
+            -0.9603078110000061,
+            -0.4731915499999886,
+            -0.15364375499999738
+          ],
+          "right_over_left": 1.5675430945933642,
+          "paired_95pct_interval": [
+            1.1643226788726564,
+            2.5899914539358484
+          ],
+          "independent_pairs": 3,
+          "resamples": 10000,
+          "seed": 20261112
+        }
+      ]
+    },
+    {
+      "rate": 60,
+      "before": "a",
+      "after": "d",
+      "adjacent": false,
+      "metrics": [
+        {
+          "metric": "readiness_seconds",
+          "all_planned_pairs_valid": true,
+          "all_ready": false
+        },
+        {
+          "metric": "search_p95_seconds",
+          "all_planned_pairs_valid": true,
+          "before_values_seconds": [
+            0.6039704229999916,
+            1.257532697000017,
+            0.9350124769999966
+          ],
+          "after_values_seconds": [
+            0.18838416799998958,
+            0.18333014700000058,
+            0.18073238200000197
+          ],
+          "before_mean_seconds": 0.9321718656666683,
+          "after_mean_seconds": 0.18414889899999737,
+          "before_median_seconds": 0.9350124769999966,
+          "after_median_seconds": 0.18333014700000058,
+          "mean_reduction_percent": 80.24517733451457,
+          "paired_absolute_differences_seconds": [
+            0.415586255000002,
+            1.0742025500000163,
+            0.7542800949999946
+          ],
+          "right_over_left": 0.19754822665485428,
+          "paired_95pct_interval": [
+            0.14578559065490296,
+            0.3119095916390465
+          ],
+          "independent_pairs": 3,
+          "resamples": 10000,
+          "seed": 20261112
+        }
+      ]
+    },
+    {
+      "rate": 60,
+      "before": "b",
+      "after": "c",
+      "adjacent": true,
+      "metrics": [
+        {
+          "metric": "readiness_seconds",
+          "all_planned_pairs_valid": true,
+          "all_ready": false
+        },
+        {
+          "metric": "search_p95_seconds",
+          "all_planned_pairs_valid": true,
+          "before_values_seconds": [
+            0.43903533400000017,
+            0.7069515030000039,
+            0.5933705199999968
+          ],
+          "after_values_seconds": [
+            1.5642782339999977,
+            1.7307242470000055,
+            1.088656231999994
+          ],
+          "before_mean_seconds": 0.5797857856666669,
+          "after_mean_seconds": 1.461219570999999,
+          "before_median_seconds": 0.5933705199999968,
+          "after_median_seconds": 1.5642782339999977,
+          "mean_reduction_percent": -152.02749138111676,
+          "paired_absolute_differences_seconds": [
+            -1.1252428999999975,
+            -1.0237727440000017,
+            -0.49528571199999716
+          ],
+          "right_over_left": 2.5202749138111677,
+          "paired_95pct_interval": [
+            1.8346988859507207,
+            3.562989383446748
+          ],
+          "independent_pairs": 3,
+          "resamples": 10000,
+          "seed": 20261112
+        }
+      ]
+    },
+    {
+      "rate": 60,
+      "before": "b",
+      "after": "d",
+      "adjacent": false,
+      "metrics": [
+        {
+          "metric": "readiness_seconds",
+          "all_planned_pairs_valid": true,
+          "all_ready": false
+        },
+        {
+          "metric": "search_p95_seconds",
+          "all_planned_pairs_valid": true,
+          "before_values_seconds": [
+            0.43903533400000017,
+            0.7069515030000039,
+            0.5933705199999968
+          ],
+          "after_values_seconds": [
+            0.18838416799998958,
+            0.18333014700000058,
+            0.18073238200000197
+          ],
+          "before_mean_seconds": 0.5797857856666669,
+          "after_mean_seconds": 0.18414889899999737,
+          "before_median_seconds": 0.5933705199999968,
+          "after_median_seconds": 0.18333014700000058,
+          "mean_reduction_percent": 68.23845917708147,
+          "paired_absolute_differences_seconds": [
+            0.2506511660000106,
+            0.5236213560000033,
+            0.4126381379999948
+          ],
+          "right_over_left": 0.3176154082291853,
+          "paired_95pct_interval": [
+            0.259324927130114,
+            0.42908657552375845
+          ],
+          "independent_pairs": 3,
+          "resamples": 10000,
+          "seed": 20261112
+        }
+      ]
+    },
+    {
+      "rate": 60,
+      "before": "c",
+      "after": "d",
+      "adjacent": true,
+      "metrics": [
+        {
+          "metric": "readiness_seconds",
+          "all_planned_pairs_valid": true,
+          "all_ready": false
+        },
+        {
+          "metric": "search_p95_seconds",
+          "all_planned_pairs_valid": true,
+          "before_values_seconds": [
+            1.5642782339999977,
+            1.7307242470000055,
+            1.088656231999994
+          ],
+          "after_values_seconds": [
+            0.18838416799998958,
+            0.18333014700000058,
+            0.18073238200000197
+          ],
+          "before_mean_seconds": 1.461219570999999,
+          "after_mean_seconds": 0.18414889899999737,
+          "before_median_seconds": 1.5642782339999977,
+          "after_median_seconds": 0.18333014700000058,
+          "mean_reduction_percent": 87.39758879126063,
+          "paired_absolute_differences_seconds": [
+            1.375894066000008,
+            1.5473941000000049,
+            0.907923849999992
+          ],
+          "right_over_left": 0.1260241120873938,
+          "paired_95pct_interval": [
+            0.10592683803776397,
+            0.1660141895003665
+          ],
+          "independent_pairs": 3,
+          "resamples": 10000,
+          "seed": 20261112
+        }
+      ]
+    }
+  ],
+  "limits": [
+    "Three independent repetitions per primary cell; uncertainty is conditional on this workload.",
+    "A uses a retained legacy implementation; B is the durable DAG with a whole-video search unit.",
+    "Fixed A/B/C/D execution order; earlier experiments are supporting evidence, not pooled samples.",
+    "No sustainable-capacity claim follows from accepting uploads when processing backlog grows."
+  ]
+}
