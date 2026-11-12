@@ -43,4 +43,11 @@ async function runSchedule(offsets, launch, { clock = () => performance.now() / 
   return Promise.all(pending);
 }
 
-module.exports = { arrivalOffsets, phaseAt, validateSpec, runSchedule, sleep };
+function confirmedNegativeStart(event, previous = null) {
+  // A server/transport failure says nothing about readiness at that instant.
+  return event.milestone === 'searchable' && !event.ready &&
+    event.last_code === 'expected_hit_missing' && Number.isFinite(event.last_probe_started_seconds)
+    ? event.last_probe_started_seconds : previous;
+}
+
+module.exports = { arrivalOffsets, phaseAt, validateSpec, runSchedule, sleep, confirmedNegativeStart };

@@ -83,7 +83,14 @@ def trial(folder, spec, settings):
     completed = False
     with (folder/'server-samples.jsonl').open('w') as stream:
         while time.monotonic() < deadline:
-            stream.write(json.dumps({'epoch': time.time(), 'containers': container_state(), 'pipeline': summary(seeds)})+'\n'); stream.flush()
+            observation = {'epoch': time.time(), 'containers': container_state(), 'pipeline': summary(seeds)}
+            if 'architecture' in spec:
+                from architecture_processes import live_children
+                try:
+                    observation['worker_children'] = live_children(observation['containers']['bench-search']['host_pid'])
+                except (OSError, StopIteration, ValueError):
+                    observation['worker_children'] = []  # A missing/replaced child invalidates the trial.
+            stream.write(json.dumps(observation)+'\n'); stream.flush()
             result = subprocess.run(['aws', 's3', 'cp', f's3://{bucket}/control/completed/{spec["name"]}.json', '-', '--only-show-errors'], capture_output=True, text=True, timeout=30)
             if result.returncode == 0:
                 completed = json.loads(result.stdout)['finished']; break

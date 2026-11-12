@@ -7,6 +7,16 @@ import time
 from campaign import ROOT, command, write, utc
 
 
+def publish_recorded(folder, settings):
+    # Replay publication after interruption, preserving the original workload result.
+    if not (folder/'client-result.json').is_file():
+        return False
+    bucket = settings['bucket']
+    command(['aws', 's3', 'sync', str(folder), f's3://{bucket}/client-evidence/{folder.name}/', '--only-show-errors'], 120)
+    command(['aws', 's3', 'cp', str(folder/'client-result.json'), f's3://{bucket}/control/completed/{folder.name}.json', '--only-show-errors'])
+    return True
+
+
 def stats(names):
     rows = {}
     for name in names:
@@ -68,6 +78,8 @@ def main():
         spec = json.loads(output.stdout)
         if spec['name'] in seen: time.sleep(2); continue
         seen.add(spec['name'])
+        if publish_recorded(ROOT/'results'/spec['name'], settings):
+            continue
         error = None
         try: run(spec, settings)
         except Exception as exc:
@@ -75,8 +87,7 @@ def main():
             subprocess.run(['docker', 'stop', '-t', '10', 'mixed-uploads', 'mixed-queries'], capture_output=True, timeout=40)
         folder = ROOT/'results'/spec['name']
         write(folder/'client-result.json', {'finished': error is None, 'error_type': error, 'at': utc()})
-        command(['aws', 's3', 'sync', str(folder), f's3://{bucket}/client-evidence/{spec["name"]}/', '--only-show-errors'], 120)
-        put(folder/'client-result.json', f'control/completed/{spec["name"]}.json')
+        publish_recorded(folder, settings)
 
 
 if __name__ == '__main__':

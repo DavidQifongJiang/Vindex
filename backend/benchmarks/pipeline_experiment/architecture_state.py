@@ -3,9 +3,23 @@ import argparse
 import hashlib
 import json
 import os
+from collections import Counter
 from pathlib import Path
 
 from guard import validate_environment
+
+
+def completed_search_publication(video):
+    if video.embedding_status != 'completed':
+        return False
+    assert video.segments_path and video.embedding_path, 'Completed search publication lacks artifacts'
+    return True
+
+
+def validate_legacy_cardinality(segments, embeddings, points):
+    assert len(segments) == len(embeddings) == len(points), 'Incomplete legacy search publication'
+    identity = lambda rows: Counter((r['start'], r['end'], r['text']) for r in rows)
+    assert identity(segments) == identity(embeddings) == identity([p.payload for p in points])
 
 
 def main():
@@ -51,7 +65,7 @@ def main():
                    'sha256': digest.hexdigest(), 'job_count': len(jobs), 'chunk_count': len(chunks),
                    'status': video.status, 'embedding_status': video.embedding_status,
                    'failed_jobs': sum(j.status == 'failed' for j in jobs + chunks)}
-            if video.embedding_status == 'completed' and video.segments_path:
+            if completed_search_publication(video):
                 points, offset = qdrant.scroll(COLLECTION_NAME,
                     scroll_filter=Filter(must=[FieldCondition(key='video_id', match=MatchValue(value=vid))]),
                     with_payload=True, with_vectors=False, limit=10000)
@@ -64,6 +78,7 @@ def main():
                     assert len(points) == sum(c.segment_count for c in chunks)
                     assert all(p.payload.get('attempt_token') in {c.artifact_token for c in chunks} for p in points)
                 else:
+                    validate_legacy_cardinality(segments, embeddings, points)
                     assert all(not p.payload.get('attempt_token') for p in points)
                 assert segments and all(s['end'] > s['start'] >= 0 for s in segments)
                 if fixture['kind'] == 'sentinel':

@@ -4,7 +4,7 @@ const path = require('node:path');
 const { performance } = require('node:perf_hooks');
 const { chromium } = require('../../frontend/node_modules/playwright');
 const { measureUpload } = require('./upload_measurement.cjs');
-const { arrivalOffsets, validateSpec, runSchedule, sleep } = require('./mixed_load_core.cjs');
+const { arrivalOffsets, validateSpec, runSchedule, sleep, confirmedNegativeStart } = require('./mixed_load_core.cjs');
 const { createBrowserProbes } = require('./pipeline_browser_probes.cjs');
 const { measurePipeline } = require('./pipeline_measurement.cjs');
 
@@ -68,7 +68,7 @@ async function main() {
               acceptanceRecorded = true;
             } else {
               fs.appendFileSync(path.join(folder, 'sentinel-probes.jsonl'), JSON.stringify(event) + '\n');
-              if (event.milestone === 'searchable' && !event.ready) lastNegative = event.last_probe_finished_seconds;
+              lastNegative = confirmedNegativeStart(event, lastNegative);
             }
           }
         });

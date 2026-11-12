@@ -1,6 +1,6 @@
 # Aligned architecture comparison
 
-Status: preparation; no new measurements yet.
+Status: calibration running; primary outcomes have not been collected.
 
 ## Question and reusable evidence
 
@@ -40,6 +40,9 @@ four-process Celery pool, four vCPU and 10 GiB, consuming all three queues. A ca
 process different videos concurrently; only the stages of each video are serial.
 Thus the baseline is not artificially restricted to one worker. All worker child
 processes warm the same Whisper tiny and MiniLM models before measurement.
+Primary warmup records the current child PID/start-time set and samples that set
+throughout observation, invalidating a trial if a child is replaced. Container
+image references, commands, quotas and start identities are recorded as well.
 
 The adapter is guarded against non-experiment databases, buckets and queues.
 No application source, shared service or production flag changes.
@@ -72,6 +75,8 @@ Long-video readiness starts at the browser's successful upload acknowledgement,
 ending at the first semantic response with an expected spoken phrase and valid
 timestamp. Report click-to-ready separately. Poll at two-second intervals; retain
 last-negative/first-positive bounds. Censored/failed attempts stay in denominators.
+Only confirmed missing-hit responses establish a negative bound, using the probe
+start time. Transport errors and other HTTP failures remain inconclusive probes.
 Only three independent long videos per cell: report every observation, median and
 paired differences, not a population p95 or SLA.
 
@@ -89,10 +94,14 @@ Every accepted input must match its fixture bytes/hash and publication lineage.
 Legacy publications require matching artifact/vector cardinality; DAG publications
 also require completed chunk tokens. Long video must contain nonempty spoken
 content across its duration; preserve transcript/chunk coverage checks.
+Recorded client results are immutable across restarts; replay their evidence
+publication without rerunning the workload or replacing a failure with a new attempt.
 
 No improvement threshold is required to publish a result. No selective removal of
 failed trials, changes to gates after primary collection, or claims about actual
 customer traffic, billing savings, production availability or broad search quality.
+Started trials that abort before cleanup remain explicit incomplete observations;
+unreturned commits and missing evidence prevent a comparative improvement claim.
 
 ## Resources and completion
 
