@@ -66,6 +66,7 @@ def main():
     parser.add_argument('--script', type=Path)
     parser.add_argument('--command')
     parser.add_argument('--key')
+    parser.add_argument('--client-type', choices=['c7i.2xlarge', 'm7i.xlarge'], default=CLIENT_TYPE)
     args = parser.parse_args(); folder = args.output.resolve()
     if args.action == 'prepare': prepare(folder); return
     session = boto3.Session(profile_name='default', region_name=base.REGION)
@@ -74,7 +75,7 @@ def main():
     if args.action == 'inventory':
         folder.mkdir(parents=True, exist_ok=True)
         prices = {}
-        for instance_type in ['m7i.2xlarge', CLIENT_TYPE]:
+        for instance_type in ['m7i.2xlarge', args.client_type]:
             page = session.client('pricing').get_products(ServiceCode='AmazonEC2', Filters=[
                 {'Type': 'TERM_MATCH', 'Field': key, 'Value': value} for key, value in
                 {'instanceType': instance_type, 'location': 'US East (N. Virginia)', 'operatingSystem': 'Linux',
@@ -120,6 +121,8 @@ def main():
         save(folder/'resources.json', state)
         settings = json.loads((folder/'run-settings.json').read_text())
         settings.update(server_ip=state['server_ip'], browser_image=base.IMAGES['BROWSER_IMAGE'])
+        if args.client_type == 'm7i.xlarge':
+                settings.update(upload_client_cpus='3.5', query_client_cpus='.25')
         save(folder/'client-settings.json', settings)
         s3.upload_file(str(folder/'client-settings.json'), state['bucket'], 'bootstrap/client-settings.json')
         script = f'''#!/bin/bash
@@ -159,12 +162,12 @@ systemctl start mixed-client.service
 '''
         tags = [{'Key': 'Project', 'Value': 'vindex-pipeline-experiment'}, {'Key': 'Name', 'Value': state['name']}, {'Key': 'ExperimentRole', 'Value': 'client'}]
         ami = ssm.get_parameter(Name='/aws/service/ami-amazon-linux-latest/al2023-ami-kernel-default-x86_64')['Parameter']['Value']
-        item = ec2.run_instances(ImageId=ami, InstanceType=CLIENT_TYPE, MinCount=1, MaxCount=1, IamInstanceProfile={'Name': state['name']}, UserData=script,
+        item = ec2.run_instances(ImageId=ami, InstanceType=args.client_type, MinCount=1, MaxCount=1, IamInstanceProfile={'Name': state['name']}, UserData=script,
             InstanceInitiatedShutdownBehavior='stop', MetadataOptions={'HttpTokens': 'required', 'HttpPutResponseHopLimit': 2},
             NetworkInterfaces=[{'DeviceIndex': 0, 'SubnetId': base.SUBNET, 'Groups': [group], 'AssociatePublicIpAddress': True}],
             BlockDeviceMappings=[{'DeviceName': '/dev/xvda', 'Ebs': {'VolumeSize': 40, 'VolumeType': 'gp3', 'Encrypted': True, 'DeleteOnTermination': True}}],
             TagSpecifications=[{'ResourceType': kind, 'Tags': tags} for kind in ['instance', 'volume']])['Instances'][0]
-        state.update(client_instance=item['InstanceId'], client_started_at=datetime.now(timezone.utc).isoformat())
+        state.update(client_instance=item['InstanceId'], client_started_at=datetime.now(timezone.utc).isoformat(), client_type=args.client_type)
         state['created'].append('client_instance'); save(folder/'resources.json', state)
         print(json.dumps({'server': state['instance'], 'client': state['client_instance'], 'bucket': state['bucket']})); return
     if args.action == 'download': invoke('download', folder); return

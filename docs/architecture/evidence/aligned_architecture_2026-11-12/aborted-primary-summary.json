@@ -1,0 +1,162 @@
+{
+  "plan_sha256": "51cd88e75f8ca81465a6f430a2b218d68923b1fe4cde1c9846b2fad6014d6e22",
+  "partial": true,
+  "progress": {
+    "started_at": "2026-11-12T01:08:24.718204+00:00",
+    "finished": false,
+    "completed": [],
+    "active_trial": "aligned-primary-001-r1-u003-a",
+    "failure_type": "RuntimeError",
+    "failure": "docker exited 1",
+    "finished_at": "2026-11-12T01:14:55.199588+00:00"
+  },
+  "planned_trials": 24,
+  "trials": [
+    {
+      "name": "aligned-primary-001-r1-u003-a",
+      "rate": 3,
+      "stage": "a",
+      "architecture": "serialized",
+      "mode": "api",
+      "repeat": 1,
+      "pair_id": "r1-u003",
+      "trial_state": "aborted",
+      "failure": "docker exited 1",
+      "arrival_validation_pass": false,
+      "integrity_pass": false,
+      "upload_success_pass": false,
+      "worker_capacity_valid": false,
+      "search_slo_pass": false,
+      "accepted_total": 7,
+      "recorded_upload_attempts": 7,
+      "recorded_queries": 540,
+      "query_ledger": {
+        "success_fraction": 1.0
+      },
+      "readiness": {
+        "video_id": "5d7dddf8-6835-4982-9c55-d970d4498dc2",
+        "outcome": "ready",
+        "after_acceptance_seconds": 86.13540765600001,
+        "last_negative_seconds": null,
+        "click_to_ready_seconds": 96.11643984500002,
+        "observation_seconds": 96.341160561,
+        "full_pipeline": {
+          "outcome": "accepted",
+          "failure_stage": null,
+          "upload_seconds": 9.981032188999997,
+          "pre_request_seconds": 0.03950901099999465,
+          "observed_mode": "api",
+          "video_id": "5d7dddf8-6835-4982-9c55-d970d4498dc2",
+          "elapsed_seconds": 9.981084302999996,
+          "searchable": {
+            "outcome": "ready",
+            "observed_seconds": 96.11643984500002,
+            "after_acceptance_seconds": 86.13540765600001,
+            "probes": 43,
+            "last_code": "expected_search_hit",
+            "last_probe_started_seconds": 95.95147525099999,
+            "last_probe_finished_seconds": 96.11643984500002
+          },
+          "playable": {
+            "outcome": "ready",
+            "observed_seconds": 96.34098400699999,
+            "after_acceptance_seconds": 86.35995181799998,
+            "probes": 43,
+            "last_code": "decoded_advancing_video",
+            "last_probe_started_seconds": 95.95185012099999,
+            "last_probe_finished_seconds": 96.34098400699999
+          },
+          "readiness_outcome": "ready",
+          "pipeline_elapsed_seconds": 96.341160561
+        }
+      },
+      "reconciliation": {
+        "accepted_ids": [
+          "15585ea1-9e46-4365-9f76-00ee91970ff9",
+          "4cf78400-d570-41db-be01-a488ae69b3e1",
+          "cf7dcbef-f98d-4876-b49f-17a4c0e72da8",
+          "58387de3-629d-49c3-978a-99428bac77eb",
+          "c2e9de6b-ef5f-4dd0-9f47-196f017cc9e9",
+          "86480bd2-4b05-4c95-abd3-08c4a59cd196",
+          "5d7dddf8-6835-4982-9c55-d970d4498dc2"
+        ],
+        "logical_ids": [
+          "5d7dddf8-6835-4982-9c55-d970d4498dc2",
+          "15585ea1-9e46-4365-9f76-00ee91970ff9",
+          "4cf78400-d570-41db-be01-a488ae69b3e1",
+          "cf7dcbef-f98d-4876-b49f-17a4c0e72da8",
+          "58387de3-629d-49c3-978a-99428bac77eb",
+          "c2e9de6b-ef5f-4dd0-9f47-196f017cc9e9",
+          "86480bd2-4b05-4c95-abd3-08c4a59cd196"
+        ],
+        "unreturned_commits": [],
+        "missing_commits": []
+      },
+      "missing_evidence": [
+        "verification.json"
+      ]
+    }
+  ],
+  "comparisons": [
+    {
+      "rate": 3,
+      "before": "a",
+      "after": "b",
+      "complete_matched_repetitions": false,
+      "before_observed": 1,
+      "after_observed": 0,
+      "metrics": []
+    },
+    {
+      "rate": 3,
+      "before": "a",
+      "after": "c",
+      "complete_matched_repetitions": false,
+      "before_observed": 1,
+      "after_observed": 0,
+      "metrics": []
+    },
+    {
+      "rate": 3,
+      "before": "a",
+      "after": "d",
+      "complete_matched_repetitions": false,
+      "before_observed": 1,
+      "after_observed": 0,
+      "metrics": []
+    },
+    {
+      "rate": 3,
+      "before": "b",
+      "after": "c",
+      "complete_matched_repetitions": false,
+      "before_observed": 0,
+      "after_observed": 0,
+      "metrics": []
+    },
+    {
+      "rate": 3,
+      "before": "b",
+      "after": "d",
+      "complete_matched_repetitions": false,
+      "before_observed": 0,
+      "after_observed": 0,
+      "metrics": []
+    },
+    {
+      "rate": 3,
+      "before": "c",
+      "after": "d",
+      "complete_matched_repetitions": false,
+      "before_observed": 0,
+      "after_observed": 0,
+      "metrics": []
+    }
+  ],
+  "limits": [
+    "Three independent repetitions per primary cell; uncertainty is conditional on this workload.",
+    "A uses a retained legacy implementation; B is the durable DAG with a whole-video search unit.",
+    "Fixed A/B/C/D execution order; earlier experiments are supporting evidence, not pooled samples.",
+    "No sustainable-capacity claim follows from accepting uploads when processing backlog grows."
+  ]
+}

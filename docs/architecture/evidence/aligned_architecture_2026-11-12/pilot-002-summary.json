@@ -1,0 +1,274 @@
+{
+  "plan_sha256": "d75c83cd808f414ef983daf622441981a5203abacae7f4eb74514a2bb0a356fc",
+  "partial": false,
+  "progress": {
+    "started_at": "2026-11-12T00:57:17.756644+00:00",
+    "finished": true,
+    "completed": [
+      {
+        "trial": "aligned-pilot-002-r1-u060-d",
+        "accepted": 121,
+        "logical": 121,
+        "at": "2026-11-12T01:05:32.634088+00:00"
+      }
+    ],
+    "active_trial": "aligned-pilot-002-r1-u060-d",
+    "finished_at": "2026-11-12T01:05:33.092084+00:00"
+  },
+  "planned_trials": 1,
+  "trials": [
+    {
+      "name": "aligned-pilot-002-r1-u060-d",
+      "mode": "direct",
+      "processing": "active",
+      "file": "speech-20s.mp4",
+      "rate": 60,
+      "search_rps": 2,
+      "phases": {
+        "baseline": {
+          "planned": 60,
+          "recorded": 60,
+          "successes": 60,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.13851544899999862,
+          "p95_seconds": 0.16244531300000017,
+          "max_seconds": 0.1944934430000012,
+          "lag_p99_seconds": 0.0008744634943838037
+        },
+        "load": {
+          "planned": 240,
+          "recorded": 240,
+          "successes": 240,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.148190076999992,
+          "p95_seconds": 0.18840115399999194,
+          "max_seconds": 0.8168976980000007,
+          "lag_p99_seconds": 0.0009537194943831651
+        },
+        "recovery": {
+          "planned": 240,
+          "recorded": 240,
+          "successes": 240,
+          "success_fraction": 1.0,
+          "complete_unique_ledger": true,
+          "p50_seconds": 0.14649681499999134,
+          "p95_seconds": 0.18170211400001426,
+          "max_seconds": 0.332079664000019,
+          "lag_p99_seconds": 0.0009478094943915494
+        }
+      },
+      "query_ledger": {
+        "planned": 540,
+        "recorded": 540,
+        "successes": 540,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "uploads": {
+        "planned": 120,
+        "recorded": 120,
+        "successes": 120,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true,
+        "pool_full": 0,
+        "accepted_p95_seconds": 12.320222207999992,
+        "completed_during_load_per_minute": 54.5,
+        "outstanding_at_load_end": 11,
+        "outstanding_at_midpoint": 11,
+        "completed_last_third_per_minute": 61.5
+      },
+      "client_headroom": {
+        "mixed-uploads": {
+          "peak_cpu_quota_fraction": 0.8267174759692096,
+          "peak_memory_fraction": 0.19274940490722656,
+          "oom": false
+        },
+        "mixed-queries": {
+          "peak_cpu_quota_fraction": 0.03449610137465165,
+          "peak_memory_fraction": 0.015781402587890625,
+          "oom": false
+        }
+      },
+      "infrastructure_valid": true,
+      "integrity_pass": true,
+      "search_p95_baseline_ratio": 1.159782024612749,
+      "arrival_validation_pass": true,
+      "search_slo_pass": true,
+      "upload_success_pass": true,
+      "api_cpu_fraction_of_one_core": 0.20036092284991025,
+      "server_resources": {
+        "bench-api": {
+          "cpu_seconds": 21.61059,
+          "sampled_seconds": 107.85830736160278,
+          "allocated_cpu_utilization": 0.40072184569982044,
+          "throttled_seconds": 2.570149
+        },
+        "bench-proxy": {
+          "cpu_seconds": 1.747828,
+          "sampled_seconds": 107.85830736160278,
+          "allocated_cpu_utilization": 0.032409705710294154,
+          "throttled_seconds": 0.0
+        },
+        "bench-postgres": {
+          "cpu_seconds": 3.915817,
+          "sampled_seconds": 107.85830736160278,
+          "allocated_cpu_utilization": 0.0726103922041339,
+          "throttled_seconds": 0.304571
+        },
+        "bench-qdrant": {
+          "cpu_seconds": 0.40168,
+          "sampled_seconds": 107.85830736160278,
+          "allocated_cpu_utilization": 0.0074482904437455835,
+          "throttled_seconds": 0.0
+        }
+      },
+      "pipeline_start": {
+        "epoch": 1794445111.36671,
+        "videos": 0,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 0,
+        "oldest_pending_seconds": 0
+      },
+      "pipeline_end": {
+        "epoch": 1794445219.273452,
+        "videos": 106,
+        "searchable": 0,
+        "playable": 0,
+        "pending_videos": 106,
+        "oldest_pending_seconds": 106.136036
+      },
+      "pipeline_pending_growth": 106,
+      "searchable_completions_per_minute": 0.0,
+      "playable_completions_per_minute": 0.0,
+      "stage": "d",
+      "architecture": "dag",
+      "repeat": 1,
+      "pair_id": "r1-u060",
+      "sentinel_upload": {
+        "planned": 1,
+        "recorded": 1,
+        "successes": 1,
+        "success_fraction": 1.0,
+        "complete_unique_ledger": true
+      },
+      "readiness": {
+        "video_id": "fd195374-8b1b-4071-a9dc-ebae8068e9fb",
+        "outcome": "ready",
+        "after_acceptance_seconds": 213.34484350199997,
+        "last_negative_seconds": null,
+        "click_to_ready_seconds": 223.73021745199998,
+        "observation_seconds": 223.73038092400003,
+        "full_pipeline": {
+          "outcome": "accepted",
+          "failure_stage": null,
+          "upload_seconds": 10.385373950000002,
+          "pre_request_seconds": 0.4650443410000007,
+          "observed_mode": "direct",
+          "intent_seconds": 0.07483570899999904,
+          "storage_seconds": 9.307184055999999,
+          "completion_seconds": 0.5384855650000027,
+          "video_id": "fd195374-8b1b-4071-a9dc-ebae8068e9fb",
+          "elapsed_seconds": 10.385469597000004,
+          "searchable": {
+            "outcome": "ready",
+            "observed_seconds": 223.73021745199998,
+            "after_acceptance_seconds": 213.34484350199997,
+            "probes": 105,
+            "last_code": "expected_search_hit",
+            "last_probe_started_seconds": 223.587109319,
+            "last_probe_finished_seconds": 223.73021745199998
+          },
+          "playable": {
+            "outcome": "ready",
+            "observed_seconds": 53.90572632600001,
+            "after_acceptance_seconds": 43.520352376000005,
+            "probes": 22,
+            "last_code": "decoded_advancing_video",
+            "last_probe_started_seconds": 53.474665812000005,
+            "last_probe_finished_seconds": 53.90572632600001
+          },
+          "readiness_outcome": "ready",
+          "pipeline_elapsed_seconds": 223.73038092400003
+        }
+      },
+      "worker_resources": {
+        "cpu_seconds": 412.441926,
+        "sampled_seconds": 107.85830736160278,
+        "allocated_cpu_utilization": 0.9559808977375721,
+        "throttled_seconds": 231.548305
+      },
+      "worker_child_stability_verified": true,
+      "worker_capacity_valid": true,
+      "failed_processing_jobs": 0,
+      "failed_videos": 0,
+      "publication_verifications": 4,
+      "accepted_total": 121,
+      "trial_state": "completed"
+    }
+  ],
+  "comparisons": [
+    {
+      "rate": 60,
+      "before": "a",
+      "after": "b",
+      "complete_matched_repetitions": false,
+      "before_observed": 0,
+      "after_observed": 0,
+      "metrics": []
+    },
+    {
+      "rate": 60,
+      "before": "a",
+      "after": "c",
+      "complete_matched_repetitions": false,
+      "before_observed": 0,
+      "after_observed": 0,
+      "metrics": []
+    },
+    {
+      "rate": 60,
+      "before": "a",
+      "after": "d",
+      "complete_matched_repetitions": false,
+      "before_observed": 0,
+      "after_observed": 1,
+      "metrics": []
+    },
+    {
+      "rate": 60,
+      "before": "b",
+      "after": "c",
+      "complete_matched_repetitions": false,
+      "before_observed": 0,
+      "after_observed": 0,
+      "metrics": []
+    },
+    {
+      "rate": 60,
+      "before": "b",
+      "after": "d",
+      "complete_matched_repetitions": false,
+      "before_observed": 0,
+      "after_observed": 1,
+      "metrics": []
+    },
+    {
+      "rate": 60,
+      "before": "c",
+      "after": "d",
+      "complete_matched_repetitions": false,
+      "before_observed": 0,
+      "after_observed": 1,
+      "metrics": []
+    }
+  ],
+  "limits": [
+    "Three independent repetitions per primary cell; uncertainty is conditional on this workload.",
+    "A uses a retained legacy implementation; B is the durable DAG with a whole-video search unit.",
+    "Fixed A/B/C/D execution order; earlier experiments are supporting evidence, not pooled samples.",
+    "No sustainable-capacity claim follows from accepting uploads when processing backlog grows."
+  ]
+}

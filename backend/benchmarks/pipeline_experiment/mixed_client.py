@@ -7,6 +7,16 @@ import time
 from campaign import ROOT, command, write, utc
 
 
+def publish_recorded(folder, settings):
+    # Replay publication after interruption, preserving the original workload result.
+    if not (folder/'client-result.json').is_file():
+        return False
+    bucket = settings['bucket']
+    command(['aws', 's3', 'sync', str(folder), f's3://{bucket}/client-evidence/{folder.name}/', '--only-show-errors'], 120)
+    command(['aws', 's3', 'cp', str(folder/'client-result.json'), f's3://{bucket}/control/completed/{folder.name}.json', '--only-show-errors'])
+    return True
+
+
 def stats(names):
     rows = {}
     for name in names:
@@ -24,12 +34,15 @@ def stats(names):
 
 
 def run(spec, settings):
+    if 'upload_client_vcpu' in spec:
+        assert float(settings.get('upload_client_cpus', '6')) == spec['upload_client_vcpu'], 'Upload client quota differs from registration'
+        assert float(settings.get('query_client_cpus', '1')) == spec['query_client_vcpu'], 'Query client quota differs from registration'
     folder = ROOT/'results'/spec['name']; folder.mkdir()
     write(folder/'spec.json', spec)
     remote = '/bench/results/' + spec['name']
     names = ['mixed-uploads', 'mixed-queries']
-    for name, script, cpu, memory in [('mixed-uploads', 'run_mixed_uploads.cjs', '6', '10g'),
-                                       ('mixed-queries', 'run_mixed_queries.cjs', '1', '1g')]:
+    for name, script, cpu, memory in [('mixed-uploads', 'run_mixed_uploads.cjs', settings.get('upload_client_cpus', '6'), '10g'),
+                                       ('mixed-queries', 'run_mixed_queries.cjs', settings.get('query_client_cpus', '1'), '1g')]:
         subprocess.run(['docker', 'rm', '-f', name], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         command(['docker', 'run', '-d', '--init', '--name', name, '--cpus='+cpu, '--memory='+memory,
                  '--memory-swap='+memory, '--shm-size=1g', '--add-host', 'bench-proxy:'+settings['server_ip'],
@@ -68,6 +81,8 @@ def main():
         spec = json.loads(output.stdout)
         if spec['name'] in seen: time.sleep(2); continue
         seen.add(spec['name'])
+        if publish_recorded(ROOT/'results'/spec['name'], settings):
+            continue
         error = None
         try: run(spec, settings)
         except Exception as exc:
@@ -75,8 +90,7 @@ def main():
             subprocess.run(['docker', 'stop', '-t', '10', 'mixed-uploads', 'mixed-queries'], capture_output=True, timeout=40)
         folder = ROOT/'results'/spec['name']
         write(folder/'client-result.json', {'finished': error is None, 'error_type': error, 'at': utc()})
-        command(['aws', 's3', 'sync', str(folder), f's3://{bucket}/client-evidence/{spec["name"]}/', '--only-show-errors'], 120)
-        put(folder/'client-result.json', f'control/completed/{spec["name"]}.json')
+        publish_recorded(folder, settings)
 
 
 if __name__ == '__main__':

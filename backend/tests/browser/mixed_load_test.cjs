@@ -1,6 +1,6 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
-const { arrivalOffsets, phaseAt, runSchedule } = require('../../benchmarks/mixed_load_core.cjs');
+const { arrivalOffsets, phaseAt, runSchedule, confirmedNegativeStart } = require('../../benchmarks/mixed_load_core.cjs');
 
 test('arrival schedule excludes the endpoint and supports fractional rates', () => {
   assert.deepEqual(arrivalOffsets(2, 2), [0, .5, 1, 1.5]);
@@ -23,4 +23,15 @@ test('recovery and baseline records cannot be counted as loaded search samples',
   assert.equal(phaseAt(59.9, spec), 'baseline');
   assert.equal(phaseAt(60, spec), 'load');
   assert.equal(phaseAt(240, spec), 'recovery');
+});
+
+test('inconclusive probes do not advance the confirmed negative readiness bound', () => {
+  let bound = confirmedNegativeStart({ milestone: 'searchable', ready: false,
+    last_code: 'expected_hit_missing', last_probe_started_seconds: 10, last_probe_finished_seconds: 11 });
+  assert.equal(bound, 10);
+  for (const code of ['probe_timeout', 'http_503', 'http_400', 'expected_search_hit']) {
+    bound = confirmedNegativeStart({ milestone: 'searchable', ready: code === 'expected_search_hit',
+      last_code: code, last_probe_started_seconds: 20, last_probe_finished_seconds: 21 }, bound);
+    assert.equal(bound, 10);
+  }
 });

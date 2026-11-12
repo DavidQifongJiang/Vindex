@@ -50,7 +50,9 @@ def container_state():
         item = json.loads(command(['docker','inspect',name]))[0]
         report[name] = {'id':item['Id'],'started_at':item['State']['StartedAt'],'running':item['State']['Running'],
                         'oom_killed':item['State']['OOMKilled'],'image_id':item['Image'],
-                        'cpu_nano':item['HostConfig']['NanoCpus'],'memory_bytes':item['HostConfig']['Memory']}
+                        'cpu_nano':item['HostConfig']['NanoCpus'],'memory_bytes':item['HostConfig']['Memory'],
+                        'host_pid':item['State']['Pid'],'image_reference':item['Config']['Image'],
+                        'command':item['Config']['Cmd']}
         pid = item['State']['Pid']
         if pid:
             cgroup = Path(f'/proc/{pid}/cgroup').read_text().strip().split(':')[-1]
